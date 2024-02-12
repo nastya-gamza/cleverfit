@@ -1,0 +1,42 @@
+.menu {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-right: none;
+
+    li {
+        margin-bottom: 0;
+    }
+
+    @media (max-width: 425px) {
+        gap: 2px;
+    }
+
+    :global {
+        .ant-menu-item {
+            margin: 0;
+
+            svg {
+                fill: #061178;
+            }
+
+            &:hover {
+                fill: #061178;
+                color: #2F54EB;
+                background-color: #F0F5FF;
+            }
+
+            &.ant-menu-item-selected {
+                background-color: #F0F5FF;
+                color: #2F54EB;
+            }
+
+            @media (max-width: 425px) {
+                padding: 0 8px;
+            }
+        }
+    }
+}
+
+
+

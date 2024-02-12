@@ -1,0 +1,36 @@
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-right: none;
+}
+.menu li {
+  margin-bottom: 0;
+}
+@media (max-width: 425px) {
+  .menu {
+    gap: 2px;
+  }
+}
+.menu :global .ant-menu-item {
+  margin: 0;
+}
+.menu :global .ant-menu-item svg {
+  fill: #061178;
+}
+.menu :global .ant-menu-item:hover {
+  fill: #061178;
+  color: #2F54EB;
+  background-color: #F0F5FF;
+}
+.menu :global .ant-menu-item.ant-menu-item-selected {
+  background-color: #F0F5FF;
+  color: #2F54EB;
+}
+@media (max-width: 425px) {
+  .menu :global .ant-menu-item {
+    padding: 0 8px;
+  }
+}
+
+/*# sourceMappingURL=menu-list.module.css.map */

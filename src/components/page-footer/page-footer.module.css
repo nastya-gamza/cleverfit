@@ -1,0 +1,83 @@
+.footer {
+  padding: 0 24px 42px 40px;
+}
+@media (max-width: 425px) {
+  .footer {
+    padding: 0 16px 42px;
+  }
+}
+
+.row {
+  justify-content: space-between;
+  gap: 30px;
+}
+@media (max-width: 425px) {
+  .row {
+    justify-content: center;
+  }
+  .row a.link {
+    order: 2;
+  }
+  .row div {
+    width: 100%;
+  }
+}
+
+.link {
+  color: #2F54EB;
+  font-size: 16px;
+  padding-bottom: 10px;
+}
+
+.card {
+  min-width: 240px;
+}
+.card :global .ant-card-head {
+  padding: 0 24px;
+}
+.card :global .ant-card-head .ant-card-head-title {
+  padding: 0;
+}
+.card :global .ant-card-body {
+  padding: 20px 12px;
+}
+@media (max-width: 425px) {
+  .card :global .ant-card-body {
+    padding: 15px 25px;
+  }
+}
+
+.card-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+@media (max-width: 425px) {
+  .card-header {
+    align-items: center;
+  }
+}
+
+.download-btn {
+  font-weight: 400;
+  font-size: 16px;
+  color: #2F54EB;
+}
+
+.pro-tariff {
+  font-weight: 400;
+  color: #8C8C8C;
+}
+
+.phones {
+  display: flex;
+  gap: 30px;
+}
+@media (max-width: 425px) {
+  .phones {
+    justify-content: space-around;
+  }
+}
+
+/*# sourceMappingURL=page-footer.module.css.map */
