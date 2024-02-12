@@ -1,0 +1,121 @@
+.content {
+    padding: 24px;
+
+    @media (max-width: 425px) {
+        flex: 0 1 auto;
+        padding: 20px 16px;
+    }
+}
+
+.wrapper {
+    max-width: 752px;
+}
+
+.features-card {
+    color: #061178;
+    font-size: 16px;
+    line-height: 1.3;
+
+    :global {
+        .ant-typography {
+            margin-bottom: 0;
+            color: #061178;
+        }
+
+        .ant-list-item {
+            color: #061178;
+            font-size: 16px;
+            line-height: 1.3;
+        }
+
+        .ant-list-split .ant-list-item {
+            border-bottom: none;
+        }
+
+        .ant-card-body {
+            @media (max-width: 425px) {
+                padding: 16px;
+            }
+        }
+    }
+}
+
+.info-card {
+    :global {
+        h4.ant-typography {
+            line-height: 1.3;
+        }
+
+        .ant-card-body {
+            @media (max-width: 425px) {
+                padding: 16px;
+            }
+        }
+    }
+}
+
+.action-list {
+    margin-top: -10px;
+
+    :global {
+        .ant-row {
+            gap: 8px 0;
+
+            .ant-list-item {
+                margin-bottom: 0;
+            }
+
+            @media (max-width: 425px) {
+                gap: 8px;
+            }
+        }
+    }
+}
+
+.action-card {
+    text-align: center;
+
+    a {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        svg {
+            fill: #2F54EB;
+        }
+    }
+
+    @media (max-width: 834px) {
+        text-align: left;
+    }
+
+    @media (max-width: 425px) {
+        text-align: center;
+    }
+
+    :global {
+        .ant-card-head {
+            padding: 0 24px;
+        }
+
+        .ant-card-head-title {
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 1.3;
+        }
+
+        .ant-card-body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 56px;
+            gap: 10px;
+            color: #2F54EB;
+
+        }
+
+        .ant-card-head-title {
+            white-space: normal;
+        }
+
+    }
+}

@@ -1,0 +1,100 @@
+.wrapper {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: white;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.15));
+  transition: left 0.3s ease-in-out;
+}
+@media (max-width: 425px) {
+  .wrapper[data-collapsed=true] {
+    width: 0;
+  }
+}
+
+.sidebar {
+  transition: none;
+}
+
+.logo-wrapper {
+  padding: 45px 0 53px;
+  text-align: center;
+  transition: all 0.3s ease-in;
+}
+@media (max-width: 425px) {
+  .logo-wrapper {
+    padding: 16px 0 25px;
+  }
+}
+
+@media (max-width: 425px) {
+  .logo {
+    display: none;
+  }
+}
+
+.mobile {
+  display: none;
+}
+@media (max-width: 425px) {
+  .mobile {
+    display: block;
+  }
+}
+
+.exit-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  height: 40px;
+  padding: 0 16px;
+  color: black;
+}
+.exit-btn:hover {
+  color: #2F54EB;
+}
+@media (max-width: 425px) {
+  .exit-btn {
+    justify-content: center;
+  }
+}
+
+.divider {
+  margin: 0;
+}
+
+.toggler {
+  position: absolute;
+  right: 0;
+  top: 47%;
+}
+@media (max-width: 425px) {
+  .toggler {
+    top: 25px;
+  }
+}
+.toggler button {
+  position: absolute;
+  width: 20px;
+  height: 66px;
+  border: transparent;
+  color: #8C8C8C;
+  clip-path: polygon(0 0, 100% 15%, 100% 85%, 0% 100%);
+}
+.toggler button:hover, .toggler button:active, .toggler button:focus {
+  background-color: #fff;
+  color: #8C8C8C;
+}
+@media (max-width: 425px) {
+  .toggler button {
+    width: 32px;
+    height: 48px;
+  }
+}
+
+/*# sourceMappingURL=sidebar.module.css.map */
