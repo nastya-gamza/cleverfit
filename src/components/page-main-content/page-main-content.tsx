@@ -4,6 +4,7 @@ import {ActionCard} from '@components/card';
 import {FEATURES_LIST} from '../../contants/features-list.ts';
 import {ACTIONS} from '../../contants/actions.tsx';
 import styles from './page-main-content.module.less'
+import {Link} from "react-router-dom";
 
 const {Content} = Layout;
 const {Title, Paragraph} = Typography;
@@ -31,8 +32,9 @@ export const PageMainContent = () => (
                     dataSource={ACTIONS}
                     renderItem={item => (
                         <List.Item>
-                            <ActionCard className={styles['action-card']}
-                                        title={item.action}>{item.icon} {item.name}</ActionCard>
+                            <ActionCard className={styles['action-card']} title={item.action}>
+                                <Link to={item.path}>{item.icon} {item.name}</Link>
+                            </ActionCard>
                         </List.Item>
                     )}
                 />
