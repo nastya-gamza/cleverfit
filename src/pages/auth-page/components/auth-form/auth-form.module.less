@@ -1,0 +1,60 @@
+.form {
+    margin-bottom: 110px;
+
+    @media (max-width: 576px) {
+        margin-bottom: 85px;
+    }
+
+    :global {
+        .ant-form-item-control-input-content {
+            height: 100%;
+        }
+
+        .ant-form-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .ant-input-group-addon {
+            color: @dark-text;
+        }
+
+        input#auth_email.ant-input.ant-input-status-error {
+            border-left-color: @border-light;
+        }
+    }
+}
+
+.btn {
+    width: 100%;
+    height: 100%;
+
+    @media (min-width: 576px) {
+        font-size: @font-md;
+    }
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    :global {
+        .ant-form-item {
+            margin-bottom: 0;
+            padding: 24px 0 10px;
+
+            @media (max-width: 575px) {
+                padding: 14px 0 10px;
+            }
+        }
+    }
+}
+
+.link {
+    font-size: @font-md;
+    color: @primary-color;
+
+    @media (max-width: 575px) {
+        font-size: @font-s;
+    }
+}

@@ -1,0 +1,53 @@
+.card {
+    position: relative;
+    z-index: 3;
+    width: 540px;
+}
+
+.result:global.ant-result {
+    padding: 0;
+    margin-bottom: 24px;
+
+    .ant-result-title {
+        font-weight: 500;
+        line-height: 1.3;
+    }
+}
+
+.wrapper {
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 24px;
+    margin-inline: auto;
+
+}
+
+.email {
+    font-weight: 700;
+}
+
+.note {
+    color: rgba(0, 0, 0, 0.45);
+    text-align: center;
+}
+
+.input:global.ant-input {
+    width: 40px;
+    height: 40px;
+    font-size: 14px;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &.vi__character--selected {
+        border: 1px solid @primary-light-color;
+        box-shadow: @primary-shadow;
+        outline: 0;
+
+        &.ant-input-status-error {
+            border-color: @error-color;
+            box-shadow: @error-shadow;
+        }
+    }
+}

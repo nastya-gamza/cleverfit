@@ -1,7 +1,7 @@
 import {Link} from 'react-router-dom';
 import {Layout, Row} from 'antd';
 import {ActionCard} from '@components/card';
-import {PHONES} from '../../contants/phones.tsx';
+import {PHONES} from '@constants/phones.tsx';
 import styles from './page-footer.module.less'
 
 const {Footer} = Layout;
@@ -13,10 +13,10 @@ export const PageFooter = () => (
                 <ActionCard
                     className={styles.card}
                     title={
-                        <div className={styles['card-header']}>
-                            <Link to='#' className={styles['download-btn']}>Скачать на
+                        <div className={styles.cardHeader}>
+                            <Link to='#' className={styles.downloadBtn}>Скачать на
                                 телефон</Link>
-                            <p className={styles['pro-tariff']}>Доступно в PRO-тарифе</p>
+                            <p className={styles.proTariff}>Доступно в PRO-тарифе</p>
                         </div>
                     }
                 >

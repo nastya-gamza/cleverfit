@@ -1,14 +1,14 @@
 import {Link} from 'react-router-dom';
-import {useWindowSize} from 'usehooks-ts';
-import {Layout, Typography} from 'antd';
+import {Layout, Typography, Grid} from 'antd';
 import {SettingOutlined} from '@ant-design/icons';
-import styles from '@components/page-header/page-header.module.less';
+import styles from './page-header.module.less';
 
 const {Title} = Typography;
 const {Header} = Layout;
+const { useBreakpoint } = Grid;
 
 export const PageHeader = () => {
-    const {width = 0} = useWindowSize();
+    const screens = useBreakpoint();
 
     return (
         <Header className={styles.header}>
@@ -21,7 +21,7 @@ export const PageHeader = () => {
                     {
                         <span className={styles.link}>
                             <SettingOutlined
-                                className={styles.settings}/> {width > 425 ? 'Настройки' : ''}
+                                className={styles.settings}/> {screens.xs ? '' : 'Настройки'}
                         </span>
                     }
                 </Link>

@@ -1,7 +1,7 @@
 .footer {
     padding: 0 24px 42px 40px;
 
-    @media (max-width: 425px) {
+    @media (max-width: 575px) {
         padding: 0 16px 42px;
     }
 }
@@ -10,7 +10,7 @@
     justify-content: space-between;
     gap: 30px;
 
-    @media (max-width: 425px) {
+    @media (max-width: 575px) {
         justify-content: center;
 
         a.link {
@@ -24,8 +24,8 @@
 }
 
 .link {
-    color: #2F54EB;
-    font-size: 16px;
+    color: @primary-color;
+    font-size: @font-md;
     padding-bottom: 10px;
 }
 
@@ -45,7 +45,7 @@
             padding: 20px 12px;
         }
 
-        @media (max-width: 425px) {
+        @media (max-width: 575px) {
             .ant-card-body {
                 padding: 15px 25px;
             }
@@ -54,33 +54,33 @@
     }
 }
 
-.card-header {
+.cardHeader {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     gap: 8px;
 
-    @media (max-width: 425px) {
+    @media (max-width: 575px) {
         align-items: center;
     }
 }
 
-.download-btn {
+.downloadBtn {
     font-weight: 400;
-    font-size: 16px;
-    color: #2F54EB;
+    font-size: @font-md;
+    color: @primary-color;
 }
 
-.pro-tariff {
+.proTariff {
     font-weight: 400;
-    color: #8C8C8C;
+    color: @gray;
 }
 
 .phones {
     display: flex;
     gap: 30px;
 
-    @media (max-width: 425px) {
+    @media (max-width: 575px) {
         justify-content: space-around;
     }
 }

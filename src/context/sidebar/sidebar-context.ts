@@ -1,6 +1,6 @@
 import {createContext} from 'react';
 
-interface SidebarContextProps {
+type SidebarContextProps = {
     collapsed: true | false;
     toggleCollapsed: () => void;
 }

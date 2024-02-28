@@ -1,0 +1,49 @@
+.form {
+    margin-top: 8px;
+
+    :global {
+        .ant-form-item-explain.ant-form-item-explain-connected {
+            font-size: @font-xs;
+            text-align: left;
+        }
+
+        .ant-form-item-control-input-content {
+            height: 100%;
+        }
+
+        .ant-form-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .ant-input-group-addon {
+            color: @dark-text;
+        }
+
+        input#register_email.ant-input.ant-input-status-error {
+            border-left-color: @border-light;
+        }
+    }
+
+    .password {
+        margin-bottom: 45px;
+    }
+}
+
+.btnWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin: 62px 0 16px;
+
+    @media (max-width: 575px) {
+        margin: 55px 0 0;
+    }
+
+    .btn {
+        height: 40px;
+
+        @media (min-width: 576px) {
+            font-size: @font-md;
+        }
+    }
+}

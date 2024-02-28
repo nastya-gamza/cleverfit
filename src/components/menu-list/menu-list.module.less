@@ -8,7 +8,7 @@
         margin-bottom: 0;
     }
 
-    @media (max-width: 425px) {
+    @media (max-width: 575px) {
         gap: 2px;
     }
 
@@ -17,21 +17,21 @@
             margin: 0;
 
             svg {
-                fill: #061178;
+                fill: @primary-dark-color;
             }
 
             &:hover {
-                fill: #061178;
-                color: #2F54EB;
-                background-color: #F0F5FF;
+                fill: @primary-dark-color;
+                color: @primary-color;
+                background-color: @bg-color-light;
             }
 
             &.ant-menu-item-selected {
-                background-color: #F0F5FF;
-                color: #2F54EB;
+                background-color: @bg-color-light;
+                color: @primary-color;
             }
 
-            @media (max-width: 425px) {
+            @media (max-width: 575px) {
                 padding: 0 8px;
             }
         }

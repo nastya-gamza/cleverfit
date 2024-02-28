@@ -1,0 +1,28 @@
+.layout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+    height: 100vh;
+    padding: 0 16px;
+    text-align: center;
+    background: url('/img/bg-enter-light.png') center/cover no-repeat;
+
+    &:after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        backdrop-filter: blur(6px);
+        background-color: @bg-auth-cover;
+        opacity: 1;
+    }
+
+    &.loading {
+        &:after {
+            opacity: 0;
+        }
+    }
+}

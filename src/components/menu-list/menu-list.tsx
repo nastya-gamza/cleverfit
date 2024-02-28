@@ -1,17 +1,17 @@
-import {useWindowSize} from 'usehooks-ts';
-import {Menu} from 'antd';
-import {MENU_ITEMS} from '../../contants/menu-items.tsx';
+import {Grid, Menu} from 'antd';
+import {MENU_ITEMS} from '@constants/menu-items.tsx';
 import styles from './menu-list.module.less'
 
 const {Item} = Menu;
+const { useBreakpoint } = Grid;
 
 export const MenuList = () => {
-    const {width = 0} = useWindowSize();
+    const screens = useBreakpoint();
 
     return (
-        <Menu className={styles.menu} mode='inline' inlineIndent={width > 425 ? 16 : 8}>
+        <Menu className={styles.menu} mode='inline' inlineIndent={screens.xs ? 8 : 16}>
             {MENU_ITEMS.map((item) => (
-                <Item key={item.label} icon={width > 425 ? item.icon : ''}>{item.label}</Item>
+                <Item key={item.label} icon={screens.xs ? '' : item.icon}>{item.label}</Item>
             ))}
         </Menu>
     )

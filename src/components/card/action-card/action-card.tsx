@@ -1,7 +1,7 @@
 import {ReactNode} from 'react';
 import {Card} from 'antd';
 
-interface CardProps {
+type CardProps = {
     children: ReactNode;
     title: ReactNode;
     className?: string;
