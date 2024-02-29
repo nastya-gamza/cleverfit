@@ -7,7 +7,6 @@ export enum PATHS {
     checkEmail = '/auth/check-email',
     confirmEmail = '/auth/confirm-email',
     changePassword = '/auth/change-password',
-    recovery = '/forgot-pass',
     result = '/result',
     resultErrorLogin = '/result/error-login',
     resultSuccess = '/result/success',
@@ -21,4 +20,5 @@ export enum PATHS {
     workouts = '/workouts',
     achievements = '/achievements',
     profile = '/profile',
+    feedbacks = '/feedbacks',
 }

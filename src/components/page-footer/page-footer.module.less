@@ -1,9 +1,6 @@
 .footer {
-    padding: 0 24px 42px 40px;
+    padding: 24px 0 0;
 
-    @media (max-width: 575px) {
-        padding: 0 16px 42px;
-    }
 }
 
 .row {
@@ -79,6 +76,9 @@
 .phones {
     display: flex;
     gap: 30px;
+    a {
+        color: @dark-text;
+    }
 
     @media (max-width: 575px) {
         justify-content: space-around;

@@ -6,7 +6,8 @@ import {AuthPage} from '@pages/auth-page';
 import {ResultPage} from '@pages/result-page';
 import {ConfirmEmailPage} from '@pages/confirm-email-page';
 import {NotFoundPage} from '@pages/not-found-page';
-import {ChangePasswordPage} from "@pages/change-password-page";
+import {ChangePasswordPage} from '@pages/change-password-page';
+import {FeedbacksPage} from '@pages/feedbacks-page';
 import {RedirectRoute} from './redirect-route.tsx';
 import {PublicRoute} from './public-route.tsx';
 import {PATHS} from '@constants/paths.ts';
@@ -29,8 +30,11 @@ export const routes = (
         </Route>
 
         <Route element={<ProtectedRoute/>}>
-            <Route path={PATHS.main} element={<MainLayout/>}>
-                <Route index element={<MainPage/>}/>
+            <Route element={<MainLayout/>}>
+                <Route path={PATHS.main} element={<MainPage/>}/>
+            </Route>
+            <Route element={<MainLayout/>}>
+                <Route path={PATHS.feedbacks} element={<FeedbacksPage/>}/>
             </Route>
         </Route>
 

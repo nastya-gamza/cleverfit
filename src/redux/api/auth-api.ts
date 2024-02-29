@@ -23,36 +23,36 @@ export const authApi = createApi({
             return headers
         },
     }),
-    endpoints: (builder) => ({
-        login: builder.mutation<LoginResponse, LoginRequest>({
+    endpoints: (build) => ({
+        login: build.mutation<LoginResponse, LoginRequest>({
             query: (credentials) => ({
                 url: PATHS.login,
                 method: 'POST',
                 body: credentials,
             }),
         }),
-        register: builder.mutation<void, RegisterRequest>({
+        register: build.mutation<void, RegisterRequest>({
             query: (credentials) => ({
                 url: PATHS.register,
                 method: 'POST',
                 body: credentials,
             }),
         }),
-        checkEmail: builder.mutation<CheckEmailResponse, CheckEmailRequest>({
+        checkEmail: build.mutation<CheckEmailResponse, CheckEmailRequest>({
             query: (email) => ({
                 url: PATHS.checkEmail,
                 method: 'POST',
                 body: {email},
             }),
         }),
-        confirmEmail: builder.mutation<ConfirmEmailResponse, ConfirmEmailRequest>({
+        confirmEmail: build.mutation<ConfirmEmailResponse, ConfirmEmailRequest>({
             query: (arg) => ({
                 url: PATHS.confirmEmail,
                 method: 'POST',
                 body: arg,
             }),
         }),
-        changePassword: builder.mutation<ChangePasswordResponse, ChangePasswordRequest>({
+        changePassword: build.mutation<ChangePasswordResponse, ChangePasswordRequest>({
             query: (arg) => ({
                 url: PATHS.changePassword,
                 method: 'POST',

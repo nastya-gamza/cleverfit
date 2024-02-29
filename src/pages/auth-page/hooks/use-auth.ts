@@ -25,6 +25,7 @@ export const useAuth = () => {
 
             if (data.remember) {
                 localStorage.setItem('token', response.accessToken);
+                dispatch(setToken({token: response.accessToken}));
             }
 
             dispatch(setToken({token: response.accessToken}));
