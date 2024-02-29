@@ -3,7 +3,7 @@ import {RootState} from '@redux/store.ts';
 import {BASE_API_URL} from '@constants/api.ts';
 // import {PATHS} from '@constants/paths.ts';
 
-type Feedback = {
+export type Feedback = {
     id: string,
     fullName: string | null,
     imageSrc: string | null,

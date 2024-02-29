@@ -23,7 +23,7 @@ export const FeedbackCard = ({fullName, imageSrc, message, rating, createdAt}: F
                     <div className={styles.userWrapper}>
                         <Avatar size={42} icon={imageSrc || <UserOutlined/>} className={styles.avatar}/>
                         <div>
-                            <Title level={5}>{name}</Title>
+                            <Title level={5}>{name ?? 'Пользователь'}</Title>
                             <Title level={5}>{surname}</Title>
                         </div>
                     </div>
