@@ -1,6 +1,16 @@
 .wrapper {
     display: flex;
     flex-direction: column;
+    gap: 132px;
+
+    @media (max-width: 575px) {
+        gap: 48px;
+    }
+}
+
+.cardsWrapper {
+    display: flex;
+    flex-direction: column;
     gap: 20px;
 
     @media (max-width: 575px) {

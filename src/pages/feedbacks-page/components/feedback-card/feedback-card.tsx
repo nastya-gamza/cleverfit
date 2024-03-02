@@ -1,7 +1,8 @@
-import {Avatar, Card, Rate, Typography} from 'antd';
+import {Avatar, Card, Typography} from 'antd';
 import {UserOutlined} from '@ant-design/icons';
 import styles from './feedback-card.module.less';
 import * as dayjs from 'dayjs';
+import {Rating} from '@pages/feedbacks-page/components/rating/rating.tsx';
 
 const {Text, Title} = Typography;
 
@@ -29,7 +30,7 @@ export const FeedbackCard = ({fullName, imageSrc, message, rating, createdAt}: F
                     </div>
                     <div className={styles.feedbackWrapper}>
                         <div className={styles.rating}>
-                            <Rate value={rating}/>
+                            <Rating value={rating} disabled/>
                             <Text className={styles.date}>{formattedDate}</Text>
                         </div>
                         <Text type={'secondary'}>{message}</Text>

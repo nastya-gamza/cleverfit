@@ -1,4 +1,4 @@
-import {Button, Card, Typography} from 'antd';
+import {Card, Typography} from 'antd';
 import styles from './no-feedbacks.module.less';
 
 const {Title, Text} = Typography;
@@ -12,6 +12,5 @@ export const NoFeedbacks = () => (
                 пользователями, и&nbsp;помогите им сделать правильный выбор.
             </Text>
         </Card>
-        <Button type={'primary'} className={styles.btn}>Написать отзыв</Button>
     </div>
-);
+)

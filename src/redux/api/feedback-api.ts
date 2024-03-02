@@ -1,6 +1,7 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
 import {RootState} from '@redux/store.ts';
 import {BASE_API_URL} from '@constants/api.ts';
+import {FeedbackRequest} from '@redux/types/feedback.ts';
 // import {PATHS} from '@constants/paths.ts';
 
 export type Feedback = {
@@ -39,9 +40,18 @@ export const feedbackApi = createApi({
                     ]
                     : [{type: 'Feedback', id: 'LIST'}],
         }),
+        postFeedback: build.mutation<void, FeedbackRequest>({
+            query: (arg) => ({
+                url: '/feedback',
+                method: 'POST',
+                body: arg,
+            }),
+            invalidatesTags: [{ type: 'Feedback', id: 'LIST' }],
+        }),
     }),
 })
 
 export const {
     useGetFeedbacksQuery,
+    usePostFeedbackMutation,
 } = feedbackApi;

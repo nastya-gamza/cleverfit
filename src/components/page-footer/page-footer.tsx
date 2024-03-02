@@ -10,7 +10,7 @@ export const PageFooter = () => (
     <>
         <Footer className={styles.footer}>
             <Row align='bottom' className={styles.row}>
-                <Link to={PATHS.feedbacks} className={styles.link}>Смотреть отзывы</Link>
+                <Link to={PATHS.feedbacks} className={styles.link} data-test-id='see-reviews'>Смотреть отзывы</Link>
                 <ActionCard
                     className={styles.card}
                     title={
