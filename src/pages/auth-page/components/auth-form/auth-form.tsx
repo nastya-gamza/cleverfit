@@ -46,18 +46,18 @@ export const AuthForm = () => {
                 <Form.Item name='email'
                            rules={[{required: true, message: ''}, {validator: isValidEmail}]}
                            validateStatus={isEmailValid ? 'success' : 'error'}>
-                    <Input data-test-id='login-email'
-                           addonBefore='e-mail:' className={styles.email}/>
+                    <Input data-test-id='login-email' addonBefore='e-mail:'
+                           className={styles.email}/>
                 </Form.Item>
                 <Form.Item name='password'
                            rules={[{required: true, message: ''}, {validator: isValidPassword}]}>
-                    <Input.Password data-test-id='login-password'
-                                    placeholder='Пароль'/>
+                    <Input.Password data-test-id='login-password' placeholder='Пароль'/>
                 </Form.Item>
                 <div className={styles.row}>
                     <Form.Item name='remember' valuePropName='checked'>
-                        <Checkbox data-test-id='login-remember' checked={true}>Запомнить
-                            меня</Checkbox>
+                        <Checkbox data-test-id='login-remember' checked={true}>
+                            Запомнить меня
+                        </Checkbox>
                     </Form.Item>
                     <Form.Item className={styles.link}>
                         <Button
