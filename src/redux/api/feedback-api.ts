@@ -1,17 +1,8 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
 import {RootState} from '@redux/store.ts';
 import {BASE_API_URL} from '@constants/api.ts';
-import {FeedbackRequest} from '@redux/types/feedback.ts';
+import {Feedback, FeedbackRequest} from '@redux/types/feedback.ts';
 // import {PATHS} from '@constants/paths.ts';
-
-export type Feedback = {
-    id: string,
-    fullName: string | null,
-    imageSrc: string | null,
-    message: string | null,
-    rating: number,
-    createdAt: string,
-}
 
 export const feedbackApi = createApi({
     reducerPath: 'feedbackApi',

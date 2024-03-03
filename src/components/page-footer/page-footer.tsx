@@ -22,7 +22,7 @@ export const PageFooter = () => (
                     }
                 >
                     <div className={styles.phones}>
-                        {PHONES.map(p => <Link to={'/'} key={p.name}>{p.icon} {p.name}</Link>)}
+                        {PHONES.map(p => <Link to='/' key={p.name}>{p.icon} {p.name}</Link>)}
                     </div>
                 </ActionCard>
             </Row>

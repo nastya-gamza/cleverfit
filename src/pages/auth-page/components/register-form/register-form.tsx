@@ -36,7 +36,7 @@ export const RegisterForm = () => {
             >
                 <Form.Item name='email'
                            rules={[{required: true, message: ''}, {validator: isValidEmail}]}>
-                    <Input data-test-id='registration-email' addonBefore={'e-mail:'}/>
+                    <Input data-test-id='registration-email' addonBefore='e-mail:'/>
                 </Form.Item>
                 <Form.Item
                     name='password'
@@ -44,7 +44,7 @@ export const RegisterForm = () => {
                     rules={[{required: true, message: ''}, {validator: isValidPassword}]}
                     help='Пароль не менее 8 символов, с заглавной буквой и цифрой'
                 >
-                    <Input.Password data-test-id='registration-password' placeholder={'Пароль'}/>
+                    <Input.Password data-test-id='registration-password' placeholder='Пароль'/>
                 </Form.Item>
                 <Form.Item
                     name='confirm-password'
@@ -52,11 +52,11 @@ export const RegisterForm = () => {
                     rules={[{required: true, message: ''}, isValidConfirmPassword]}
                 >
                     <Input.Password data-test-id='registration-confirm-password'
-                                    placeholder={'Повторите пароль'}/>
+                                    placeholder='Повторите пароль'/>
                 </Form.Item>
                 <div className={styles.btnWrapper}>
                     <Button
-                        type={'primary'}
+                        type='primary'
                         disabled={isDisabled}
                         className={styles.btn}
                         htmlType='submit'

@@ -26,7 +26,7 @@ export const PageHeader = () => {
                     </Title>
                     <Button
                         icon={<SettingOutlined/>}
-                        type={'link'}
+                        type='link'
                         className={styles.link}
                     >
                         {screens.xs ? '' : 'Настройки'}

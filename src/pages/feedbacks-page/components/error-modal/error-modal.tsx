@@ -1,7 +1,7 @@
-import {Button, Modal, Result} from 'antd';
-import styles from './error-modal.module.less';
 import {useNavigate} from 'react-router-dom';
+import {Button, Modal, Result} from 'antd';
 import {PATHS} from '@constants/paths.ts';
+import styles from './error-modal.module.less';
 
 export const ErrorModal = () => {
     const navigate = useNavigate();

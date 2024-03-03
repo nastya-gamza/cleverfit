@@ -18,8 +18,8 @@ export const routes = (
 
         <Route element={<AuthLayout/>}>
             <Route element={<PublicRoute/>}>
-                <Route path={PATHS.auth} element={<AuthPage activeTab={'login'}/>}/>
-                <Route path={PATHS.register} element={<AuthPage activeTab={'register'}/>}/>
+                <Route path={PATHS.auth} element={<AuthPage activeTab='login'/>}/>
+                <Route path={PATHS.register} element={<AuthPage activeTab='register'/>}/>
             </Route>
 
             <Route element={<RedirectRoute/>}>

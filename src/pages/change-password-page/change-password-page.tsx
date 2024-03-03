@@ -36,7 +36,7 @@ export const ChangePasswordPage = () => {
                         help='Пароль не менее 8 символов, с заглавной буквой и цифрой'
                     >
                         <Input.Password data-test-id='change-password'
-                                        placeholder={'Новый пароль'}/>
+                                        placeholder='Новый пароль'/>
                     </Form.Item>
                     <Form.Item
                         name='confirmPassword'
@@ -45,7 +45,7 @@ export const ChangePasswordPage = () => {
                         rules={[{required: true, message: ''}, isValidConfirmPassword]}
                     >
                         <Input.Password data-test-id='change-confirm-password'
-                                        placeholder={'Повторите пароль'}/>
+                                        placeholder='Повторите пароль'/>
                     </Form.Item>
                     <Button
                         type='primary'

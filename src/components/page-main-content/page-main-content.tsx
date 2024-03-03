@@ -10,7 +10,7 @@ const {Title, Paragraph} = Typography;
 
 export const PageMainContent = () => (
     <div className={styles.wrapper}>
-        <Space direction={'vertical'} size={24}>
+        <Space direction='vertical' size={24}>
             <InfoCard className={styles.featuresCard}>
                 <Paragraph>С CleverFit ты сможешь:</Paragraph>
                 <List

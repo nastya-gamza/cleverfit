@@ -37,10 +37,10 @@ export const SideBar = () => {
                 className={styles.sidebar}
             >
                 <div className={styles.logoWrapper}>
-                    <Link to={'/'} className={styles.logo}>
+                    <Link to='/' className={styles.logo}>
                         {collapsed ? <LogoMini/> : <Logo/>}
                     </Link>
-                    <Link to={'/'} className={styles.mobile}>
+                    <Link to='/' className={styles.mobile}>
                         <LogoMobile/>
                     </Link>
                 </div>
@@ -52,7 +52,7 @@ export const SideBar = () => {
                         icon={screens.xs ? '' : <ExitIcon/>}>{!collapsed && 'Выход'}</Button>
             </div>
             <div className={styles.toggler}>
-                <Button type={'default'} onClick={toggleCollapsed}
+                <Button type='default' onClick={toggleCollapsed}
                         data-test-id={screens.xs ? 'sider-switch-mobile' : 'sider-switch'}
                         icon={collapsed ? <MenuUnfoldOutlined/> : <MenuFoldOutlined/>}></Button>
             </div>

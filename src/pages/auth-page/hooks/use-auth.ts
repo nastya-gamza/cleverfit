@@ -19,7 +19,6 @@ export const useAuth = () => {
 
     const onSubmit = async (data: FormFields) => {
         try {
-            await new Promise(resolve => setTimeout(resolve, 100)); // иначе 1ый тест не находит Loader
             const response = await login({email: data.email, password: data.password}).unwrap();
             navigate(PATHS.main, {state: {from: 'redirect'}});
 
