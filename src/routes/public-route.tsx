@@ -7,12 +7,13 @@ import {PATHS} from '@constants/paths.ts';
 export const PublicRoute = () => {
     const navigate = useNavigate();
     const {token} = useAppSelector(authSelector);
+    const localStorageToken = localStorage.getItem('token');
 
     useEffect(() => {
-        if (token) {
+        if (token || localStorageToken) {
             navigate(PATHS.main, {replace: true});
         }
-    }, [navigate, token]);
+    }, [navigate]);
 
     return <Outlet/>;
 }

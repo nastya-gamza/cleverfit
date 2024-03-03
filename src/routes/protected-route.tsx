@@ -14,7 +14,7 @@ export const ProtectedRoute = () => {
             navigate(PATHS.auth, {replace: true});
             return;
         }
-    }, [navigate, auth.token, localStorageToken]);
+    }, [navigate]);
 
     return <Outlet/>;
 };

@@ -4,6 +4,8 @@ import {setEmail, setRetryEmail, setToken} from '@redux/slices/auth-slice.ts';
 import {useCheckEmailMutation, useLoginMutation} from '@redux/api/auth-api.ts';
 import {useAppDispatch} from "@hooks/typed-react-redux-hooks.ts";
 import {PATHS} from '@constants/paths.ts';
+import {BASE_API_URL} from '@constants/api.ts';
+import {ENDPOINTS} from '@constants/endpoints.ts';
 
 export type FormFields = {
     email: string;
@@ -55,5 +57,9 @@ export const useAuth = () => {
         }
     }
 
-    return {onSubmit, retry, isLoginLoading, isCheckEmailLoading};
+    const handleGoogleAuth = () => {
+        window.location.href = `${BASE_API_URL}${ENDPOINTS.loginGoogle}`;
+    };
+
+    return {onSubmit, retry, isLoginLoading, isCheckEmailLoading, handleGoogleAuth};
 }

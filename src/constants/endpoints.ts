@@ -5,4 +5,5 @@ export enum ENDPOINTS {
     confirmEmail = '/auth/confirm-email',
     changePassword = '/auth/change-password',
     feedback = '/feedback',
+    loginGoogle = '/auth/google',
 }

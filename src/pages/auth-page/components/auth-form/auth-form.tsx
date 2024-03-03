@@ -14,7 +14,7 @@ export const AuthForm = () => {
     const screens = useBreakpoint();
     const [form] = Form.useForm();
     const {retryEmail} = useAppSelector(authSelector);
-    const {onSubmit, retry, isLoginLoading, isCheckEmailLoading} = useAuth();
+    const {onSubmit, retry, isLoginLoading, isCheckEmailLoading, handleGoogleAuth} = useAuth();
     const {isEmailValid, validateEmail} = useEmailValidation(form);
 
     const handleChangePassword = async () => {
@@ -80,7 +80,7 @@ export const AuthForm = () => {
                     </Button>
                 </Form.Item>
                 <Form.Item>
-                    <Button className={styles.btn}>
+                    <Button onClick={handleGoogleAuth} className={styles.btn}>
                         {screens.xs ? '' : <GooglePlusOutlined/>} Войти через Google
                     </Button>
                 </Form.Item>
