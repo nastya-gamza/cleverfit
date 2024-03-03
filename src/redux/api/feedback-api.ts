@@ -2,7 +2,8 @@ import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
 import {RootState} from '@redux/store.ts';
 import {BASE_API_URL} from '@constants/api.ts';
 import {Feedback, FeedbackRequest} from '@redux/types/feedback.ts';
-// import {PATHS} from '@constants/paths.ts';
+import {ENDPOINTS} from '@constants/endpoints.ts';
+import {TAGS} from '@redux/types/tags.ts';
 
 export const feedbackApi = createApi({
     reducerPath: 'feedbackApi',
@@ -19,25 +20,25 @@ export const feedbackApi = createApi({
             return headers;
         },
     }),
-    tagTypes: ['Feedback'],
+    tagTypes: [TAGS.feedback],
     endpoints: (build) => ({
         getFeedbacks: build.query<Feedback[], void>({
-            query: () => '/feedback',
+            query: () => ENDPOINTS.feedback,
             providesTags: (result) =>
                 result
                     ? [
-                        ...result.map(({id}) => ({type: 'Feedback' as const, id})),
-                        {type: 'Feedback', id: 'LIST'},
+                        ...result.map(({id}) => ({type: TAGS.feedback as const, id})),
+                        {type: TAGS.feedback, id: 'LIST'},
                     ]
-                    : [{type: 'Feedback', id: 'LIST'}],
+                    : [{type: TAGS.feedback, id: 'LIST'}],
         }),
         postFeedback: build.mutation<void, FeedbackRequest>({
             query: (arg) => ({
-                url: '/feedback',
+                url: ENDPOINTS.feedback,
                 method: 'POST',
                 body: arg,
             }),
-            invalidatesTags: [{ type: 'Feedback', id: 'LIST' }],
+            invalidatesTags: [{ type: TAGS.feedback, id: 'LIST' }],
         }),
     }),
 })

@@ -1,7 +1,7 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
 import {RootState} from '@redux/store.ts';
-import {PATHS} from '@constants/paths.ts';
 import {BASE_API_URL} from '@constants/api.ts';
+import {ENDPOINTS} from '@constants/endpoints.ts';
 import {
     ChangePasswordRequest, ChangePasswordResponse,
     CheckEmailRequest, CheckEmailResponse, ConfirmEmailRequest, ConfirmEmailResponse,
@@ -26,35 +26,35 @@ export const authApi = createApi({
     endpoints: (build) => ({
         login: build.mutation<LoginResponse, LoginRequest>({
             query: (credentials) => ({
-                url: PATHS.login,
+                url: ENDPOINTS.login,
                 method: 'POST',
                 body: credentials,
             }),
         }),
         register: build.mutation<void, RegisterRequest>({
             query: (credentials) => ({
-                url: PATHS.register,
+                url: ENDPOINTS.register,
                 method: 'POST',
                 body: credentials,
             }),
         }),
         checkEmail: build.mutation<CheckEmailResponse, CheckEmailRequest>({
             query: (email) => ({
-                url: PATHS.checkEmail,
+                url: ENDPOINTS.checkEmail,
                 method: 'POST',
                 body: {email},
             }),
         }),
         confirmEmail: build.mutation<ConfirmEmailResponse, ConfirmEmailRequest>({
             query: (arg) => ({
-                url: PATHS.confirmEmail,
+                url: ENDPOINTS.confirmEmail,
                 method: 'POST',
                 body: arg,
             }),
         }),
         changePassword: build.mutation<ChangePasswordResponse, ChangePasswordRequest>({
             query: (arg) => ({
-                url: PATHS.changePassword,
+                url: ENDPOINTS.changePassword,
                 method: 'POST',
                 body: arg,
             }),

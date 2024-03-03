@@ -1,25 +1,26 @@
 import {Dispatch, SetStateAction} from 'react';
 import {Button, Grid, Modal, Result} from 'antd';
+import {RESULTS} from '@constants/results.ts';
 import styles from './result-modal.module.less';
 
 type SuccessModalProps = {
     open: boolean;
     setOpen: Dispatch<SetStateAction<boolean>>;
-    setOpenAddNewFeedback: Dispatch<SetStateAction<boolean>>;
+    setOpenAddFeedback: Dispatch<SetStateAction<boolean>>;
     result: string | null;
 };
 
 const {useBreakpoint} = Grid;
 
-export const ResultModal = ({open, setOpen, setOpenAddNewFeedback, result}: SuccessModalProps) => {
+export const ResultModal = ({open, setOpen, setOpenAddFeedback, result}: SuccessModalProps) => {
     const screens = useBreakpoint();
 
     const handleCancel = () => {
         setOpen(false);
     };
 
-    const handleAddNew = () => {
-        setOpenAddNewFeedback(true)
+    const handleAddFeedback = () => {
+        setOpenAddFeedback(true)
     };
 
     return (
@@ -34,9 +35,9 @@ export const ResultModal = ({open, setOpen, setOpenAddNewFeedback, result}: Succ
                 className={styles.modal}
                 footer={null}
             >
-                {result === 'success' ?
+                {result === RESULTS.success ?
                     <Result
-                        status='success'
+                        status={RESULTS.success}
                         title='Отзыв успешно опубликован'
                         className={styles.result}
                         extra={
@@ -47,7 +48,7 @@ export const ResultModal = ({open, setOpen, setOpenAddNewFeedback, result}: Succ
                     />
                     :
                     <Result
-                        status='error'
+                        status={RESULTS.error}
                         title='Данные не сохранились'
                         subTitle='Что-то пошло не так. Попробуйте ещё раз.'
                         className={styles.result}
@@ -55,7 +56,7 @@ export const ResultModal = ({open, setOpen, setOpenAddNewFeedback, result}: Succ
                             <div className={styles.btnRow}>
                                 <Button
                                     type='primary'
-                                    onClick={handleAddNew}
+                                    onClick={handleAddFeedback}
                                     data-test-id='write-review-not-saved-modal'
                                 >
                                     Написать отзыв

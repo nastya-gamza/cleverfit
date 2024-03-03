@@ -1,10 +1,9 @@
 import {useState} from 'react';
 import {Button} from 'antd';
 import {useGetFeedbacksQuery} from '@redux/api/feedback-api.ts';
-import {NoFeedbacks} from '@pages/feedbacks-page/components/no-feedbacks';
-import {FeedbackCard} from '@pages/feedbacks-page/components/feedback-card';
-import {ErrorModal} from '@pages/feedbacks-page/components/error-modal';
-import {AddFeedbackModal} from '@pages/feedbacks-page/components/add-feedback-modal';
+import {ErrorModal, AddFeedbackModal} from '@pages/feedbacks-page/modals';
+import {NoFeedbacks} from '@pages/feedbacks-page/no-feedbacks';
+import {FeedbackCard} from '@pages/feedbacks-page/feedback-card';
 import {Loader} from '@components/loader';
 import {sortByDate} from '@utils/sort.ts';
 import styles from './feedbacks-page.module.less';
@@ -13,6 +12,7 @@ export const FeedbacksPage = () => {
     const [showAllFeedbacks, setShowAllFeedBacks] = useState(false);
     const [showAddFeedbackModal, setShowAddFeedbackModal] = useState(false);
     const {data = [], isLoading, isError} = useGetFeedbacksQuery();
+
     const isDataEmpty = data.length === 0;
 
     const getAllFeedbacks = (count = 4) => {
@@ -33,8 +33,9 @@ export const FeedbacksPage = () => {
             {isLoading && <Loader/>}
             {isError && <ErrorModal/>}
             {<AddFeedbackModal
-                showModal={showAddFeedbackModal}
-                setShowModal={setShowAddFeedbackModal}/>}
+                showFeedbackModal={showAddFeedbackModal}
+                setShowFeedbackModal={setShowAddFeedbackModal}/>
+            }
             {isDataEmpty ?
                 <NoFeedbacks/>
                 :
@@ -43,12 +44,18 @@ export const FeedbacksPage = () => {
                         {getAllFeedbacks().map(item => <FeedbackCard key={item.id} {...item}/>)}
                     </div>
                     <div className={styles.btnWrapper}>
-                        <Button type='primary' onClick={handleShowAddFeedbackModal}
-                                data-test-id='write-review'>
+                        <Button
+                            type='primary'
+                            onClick={handleShowAddFeedbackModal}
+                            data-test-id='write-review'
+                        >
                             Написать отзыв
                         </Button>
-                        <Button type='link' onClick={handleShowAllFeedbacks}
-                                data-test-id='all-reviews-button'>
+                        <Button
+                            type='link'
+                            onClick={handleShowAllFeedbacks}
+                            data-test-id='all-reviews-button'
+                        >
                             {showAllFeedbacks ? 'Свернуть все отзывы' : 'Развернуть все отзывы'}
                         </Button>
                     </div>

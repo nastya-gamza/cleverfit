@@ -1,7 +1,7 @@
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 import {Avatar, Card, Typography} from 'antd';
 import {UserOutlined} from '@ant-design/icons';
-import {Rating} from '@pages/feedbacks-page/components/rating/rating.tsx';
+import {Rating} from '@pages/feedbacks-page/rating/rating.tsx';
 import styles from './feedback-card.module.less';
 
 const {Text, Title} = Typography;

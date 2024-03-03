@@ -1,6 +1,6 @@
 import {useState} from 'react';
 import {Button, Card, Typography} from 'antd';
-import {AddFeedbackModal} from '@pages/feedbacks-page/components/add-feedback-modal';
+import {AddFeedbackModal} from '@pages/feedbacks-page/modals';
 import styles from './no-feedbacks.module.less';
 
 const {Title, Text} = Typography;
@@ -30,7 +30,7 @@ export const NoFeedbacks = () => {
             >
                 Написать отзыв
             </Button>
-            <AddFeedbackModal showModal={open} setShowModal={setOpen}/>
+            <AddFeedbackModal showFeedbackModal={open} setShowFeedbackModal={setOpen}/>
         </div>
     )
 }

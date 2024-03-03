@@ -1,25 +1,51 @@
 import {Dispatch, SetStateAction, useEffect, useState} from 'react';
 import {Button, Divider, Form, Input, Modal} from 'antd';
 import {usePostFeedbackMutation} from '@redux/api/feedback-api.ts';
+import {ResultModal} from '@pages/feedbacks-page/modals';
 import {FeedbackRequest} from '@redux/types/feedback.ts';
-import {Rating} from '@pages/feedbacks-page/components/rating/rating.tsx';
-import {ResultModal} from '@pages/feedbacks-page/components/result-modal/result-modal.tsx';
+import {Rating} from '@pages/feedbacks-page/rating/rating.tsx';
 import {Loader} from '@components/loader';
+import {RESULTS} from '@constants/results.ts';
 import styles from './add-feedback-modal.module.less';
 
 type AddFeedbackModalProps = {
-    showModal: boolean,
-    setShowModal: Dispatch<SetStateAction<boolean>>;
+    showFeedbackModal: boolean,
+    setShowFeedbackModal: Dispatch<SetStateAction<boolean>>;
 }
 
-type Result = 'success' | 'error'
+type Result = 'success' | 'error';
 
-export const AddFeedbackModal = ({showModal, setShowModal}: AddFeedbackModalProps) => {
+export const AddFeedbackModal = ({showFeedbackModal, setShowFeedbackModal}: AddFeedbackModalProps) => {
     const [form] = Form.useForm();
     const [result, setResult] = useState<Result | null>(null)
     const [isDisabled, setIsDisabled] = useState(true);
     const [openResultModal, setOpenResultModal] = useState(false);
     const [postFeedback, {isLoading, isError, isSuccess}] = usePostFeedbackMutation();
+
+    useEffect(() => {
+        if (isSuccess) {
+            setOpenResultModal(true);
+            setResult(RESULTS.success);
+        }
+    }, [isSuccess]);
+
+    useEffect(() => {
+        if (isError) {
+            setOpenResultModal(true);
+            setResult(RESULTS.error);
+        }
+    }, [isError]);
+
+    const handleCancel = () => {
+        setShowFeedbackModal(false);
+        form.resetFields();
+    };
+
+    const onSubmit = (data: FeedbackRequest) => {
+        postFeedback(data);
+        form.resetFields();
+        setShowFeedbackModal(false);
+    }
 
     const onValuesChange = (_, allValues: FeedbackRequest) => {
         if (allValues.rating > 0) {
@@ -27,52 +53,30 @@ export const AddFeedbackModal = ({showModal, setShowModal}: AddFeedbackModalProp
         }
     };
 
-    useEffect(() => {
-        if (isSuccess) {
-            setOpenResultModal(true);
-            setResult('success');
-        }
-    }, [isSuccess]);
-
-    useEffect(() => {
-        if (isError) {
-            setOpenResultModal(true);
-            setResult('error')
-        }
-    }, [isError]);
-
-    const handleCancel = () => {
-        setShowModal(false);
-        form.resetFields();
-    };
-
-    const onFinish = (data: FeedbackRequest) => {
-        postFeedback(data);
-        form.resetFields();
-        setShowModal(false);
-    }
-
     return (
         <>
             {isLoading && <Loader/>}
             <Modal
+                open={showFeedbackModal}
                 title='Ваш отзыв'
-                open={showModal}
                 width={540}
-                bodyStyle={{padding: 0}}
                 centered
+                bodyStyle={{padding: 0}}
                 onCancel={handleCancel}
                 maskStyle={{background: 'rgba(121, 156, 212, 0.1)', backdropFilter: 'blur(6px)'}}
                 footer={null}
             >
-                <Form onFinish={onFinish} form={form} onValuesChange={onValuesChange}
-                      className={styles.form}>
+                <Form
+                    form={form}
+                    onFinish={onSubmit}
+                    onValuesChange={onValuesChange}
+                    className={styles.form}>
                     <Form.Item name='rating' required>
                         <Rating/>
                     </Form.Item>
-                    <Form.Item name='message' className={styles.formItem}>
-                        <Input.TextArea
-                            placeholder='Autosize height based on content lines'/>
+                    <Form.Item name='message'>
+                        <Input.TextArea className={styles.textarea}
+                                        placeholder='Autosize height based on content lines'/>
                     </Form.Item>
                     <Divider/>
                     <Form.Item className={styles.btnRow}>
@@ -92,7 +96,7 @@ export const AddFeedbackModal = ({showModal, setShowModal}: AddFeedbackModalProp
                 result={result}
                 open={openResultModal}
                 setOpen={setOpenResultModal}
-                setOpenAddNewFeedback={setShowModal}/>
+                setOpenAddFeedback={setShowFeedbackModal}/>
         </>
     )
 }
