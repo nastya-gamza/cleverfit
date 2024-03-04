@@ -18,7 +18,7 @@ export const ResultPage = () => {
         <Card className={resultCard}>
             <Result status={status} title={title} subTitle={subTitle}
                     extra={[
-                        <Button onClick={handleClick} data-test-id={buttonTestId} size={'large'}
+                        <Button onClick={handleClick} data-test-id={buttonTestId} size='large'
                                 block={status !== 500} type='primary'>
                             {buttonText}
                         </Button>,

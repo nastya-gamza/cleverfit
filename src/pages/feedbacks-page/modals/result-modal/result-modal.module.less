@@ -1,0 +1,36 @@
+.modal {
+    @media (max-width: 575px) {
+        :global(.ant-modal-body) {
+            padding: 34px 15px;
+        }
+    }
+}
+
+.result {
+    padding: 44px 62px;
+
+    :global(.ant-result-title, .ant-result-subtitle) {
+        line-height: @line-height-base;
+    }
+
+    :global {
+        .ant-result-title,
+        .ant-result-subtitle {
+            line-height: @line-height-base;
+        }
+    }
+
+    @media (max-width: 575px) {
+        padding: 0;
+    }
+}
+
+.btnRow {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+
+    button {
+        flex: 1;
+    }
+}

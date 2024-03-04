@@ -1,0 +1,44 @@
+.wrapper {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+
+    @media (max-width: 360px) {
+        gap: 98px;
+    }
+}
+
+.card {
+    width: 100%;
+    padding: 10px;
+
+    :global(.ant-card-body) {
+        padding: 56px 0;
+    }
+}
+
+.title:global(.ant-typography) {
+    margin-bottom: 48px;
+    color: @primary-dark-color;
+    text-align: center;
+}
+
+.text {
+    display: block;
+    max-width: 520px;
+    margin: 0 auto;
+    text-align: center;
+
+    @media (max-width: 360px) {
+        width: 264px;
+    }
+}
+
+.btn {
+    @media (max-width: 500px) {
+        width: 100%;
+    }
+}

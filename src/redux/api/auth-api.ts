@@ -1,7 +1,7 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
 import {RootState} from '@redux/store.ts';
-import {PATHS} from '@constants/paths.ts';
 import {BASE_API_URL} from '@constants/api.ts';
+import {ENDPOINTS} from '@constants/endpoints.ts';
 import {
     ChangePasswordRequest, ChangePasswordResponse,
     CheckEmailRequest, CheckEmailResponse, ConfirmEmailRequest, ConfirmEmailResponse,
@@ -23,38 +23,38 @@ export const authApi = createApi({
             return headers
         },
     }),
-    endpoints: (builder) => ({
-        login: builder.mutation<LoginResponse, LoginRequest>({
+    endpoints: (build) => ({
+        login: build.mutation<LoginResponse, LoginRequest>({
             query: (credentials) => ({
-                url: PATHS.login,
+                url: ENDPOINTS.login,
                 method: 'POST',
                 body: credentials,
             }),
         }),
-        register: builder.mutation<void, RegisterRequest>({
+        register: build.mutation<void, RegisterRequest>({
             query: (credentials) => ({
-                url: PATHS.register,
+                url: ENDPOINTS.register,
                 method: 'POST',
                 body: credentials,
             }),
         }),
-        checkEmail: builder.mutation<CheckEmailResponse, CheckEmailRequest>({
+        checkEmail: build.mutation<CheckEmailResponse, CheckEmailRequest>({
             query: (email) => ({
-                url: PATHS.checkEmail,
+                url: ENDPOINTS.checkEmail,
                 method: 'POST',
                 body: {email},
             }),
         }),
-        confirmEmail: builder.mutation<ConfirmEmailResponse, ConfirmEmailRequest>({
+        confirmEmail: build.mutation<ConfirmEmailResponse, ConfirmEmailRequest>({
             query: (arg) => ({
-                url: PATHS.confirmEmail,
+                url: ENDPOINTS.confirmEmail,
                 method: 'POST',
                 body: arg,
             }),
         }),
-        changePassword: builder.mutation<ChangePasswordResponse, ChangePasswordRequest>({
+        changePassword: build.mutation<ChangePasswordResponse, ChangePasswordRequest>({
             query: (arg) => ({
-                url: PATHS.changePassword,
+                url: ENDPOINTS.changePassword,
                 method: 'POST',
                 body: arg,
             }),

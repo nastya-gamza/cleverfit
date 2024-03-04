@@ -8,7 +8,7 @@ type CardProps = {
 }
 
 export const ActionCard = ({children, title, className}: CardProps) => (
-    <Card size={'small'} title={title} className={className}>
+    <Card size='small' title={title} className={className}>
         {children}
     </Card>
 );

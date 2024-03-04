@@ -1,6 +1,6 @@
 import {Outlet, useLocation, useNavigate} from 'react-router-dom';
-import {useEffect} from "react";
-import {PATHS} from "@constants/paths.ts";
+import {useEffect} from 'react';
+import {PATHS} from '@constants/paths.ts';
 
 export const RedirectRoute = () => {
     const navigate = useNavigate();
