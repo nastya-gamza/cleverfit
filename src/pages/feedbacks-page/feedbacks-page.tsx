@@ -1,7 +1,8 @@
 import {useState} from 'react';
 import {Button} from 'antd';
 import {useGetFeedbacksQuery} from '@redux/api/feedback-api.ts';
-import {ErrorModal, AddFeedbackModal} from '@pages/feedbacks-page/modals';
+import {AddFeedbackModal} from '@pages/feedbacks-page/modals';
+import {ErrorModal} from '@components/shared/error-modal';
 import {NoFeedbacks} from '@pages/feedbacks-page/no-feedbacks';
 import {FeedbackCard} from '@pages/feedbacks-page/feedback-card';
 import {Loader} from '@components/loader';

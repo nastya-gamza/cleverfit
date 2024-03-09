@@ -16,7 +16,7 @@ export const useConfirmEmail = () => {
         try {
             await confirmEmail({email, code}).unwrap();
             navigate(PATHS.changePassword, {state: {from: 'redirect'}});
-        } catch (e) {
+        } catch {
             errorRef.current = true;
         } finally {
             setCode('');

@@ -12,10 +12,8 @@ export const ResultPage = () => {
         navigate(redirectTo);
     }
 
-    const resultCard = status === 500 ? styles.fail : styles.default;
-
     return (
-        <Card className={resultCard}>
+        <Card className={styles.result}>
             <Result status={status} title={title} subTitle={subTitle}
                     extra={[
                         <Button onClick={handleClick} data-test-id={buttonTestId} size='large'

@@ -8,6 +8,7 @@ import {ConfirmEmailPage} from '@pages/confirm-email-page';
 import {NotFoundPage} from '@pages/not-found-page';
 import {ChangePasswordPage} from '@pages/change-password-page';
 import {FeedbacksPage} from '@pages/feedbacks-page';
+import {CalendarPage} from '@pages/calendar-page';
 import {RedirectRoute} from './redirect-route.tsx';
 import {PublicRoute} from './public-route.tsx';
 import {RootRoute} from './root-route.tsx';
@@ -37,6 +38,7 @@ export const routes = (
                 </Route>
                 <Route element={<MainLayout/>}>
                     <Route path={PATHS.feedbacks} element={<FeedbacksPage/>}/>
+                    <Route path={PATHS.calendar} element={<CalendarPage/>}/>
                 </Route>
             </Route>
 

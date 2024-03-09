@@ -1,5 +1,4 @@
-.default,
-.fail {
+.result {
     position: relative;
     z-index: 5;
     width: 540px;
@@ -37,24 +36,6 @@
         .ant-result-subtitle,
         .ant-result-extra {
             line-height: @line-height-base;
-        }
-    }
-}
-
-.fail {
-    :global {
-        .ant-result {
-            width: 475px;
-            margin: 0 auto;
-            padding: 0;
-
-            @media (max-width: 575px) {
-                width: 296px;
-            }
-        }
-
-        .ant-result-subtitle {
-            max-width: 100%;
         }
     }
 }

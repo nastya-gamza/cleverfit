@@ -30,7 +30,7 @@ export const useAuth = () => {
             }
 
             dispatch(setToken({token: response.accessToken}));
-        } catch (e) {
+        } catch {
             navigate(PATHS.resultErrorLogin, {state: {from: 'redirect'}});
         }
     }
@@ -43,8 +43,8 @@ export const useAuth = () => {
             }
             dispatch(setRetryEmail({retryEmail: false}));
             navigate(PATHS.confirmEmail, {state: {from: 'redirect'}});
-        } catch (e) {
-            if (e.data?.message === 'Email не найден') {
+        } catch (err) {
+            if (err.data?.message === 'Email не найден') {
                 navigate(PATHS.resultErrorNoEmailExist, {state: {from: 'redirect'}});
                 return;
             } else {
