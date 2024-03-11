@@ -1,0 +1,46 @@
+.cardWrapper,
+.cardWrapper2 {
+    position: absolute;
+    top: -12px;
+    z-index: 15;
+}
+
+.cardWrapper {
+    left: -7px;
+}
+
+.cardWrapper2 {
+    right: -9px;
+}
+
+.card {
+    padding: 12px;
+    width: 264px;
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.15);
+
+    :global {
+        .ant-card-head {
+            min-height: 0;
+            border-bottom: none;
+            line-height: @line-height-base;
+        }
+
+        .ant-card-head,
+        .ant-card-head-title,
+        .ant-card-extra,
+        .ant-card-body,
+        .ant-card-meta-avatar {
+            padding: 0;
+        }
+
+        .ant-card-head-title {
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .ant-card-meta {
+            padding: 0;
+            flex-direction: column-reverse;
+        }
+    }
+}
