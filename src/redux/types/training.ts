@@ -1,28 +1,27 @@
-export type UserTrainingItem = {
-    _id: string,
-    name: string,
-    date: Date,
-    isImplementation: boolean,
-    userId: string,
-    parameters: {
-        repeat: boolean,
-        period: number,
-        jointTraining: boolean,
-        participants: string[]
-    },
-    exercises: Exercises[],
-}
-
-export type Exercises = {
-    _id: string,
-    name: string,
-    replays: number,
-    weight: number,
-    approaches: number,
-    isImplementation: boolean
-}
+import {Moment} from 'moment';
 
 export type TrainingItem = {
     name: string,
     key: string
 }
+
+
+export type UserTrainingData = {
+    name: string;
+    date: string | Moment;
+    isImplementation: boolean;
+    _id?: string;
+};
+
+export type Exercises = {
+    name: string;
+    replays: number;
+    weight: number;
+    approaches: number;
+};
+
+export type UserTraining = UserTrainingData & {
+    exercises: Exercises[];
+};
+
+export type UserTrainingTransform = Record<string, UserTraining[]>;

@@ -19,11 +19,14 @@ export const PageHeader = () => {
             <Breadcrumb className={styles.breadcrumbItems}>
                 {breadcrumbItems}
             </Breadcrumb>
-            {location.pathname === PATHS.main && (
-                <div className={styles.wrapper}>
+
+            <div className={styles.wrapper}>
+                {location.pathname === PATHS.main && (
                     <Title>Приветствуем тебя в{'\u00A0'}CleverFit{'\u00A0'}— приложении, <br/>
                         которое поможет тебе добиться своей мечты!
                     </Title>
+                )}
+                {location.pathname === PATHS.main || location.pathname === PATHS.calendar && (
                     <Button
                         icon={<SettingOutlined/>}
                         type='link'
@@ -31,8 +34,9 @@ export const PageHeader = () => {
                     >
                         {screens.xs ? '' : 'Настройки'}
                     </Button>
-                </div>
-            )}
+                )}
+            </div>
+
         </Header>
     );
 }

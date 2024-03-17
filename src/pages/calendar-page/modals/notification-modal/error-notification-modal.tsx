@@ -1,16 +1,9 @@
-import {ButtonProps, Modal, Typography} from 'antd';
+import {Modal, Typography} from 'antd';
 import {CloseCircleOutlined, CloseOutlined} from '@ant-design/icons';
 import styles from './error-notification-modal.module.less';
 
-type OkButtonPropsWithTestId = ButtonProps & {
-    'data-test-id'?: string;
-};
 
 export const error = (refetch: () => void) => {
-    const okButtonProps: OkButtonPropsWithTestId = {
-        'data-test-id': 'modal-error-user-training-button'
-    };
-
     Modal.error({
         title: (
             <Typography.Title data-test-id='modal-error-user-training-title' level={5}>
@@ -29,11 +22,10 @@ export const error = (refetch: () => void) => {
             backdropFilter: 'blur(5px)',
         },
         width: 384,
-        okText: 'Обновить',
+        okText: <span data-test-id='modal-error-user-training-button'>Обновить</span>,
         icon: <CloseCircleOutlined style={{color: '#2F54EBFF'}}/>,
         closeIcon: <CloseOutlined data-test-id='modal-error-user-training-button-close' />,
         className: styles.notification,
-        okButtonProps: okButtonProps,
         onOk: refetch,
     });
 };

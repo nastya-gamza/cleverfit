@@ -1,0 +1,35 @@
+.wrapper {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    grid-template-rows: repeat(2, auto);
+    gap: 10px;
+}
+
+.label {
+    background-color: @bg-gray;
+    padding: 3.5px 8px;
+}
+
+.exerciseForm {
+    :global {
+        .ant-col.ant-form-item-label {
+            padding: 0 0 0 8px;
+            text-align: left;
+            background-color: @bg-gray;
+            margin-bottom: 6px;
+        }
+
+        .ant-form-item-label label{
+            height: 24px;
+            font-size: 12px;
+        }
+
+        .ant-row.ant-form-item-row {
+            flex-direction: column;
+        }
+
+        .ant-input-number {
+            width: 100%;
+        }
+    }
+}

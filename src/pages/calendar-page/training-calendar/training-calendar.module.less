@@ -1,0 +1,174 @@
+.trainingCalendar {
+    margin: -24px -24px 0px -24px;
+    background: @bg-color-light;
+    padding: 0px 24px 93px 24px;
+
+    //@media (max-width: 834px) {
+    //    padding-bottom: 270px;
+    //}
+    @media (max-width: 768px) {
+        padding-bottom: 270px;
+    }
+
+    //@media (max-width: 576px) {
+    //    padding-bottom: 24px;
+    //}
+    @media (max-width: 768px) {
+        padding-bottom: 24px;
+    }
+
+
+    :global {
+        .ant-select {
+            max-width: 78px;
+            text-align: center;
+        }
+
+        .ant-picker-calendar-header {
+            //@media (max-width: 576px) {
+            //    display: flex;
+            //    background: #FFF;
+            //}
+            @media (max-width: 768px) {
+                display: flex;
+                background: #FFF;
+            }
+
+            .ant-radio-group {
+                margin: 0 8px;
+
+                //@media (max-width: 576px) {
+                //    width: 40%;
+                //}
+                @media (max-width: 768px) {
+                    width: 40%;
+                }
+            }
+        }
+
+        .ant-radio-button-wrapper {
+            max-width: 80px;
+            text-align: center;
+            border-radius: 2px 0 0 2px;
+        }
+
+        .ant-radio-button-wrapper:hover {
+            color: #2F54EBFF;
+        }
+
+        .ant-radio-button-wrapper-checked {
+            color: #2F54EBFF;
+        }
+
+        .ant-radio-button-checked {
+            border: 1px solid #2F54EBFF;
+        }
+
+        thead {
+            th {
+                color: #8C8C8CFF;
+
+                //@media (max-width: 576px) {
+                //    background: #FFF;
+                //}
+                @media (max-width: 768px) {
+                    background: #FFF;
+                }
+            }
+
+            background: @bg-color-light;
+        }
+
+
+        .ant-picker-panel {
+            .ant-picker-body {
+                padding: 0;
+                background: @bg-color-light;
+
+                //@media (max-width: 576px) {
+                //    background: #FFF;
+                //    padding-top: 8px;
+                //}
+                @media (max-width: 768px) {
+                    background: #FFF;
+                    padding-top: 8px;
+                }
+
+                .ant-picker-cell-disabled {
+                    pointer-events: auto;
+
+                }
+            }
+
+            .ant-picker-calendar-date-content {
+                overflow-y: visible;
+            }
+
+            .ant-picker-cell-in-view {
+                .ant-picker-calendar-date-value {
+                    color: #262626FF;
+                }
+            }
+
+            .ant-picker-cell {
+                .ant-picker-calendar-date-today {
+                    background: transparent;
+                    border-color: #2F54EBFF;
+                    background: #FFF;
+
+                    .ant-picker-calendar-date-value {
+                        color: #262626FF;
+                        text-align: right;
+                    }
+                }
+            }
+
+            .ant-picker-cell-inner {
+                background: #FFF;
+                margin: 0px 2px;
+                padding: 4px 8px;
+
+                //@media (max-width: 730px) {
+                //    margin: 0;
+                //}
+                @media (max-width: 768px) {
+                    margin: 0;
+                }
+                //
+                //@media (min-width: 576px) {
+                //    min-height: 143px;
+                //}
+                @media (min-width: 768px) {
+                    min-height: 143px;
+                }
+
+                &:hover {
+                    background: #FFF;
+                }
+
+                &::before {
+                    border: 1px solid #2F54EBFF;
+                }
+            }
+
+            .ant-picker-cell-inner:has(div#hiddenTrainingList) {
+                //@media (max-width: 576px) {
+                //    background-color: #F5F5F5;
+                //}
+                @media (max-width: 768px) {
+                    background-color: #F5F5F5;
+                }
+            }
+
+            .ant-picker-cell-selected {
+                .ant-picker-calendar-date {
+                    background: #FFF;
+
+                    .ant-picker-calendar-date-value {
+                        color: #262626FF;
+                    }
+                }
+            }
+        }
+    }
+}

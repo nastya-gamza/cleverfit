@@ -6,6 +6,6 @@ export enum ENDPOINTS {
     changePassword = '/auth/change-password',
     feedback = '/feedback',
     loginGoogle = '/auth/google',
-    training = 'training',
+    training = '/training',
     trainingList = '/catalogs/training-list',
 }

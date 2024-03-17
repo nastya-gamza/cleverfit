@@ -1,0 +1,65 @@
+.cardWrapper,
+.cardWrapper2 {
+    position: absolute;
+    top: -12px;
+    z-index: 15;
+}
+
+.cardWrapper {
+    left: -7px;
+}
+
+.cardWrapper2 {
+    right: -9px;
+}
+
+.card {
+    width: 264px;
+
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.15);
+
+    :global {
+        .ant-card-head {
+            min-height: 0;
+            border-bottom: none;
+            line-height: @line-height-base;
+        }
+
+        .ant-card-body {
+            padding: 0;
+        }
+
+        .ant-card-head-title,
+        .ant-card-extra,
+        .ant-card-meta-avatar,
+        .ant-card-actions {
+            padding: 0 12px;
+        }
+
+        .ant-card-head-title {
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .ant-card-meta {
+            padding: 0;
+            flex-direction: column-reverse;
+        }
+
+        .ant-divider {
+            margin: 0;
+        }
+    }
+}
+
+.cardSelect {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    margin-left: 10px;
+    line-height: @line-height-base;
+}
+
+.buttonGroup {
+    flex-direction: column;
+}

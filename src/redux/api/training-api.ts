@@ -3,9 +3,18 @@ import {RootState} from '@redux/store.ts';
 import {BASE_API_URL} from '@constants/api.ts';
 import {ENDPOINTS} from '@constants/endpoints.ts';
 import {TAGS} from '@redux/types/tags.ts';
-import {TrainingItem, UserTrainingItem} from '@redux/types/training.ts';
-import {setUserTrainings, setTrainingList} from '@redux/slices/training-slice.ts';
+import {
+    TrainingItem,
+    UserTraining,
+    UserTrainingTransform
+} from '@redux/types/training.ts';
+import {
+    setUserTrainings,
+    setTrainingList,
+    resetCreatedTraining
+} from '@redux/slices/training-slice.ts';
 import {setIsError, setIsLoading} from '@redux/slices/app-slice.ts';
+import moment from 'moment';
 
 export const trainingApi = createApi({
     reducerPath: 'trainingApi',
@@ -24,12 +33,12 @@ export const trainingApi = createApi({
     }),
     tagTypes: [TAGS.training],
     endpoints: (build) => ({
-        getUserTrainings: build.query<UserTrainingItem[], void>({
+        getUserTrainings: build.query<UserTrainingTransform, void>({
             query: () => ENDPOINTS.training,
             async onQueryStarted(_, {dispatch, queryFulfilled}) {
                 try {
                     dispatch(setIsLoading(true));
-                    const { data } = await queryFulfilled;
+                    const {data} = await queryFulfilled;
                     console.log(data);
                     dispatch(setIsLoading(false));
                     dispatch(setUserTrainings(data));
@@ -38,12 +47,25 @@ export const trainingApi = createApi({
                     dispatch(setIsLoading(false));
                 }
             },
+            transformResponse: (response: Array<Omit<UserTraining, 'id'> & { _id: string }>) =>
+                response.reduce((acc: UserTrainingTransform, curr) => {
+                    const key = moment(curr.date).format('YYYY-MM-DD');
+
+                    if (acc[key]?.length) {
+                        acc[key].push({ ...curr, id: curr._id });
+                    } else {
+                        acc[key] = [{ ...curr, id: curr._id }];
+                    }
+
+                    return acc;
+                }, {}),
+            providesTags: [{ type: TAGS.training, id: 'LIST' }]
         }),
         getTrainingList: build.query<TrainingItem[], void>({
             query: () => ENDPOINTS.trainingList,
             async onQueryStarted(_, {dispatch, queryFulfilled}) {
                 try {
-                    const { data } = await queryFulfilled;
+                    const {data} = await queryFulfilled;
                     console.log(data.map(item => item.name))
                     dispatch(setTrainingList(data));
                 } catch (err) {
@@ -51,10 +73,29 @@ export const trainingApi = createApi({
                 }
             },
         }),
+        createTraining: build.mutation<void, UserTraining>({
+            query: (body) => ({
+                url: ENDPOINTS.training,
+                method: 'POST',
+                body,
+            }),
+            async onQueryStarted(_, {dispatch, queryFulfilled}) {
+                try {
+                    dispatch(setIsLoading(true));
+                    await queryFulfilled;
+                    dispatch(setIsLoading(false));
+                } catch {
+                    dispatch(resetCreatedTraining());
+                    dispatch(setIsLoading(false));
+                }
+            },
+            invalidatesTags: [{type: TAGS.training, id: 'LIST'}],
+        }),
     }),
 })
 
 export const {
     useGetTrainingListQuery,
     useGetUserTrainingsQuery,
+    useCreateTrainingMutation,
 } = trainingApi;

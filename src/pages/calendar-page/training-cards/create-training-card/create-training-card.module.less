@@ -14,18 +14,17 @@
 }
 
 .card {
-    padding: 12px;
     width: 264px;
     box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.15);
 
     :global {
         .ant-card-head {
+            padding: 14px 12px;
             min-height: 0;
             border-bottom: none;
             line-height: @line-height-base;
         }
 
-        .ant-card-head,
         .ant-card-head-title,
         .ant-card-extra,
         .ant-card-body,
@@ -33,14 +32,30 @@
             padding: 0;
         }
 
+        .ant-card-body {
+            min-height: 84px;
+            padding: 0;
+        }
+
         .ant-card-head-title {
             font-size: 14px;
-            margin-bottom: 8px;
         }
 
         .ant-card-meta {
-            padding: 0;
+            padding: 0 12px;
             flex-direction: column-reverse;
+        }
+
+        .ant-card-actions {
+            padding: 12px;
+
+            li {
+                margin: 0;
+            }
+        }
+
+        .ant-btn.ant-btn-primary {
+            font-size: 14px;
         }
     }
 }
