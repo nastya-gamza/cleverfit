@@ -15,6 +15,11 @@ import {DrawerRight} from '@pages/calendar-page/drawer-right/drawer-right.tsx';
 import moment from 'moment';
 import {TRAINING_COLORS_MAP} from '@constants/training-colors-map.ts';
 import {useUpdateTrainingMutation} from '@redux/api/training-api.ts';
+import {Moment} from 'moment/moment';
+import {Exercise} from '@redux/types/training.ts';
+import {error} from '@pages/calendar-page/modals/notification-modal/error-notification-modal.tsx';
+import {PATHS} from '@constants/paths.ts';
+import {useNavigate} from 'react-router-dom';
 
 type CreateWorkoutModalProps = {
     isLeft: boolean,
@@ -34,40 +39,79 @@ export const ExercisesPopover = ({
                                      setAddNewWorkout
                                  }: CreateWorkoutModalProps) => {
     const [openDrawer, setOpenDrawer] = useState(false);
-    const [deletedExercises, setDeletedExercises] = useState<string[]>([]);
+    const [res, setRes] = useState('');
+    const [deletedExercises, setDeletedExercises] = useState<number[]>([]);
+    const [resultExercises, setResultExercises] = useState<Exercise[]>([]);
 
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
     const {exercises} = useAppSelector(state => state.training.createdTraining);
     const createdTraining = useAppSelector(state => state.training.createdTraining);
     const {training} = useAppSelector(state => state.training);
     const selectedDate = useAppSelector(state => state.training.date);
 
-    const [update, {data}] = useUpdateTrainingMutation();
+    useEffect(() => {
+        const res = editingTrainingName ? createdTraining.name : training
+        setRes(res)
+
+    }, [training, createdTraining.name]);
+
+    useEffect(() => {
+        setResultExercises(exercises)
+    }, [exercises]);
+
+    const [update] = useUpdateTrainingMutation();
+    const isOldDate = (date?: Moment | string) => Boolean(date && moment(date).isBefore(moment()));
 
     const onUpdate = async () => {
-        const resultExercises = exercises.filter(e => {
-            if (e._id) {
-                !deletedExercises.includes(e._id)
-            }
-        })
         const requestData = {
             ...createdTraining,
             exercises: resultExercises
         }
 
-        console.log(exercises)
-        try {
-            console.log(resultExercises)
-            await update(requestData);
-            if (data) { dispatch(setCreatedTraining(data)); }
+        if (isOldDate(requestData.date)) {
+            requestData['isImplementation'] = true
         }
-        catch (e) {
-            console.log(e)
+
+        try {
+            const data = await update(requestData).unwrap();
+            if (data) {
+                dispatch(setCreatedTraining(data));
+            }
+        } catch (e) {
+            error(
+                'При сохранении данных произошла ошибка',
+                'Придётся попробовать ещё раз',
+                'Закрыть',
+                () => navigate(PATHS.calendar, {state: {from: 'redirect'}}),
+                true,
+            );
+            setAddNewWorkout(false);
+            dispatch(resetTraining());
+        } finally {
+            setCreateWorkout(false);
         }
     }
 
-    const addDeletedExercise = (id: string) => {
-        const resultDeletedExercises = [...deletedExercises, id];
+    const onDelete = () => {
+        const resultExercises = exercises.filter((e, index) => {
+            console.log(index)
+            console.log(deletedExercises)
+            return !deletedExercises.includes(index);
+        })
+        console.log(resultExercises)
+        setResultExercises(resultExercises)
+    }
+
+    const addDeletedExercise = (index: number) => {
+        const resultDeletedExercises = [...deletedExercises, index];
+        console.log(resultDeletedExercises)
+        setDeletedExercises(resultDeletedExercises);
+    };
+
+    const excludeDeletedExercise = (index: number) => {
+        const resultDeletedExercises = deletedExercises.filter(e => e != index);
+        console.log(resultDeletedExercises)
         setDeletedExercises(resultDeletedExercises);
     };
 
@@ -81,8 +125,10 @@ export const ExercisesPopover = ({
 
     const handleClose = () => {
         setOpenDrawer(false);
-        const resultExercises = exercises.filter((e, index) => (e.name !== '') || (index == 0));
-        dispatch(setExercises(resultExercises))
+        if (!editingTrainingName) {
+            const resultExercises = exercises.filter((e, index) => (e.name !== '') || (index == 0));
+            dispatch(setExercises(resultExercises))
+        }
     }
 
     return (
@@ -100,6 +146,7 @@ export const ExercisesPopover = ({
                         onUpdate={onUpdate}
                         setEditingTrainingName={setEditingTrainingName}
                         setAddNewWorkout={setAddNewWorkout}
+                        resultExercises={resultExercises}
                     />}
             >
                 <div
@@ -114,15 +161,15 @@ export const ExercisesPopover = ({
             >
                 <div className={styles.drawerInfo}>
                     <Typography.Text type='secondary'>
-                        <Badge color={TRAINING_COLORS_MAP[training]} text={training}/>
+                        <Badge color={TRAINING_COLORS_MAP[res]} text={res}/>
                     </Typography.Text>
                     <Typography.Text type='secondary'>
                         {moment(selectedDate).format('DD.MM.YYYY')}
                     </Typography.Text>
                 </div>
-                {exercises.map(({weight, approaches, name, replays, _id}, index) => (
+                {resultExercises.map(({weight, approaches, name, replays, _id}, index) => (
                     <ExercisesForm
-                        key={index}
+                        key={_id ?? index}
                         index={index}
                         name={name}
                         replays={replays}
@@ -131,6 +178,7 @@ export const ExercisesPopover = ({
                         isCheckbox={!!editingTrainingName}
                         _id={_id}
                         addDeletedExercise={addDeletedExercise}
+                        excludeDeletedExercise={excludeDeletedExercise}
                     />
                 ))}
                 <div>
@@ -146,8 +194,9 @@ export const ExercisesPopover = ({
                         <Button
                             type='text'
                             icon={<MinusOutlined/>}
-                            onClick={onUpdate}
+                            onClick={onDelete}
                             size='small'
+                            disabled={deletedExercises.length === 0}
                         >
                             Удалить
                         </Button>

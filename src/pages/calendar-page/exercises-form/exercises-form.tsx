@@ -12,21 +12,24 @@ type ExercisesFormProps = {
     replays: number | null;
     index: number;
     isCheckbox: boolean;
-    addDeletedExercise: (id: string) => void,
+    addDeletedExercise: (id: number) => void,
+    excludeDeletedExercise: (id: number) => void,
     _id?: string
 };
 
-export const ExercisesForm = ({weight, approaches, name, replays, index, isCheckbox, addDeletedExercise, _id}: ExercisesFormProps) => {
+export const ExercisesForm = ({weight, approaches, name, replays, index, isCheckbox, addDeletedExercise, excludeDeletedExercise, _id}: ExercisesFormProps) => {
 
     const [isChecked, setIsChecked] = useState(false)
     const [form] = Form.useForm();
     const dispatch = useAppDispatch();
 
     const onChange = () => {
-        setIsChecked(!isChecked);
-        if (_id) {
-            addDeletedExercise(_id);
+        if (!isChecked) {
+            addDeletedExercise(index);
+        } else {
+            excludeDeletedExercise(index)
         }
+        setIsChecked(!isChecked);
     };
 
     const handleChange = (_, exercise: Exercise) => {

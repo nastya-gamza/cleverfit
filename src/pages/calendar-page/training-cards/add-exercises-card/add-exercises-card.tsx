@@ -29,6 +29,7 @@ type AddExercisesCardProps = {
     onUpdate: () => void,
     setEditingTrainingName: Dispatch<SetStateAction<string | undefined>>,
     setAddNewWorkout: Dispatch<SetStateAction<boolean>>,
+    resultExercises: Exercise[]
 }
 
 export const AddExercisesCard = ({
@@ -39,6 +40,7 @@ export const AddExercisesCard = ({
                                      onUpdate,
                                      setEditingTrainingName,
                                      setAddNewWorkout,
+                                     resultExercises
                                  }: AddExercisesCardProps) => {
     const trainingList = useAppSelector(state => state.training.trainingList);
     const selectedTraining = useAppSelector(state => state.training.training);
@@ -96,8 +98,12 @@ export const AddExercisesCard = ({
         try {
             dispatch(resetTraining());
             dispatch(resetCreatedTraining());
-            // editingTrainingName ? onUpdate() : createTraining(body);
-            await createTraining(body).unwrap();
+            if (editingTrainingName) {
+                onUpdate()
+            } else {
+                await createTraining(body).unwrap();
+            }
+
         } catch (e) {
             error(
                 'При сохранении данных произошла ошибка',
@@ -113,7 +119,7 @@ export const AddExercisesCard = ({
         }
     };
 
-    const currentExercises = exercises.exercises.map(exercise => exercise.name).filter(name => name !== '');
+    const currentExercises = resultExercises.filter(ex => ex.name !== '');
 
     useEffect(() => {
         if (editingTrainingName) {
@@ -128,6 +134,10 @@ export const AddExercisesCard = ({
         setOpenDrawer(true)
     }
 
+    useEffect(() => {
+        console.log(editingTrainingName)
+    }, [editingTrainingName]);
+
     return (
         <div data-test-id='modal-create-exercise'
              className={isLeft ? styles.cardWrapper : styles.cardWrapper2}
@@ -137,7 +147,7 @@ export const AddExercisesCard = ({
                 actions={[
                     <>
                         <Button
-                            disabled={!training}
+                            disabled={!training && !editingTrainingName}
                             size='middle'
                             type='ghost'
                             block
@@ -151,7 +161,7 @@ export const AddExercisesCard = ({
                             type='link'
                             disabled={!isSaveDisable}
                         >
-                            Сохранить
+                            {editingTrainingName ? 'Сохранить изменения' : 'Сохранить'}
                         </Button>
                     </>
                 ]}
@@ -185,10 +195,10 @@ export const AddExercisesCard = ({
                                 {currentExercises?.map((e, i) =>
                                     <TrainingBadgeEdit
                                         type={'exercises'}
-                                        key={exercises._id}
+                                        key={i}
                                         index={i}
-                                        name={e}
-                                        _id={exercises._id}
+                                        name={e.name}
+                                        _id={e._id}
                                         onClick={onClickEdit}
                                     />)}
                             </div>

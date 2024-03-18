@@ -105,8 +105,7 @@ export const trainingApi = createApi({
                     dispatch(setIsLoading(false));
                 }
             },
-
-            invalidatesTags: (_, error) => (error ? [] : [TAGS.training]),
+            invalidatesTags: [{ type: TAGS.training, id: 'LIST' }],
         }),
     }),
 })

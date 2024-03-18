@@ -14,7 +14,7 @@ type TrainingState = {
     createdTraining: UserTraining;
 }
 
-const defaultExercises = [
+const defaultExercise = [
     {
         name: '',
         approaches: null,
@@ -33,7 +33,7 @@ const initialState: TrainingState = {
         date: '',
         _id: '',
         isImplementation: false,
-        exercises: defaultExercises,
+        exercises: defaultExercise,
     },
 };
 
@@ -57,7 +57,7 @@ const slice = createSlice({
             state.training = initialState.training;
         },
         addExercises: (state) => {
-            state.createdTraining.exercises.push(...defaultExercises);
+            state.createdTraining.exercises.push(...defaultExercise);
         },
         setExercises: (state, action: PayloadAction<Exercise[]>) => {
             state.createdTraining.exercises = action.payload;
@@ -88,7 +88,7 @@ export const {
     setExerciseData,
     setExercises,
     resetCreatedTraining,
-    setCreatedTraining
+    setCreatedTraining,
 } = slice.actions
 
 export default slice.reducer;

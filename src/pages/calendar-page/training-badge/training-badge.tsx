@@ -15,7 +15,8 @@ type TrainingBadgeEditProps = {
     setCreateWorkout?: Dispatch<SetStateAction<boolean>>,
     setEditingTrainingName?: Dispatch<SetStateAction<string | undefined>>,
     onClick: (name?: string) => void,
-    _id?: string
+    _id?: string,
+    isDisabled: boolean
 }
 
 export const TrainingBadge = ({training}: TrainingBadgeProps) => {
@@ -26,7 +27,7 @@ export const TrainingBadge = ({training}: TrainingBadgeProps) => {
     )
 }
 
-export const TrainingBadgeEdit = ({name, type, index, onClick}: TrainingBadgeEditProps) => (
+export const TrainingBadgeEdit = ({name, type, index, onClick, isDisabled}: TrainingBadgeEditProps) => (
     <div className={styles.editBadge}>
         {
             type
@@ -39,6 +40,7 @@ export const TrainingBadgeEdit = ({name, type, index, onClick}: TrainingBadgeEdi
             type='link'
             onClick={() => onClick(name)}
             data-test-id={`modal-update-training-edit-button${index}`}
+            disabled={isDisabled}
         >
             <EditOutlined/>
         </Button>
