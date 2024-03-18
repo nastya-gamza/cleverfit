@@ -15,13 +15,15 @@ type CreateTrainingCardProps = {
     selectedDate: Moment | string,
     setAddNewWorkout: Dispatch<SetStateAction<boolean>>,
     setCreateWorkout: Dispatch<SetStateAction<boolean>>,
+    setEditingTrainingName: Dispatch<SetStateAction<string | undefined>>,
 }
 
 export const CreateTrainingCard = ({
                                        selectedDate,
                                        isLeft,
                                        setAddNewWorkout,
-                                       setCreateWorkout
+                                       setCreateWorkout,
+                                       setEditingTrainingName
                                    }: CreateTrainingCardProps) => {
     const {data: userTrainings} = useGetUserTrainingsQuery();
     const {data: trainingList} = useGetTrainingListQuery();
@@ -37,6 +39,10 @@ export const CreateTrainingCard = ({
     const isOldDate = (date?: Moment | string) => Boolean(date && moment(date).isBefore(moment()));
     const disabledButton = isOldDate(selectedDate) || trainingByDay?.length === trainingList?.length;
 
+    const onClickEdit = (name: string) => {
+        setCreateWorkout(true);
+        setEditingTrainingName(name);
+    }
 
     return (
         <div data-test-id='modal-create-training'
@@ -66,7 +72,18 @@ export const CreateTrainingCard = ({
                 ]}
             >
                 {isTrainingsExists.length > 0 ?
-                    <>{trainingByDay && <TrainingBadgeEdit trainingList={trainingByDay}/>}</>
+                    <div className={styles.editBadgeWrapper}>
+                        {trainingByDay && trainingByDay.map(({_id, name}) =>
+                            <TrainingBadgeEdit
+                                key={_id}
+                                name={name}
+                                setCreateWorkout={setCreateWorkout}
+                                setEditingTrainingName={setEditingTrainingName}
+                                _id={_id}
+                                onClick={() => onClickEdit(name)}
+                            />)
+                        }
+                    </div>
                     :
                     <Meta
                         description={'Нет активных тренировок'}

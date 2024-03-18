@@ -11,7 +11,7 @@ import {
 import {
     setUserTrainings,
     setTrainingList,
-    resetCreatedTraining
+    resetCreatedTraining,
 } from '@redux/slices/training-slice.ts';
 import {setIsError, setIsLoading} from '@redux/slices/app-slice.ts';
 import moment from 'moment';
@@ -39,7 +39,6 @@ export const trainingApi = createApi({
                 try {
                     dispatch(setIsLoading(true));
                     const {data} = await queryFulfilled;
-                    console.log(data);
                     dispatch(setIsLoading(false));
                     dispatch(setUserTrainings(data));
                 } catch (err) {
@@ -52,9 +51,9 @@ export const trainingApi = createApi({
                     const key = moment(curr.date).format('YYYY-MM-DD');
 
                     if (acc[key]?.length) {
-                        acc[key].push({ ...curr, id: curr._id });
+                        acc[key].push({ ...curr, _id: curr._id });
                     } else {
-                        acc[key] = [{ ...curr, id: curr._id }];
+                        acc[key] = [{ ...curr, _id: curr._id }];
                     }
 
                     return acc;
@@ -66,7 +65,6 @@ export const trainingApi = createApi({
             async onQueryStarted(_, {dispatch, queryFulfilled}) {
                 try {
                     const {data} = await queryFulfilled;
-                    console.log(data.map(item => item.name))
                     dispatch(setTrainingList(data));
                 } catch (err) {
                     console.log(err)
@@ -91,6 +89,24 @@ export const trainingApi = createApi({
             },
             invalidatesTags: [{type: TAGS.training, id: 'LIST'}],
         }),
+        updateTraining: build.mutation<UserTraining, UserTraining>({
+            query: (body) => ({
+                url: `training/${body._id}`,
+                method: 'PUT',
+                body,
+            }),
+            async onQueryStarted(_, { dispatch, queryFulfilled }) {
+                try {
+                    dispatch(setIsLoading(true));
+                    await queryFulfilled;
+                    dispatch(setIsLoading(false));
+                } catch {
+                    dispatch(setIsLoading(false));
+                }
+            },
+
+            invalidatesTags: (_, error) => (error ? [] : [TAGS.training]),
+        }),
     }),
 })
 
@@ -98,4 +114,5 @@ export const {
     useGetTrainingListQuery,
     useGetUserTrainingsQuery,
     useCreateTrainingMutation,
+    useUpdateTrainingMutation,
 } = trainingApi;

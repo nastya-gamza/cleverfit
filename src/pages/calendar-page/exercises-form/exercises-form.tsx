@@ -1,30 +1,47 @@
-import {Form, Input, InputNumber, Space, Typography} from 'antd';
+import {Checkbox, Form, Input, InputNumber, Space, Typography} from 'antd';
 import styles from './exercises-form.module.less';
-import {useAppDispatch, useAppSelector} from '@hooks/typed-react-redux-hooks.ts';
-import {setExercisesData} from '@redux/slices/training-slice.ts';
-import {Exercises} from '@redux/types/training.ts';
+import {useAppDispatch} from '@hooks/typed-react-redux-hooks.ts';
+import {setExerciseData} from '@redux/slices/training-slice.ts';
+import {Exercise} from '@redux/types/training.ts';
+import {useState} from 'react';
 
 type ExercisesFormProps = {
-    weight: number;
-    approaches: number;
+    weight: number | null;
+    approaches: number | null;
     name: string;
-    replays: number;
+    replays: number | null;
     index: number;
+    isCheckbox: boolean;
+    addDeletedExercise: (id: string) => void,
+    _id?: string
 };
 
-export const ExercisesForm = ({weight, approaches, name, replays, index}: ExercisesFormProps) => {
+export const ExercisesForm = ({weight, approaches, name, replays, index, isCheckbox, addDeletedExercise, _id}: ExercisesFormProps) => {
+
+    const [isChecked, setIsChecked] = useState(false)
     const [form] = Form.useForm();
     const dispatch = useAppDispatch();
 
-    const training = useAppSelector(state => state.training.createdTraining);
+    const onChange = () => {
+        setIsChecked(!isChecked);
+        if (_id) {
+            addDeletedExercise(_id);
+        }
+    };
 
-    const handleChange = (_, allValues: Exercises) => {
-        dispatch(setExercisesData({exercise: allValues, index}));
+    const handleChange = (_, exercise: Exercise) => {
+        dispatch(setExerciseData({exercise: exercise, index}));
     };
 
     return (
         <Form
             form={form}
+            initialValues={{
+                name,
+                approaches,
+                weight,
+                replays
+            }}
             onValuesChange={handleChange}
             layout='vertical'
             size='small'
@@ -38,6 +55,15 @@ export const ExercisesForm = ({weight, approaches, name, replays, index}: Exerci
                     maxLength={32}
                     width='100%'
                     data-test-id={`modal-drawer-right-input-exercise${index}`}
+                    addonAfter={
+                        isCheckbox && (
+                            <Checkbox
+                                checked={isChecked}
+                                data-test-id={`modal-drawer-right-checkbox-exercise${index}`}
+                                onChange={onChange}
+                            />
+                        )
+                    }
                 />
             </Form.Item>
             <Space direction='horizontal' align={'end'} size={3}>
@@ -45,7 +71,7 @@ export const ExercisesForm = ({weight, approaches, name, replays, index}: Exerci
                            style={{maxWidth: '120px', marginRight: '28px'}}>
                     <InputNumber
                         value={approaches}
-                        placeholder='0'
+                        placeholder='1'
                         min={1}
                         addonBefore='+'
                         data-test-id={`modal-drawer-right-input-approach${index}`}

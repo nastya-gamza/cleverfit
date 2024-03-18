@@ -14,7 +14,7 @@ const domNode = document.getElementById('root') as HTMLDivElement;
 const root = createRoot(domNode);
 
 root.render(
-    // <React.StrictMode>
+    <React.StrictMode>
         <Provider store={store}>
             <SidebarProvider>
                 <HistoryRouter history={history}>
@@ -23,5 +23,5 @@ root.render(
                 </HistoryRouter>
             </SidebarProvider>
         </Provider>
-    // </React.StrictMode>,
+    </React.StrictMode>,
 );

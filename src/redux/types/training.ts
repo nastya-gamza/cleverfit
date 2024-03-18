@@ -13,15 +13,16 @@ export type UserTrainingData = {
     _id?: string;
 };
 
-export type Exercises = {
+export type Exercise = {
     name: string;
-    replays: number;
-    weight: number;
-    approaches: number;
+    replays: number | null;
+    weight: number | null;
+    approaches: number | null;
+    _id?: string;
 };
 
 export type UserTraining = UserTrainingData & {
-    exercises: Exercises[];
+    exercises: Exercise[];
 };
 
 export type UserTrainingTransform = Record<string, UserTraining[]>;

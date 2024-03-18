@@ -42,7 +42,7 @@ export const FeedbacksPage = () => {
                 :
                 <div className={styles.wrapper}>
                     <div className={styles.cardsWrapper}>
-                        {getAllFeedbacks().map(item => <FeedbackCard key={item.id} {...item}/>)}
+                        {getAllFeedbacks().map(item => <FeedbackCard key={item._id} {...item}/>)}
                     </div>
                     <div className={styles.btnWrapper}>
                         <Button

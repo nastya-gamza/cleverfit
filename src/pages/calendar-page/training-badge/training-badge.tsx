@@ -1,39 +1,44 @@
-import {Badge, Button} from 'antd';
+import {Badge, Button, Typography} from 'antd';
 import {TRAINING_COLORS_MAP} from '@constants/training-colors-map.ts';
-import {UserTraining} from '@redux/types/training.ts';
 import {EditOutlined} from '@ant-design/icons';
 import styles from './training-badge.module.less';
+import {Dispatch, SetStateAction} from 'react';
 
 type TrainingBadgeProps = {
-    trainingList: UserTraining[]
+    training: string
 }
 
-export const TrainingBadge = ({trainingList}: TrainingBadgeProps) => {
-    return (
-        trainingList?.map(training => (
-            <div key={training._id}>
-                <Badge color={TRAINING_COLORS_MAP[training.name]} text={training.name}/>
-            </div>
-        ))
-    )
+type TrainingBadgeEditProps = {
+    name: string,
+    type?: string,
+    setCreateWorkout?: Dispatch<SetStateAction<boolean>>,
+    setEditingTrainingName?: Dispatch<SetStateAction<string | undefined>>,
+    onClick: (name?: string) => void;
+    _id?: string
 }
 
-export const TrainingBadgeEdit = ({trainingList}: TrainingBadgeProps) => {
+export const TrainingBadge = ({training}: TrainingBadgeProps) => {
     return (
-        <div className={styles.wrapper}>
-            {
-                trainingList?.map(training => (
-                    <div key={training._id} className={styles.editBadge}>
-                        <Badge color={TRAINING_COLORS_MAP[training.name]} text={training.name}/>
-                        <Button
-                            data-test-id=''
-                            type='link'
-                        >
-                            <EditOutlined/>
-                        </Button>
-                    </div>
-                ))
-            }
+        <div>
+            <Badge color={TRAINING_COLORS_MAP[training]} text={training}/>
         </div>
     )
 }
+
+export const TrainingBadgeEdit = ({name, type, _id, onClick}: TrainingBadgeEditProps) => (
+    <div className={styles.editBadge} data-test-id={`modal-update-training-edit-button${_id}`}>
+        {
+            type
+                ?
+                <Typography.Text type='secondary'>{name}</Typography.Text>
+                :
+                <Badge color={TRAINING_COLORS_MAP[name]} text={name}/>
+        }
+        <Button
+            type='link'
+            onClick={() => onClick(name)}
+        >
+            <EditOutlined/>
+        </Button>
+    </div>
+)

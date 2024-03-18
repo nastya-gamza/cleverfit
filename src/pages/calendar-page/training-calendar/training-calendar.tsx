@@ -1,9 +1,9 @@
-import {Calendar, Grid} from 'antd';
+import {Calendar, Grid, Modal} from 'antd';
 import {calendarLocale} from '@utils/calendar-options.ts';
 import moment, {Moment} from 'moment/moment';
 import {useGetTrainingListQuery, useGetUserTrainingsQuery} from '@redux/api/training-api.ts';
 import {useAppDispatch, useAppSelector} from '@hooks/typed-react-redux-hooks.ts';
-import {useEffect, useState} from 'react';
+import {useEffect, useLayoutEffect, useState} from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
 import {PATHS} from '@constants/paths.ts';
 import {error} from '@pages/calendar-page/modals/notification-modal/error-notification-modal.tsx';
@@ -20,10 +20,10 @@ export const TrainingCalendar = () => {
     const {isError: isGetTrainingListError, refetch} = useGetTrainingListQuery();
     const isError = useAppSelector(state => state.app.isError);
     const dispatch = useAppDispatch();
-    const [isErrorModalOpen, setIsErrorModalOpen] = useState(false)
     const navigate = useNavigate();
     const [addNewWorkout, setAddNewWorkout] = useState(false);
     const [createWorkout, setCreateWorkout] = useState(false);
+    const [editingTrainingName, setEditingTrainingName] = useState<string | undefined>(undefined);
     const [isLeft, setIsLeft] = useState(true);
     const selectedDate = useAppSelector(state => state.training.date);
     const [selectedMonth, setSelectedMonth] = useState<Moment>(moment());
@@ -47,13 +47,14 @@ export const TrainingCalendar = () => {
             navigate('/');
             return;
         }
+    }, [isError, navigate]);
 
-        if (isGetTrainingListError && !isErrorModalOpen) {
-            setIsErrorModalOpen(true);
+    useLayoutEffect(() => {
+        Modal.destroyAll();
+        if (isGetTrainingListError && !isError) {
             error(refetch);
         }
-    }, [isError, isGetTrainingListError, isErrorModalOpen, navigate, refetch]);
-
+    }, [isGetTrainingListError]);
 
     const onSelect = (date: Moment) => {
         setAddNewWorkout(true);
@@ -87,6 +88,7 @@ export const TrainingCalendar = () => {
                         addNewWorkout={addNewWorkout}
                         setAddNewWorkout={setAddNewWorkout}
                         setCreateWorkout={setCreateWorkout}
+                        setEditingTrainingName={setEditingTrainingName}
                         value={value}
                     />
                 ) : (
@@ -94,6 +96,8 @@ export const TrainingCalendar = () => {
                         createWorkout={createWorkout}
                         isLeft={isLeft}
                         setCreateWorkout={setCreateWorkout}
+                        editingTrainingName={editingTrainingName}
+                        setEditingTrainingName={setEditingTrainingName}
                     />
                 )
             );
@@ -101,7 +105,7 @@ export const TrainingCalendar = () => {
 
         return (
             <>
-                {trainingByDay && isFullScreen && <TrainingBadge trainingList={trainingByDay}/>}
+                {trainingByDay && isFullScreen && trainingByDay.map(e => <TrainingBadge key={e._id} training={e.name}/>)}
             </>
         );
     }

@@ -1,8 +1,10 @@
-import {Dispatch, SetStateAction} from 'react';
+import {Dispatch, SetStateAction, useEffect} from 'react';
 import {PopoverProps} from 'antd';
 import {Moment} from 'moment';
 import {CellPopover} from '@pages/calendar-page/popover/cell-popover.tsx';
 import {CreateTrainingCard} from '@pages/calendar-page/training-cards/create-training-card';
+import {resetCreatedTraining} from '@redux/slices/training-slice.ts';
+import {useAppDispatch} from '@hooks/typed-react-redux-hooks.ts';
 
 type TrainingPopoverProps = PopoverProps & {
     isLeft: boolean,
@@ -10,6 +12,7 @@ type TrainingPopoverProps = PopoverProps & {
     value: Moment,
     setAddNewWorkout: Dispatch<SetStateAction<boolean>>,
     setCreateWorkout: Dispatch<SetStateAction<boolean>>,
+    setEditingTrainingName: Dispatch<SetStateAction<string | undefined>>,
 }
 
 export const TrainingPopover = ({
@@ -17,8 +20,17 @@ export const TrainingPopover = ({
                                     addNewWorkout,
                                     setAddNewWorkout,
                                     setCreateWorkout,
+                                    setEditingTrainingName,
                                     value,
                                 }: TrainingPopoverProps) => {
+
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        dispatch(resetCreatedTraining());
+        setEditingTrainingName(undefined);
+    }, [])
+
     return (
         <CellPopover
             isLeft={isLeft}
@@ -30,6 +42,7 @@ export const TrainingPopover = ({
                     isLeft={isLeft}
                     setAddNewWorkout={setAddNewWorkout}
                     setCreateWorkout={setCreateWorkout}
+                    setEditingTrainingName={setEditingTrainingName}
                 />
             }
         >

@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {
-    Exercises,
+    Exercise,
     TrainingItem,
     UserTraining,
     UserTrainingTransform
@@ -17,9 +17,9 @@ type TrainingState = {
 const defaultExercises = [
     {
         name: '',
-        approaches: 1,
-        weight: 0,
-        replays: 1,
+        approaches: null,
+        weight: null,
+        replays: null,
     },
 ];
 
@@ -31,7 +31,7 @@ const initialState: TrainingState = {
     createdTraining: {
         name: '',
         date: '',
-        id: '',
+        _id: '',
         isImplementation: false,
         exercises: defaultExercises,
     },
@@ -59,12 +59,18 @@ const slice = createSlice({
         addExercises: (state) => {
             state.createdTraining.exercises.push(...defaultExercises);
         },
-        setExercisesData: (state, action: PayloadAction<{
-            exercise: Exercises;
+        setExercises: (state, action: PayloadAction<Exercise[]>) => {
+            state.createdTraining.exercises = action.payload;
+        },
+        setExerciseData: (state, action: PayloadAction<{
+            exercise: Exercise;
             index: number
         }>) => {
             const {exercise, index} = action.payload;
             state.createdTraining.exercises[index] = exercise;
+        },
+        setCreatedTraining: (state, action: PayloadAction<UserTraining>) => {
+            state.createdTraining = action.payload;
         },
         resetCreatedTraining: (state) => {
             state.createdTraining = initialState.createdTraining;
@@ -79,8 +85,10 @@ export const {
     setDate,
     resetTraining,
     addExercises,
-    setExercisesData,
-    resetCreatedTraining
+    setExerciseData,
+    setExercises,
+    resetCreatedTraining,
+    setCreatedTraining
 } = slice.actions
 
 export default slice.reducer;
