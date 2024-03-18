@@ -5,15 +5,16 @@ import styles from './training-badge.module.less';
 import {Dispatch, SetStateAction} from 'react';
 
 type TrainingBadgeProps = {
-    training: string
+    training: string,
 }
 
 type TrainingBadgeEditProps = {
     name: string,
+    index: number,
     type?: string,
     setCreateWorkout?: Dispatch<SetStateAction<boolean>>,
     setEditingTrainingName?: Dispatch<SetStateAction<string | undefined>>,
-    onClick: (name?: string) => void;
+    onClick: (name?: string) => void,
     _id?: string
 }
 
@@ -25,8 +26,8 @@ export const TrainingBadge = ({training}: TrainingBadgeProps) => {
     )
 }
 
-export const TrainingBadgeEdit = ({name, type, _id, onClick}: TrainingBadgeEditProps) => (
-    <div className={styles.editBadge} data-test-id={`modal-update-training-edit-button${_id}`}>
+export const TrainingBadgeEdit = ({name, type, index, onClick}: TrainingBadgeEditProps) => (
+    <div className={styles.editBadge}>
         {
             type
                 ?
@@ -37,6 +38,7 @@ export const TrainingBadgeEdit = ({name, type, _id, onClick}: TrainingBadgeEditP
         <Button
             type='link'
             onClick={() => onClick(name)}
+            data-test-id={`modal-update-training-edit-button${index}`}
         >
             <EditOutlined/>
         </Button>

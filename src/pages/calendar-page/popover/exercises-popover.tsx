@@ -22,6 +22,7 @@ type CreateWorkoutModalProps = {
     setCreateWorkout: Dispatch<SetStateAction<boolean>>,
     editingTrainingName: string | undefined,
     setEditingTrainingName: Dispatch<SetStateAction<string | undefined>>,
+    setAddNewWorkout: Dispatch<SetStateAction<boolean>>,
 }
 
 export const ExercisesPopover = ({
@@ -29,7 +30,8 @@ export const ExercisesPopover = ({
                                      createWorkout,
                                      setCreateWorkout,
                                      editingTrainingName,
-                                     setEditingTrainingName
+                                     setEditingTrainingName,
+                                     setAddNewWorkout
                                  }: CreateWorkoutModalProps) => {
     const [openDrawer, setOpenDrawer] = useState(false);
     const [deletedExercises, setDeletedExercises] = useState<string[]>([]);
@@ -97,6 +99,7 @@ export const ExercisesPopover = ({
                         editingTrainingName={editingTrainingName}
                         onUpdate={onUpdate}
                         setEditingTrainingName={setEditingTrainingName}
+                        setAddNewWorkout={setAddNewWorkout}
                     />}
             >
                 <div

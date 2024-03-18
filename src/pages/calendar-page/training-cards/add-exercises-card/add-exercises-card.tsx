@@ -3,16 +3,23 @@ import {Button, Card, Divider, Select} from 'antd';
 import {useAppDispatch, useAppSelector} from '@hooks/typed-react-redux-hooks.ts';
 import {ArrowLeftOutlined} from '@ant-design/icons';
 import {
-    resetCreatedTraining,
+    resetCreatedTraining, resetTraining,
     setCreatedTraining,
     setTraining
 } from '@redux/slices/training-slice.ts';
-import {useCreateTrainingMutation} from '@redux/api/training-api.ts';
+import {
+    useCreateTrainingMutation,
+    useGetTrainingListQuery,
+    useGetUserTrainingsQuery
+} from '@redux/api/training-api.ts';
 import {EmptyCart} from '@pages/calendar-page/empty-cart/empty-cart.tsx';
 import styles from './add-exercises-card.module.less';
 import moment from 'moment';
 import {TrainingBadgeEdit} from '@pages/calendar-page/training-badge/training-badge.tsx';
 import {Exercise} from '@redux/types/training.ts';
+import {error} from '@pages/calendar-page/modals/notification-modal/error-notification-modal.tsx';
+import {useNavigate} from 'react-router-dom';
+import {PATHS} from '@constants/paths.ts';
 
 type AddExercisesCardProps = {
     isLeft: boolean,
@@ -21,6 +28,7 @@ type AddExercisesCardProps = {
     editingTrainingName: string | undefined,
     onUpdate: () => void,
     setEditingTrainingName: Dispatch<SetStateAction<string | undefined>>,
+    setAddNewWorkout: Dispatch<SetStateAction<boolean>>,
 }
 
 export const AddExercisesCard = ({
@@ -29,7 +37,8 @@ export const AddExercisesCard = ({
                                      setOpenDrawer,
                                      editingTrainingName,
                                      onUpdate,
-                                     setEditingTrainingName
+                                     setEditingTrainingName,
+                                     setAddNewWorkout,
                                  }: AddExercisesCardProps) => {
     const trainingList = useAppSelector(state => state.training.trainingList);
     const selectedTraining = useAppSelector(state => state.training.training);
@@ -38,6 +47,7 @@ export const AddExercisesCard = ({
     const exercises = useAppSelector(state => state.training.createdTraining);
     const userTraining = useAppSelector(state => state.training.userTraining);
 
+    const navigate = useNavigate();
     const dispatch = useAppDispatch();
 
     const handleChange = (value: string) => {
@@ -72,7 +82,10 @@ export const AddExercisesCard = ({
             replays: e.replays || 1
         }))
 
-    const onSaveTraining = () => {
+        useGetUserTrainingsQuery();
+        useGetTrainingListQuery();
+
+    const onSaveTraining = async () => {
         const body = {
             name: selectedTraining,
             date: selectedDate,
@@ -81,10 +94,22 @@ export const AddExercisesCard = ({
         };
 
         try {
-            editingTrainingName ? onUpdate() : createTraining(body);
-            setCreateWorkout(false);
+            dispatch(resetTraining());
+            dispatch(resetCreatedTraining());
+            // editingTrainingName ? onUpdate() : createTraining(body);
+            await createTraining(body).unwrap();
         } catch (e) {
-            console.log(e)
+            error(
+                'При сохранении данных произошла ошибка',
+                'Придётся попробовать ещё раз',
+                'Закрыть',
+                () => navigate(PATHS.calendar, {state: {from: 'redirect'}}),
+                true,
+            );
+            setAddNewWorkout(false);
+            dispatch(resetTraining());
+        } finally {
+            setCreateWorkout(false);
         }
     };
 
@@ -160,7 +185,8 @@ export const AddExercisesCard = ({
                                 {currentExercises?.map((e, i) =>
                                     <TrainingBadgeEdit
                                         type={'exercises'}
-                                        key={i + e}
+                                        key={exercises._id}
+                                        index={i}
                                         name={e}
                                         _id={exercises._id}
                                         onClick={onClickEdit}

@@ -35,6 +35,7 @@ export const CreateTrainingCard = ({
     const isTrainingsExists = userTrainings?.[moment(selectedDate).format('YYYY-MM-DD')] ?? [];
     const dateString = moment(selectedDate).format('YYYY-MM-DD');
     const trainingByDay = userTrainings && userTrainings[dateString];
+    console.log(trainingByDay)
 
     const isOldDate = (date?: Moment | string) => Boolean(date && moment(date).isBefore(moment()));
     const disabledButton = isOldDate(selectedDate) || trainingByDay?.length === trainingList?.length;
@@ -73,9 +74,10 @@ export const CreateTrainingCard = ({
             >
                 {isTrainingsExists.length > 0 ?
                     <div className={styles.editBadgeWrapper}>
-                        {trainingByDay && trainingByDay.map(({_id, name}) =>
+                        {trainingByDay && trainingByDay.map(({_id, name}, i) =>
                             <TrainingBadgeEdit
                                 key={_id}
+                                index={i}
                                 name={name}
                                 setCreateWorkout={setCreateWorkout}
                                 setEditingTrainingName={setEditingTrainingName}

@@ -1,9 +1,12 @@
 import {Calendar, Grid, Modal} from 'antd';
 import {calendarLocale} from '@utils/calendar-options.ts';
 import moment, {Moment} from 'moment/moment';
-import {useGetTrainingListQuery, useGetUserTrainingsQuery} from '@redux/api/training-api.ts';
+import {
+    useGetTrainingListQuery,
+    useGetUserTrainingsQuery
+} from '@redux/api/training-api.ts';
 import {useAppDispatch, useAppSelector} from '@hooks/typed-react-redux-hooks.ts';
-import {useEffect, useLayoutEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
 import {PATHS} from '@constants/paths.ts';
 import {error} from '@pages/calendar-page/modals/notification-modal/error-notification-modal.tsx';
@@ -49,12 +52,17 @@ export const TrainingCalendar = () => {
         }
     }, [isError, navigate]);
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         Modal.destroyAll();
         if (isGetTrainingListError && !isError) {
-            error(refetch);
+            error(
+                <>При открытии данных <br/> произошла ошибка</>,
+                'Попробуйте еще раз.',
+                'Обновить',
+                refetch
+            );
         }
-    }, [isGetTrainingListError]);
+    }, [isGetTrainingListError, isError, refetch]);
 
     const onSelect = (date: Moment) => {
         setAddNewWorkout(true);
@@ -80,31 +88,33 @@ export const TrainingCalendar = () => {
         const dateString = value.format('YYYY-MM-DD');
         const trainingByDay = data && data[dateString];
 
+        let popoverComponent = null;
+
         if (value.isSame(selectedDate, 'day') && addNewWorkout) {
-            return (
-                !createWorkout ? (
-                    <TrainingPopover
-                        isLeft={isLeft}
-                        addNewWorkout={addNewWorkout}
-                        setAddNewWorkout={setAddNewWorkout}
-                        setCreateWorkout={setCreateWorkout}
-                        setEditingTrainingName={setEditingTrainingName}
-                        value={value}
-                    />
-                ) : (
-                    <ExercisesPopover
-                        createWorkout={createWorkout}
-                        isLeft={isLeft}
-                        setCreateWorkout={setCreateWorkout}
-                        editingTrainingName={editingTrainingName}
-                        setEditingTrainingName={setEditingTrainingName}
-                    />
-                )
+            popoverComponent = createWorkout ? (
+                <ExercisesPopover
+                    createWorkout={createWorkout}
+                    isLeft={isLeft}
+                    setCreateWorkout={setCreateWorkout}
+                    editingTrainingName={editingTrainingName}
+                    setEditingTrainingName={setEditingTrainingName}
+                    setAddNewWorkout={setAddNewWorkout}
+                />
+            ) : (
+                <TrainingPopover
+                    isLeft={isLeft}
+                    addNewWorkout={addNewWorkout}
+                    setAddNewWorkout={setAddNewWorkout}
+                    setCreateWorkout={setCreateWorkout}
+                    setEditingTrainingName={setEditingTrainingName}
+                    value={value}
+                />
             );
         }
 
         return (
             <>
+                {popoverComponent}
                 {trainingByDay && isFullScreen && trainingByDay.map(e => <TrainingBadge key={e._id} training={e.name}/>)}
             </>
         );

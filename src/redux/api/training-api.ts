@@ -73,6 +73,7 @@ export const trainingApi = createApi({
         }),
         createTraining: build.mutation<void, UserTraining>({
             query: (body) => ({
+                // url: '/cdc',
                 url: ENDPOINTS.training,
                 method: 'POST',
                 body,
