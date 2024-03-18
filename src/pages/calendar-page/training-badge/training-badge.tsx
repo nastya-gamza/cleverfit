@@ -1,8 +1,8 @@
 import {Badge, Button, Typography} from 'antd';
 import {TRAINING_COLORS_MAP} from '@constants/training-colors-map.ts';
 import {EditOutlined} from '@ant-design/icons';
-import styles from './training-badge.module.less';
 import {Dispatch, SetStateAction} from 'react';
+import styles from './training-badge.module.less';
 
 type TrainingBadgeProps = {
     training: string,
@@ -20,7 +20,7 @@ type TrainingBadgeEditProps = {
 
 export const TrainingBadge = ({training}: TrainingBadgeProps) => {
     return (
-        <div>
+        <div className={styles.badgeRow}>
             <Badge color={TRAINING_COLORS_MAP[training]} text={training}/>
         </div>
     )

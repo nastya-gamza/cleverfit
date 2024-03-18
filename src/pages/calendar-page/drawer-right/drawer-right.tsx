@@ -1,5 +1,5 @@
 import {CloseOutlined} from '@ant-design/icons';
-import {Button, Drawer} from 'antd';
+import {Button, Drawer, Grid} from 'antd';
 import {ReactNode} from 'react';
 import styles from './drawer-right.module.less';
 
@@ -12,10 +12,13 @@ type DrawerRightProps = {
 }
 
 export const DrawerRight = ({title, open, close, closeIcon, children}: DrawerRightProps) => {
+    const {useBreakpoint} = Grid;
+    const screens = useBreakpoint();
+
     return (
         <Drawer
             title={title}
-            placement='right'
+            placement={screens.xs ? 'bottom' : 'right'}
             destroyOnClose={true}
             closable={true}
             zIndex={100}
@@ -31,7 +34,7 @@ export const DrawerRight = ({title, open, close, closeIcon, children}: DrawerRig
                     data-test-id='modal-drawer-right-button-close'
                     type='text'
                     size='middle'
-                    icon={<CloseOutlined />}
+                    icon={<CloseOutlined/>}
                     onClick={close}
                 />
             }

@@ -12,19 +12,30 @@ import {useAppDispatch} from "@hooks/typed-react-redux-hooks.ts";
 import {logout} from "@redux/slices/auth-slice.ts";
 import {push} from "redux-first-history";
 import {PATHS} from "@constants/paths.ts";
+import {useEffect, useLayoutEffect} from 'react';
 
 const {Sider} = Layout;
 const { useBreakpoint } = Grid;
 
 export const SideBar = () => {
-    const {collapsed, toggleCollapsed} = useSidebarContext();
+    const {collapsed, setCollapsed, toggleCollapsed} = useSidebarContext();
     const screens = useBreakpoint();
     const dispatch = useAppDispatch();
+
     const handleLogout = () => {
         localStorage.removeItem('token')
         dispatch(logout());
         dispatch(push(PATHS.auth))
     };
+
+    useLayoutEffect(() => {
+        if (!screens.md) {
+            setCollapsed(true);
+            return;
+        }
+
+        setCollapsed(false);
+    }, [screens.md]);
 
     return (
         <div className={styles.wrapper} data-collapsed={collapsed}>

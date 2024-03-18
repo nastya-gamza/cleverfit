@@ -1,22 +1,15 @@
 .trainingCalendar {
-    margin: -24px -24px 0px -24px;
+    margin: -28px -24px 0px -24px;
     background: @bg-color-light;
     padding: 0 24px 93px 24px;
 
-    //@media (max-width: 834px) {
-    //    padding-bottom: 270px;
-    //}
     @media (max-width: 768px) {
         padding-bottom: 270px;
     }
 
-    //@media (max-width: 576px) {
-    //    padding-bottom: 24px;
-    //}
     @media (max-width: 768px) {
         padding-bottom: 24px;
     }
-
 
     :global {
         .ant-select {
@@ -25,10 +18,6 @@
         }
 
         .ant-picker-calendar-header {
-            //@media (max-width: 576px) {
-            //    display: flex;
-            //    background: #FFF;
-            //}
             @media (max-width: 768px) {
                 display: flex;
                 background: #FFF;
@@ -37,9 +26,6 @@
             .ant-radio-group {
                 margin: 0 8px;
 
-                //@media (max-width: 576px) {
-                //    width: 40%;
-                //}
                 @media (max-width: 768px) {
                     width: 40%;
                 }
@@ -53,24 +39,21 @@
         }
 
         .ant-radio-button-wrapper:hover {
-            color: #2F54EBFF;
+            color: @primary-light-border;
         }
 
         .ant-radio-button-wrapper-checked {
-            color: #2F54EBFF;
+            color: @primary-light-border;
         }
 
         .ant-radio-button-checked {
-            border: 1px solid #2F54EBFF;
+            border: 1px solid @primary-light-border;
         }
 
         thead {
             th {
                 color: #8C8C8CFF;
 
-                //@media (max-width: 576px) {
-                //    background: #FFF;
-                //}
                 @media (max-width: 768px) {
                     background: #FFF;
                 }
@@ -85,10 +68,6 @@
                 padding: 0;
                 background: @bg-color-light;
 
-                //@media (max-width: 576px) {
-                //    background: #FFF;
-                //    padding-top: 8px;
-                //}
                 @media (max-width: 768px) {
                     background: #FFF;
                     padding-top: 8px;
@@ -112,8 +91,7 @@
 
             .ant-picker-cell {
                 .ant-picker-calendar-date-today {
-                    //background: transparent;
-                    border-color: #2F54EBFF;
+                    border-color: @primary-light-border;
                     background: #FFF;
 
                     .ant-picker-calendar-date-value {
@@ -128,16 +106,13 @@
                 margin: 0 2px;
                 padding: 4px 8px;
 
-                //@media (max-width: 730px) {
-                //    margin: 0;
-                //}
                 @media (max-width: 768px) {
                     margin: 0;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
                 }
-                //
-                //@media (min-width: 576px) {
-                //    min-height: 143px;
-                //}
+
                 @media (min-width: 768px) {
                     min-height: 143px;
                 }
@@ -147,14 +122,11 @@
                 }
 
                 &::before {
-                    border: 1px solid #2F54EBFF;
+                    border: 1px solid @primary-light-border;
                 }
             }
 
             .ant-picker-cell-inner:has(div#hiddenTrainingList) {
-                //@media (max-width: 576px) {
-                //    background-color: #F5F5F5;
-                //}
                 @media (max-width: 768px) {
                     background-color: #F5F5F5;
                 }

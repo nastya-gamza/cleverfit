@@ -1,11 +1,40 @@
 .drawer {
     :global {
+        .ant-drawer-content-wrapper,
+        .ant-drawer-content {
+            border-radius: 8px 0 0 8px;
+
+            @media (max-width: 575px) {
+                min-height: 555px;
+                border-radius: 24px 24px 0 0;
+            }
+        }
+
+        .ant-drawer-wrapper-body {
+            border-radius: 8px 0 0 8px;
+        }
+
         .ant-drawer-header {
             padding: 24px 32px 16px;
+            @media (max-width: 575px) {
+                padding: 24px 16px 16px;
+                border-radius: 24px 24px 0 0;
+            }
+        }
+
+        .ant-drawer-title {
+            font-size: 20px;
         }
 
         .ant-drawer-body {
             padding: 24px 32px;
+            @media (max-width: 575px) {
+                padding: 0 16px;
+            }
         }
+    }
+
+    svg {
+        fill: #8C8C8C;
     }
 }
