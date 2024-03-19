@@ -27,14 +27,26 @@ export const TrainingBadge = ({training}: TrainingBadgeProps) => {
     )
 }
 
-export const TrainingBadgeEdit = ({name, type, index, onClick, isDisabled}: TrainingBadgeEditProps) => (
+export const TrainingBadgeEdit = ({
+                                      name,
+                                      type,
+                                      index,
+                                      onClick,
+                                      isDisabled
+                                  }: TrainingBadgeEditProps) => (
     <div className={styles.editBadge}>
         {
             type
                 ?
                 <Typography.Text type='secondary'>{name}</Typography.Text>
                 :
-                <Badge color={TRAINING_COLORS_MAP[name]} text={name}/>
+                <Badge
+                    color={TRAINING_COLORS_MAP[name]}
+                    text={
+                        isDisabled ?
+                            <span className={styles.disabled}>{name}</span>
+                            :
+                            <span>{name}</span>}/>
         }
         <Button
             type='link'

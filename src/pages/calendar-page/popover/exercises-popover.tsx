@@ -7,7 +7,7 @@ import {
 } from '@redux/slices/training-slice.ts';
 import {CellPopover} from '@pages/calendar-page/popover/cell-popover.tsx';
 import {AddExercisesCard} from '@pages/calendar-page/training-cards/add-exercises-card';
-import {MinusOutlined, PlusOutlined} from '@ant-design/icons';
+import {EditOutlined, MinusOutlined, PlusOutlined} from '@ant-design/icons';
 import styles from '@pages/calendar-page/calendar-page.module.less';
 import {Badge, Button, Typography} from 'antd';
 import {ExercisesForm} from '@pages/calendar-page/exercises-form/exercises-form.tsx';
@@ -23,6 +23,7 @@ import {useNavigate} from 'react-router-dom';
 
 type CreateWorkoutModalProps = {
     isLeft: boolean,
+    isFullScreen: boolean,
     createWorkout: boolean,
     setCreateWorkout: Dispatch<SetStateAction<boolean>>,
     editingTrainingName: string | undefined,
@@ -32,6 +33,7 @@ type CreateWorkoutModalProps = {
 
 export const ExercisesPopover = ({
                                      isLeft,
+                                     isFullScreen,
                                      createWorkout,
                                      setCreateWorkout,
                                      editingTrainingName,
@@ -94,12 +96,9 @@ export const ExercisesPopover = ({
     }
 
     const onDelete = () => {
-        const resultExercises = exercises.filter((e, index) => {
-            console.log(index)
-            console.log(deletedExercises)
+        const resultExercises = exercises.filter((_, index) => {
             return !deletedExercises.includes(index);
         })
-        console.log(resultExercises)
         setResultExercises(resultExercises)
     }
 
@@ -135,6 +134,7 @@ export const ExercisesPopover = ({
         <>
             <CellPopover
                 isLeft={isLeft}
+                isFullScreen={isFullScreen}
                 isOpen={createWorkout}
                 onOpenChange={setCreateWorkout}
                 content={
@@ -150,26 +150,30 @@ export const ExercisesPopover = ({
                     />}
             >
                 <div
-                    style={{height: '100%', width: '100%'}}
+                    style={{height: '100%', width: '100%', left: 0}}
                 />
             </CellPopover>
             <DrawerRight
                 title={editingTrainingName ? 'Редактирование' : 'Добавление упражнений'}
                 open={openDrawer}
+                isFullScreen={isFullScreen}
                 close={handleClose}
-                closeIcon={<PlusOutlined/>}
+                closeIcon={editingTrainingName ? <EditOutlined/> : <PlusOutlined/>}
             >
                 <div className={styles.drawerInfo}>
-                    <Typography.Text type='secondary'>
-                        <Badge color={TRAINING_COLORS_MAP[res]} text={res}/>
-                    </Typography.Text>
+                    <Badge
+                        color={TRAINING_COLORS_MAP[res]}
+                        text={
+                            <Typography.Text type='secondary'>{res}</Typography.Text>
+                        }
+                    />
                     <Typography.Text type='secondary'>
                         {moment(selectedDate).format('DD.MM.YYYY')}
                     </Typography.Text>
                 </div>
                 {resultExercises.map(({weight, approaches, name, replays, _id}, index) => (
                     <ExercisesForm
-                        key={_id ?? index}
+                        key={`${_id}${index}`}
                         index={index}
                         name={name}
                         replays={replays}
@@ -181,10 +185,10 @@ export const ExercisesPopover = ({
                         excludeDeletedExercise={excludeDeletedExercise}
                     />
                 ))}
-                <div>
+                <div className={styles.btnGroup}>
                     <Button
-                        type='text'
-                        icon={<PlusOutlined/>}
+                        type='link'
+                        icon={<PlusOutlined style={{fill: '#2F54EB'}}/>}
                         size='small'
                         onClick={handleAddExercise}
                     >

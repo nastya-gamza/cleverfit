@@ -12,7 +12,7 @@ import {useAppDispatch} from "@hooks/typed-react-redux-hooks.ts";
 import {logout} from "@redux/slices/auth-slice.ts";
 import {push} from "redux-first-history";
 import {PATHS} from "@constants/paths.ts";
-import {useEffect, useLayoutEffect} from 'react';
+import {useEffect} from 'react';
 
 const {Sider} = Layout;
 const { useBreakpoint } = Grid;
@@ -28,14 +28,14 @@ export const SideBar = () => {
         dispatch(push(PATHS.auth))
     };
 
-    useLayoutEffect(() => {
-        if (!screens.md) {
+    useEffect(() => {
+        if (!screens.sm) {
             setCollapsed(true);
             return;
         }
 
         setCollapsed(false);
-    }, [screens.md]);
+    }, [screens.sm]);
 
     return (
         <div className={styles.wrapper} data-collapsed={collapsed}>

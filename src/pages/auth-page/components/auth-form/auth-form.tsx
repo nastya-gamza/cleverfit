@@ -36,6 +36,7 @@ export const AuthForm = () => {
                 name='auth'
                 form={form}
                 autoComplete='on'
+                size='large'
                 className={styles.form}
                 onFinish={onSubmit}
                 onFieldsChange={(changedFields) => {

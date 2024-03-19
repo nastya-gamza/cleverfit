@@ -1,24 +1,25 @@
-import {Calendar, Grid, Modal} from 'antd';
-import {calendarLocale} from '@utils/calendar-options.ts';
+import {useEffect, useState} from 'react';
+import {useLocation, useNavigate} from 'react-router-dom';
 import moment, {Moment} from 'moment/moment';
+import {Calendar, Grid, Modal} from 'antd';
 import {
     useGetTrainingListQuery,
     useGetUserTrainingsQuery
 } from '@redux/api/training-api.ts';
+import {setDate} from '@redux/slices/training-slice.ts';
 import {useAppDispatch, useAppSelector} from '@hooks/typed-react-redux-hooks.ts';
-import {useEffect, useState} from 'react';
-import {useLocation, useNavigate} from 'react-router-dom';
+import {calendarLocale} from '@utils/calendar-options.ts';
 import {PATHS} from '@constants/paths.ts';
 import {error} from '@pages/calendar-page/modals/notification-modal/error-notification-modal.tsx';
 import {TrainingPopover} from '@pages/calendar-page/popover/training-popover.tsx';
 import {ExercisesPopover} from '@pages/calendar-page/popover/exercises-popover.tsx';
-import {setDate} from '@redux/slices/training-slice.ts';
 import {TrainingBadge} from '@pages/calendar-page/training-badge/training-badge.tsx';
 import styles from './training-calendar.module.less';
 
 const {useBreakpoint} = Grid;
 
 export const TrainingCalendar = () => {
+    const [isFullScreen, setIsFullScreen] = useState(true);
     const {data} = useGetUserTrainingsQuery();
     const {isError: isGetTrainingListError, refetch} = useGetTrainingListQuery();
     const isError = useAppSelector(state => state.app.isError);
@@ -34,7 +35,13 @@ export const TrainingCalendar = () => {
     const location = useLocation();
     const screens = useBreakpoint();
 
-    const isFullScreen = screens.md;
+    useEffect(() => {
+        if (!screens.sm) {
+            setIsFullScreen(false);
+        } else {
+            setIsFullScreen(true)
+        }
+    }, [screens.sm]);
 
     useEffect(() => {
         const state = location.state;
@@ -93,8 +100,9 @@ export const TrainingCalendar = () => {
         if (value.isSame(selectedDate, 'day') && addNewWorkout) {
             popoverComponent = createWorkout ? (
                 <ExercisesPopover
-                    createWorkout={createWorkout}
                     isLeft={isLeft}
+                    isFullScreen={isFullScreen}
+                    createWorkout={createWorkout}
                     setCreateWorkout={setCreateWorkout}
                     editingTrainingName={editingTrainingName}
                     setEditingTrainingName={setEditingTrainingName}
@@ -103,6 +111,7 @@ export const TrainingCalendar = () => {
             ) : (
                 <TrainingPopover
                     isLeft={isLeft}
+                    isFullScreen={isFullScreen}
                     addNewWorkout={addNewWorkout}
                     setAddNewWorkout={setAddNewWorkout}
                     setCreateWorkout={setCreateWorkout}
@@ -115,7 +124,11 @@ export const TrainingCalendar = () => {
         return (
             <>
                 {popoverComponent}
-                {trainingByDay && isFullScreen && trainingByDay.map(e => <TrainingBadge key={e._id} training={e.name}/>)}
+                {trainingByDay?.map(({_id, name}) => (
+                    <div key={_id} className={!isFullScreen && styles.mobileCell}>
+                        {isFullScreen && <TrainingBadge training={name}/>}
+                    </div>
+                ))}
             </>
         );
     }

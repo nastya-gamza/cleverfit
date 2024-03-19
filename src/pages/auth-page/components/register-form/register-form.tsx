@@ -30,6 +30,7 @@ export const RegisterForm = () => {
                 form={form}
                 name='register'
                 autoComplete='off'
+                size='large'
                 className={styles.form}
                 onFieldsChange={validateFields}
                 onFinish={onSubmit}

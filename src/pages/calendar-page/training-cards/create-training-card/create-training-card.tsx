@@ -88,7 +88,7 @@ export const CreateTrainingCard = ({
                     </div>
                     :
                     <Meta
-                        description={'Нет активных тренировок'}
+                        description='Нет активных тренировок'
                         avatar={<EmptyCart/>}
                     />}
             </Card>

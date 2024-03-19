@@ -3,22 +3,44 @@
     background: @bg-color-light;
     padding: 0 24px 93px 24px;
 
-    @media (max-width: 768px) {
-        padding-bottom: 270px;
+    @media (max-width: 575px) {
+        padding-bottom: 150px;
+        margin: -28px -16px 0px -16px;
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 360px) {
         padding-bottom: 24px;
+        margin: -28px -16px 0px -16px;
+    }
+
+    .mobileCell {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: @bg-color-light;
     }
 
     :global {
+        td.ant-picker-cell {
+            padding: 0 2px !important;
+        }
+
+        .ant-picker-calendar-date-value {
+            z-index: 3;
+        }
+
         .ant-select {
-            max-width: 78px;
             text-align: center;
+            @media (max-width: 575px) {
+                max-width: 68px;
+            }
         }
 
         .ant-picker-calendar-header {
-            @media (max-width: 768px) {
+            @media (max-width: 575px) {
                 display: flex;
                 background: #FFF;
             }
@@ -26,8 +48,9 @@
             .ant-radio-group {
                 margin: 0 8px;
 
-                @media (max-width: 768px) {
+                @media (max-width: 575px) {
                     width: 40%;
+                    margin: 0 0 0 8px;
                 }
             }
         }
@@ -54,12 +77,16 @@
             th {
                 color: #8C8C8CFF;
 
-                @media (max-width: 768px) {
+                @media (max-width: 575px) {
                     background: #FFF;
                 }
             }
 
             background: @bg-color-light;
+        }
+
+        .ant-picker-calendar-mode-switch{
+            margin: 0;
         }
 
 
@@ -68,7 +95,7 @@
                 padding: 0;
                 background: @bg-color-light;
 
-                @media (max-width: 768px) {
+                @media (max-width: 575px) {
                     background: #FFF;
                     padding-top: 8px;
                 }
@@ -106,14 +133,14 @@
                 margin: 0 2px;
                 padding: 4px 8px;
 
-                @media (max-width: 768px) {
+                @media (max-width: 575px) {
                     margin: 0;
                     display: flex;
                     align-items: center;
                     justify-content: center;
                 }
 
-                @media (min-width: 768px) {
+                @media (min-width: 576px) {
                     min-height: 143px;
                 }
 
@@ -127,7 +154,7 @@
             }
 
             .ant-picker-cell-inner:has(div#hiddenTrainingList) {
-                @media (max-width: 768px) {
+                @media (max-width: 575px) {
                     background-color: #F5F5F5;
                 }
             }

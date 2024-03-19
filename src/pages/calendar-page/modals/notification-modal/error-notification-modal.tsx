@@ -1,7 +1,7 @@
+import {ReactNode} from 'react';
 import {Modal, Typography} from 'antd';
 import {CloseCircleOutlined, CloseOutlined} from '@ant-design/icons';
 import styles from './error-notification-modal.module.less';
-import {ReactNode} from 'react';
 
 
 export const error = (title: ReactNode,
@@ -27,7 +27,6 @@ export const error = (title: ReactNode,
             background: 'rgba(121, 156, 212, 0.1)',
             backdropFilter: 'blur(5px)',
         },
-        width: 384,
         okText: <span data-test-id='modal-error-user-training-button'>{btnText}</span>,
         icon: <CloseCircleOutlined style={{color: isOnSave ? '#FF4D4F' : '#2F54EBFF'}}/>,
         closeIcon: <CloseOutlined data-test-id='modal-error-user-training-button-close'/>,

@@ -32,7 +32,7 @@ export const ErrorModal = () => {
                 status={HTTP_STATUSES.serverError}
                 title='Что-то пошло не так.'
                 subTitle='Произошла ошибка, попробуйте ещё раз.'
-                extra={<Button type='primary' onClick={handleClose}>Назад</Button>}
+                extra={<Button type='primary' size='large' onClick={handleClose}>Назад</Button>}
                 className={styles.result}
             />
         </Modal>

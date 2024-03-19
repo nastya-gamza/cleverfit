@@ -3,22 +3,46 @@
     position: absolute;
     top: -12px;
     z-index: 15;
+
+    @media (max-width: 575px) {
+        top: -20px;
+        width: 100%;
+        padding: 0 24px;
+    }
 }
 
 .cardWrapper {
-    left: -7px;
+    left: -9px;
+    @media (max-width: 575px) {
+        left: 0;
+    }
 }
 
 .cardWrapper2 {
     right: -9px;
+    @media (max-width: 575px) {
+        right: 0;
+    }
 }
 
 .card {
     width: 264px;
-
     box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.15);
 
+    @media (max-width: 575px) {
+        width: 100%;
+    }
+
     :global {
+
+
+            .ant-popover-inner-content {
+                @media (max-width: 575px) {
+                    padding: 0;
+                }
+            }
+
+
         .ant-card-head {
             min-height: 0;
             border-bottom: none;
@@ -69,4 +93,5 @@
     flex-direction: column;
     gap: 12px;
     min-height: 90px;
+    padding: 16px 0;
 }

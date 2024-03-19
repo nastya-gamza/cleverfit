@@ -36,7 +36,7 @@ export const PageMainContent = () => {
                         <List.Item>
                             <ActionCard className={styles.actionCard} title={item.action}>
                                 <Button
-                                    type={'link'}
+                                    type='link'
                                     onClick={()=>handleNavigate(item.path)}
                                     className={styles.btn}
                                     data-test-id={item.dataTestId}

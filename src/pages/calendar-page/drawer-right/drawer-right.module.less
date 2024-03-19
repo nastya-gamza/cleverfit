@@ -1,11 +1,25 @@
 .drawer {
+    svg {
+        @media (max-width: 360px) {
+            width: 14px;
+        }
+    }
+
     :global {
+        .ant-drawer-close {
+            padding: 0;
+
+            @media (max-width: 360px) {
+                margin-right: 8px;
+            }
+
+        }
         .ant-drawer-content-wrapper,
         .ant-drawer-content {
             border-radius: 8px 0 0 8px;
 
             @media (max-width: 575px) {
-                min-height: 555px;
+                min-height: 89%;
                 border-radius: 24px 24px 0 0;
             }
         }
@@ -16,6 +30,7 @@
 
         .ant-drawer-header {
             padding: 24px 32px 16px;
+            border: none;
             @media (max-width: 575px) {
                 padding: 24px 16px 16px;
                 border-radius: 24px 24px 0 0;
@@ -27,14 +42,14 @@
         }
 
         .ant-drawer-body {
-            padding: 24px 32px;
+            padding: 10px 32px 24px;
             @media (max-width: 575px) {
                 padding: 0 16px;
             }
         }
-    }
 
-    svg {
-        fill: #8C8C8C;
+        .anticon-close svg {
+            fill: #8C8C8C;
+        }
     }
 }

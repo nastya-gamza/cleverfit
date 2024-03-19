@@ -194,7 +194,7 @@ export const AddExercisesCard = ({
                             <div className={styles.editBadgeWrapper}>
                                 {currentExercises?.map((e, i) =>
                                     <TrainingBadgeEdit
-                                        type={'exercises'}
+                                        type='exercises'
                                         key={i}
                                         index={i}
                                         name={e.name}

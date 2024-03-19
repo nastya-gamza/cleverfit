@@ -1,5 +1,18 @@
 .drawerInfo {
     display: flex;
     justify-content: space-between;
+    margin-bottom: 32px;
 }
 
+.btnGroup {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 20px;
+    border-radius: 0 0 @border-radius-m @border-radius-m;
+    background-color: @bg-gray;
+
+    :global(.anticon-plus) svg {
+        fill: @primary-color;
+    }
+}

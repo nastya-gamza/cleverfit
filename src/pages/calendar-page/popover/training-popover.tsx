@@ -8,6 +8,7 @@ import {useAppDispatch} from '@hooks/typed-react-redux-hooks.ts';
 
 type TrainingPopoverProps = PopoverProps & {
     isLeft: boolean,
+    isFullScreen: boolean,
     addNewWorkout: boolean,
     value: Moment,
     setAddNewWorkout: Dispatch<SetStateAction<boolean>>,
@@ -17,6 +18,7 @@ type TrainingPopoverProps = PopoverProps & {
 
 export const TrainingPopover = ({
                                     isLeft,
+                                    isFullScreen,
                                     addNewWorkout,
                                     setAddNewWorkout,
                                     setCreateWorkout,
@@ -34,6 +36,7 @@ export const TrainingPopover = ({
     return (
         <CellPopover
             isLeft={isLeft}
+            isFullScreen={isFullScreen}
             isOpen={addNewWorkout}
             onOpenChange={setAddNewWorkout}
             content={
@@ -48,7 +51,7 @@ export const TrainingPopover = ({
         >
             <div
                 onClick={() => setAddNewWorkout(true)}
-                style={{height: '100%', width: '100%'}}
+                style={{height: '100%', width: '100%', left: 0}}
             />
         </CellPopover>
     )

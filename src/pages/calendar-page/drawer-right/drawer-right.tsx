@@ -1,5 +1,5 @@
 import {CloseOutlined} from '@ant-design/icons';
-import {Button, Drawer, Grid} from 'antd';
+import {Button, Drawer} from 'antd';
 import {ReactNode} from 'react';
 import styles from './drawer-right.module.less';
 
@@ -7,18 +7,17 @@ type DrawerRightProps = {
     title: string;
     open: boolean;
     close: () => void;
+    isFullScreen: boolean;
     closeIcon: ReactNode;
     children: ReactNode;
 }
 
-export const DrawerRight = ({title, open, close, closeIcon, children}: DrawerRightProps) => {
-    const {useBreakpoint} = Grid;
-    const screens = useBreakpoint();
+export const DrawerRight = ({title, open, close, closeIcon, isFullScreen, children}: DrawerRightProps) => {
 
     return (
         <Drawer
             title={title}
-            placement={screens.xs ? 'bottom' : 'right'}
+            placement={isFullScreen ? 'right' : 'bottom'}
             destroyOnClose={true}
             closable={true}
             zIndex={100}

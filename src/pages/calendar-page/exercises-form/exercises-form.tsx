@@ -17,7 +17,17 @@ type ExercisesFormProps = {
     _id?: string
 };
 
-export const ExercisesForm = ({weight, approaches, name, replays, index, isCheckbox, addDeletedExercise, excludeDeletedExercise, _id}: ExercisesFormProps) => {
+export const ExercisesForm = ({
+                                  weight,
+                                  approaches,
+                                  name,
+                                  replays,
+                                  index,
+                                  isCheckbox,
+                                  addDeletedExercise,
+                                  excludeDeletedExercise,
+                                  _id
+                              }: ExercisesFormProps) => {
 
     const [isChecked, setIsChecked] = useState(false)
     const [form] = Form.useForm();
@@ -69,9 +79,11 @@ export const ExercisesForm = ({weight, approaches, name, replays, index, isCheck
                     }
                 />
             </Form.Item>
-            <Space direction='horizontal' align={'end'} size={3}>
-                <Form.Item name='approaches' label='Подходы'
-                           style={{maxWidth: '120px', marginRight: '28px'}}>
+            <Space direction='horizontal' align='end' size={3}>
+                <Form.Item name='approaches'
+                           label='Подходы'
+                           className={styles.approachesField}
+                >
                     <InputNumber
                         value={approaches}
                         placeholder='1'
@@ -80,7 +92,11 @@ export const ExercisesForm = ({weight, approaches, name, replays, index, isCheck
                         data-test-id={`modal-drawer-right-input-approach${index}`}
                     />
                 </Form.Item>
-                <Form.Item name='weight' label='Вес, кг' style={{maxWidth: '89px'}}>
+                <Form.Item
+                    name='weight'
+                    label='Вес, кг'
+                    className={styles.field}
+                >
                     <InputNumber
                         value={weight}
                         placeholder='0'
@@ -88,9 +104,11 @@ export const ExercisesForm = ({weight, approaches, name, replays, index, isCheck
                         data-test-id={`modal-drawer-right-input-weight${index}`}
                     />
                 </Form.Item>
-                <Form.Item className='item-separator'><Typography.Text
-                    type='secondary'>x</Typography.Text></Form.Item>
-                <Form.Item name='replays' label='Количество' style={{maxWidth: '89px'}}>
+                <Form.Item><Typography.Text type='secondary'>x</Typography.Text></Form.Item>
+                <Form.Item
+                    name='replays'
+                    label='Количество'
+                    className={styles.field}>
                     <InputNumber
                         value={replays}
                         placeholder='1'
