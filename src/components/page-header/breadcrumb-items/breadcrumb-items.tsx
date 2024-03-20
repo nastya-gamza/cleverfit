@@ -1,8 +1,10 @@
-import {Breadcrumb} from 'antd';
 import {Link, useLocation} from 'react-router-dom';
+import {Breadcrumb} from 'antd';
+import {PATHS} from '@constants/paths.ts';
 
 const breadcrumbNameMap: Record<string, string> = {
-    '/feedbacks': 'Отзывы пользователей',
+    [PATHS.feedbacks]: 'Отзывы пользователей',
+    [PATHS.calendar]: 'Календарь',
 };
 
 export const BreadcrumbItems = () => {

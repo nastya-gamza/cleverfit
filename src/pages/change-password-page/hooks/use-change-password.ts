@@ -14,7 +14,7 @@ export const useChangePassword = () => {
             await changePassword(data).unwrap();
             navigate(PATHS.resultSuccessChangePassword, {state: {from: 'redirect'}});
             dispatch(setPassword({password: data, retryPassword: false}));
-        } catch (e) {
+        } catch {
             navigate(PATHS.resultErrorChangePassword, {state: {from: 'redirect'}});
             dispatch(setPassword({password: data, retryPassword: true}));
         }

@@ -45,10 +45,14 @@
     display: flex;
     justify-content: space-between;
     margin-top: 14px;
+    @media (max-width: 575px) {
+        margin-top: 0;
+    }
 }
 
 .link {
     color: @dark-text;
+    margin-left: auto;
 }
 
 .settings {

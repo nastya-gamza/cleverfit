@@ -1,0 +1,173 @@
+.trainingCalendar {
+    margin: -28px -24px 0;
+    background: @bg-color-light;
+    padding: 0 24px 93px;
+
+    @media (max-width: 575px) {
+        padding-bottom: 150px;
+        margin: -28px -16px 0;
+    }
+
+    @media (max-width: 360px) {
+        padding-bottom: 24px;
+        margin: -28px -16px 0;
+    }
+
+    .mobileCell {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: @bg-color-light;
+    }
+
+    :global {
+        td.ant-picker-cell {
+            padding: 0 2px !important;
+        }
+
+        .ant-picker-calendar-date-value {
+            z-index: 3;
+        }
+
+        .ant-select {
+            text-align: center;
+            @media (max-width: 575px) {
+                max-width: 68px;
+            }
+        }
+
+        .ant-picker-calendar-header {
+            @media (max-width: 575px) {
+                display: flex;
+                background: #FFF;
+            }
+
+            .ant-radio-group {
+                margin: 0 8px;
+
+                @media (max-width: 575px) {
+                    width: 40%;
+                    margin: 0 0 0 8px;
+                }
+            }
+        }
+
+        .ant-radio-button-wrapper {
+            max-width: 80px;
+            text-align: center;
+            border-radius: 2px 0 0 2px;
+        }
+
+        .ant-radio-button-wrapper:hover {
+            color: @primary-light-border;
+        }
+
+        .ant-radio-button-wrapper-checked {
+            color: @primary-light-border;
+        }
+
+        .ant-radio-button-checked {
+            border: 1px solid @primary-light-border;
+        }
+
+        thead {
+            th {
+                color: #8C8C8CFF;
+
+                @media (max-width: 575px) {
+                    background: #FFF;
+                }
+            }
+
+            background: @bg-color-light;
+        }
+
+        .ant-picker-calendar-mode-switch{
+            margin: 0;
+        }
+
+
+        .ant-picker-panel {
+            .ant-picker-body {
+                padding: 0;
+                background: @bg-color-light;
+
+                @media (max-width: 575px) {
+                    background: #FFF;
+                    padding-top: 8px;
+                }
+
+                .ant-picker-cell-disabled {
+                    pointer-events: auto;
+
+                }
+            }
+
+            .ant-picker-calendar-date-content {
+                overflow-y: visible;
+            }
+
+            .ant-picker-cell-in-view {
+                .ant-picker-calendar-date-value {
+                    color: #262626FF;
+                }
+            }
+
+            .ant-picker-cell {
+                .ant-picker-calendar-date-today {
+                    border-color: @primary-light-border;
+                    background: #FFF;
+
+                    .ant-picker-calendar-date-value {
+                        color: #262626FF;
+                        text-align: right;
+                    }
+                }
+            }
+
+            .ant-picker-cell-inner {
+                background: #FFF;
+                margin: 0 2px;
+                padding: 4px 8px;
+
+                @media (max-width: 575px) {
+                    margin: 0;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+
+                @media (min-width: 576px) {
+                    min-height: 143px;
+                }
+
+                &:hover {
+                    background: #FFF;
+                }
+
+                &:before {
+                    border: 1px solid @primary-light-border;
+                }
+            }
+
+            .ant-picker-cell-inner:has(div#hiddenTrainingList) {
+                @media (max-width: 575px) {
+                    background-color: #F5F5F5;
+                }
+            }
+
+            .ant-picker-cell-selected {
+                .ant-picker-calendar-date {
+                    background: #FFF;
+
+                    .ant-picker-calendar-date-value {
+                        color: #262626FF;
+                    }
+                }
+            }
+        }
+    }
+}

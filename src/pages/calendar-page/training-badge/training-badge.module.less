@@ -1,0 +1,34 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px 0;
+}
+
+.badgeRow {
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.editBadge {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 22px;
+    cursor: pointer;
+
+    &:hover {
+        background-color: @hover-gray;
+    }
+
+    :global {
+        .ant-badge,
+        .ant-typography {
+            margin-left: 12px;
+        }
+    }
+
+    .disabledText {
+        color: @light-gray;
+    }
+}

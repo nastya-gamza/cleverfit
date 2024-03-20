@@ -1,7 +1,8 @@
 import {useState} from 'react';
 import {Button} from 'antd';
 import {useGetFeedbacksQuery} from '@redux/api/feedback-api.ts';
-import {ErrorModal, AddFeedbackModal} from '@pages/feedbacks-page/modals';
+import {AddFeedbackModal} from '@pages/feedbacks-page/modals';
+import {ErrorModal} from '@components/shared/error-modal';
 import {NoFeedbacks} from '@pages/feedbacks-page/no-feedbacks';
 import {FeedbackCard} from '@pages/feedbacks-page/feedback-card';
 import {Loader} from '@components/loader';
@@ -41,7 +42,7 @@ export const FeedbacksPage = () => {
                 :
                 <div className={styles.wrapper}>
                     <div className={styles.cardsWrapper}>
-                        {getAllFeedbacks().map(item => <FeedbackCard key={item.id} {...item}/>)}
+                        {getAllFeedbacks().map(item => <FeedbackCard key={item._id} {...item}/>)}
                     </div>
                     <div className={styles.btnWrapper}>
                         <Button

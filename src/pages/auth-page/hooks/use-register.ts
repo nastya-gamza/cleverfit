@@ -16,9 +16,9 @@ export const useRegister = () => {
             await register(data).unwrap();
             navigate(PATHS.resultSuccess, {state: {from: 'redirect'}});
             dispatch(setCredentials({credentials: data, retryRegister: false}));
-        } catch (e) {
-            if (isFetchBaseQueryError(e)) {
-                if (e.status === HTTP_STATUSES.conflict) {
+        } catch (err) {
+            if (isFetchBaseQueryError(err)) {
+                if (err.status === HTTP_STATUSES.conflict) {
                     navigate(PATHS.resultErrorUserExist, {state: {from: 'redirect'}});
                     return;
                 }

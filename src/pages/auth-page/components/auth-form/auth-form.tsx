@@ -36,10 +36,11 @@ export const AuthForm = () => {
                 name='auth'
                 form={form}
                 autoComplete='on'
+                size='large'
                 className={styles.form}
                 onFinish={onSubmit}
                 onFieldsChange={(changedFields) => {
-                    const emailField = changedFields.find((field) => field.name.includes('email'));
+                    const emailField = changedFields?.find((field) => field.name.includes('email'));
                     if (emailField) validateEmail();
                 }}
             >

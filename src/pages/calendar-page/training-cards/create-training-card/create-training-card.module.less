@@ -1,0 +1,91 @@
+.wrapperLeft,
+.wrapperRight {
+    position: absolute;
+    top: -12px;
+    z-index: 15;
+
+    @media (max-width: 575px) {
+        top: -20px;
+        width: 100%;
+        padding: 0 24px;
+    }
+}
+
+.wrapperLeft {
+    left: -9px;
+    @media (max-width: 575px) {
+        left: 0;
+    }
+}
+
+.wrapperRight {
+    right: -9px;
+    @media (max-width: 575px) {
+        right: 0;
+    }
+}
+
+.card {
+    width: 264px;
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.15);
+
+    @media (max-width: 575px) {
+        width: 100%;
+    }
+
+    :global {
+        @media (max-width: 575px) {
+            .ant-popover-inner-content {
+                padding: 0;
+            }
+        }
+
+        .ant-card-head {
+            padding: 14px 12px;
+            min-height: 0;
+            border-bottom: none;
+            line-height: @line-height-base;
+        }
+
+        .ant-card-head-title,
+        .ant-card-extra,
+        .ant-card-body,
+        .ant-card-meta-avatar {
+            padding: 0;
+        }
+
+        .ant-card-body {
+            min-height: 84px;
+            padding: 0;
+        }
+
+        .ant-card-head-title {
+            font-size: 14px;
+        }
+
+        .ant-card-meta {
+            padding: 0 12px;
+            flex-direction: column-reverse;
+        }
+
+        .ant-card-actions {
+            padding: 12px;
+
+            li {
+                margin: 0;
+            }
+        }
+
+        .ant-btn.ant-btn-primary {
+            font-size: 14px;
+        }
+    }
+}
+
+.editBadgeWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-height: 90px;
+    padding: 16px 0;
+}

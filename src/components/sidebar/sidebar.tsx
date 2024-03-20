@@ -12,19 +12,30 @@ import {useAppDispatch} from "@hooks/typed-react-redux-hooks.ts";
 import {logout} from "@redux/slices/auth-slice.ts";
 import {push} from "redux-first-history";
 import {PATHS} from "@constants/paths.ts";
+import {useEffect} from 'react';
 
 const {Sider} = Layout;
-const { useBreakpoint } = Grid;
+const {useBreakpoint} = Grid;
 
 export const SideBar = () => {
-    const {collapsed, toggleCollapsed} = useSidebarContext();
+    const {collapsed, setCollapsed, toggleCollapsed} = useSidebarContext();
     const screens = useBreakpoint();
     const dispatch = useAppDispatch();
+
     const handleLogout = () => {
         localStorage.removeItem('token')
         dispatch(logout());
         dispatch(push(PATHS.auth))
     };
+
+    useEffect(() => {
+        if (!screens.sm) {
+            setCollapsed(true);
+            return;
+        }
+
+        setCollapsed(false);
+    }, [screens.sm]);
 
     return (
         <div className={styles.wrapper} data-collapsed={collapsed}>
@@ -48,13 +59,22 @@ export const SideBar = () => {
             </Sider>
             <div>
                 <Divider className={styles.divider}/>
-                <Button onClick={handleLogout} className={styles.exitBtn} type='link'
-                        icon={screens.xs ? '' : <ExitIcon/>}>{!collapsed && 'Выход'}</Button>
+                <Button
+                    onClick={handleLogout}
+                    className={styles.exitBtn}
+                    type='link'
+                    icon={screens.xs ? '' : <ExitIcon/>}>
+                    {!collapsed && 'Выход'}
+                </Button>
             </div>
             <div className={styles.toggler}>
-                <Button type='default' onClick={toggleCollapsed}
-                        data-test-id={screens.xs ? 'sider-switch-mobile' : 'sider-switch'}
-                        icon={collapsed ? <MenuUnfoldOutlined/> : <MenuFoldOutlined/>}></Button>
+                <Button
+                    type='default'
+                    onClick={toggleCollapsed}
+                    data-test-id={screens.xs ? 'sider-switch-mobile' : 'sider-switch'}
+                    icon={collapsed ? <MenuUnfoldOutlined/> : <MenuFoldOutlined/>}>
+
+                </Button>
             </div>
         </div>
 

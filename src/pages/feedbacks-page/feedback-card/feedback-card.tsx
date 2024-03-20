@@ -1,4 +1,4 @@
-import dayjs from 'dayjs';
+import moment from 'moment';
 import {Avatar, Card, Typography} from 'antd';
 import {UserOutlined} from '@ant-design/icons';
 import {Rating} from '@pages/feedbacks-page/rating/rating.tsx';
@@ -16,7 +16,7 @@ type FeedbackCardProps = {
 
 export const FeedbackCard = ({fullName, image, message, rating, createdAt}: FeedbackCardProps) => {
     const [name, surname] = fullName?.split(' ') ?? [];
-    const formattedDate = dayjs(createdAt).format('DD.MM.YYYY');
+    const formattedDate = moment(createdAt).format('DD.MM.YYYY');
 
     return (
         <Card>
