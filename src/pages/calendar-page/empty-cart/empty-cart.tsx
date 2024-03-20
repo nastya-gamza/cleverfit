@@ -1,14 +1,10 @@
 import {Empty} from 'antd';
+import EmptyIcon from '@public/icons/empty-cart.svg?react';
 
 export const EmptyCart = () => {
     return (
         <Empty
-            image="/img/empty-image.svg"
-            imageStyle={{
-                width: 32,
-                height: 32,
-                margin: '36px auto 16px',
-            }}
+            image={<EmptyIcon/>}
             description={null}
         >
         </Empty>
