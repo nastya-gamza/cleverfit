@@ -56,9 +56,14 @@ export const TrainingCalendar = () => {
 
         dispatch(setDate(date.toISOString()))
 
-        const selectedDay = moment(date).format('dddd');
+        const dayInNumber = moment(date).day();
 
-        if (selectedDay === 'Sunday') {
+        const isPopoverRight =
+            dayInNumber === 0 ||
+            (dayInNumber === 6 && isFullScreen && !screens.lg) ||
+            (dayInNumber === 5 && screens.sm && !screens.md);
+
+        if (isPopoverRight) {
             setIsLeft(false);
             return;
         }
