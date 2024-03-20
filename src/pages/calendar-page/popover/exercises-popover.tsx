@@ -1,33 +1,34 @@
-import {useAppDispatch, useAppSelector} from '@hooks/typed-react-redux-hooks.ts';
 import {Dispatch, SetStateAction, useEffect, useState} from 'react';
+import {useNavigate} from 'react-router-dom';
+import {useAppDispatch, useAppSelector} from '@hooks/typed-react-redux-hooks.ts';
+import moment from 'moment';
+import {Badge, Button, Typography} from 'antd';
+import {EditOutlined, MinusOutlined, PlusOutlined} from '@ant-design/icons';
 import {
     addExercises,
-    resetTraining, setCreatedTraining,
+    resetTraining, selectCreatedTraining, selectTrainingData, setCreatedTraining,
     setExercises
 } from '@redux/slices/training-slice.ts';
-import {CellPopover} from '@pages/calendar-page/popover/cell-popover.tsx';
+import {Exercise} from '@redux/types/training.ts';
+import {useUpdateTrainingMutation} from '@redux/api/training-api.ts';
+import {CellPopover} from '@pages/calendar-page/popover/cell-popover';
 import {AddExercisesCard} from '@pages/calendar-page/training-cards/add-exercises-card';
-import {EditOutlined, MinusOutlined, PlusOutlined} from '@ant-design/icons';
-import styles from '@pages/calendar-page/calendar-page.module.less';
-import {Badge, Button, Typography} from 'antd';
 import {ExercisesForm} from '@pages/calendar-page/exercises-form/exercises-form.tsx';
 import {DrawerRight} from '@pages/calendar-page/drawer-right/drawer-right.tsx';
-import moment from 'moment';
-import {TRAINING_COLORS_MAP} from '@constants/training-colors-map.ts';
-import {useUpdateTrainingMutation} from '@redux/api/training-api.ts';
-import {Moment} from 'moment/moment';
-import {Exercise} from '@redux/types/training.ts';
-import {error} from '@pages/calendar-page/modals/notification-modal/error-notification-modal.tsx';
+import {error} from '@pages/calendar-page/notification-modal/error-notification-modal.tsx';
 import {PATHS} from '@constants/paths.ts';
-import {useNavigate} from 'react-router-dom';
+import {TRAINING_COLORS_MAP} from '@constants/training-colors-map.ts';
+import styles from '@pages/calendar-page/calendar-page.module.less';
+import {isOldDate} from '@utils/checkDate.ts';
+import {DDMMYYYY} from '@constants/date-formates.ts';
 
 type CreateWorkoutModalProps = {
     isLeft: boolean,
     isFullScreen: boolean,
     createWorkout: boolean,
     setCreateWorkout: Dispatch<SetStateAction<boolean>>,
-    editingTrainingName: string | undefined,
-    setEditingTrainingName: Dispatch<SetStateAction<string | undefined>>,
+    editingTrainingName: string | null,
+    setEditingTrainingName: Dispatch<SetStateAction<string | null>>,
     setAddNewWorkout: Dispatch<SetStateAction<boolean>>,
 }
 
@@ -40,30 +41,28 @@ export const ExercisesPopover = ({
                                      setEditingTrainingName,
                                      setAddNewWorkout
                                  }: CreateWorkoutModalProps) => {
+    const navigate = useNavigate();
+    const dispatch = useAppDispatch();
+    const [update] = useUpdateTrainingMutation();
+
+    const {exercises} = useAppSelector(selectCreatedTraining);
+    const createdTraining = useAppSelector(selectCreatedTraining);
+    const {training, date: selectedDate} = useAppSelector(selectTrainingData);
+
     const [openDrawer, setOpenDrawer] = useState(false);
-    const [res, setRes] = useState('');
+    const [trainingName, setTrainingName] = useState('');
     const [deletedExercises, setDeletedExercises] = useState<number[]>([]);
     const [resultExercises, setResultExercises] = useState<Exercise[]>([]);
 
-    const dispatch = useAppDispatch();
-    const navigate = useNavigate();
-    const {exercises} = useAppSelector(state => state.training.createdTraining);
-    const createdTraining = useAppSelector(state => state.training.createdTraining);
-    const {training} = useAppSelector(state => state.training);
-    const selectedDate = useAppSelector(state => state.training.date);
-
     useEffect(() => {
-        const res = editingTrainingName ? createdTraining.name : training
-        setRes(res)
+        const result = editingTrainingName ? createdTraining.name : training
+        setTrainingName(result)
 
-    }, [training, createdTraining.name]);
+    }, [editingTrainingName, training, createdTraining.name]);
 
     useEffect(() => {
         setResultExercises(exercises)
     }, [exercises]);
-
-    const [update] = useUpdateTrainingMutation();
-    const isOldDate = (date?: Moment | string) => Boolean(date && moment(date).isBefore(moment()));
 
     const onUpdate = async () => {
         const requestData = {
@@ -77,9 +76,11 @@ export const ExercisesPopover = ({
 
         try {
             const data = await update(requestData).unwrap();
+
             if (data) {
                 dispatch(setCreatedTraining(data));
             }
+
         } catch (e) {
             error(
                 'При сохранении данных произошла ошибка',
@@ -104,13 +105,11 @@ export const ExercisesPopover = ({
 
     const addDeletedExercise = (index: number) => {
         const resultDeletedExercises = [...deletedExercises, index];
-        console.log(resultDeletedExercises)
         setDeletedExercises(resultDeletedExercises);
     };
 
     const excludeDeletedExercise = (index: number) => {
         const resultDeletedExercises = deletedExercises.filter(e => e != index);
-        console.log(resultDeletedExercises)
         setDeletedExercises(resultDeletedExercises);
     };
 
@@ -162,13 +161,13 @@ export const ExercisesPopover = ({
             >
                 <div className={styles.drawerInfo}>
                     <Badge
-                        color={TRAINING_COLORS_MAP[res]}
+                        color={TRAINING_COLORS_MAP[trainingName]}
                         text={
-                            <Typography.Text type='secondary'>{res}</Typography.Text>
+                            <Typography.Text type='secondary'>{trainingName}</Typography.Text>
                         }
                     />
                     <Typography.Text type='secondary'>
-                        {moment(selectedDate).format('DD.MM.YYYY')}
+                        {moment(selectedDate).format(DDMMYYYY)}
                     </Typography.Text>
                 </div>
                 {resultExercises.map(({weight, approaches, name, replays, _id}, index) => (

@@ -3,18 +3,18 @@ import {
     Exercise,
     TrainingItem,
     UserTraining,
-    UserTrainingTransform
+    UserTrainingByDate
 } from '@redux/types/training.ts';
 
 type TrainingState = {
     date: string,
     training: string,
-    userTraining: UserTrainingTransform,
+    userTraining: UserTrainingByDate,
     trainingList: TrainingItem[],
     createdTraining: UserTraining;
 }
 
-const defaultExercise = [
+const initialExerciseState = [
     {
         name: '',
         approaches: null,
@@ -33,15 +33,15 @@ const initialState: TrainingState = {
         date: '',
         _id: '',
         isImplementation: false,
-        exercises: defaultExercise,
+        exercises: initialExerciseState,
     },
 };
 
-const slice = createSlice({
+const trainingSlice = createSlice({
     name: 'training',
     initialState,
     reducers: {
-        setUserTrainings: (state, action: PayloadAction<UserTrainingTransform>) => {
+        setUserTrainings: (state, action: PayloadAction<UserTrainingByDate>) => {
             state.userTraining = action.payload;
         },
         setTrainingList: (state, action: PayloadAction<TrainingItem[]>) => {
@@ -57,7 +57,7 @@ const slice = createSlice({
             state.training = initialState.training;
         },
         addExercises: (state) => {
-            state.createdTraining.exercises.push(...defaultExercise);
+            state.createdTraining.exercises.push(...initialExerciseState);
         },
         setExercises: (state, action: PayloadAction<Exercise[]>) => {
             state.createdTraining.exercises = action.payload;
@@ -76,6 +76,10 @@ const slice = createSlice({
             state.createdTraining = initialState.createdTraining;
         },
     },
+    selectors: {
+        selectTrainingData: state => state,
+        selectCreatedTraining: state => state.createdTraining,
+    },
 })
 
 export const {
@@ -89,6 +93,8 @@ export const {
     setExercises,
     resetCreatedTraining,
     setCreatedTraining,
-} = slice.actions
+} = trainingSlice.actions
 
-export default slice.reducer;
+export const {selectTrainingData, selectCreatedTraining} = trainingSlice.selectors;
+
+export default trainingSlice.reducer;

@@ -1,10 +1,10 @@
 import {useNavigate} from 'react-router-dom';
 import {Button, Grid, Modal, Result} from 'antd';
-import {PATHS} from '@constants/paths.ts';
-import styles from './error-modal.module.less';
-import {HTTP_STATUSES} from '@constants/http-statuses.ts';
 import {useAppDispatch} from '@hooks/typed-react-redux-hooks.ts';
 import {setIsError} from '@redux/slices/app-slice.ts';
+import {HTTP_STATUSES} from '@constants/http-statuses.ts';
+import {PATHS} from '@constants/paths.ts';
+import styles from './error-modal.module.less';
 
 const {useBreakpoint} = Grid;
 

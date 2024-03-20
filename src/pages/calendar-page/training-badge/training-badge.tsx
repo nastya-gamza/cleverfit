@@ -1,7 +1,7 @@
-import {Badge, Button, Typography} from 'antd';
-import {TRAINING_COLORS_MAP} from '@constants/training-colors-map.ts';
-import {EditOutlined} from '@ant-design/icons';
 import {Dispatch, SetStateAction} from 'react';
+import {Badge, Button, Typography} from 'antd';
+import {EditOutlined} from '@ant-design/icons';
+import {TRAINING_COLORS_MAP} from '@constants/training-colors-map.ts';
 import styles from './training-badge.module.less';
 
 type TrainingBadgeProps = {
@@ -13,10 +13,10 @@ type TrainingBadgeEditProps = {
     index: number,
     type?: string,
     setCreateWorkout?: Dispatch<SetStateAction<boolean>>,
-    setEditingTrainingName?: Dispatch<SetStateAction<string | undefined>>,
+    setEditingTrainingName?: Dispatch<SetStateAction<string | null>>,
     onClick: (name?: string) => void,
     _id?: string,
-    isDisabled: boolean
+    isDisabled?: boolean
 }
 
 export const TrainingBadge = ({training}: TrainingBadgeProps) => {
@@ -44,9 +44,10 @@ export const TrainingBadgeEdit = ({
                     color={TRAINING_COLORS_MAP[name]}
                     text={
                         isDisabled ?
-                            <span className={styles.disabled}>{name}</span>
+                            <span className={styles.disabledText}>{name}</span>
                             :
-                            <span>{name}</span>}/>
+                            <span>{name}</span>}
+                />
         }
         <Button
             type='link'

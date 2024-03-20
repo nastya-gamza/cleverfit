@@ -1,12 +1,11 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
+import moment from 'moment';
 import {RootState} from '@redux/store.ts';
-import {BASE_API_URL} from '@constants/api.ts';
-import {ENDPOINTS} from '@constants/endpoints.ts';
 import {TAGS} from '@redux/types/tags.ts';
 import {
     TrainingItem,
     UserTraining,
-    UserTrainingTransform
+    UserTrainingByDate
 } from '@redux/types/training.ts';
 import {
     setUserTrainings,
@@ -14,7 +13,8 @@ import {
     resetCreatedTraining,
 } from '@redux/slices/training-slice.ts';
 import {setIsError, setIsLoading} from '@redux/slices/app-slice.ts';
-import moment from 'moment';
+import {BASE_API_URL} from '@constants/api.ts';
+import {ENDPOINTS} from '@constants/endpoints.ts';
 
 export const trainingApi = createApi({
     reducerPath: 'trainingApi',
@@ -33,7 +33,7 @@ export const trainingApi = createApi({
     }),
     tagTypes: [TAGS.training],
     endpoints: (build) => ({
-        getUserTrainings: build.query<UserTrainingTransform, void>({
+        getUserTrainings: build.query<UserTrainingByDate, void>({
             query: () => ENDPOINTS.training,
             async onQueryStarted(_, {dispatch, queryFulfilled}) {
                 try {
@@ -47,15 +47,9 @@ export const trainingApi = createApi({
                 }
             },
             transformResponse: (response: Array<Omit<UserTraining, 'id'> & { _id: string }>) =>
-                response.reduce((acc: UserTrainingTransform, curr) => {
-                    const key = moment(curr.date).format('YYYY-MM-DD');
-
-                    if (acc[key]?.length) {
-                        acc[key].push({ ...curr, _id: curr._id });
-                    } else {
-                        acc[key] = [{ ...curr, _id: curr._id }];
-                    }
-
+                response.reduce((acc: UserTrainingByDate, curr) => {
+                    const date = moment(curr.date).format('YYYY-MM-DD');
+                    acc[date] = [...(acc[date] ?? []), { ...curr, _id: curr._id }];
                     return acc;
                 }, {}),
             providesTags: [{ type: TAGS.training, id: 'LIST' }]
@@ -64,10 +58,12 @@ export const trainingApi = createApi({
             query: () => ENDPOINTS.trainingList,
             async onQueryStarted(_, {dispatch, queryFulfilled}) {
                 try {
+                    dispatch(setIsLoading(true));
                     const {data} = await queryFulfilled;
                     dispatch(setTrainingList(data));
+                    dispatch(setIsLoading(false));
                 } catch (err) {
-                    console.log(err)
+                    dispatch(setIsLoading(false));
                 }
             },
         }),

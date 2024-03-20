@@ -10,7 +10,7 @@ const initialState: AppState = {
     isLoading: false,
 };
 
-const slice = createSlice({
+const appSlice = createSlice({
     name: 'app',
     initialState,
     reducers: {
@@ -21,8 +21,14 @@ const slice = createSlice({
             state.isLoading = isLoading;
         },
     },
+    selectors: {
+        selectIsError: state => state.isError,
+        selectIsLoading: state => state.isLoading,
+    }
 })
 
-export const {setIsError, setIsLoading} = slice.actions
+export const {setIsError, setIsLoading} = appSlice.actions;
 
-export default slice.reducer;
+export const {selectIsError, selectIsLoading} = appSlice.selectors;
+
+export default appSlice.reducer;

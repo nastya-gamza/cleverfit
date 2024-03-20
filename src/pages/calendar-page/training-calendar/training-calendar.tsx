@@ -6,30 +6,33 @@ import {
     useGetTrainingListQuery,
     useGetUserTrainingsQuery
 } from '@redux/api/training-api.ts';
-import {setDate} from '@redux/slices/training-slice.ts';
+import {selectTrainingData, setDate} from '@redux/slices/training-slice.ts';
 import {useAppDispatch, useAppSelector} from '@hooks/typed-react-redux-hooks.ts';
 import {calendarLocale} from '@utils/calendar-options.ts';
 import {PATHS} from '@constants/paths.ts';
-import {error} from '@pages/calendar-page/modals/notification-modal/error-notification-modal.tsx';
+import {error} from '@pages/calendar-page/notification-modal/error-notification-modal.tsx';
 import {TrainingPopover} from '@pages/calendar-page/popover/training-popover.tsx';
 import {ExercisesPopover} from '@pages/calendar-page/popover/exercises-popover.tsx';
 import {TrainingBadge} from '@pages/calendar-page/training-badge/training-badge.tsx';
+import {YYYYMMDD} from '@constants/date-formates.ts';
 import styles from './training-calendar.module.less';
+import {selectIsError} from '@redux/slices/app-slice.ts';
 
 const {useBreakpoint} = Grid;
 
 export const TrainingCalendar = () => {
-    const [isFullScreen, setIsFullScreen] = useState(true);
+    const navigate = useNavigate();
+    const dispatch = useAppDispatch();
+    const isError = useAppSelector(selectIsError);
     const {data} = useGetUserTrainingsQuery();
     const {isError: isGetTrainingListError, refetch} = useGetTrainingListQuery();
-    const isError = useAppSelector(state => state.app.isError);
-    const dispatch = useAppDispatch();
-    const navigate = useNavigate();
+    const {date: selectedDate} = useAppSelector(selectTrainingData);
+
+    const [isFullScreen, setIsFullScreen] = useState(true);
     const [addNewWorkout, setAddNewWorkout] = useState(false);
     const [createWorkout, setCreateWorkout] = useState(false);
-    const [editingTrainingName, setEditingTrainingName] = useState<string | undefined>(undefined);
+    const [editingTrainingName, setEditingTrainingName] = useState<string | null>(null);
     const [isLeft, setIsLeft] = useState(true);
-    const selectedDate = useAppSelector(state => state.training.date);
     const [selectedMonth, setSelectedMonth] = useState<Moment>(moment());
 
     const location = useLocation();
@@ -92,7 +95,7 @@ export const TrainingCalendar = () => {
     };
 
     const dateCellRender = (value: Moment) => {
-        const dateString = value.format('YYYY-MM-DD');
+        const dateString = value.format(YYYYMMDD);
         const trainingByDay = data && data[dateString];
 
         let popoverComponent = null;
@@ -125,7 +128,7 @@ export const TrainingCalendar = () => {
             <>
                 {popoverComponent}
                 {trainingByDay?.map(({_id, name}) => (
-                    <div key={_id} className={!isFullScreen && styles.mobileCell}>
+                    <div key={_id} className={!isFullScreen ? styles.mobileCell : ''}>
                         {isFullScreen && <TrainingBadge training={name}/>}
                     </div>
                 ))}

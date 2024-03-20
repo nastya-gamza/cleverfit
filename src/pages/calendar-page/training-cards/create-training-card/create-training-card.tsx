@@ -1,12 +1,14 @@
-import {Button, Card} from 'antd';
-import {CloseOutlined} from '@ant-design/icons';
 import {Dispatch, SetStateAction} from 'react';
 import {Moment} from 'moment';
 import moment from 'moment/moment';
-import styles from './create-training-card.module.less';
+import {Button, Card} from 'antd';
+import {CloseOutlined} from '@ant-design/icons';
 import {useGetTrainingListQuery, useGetUserTrainingsQuery} from '@redux/api/training-api.ts';
 import {EmptyCart} from '@pages/calendar-page/empty-cart/empty-cart.tsx';
 import {TrainingBadgeEdit} from '@pages/calendar-page/training-badge/training-badge.tsx';
+import {isOldDate} from '@utils/checkDate.ts';
+import {DDMMYYYY, YYYYMMDD} from '@constants/date-formates.ts';
+import styles from './create-training-card.module.less';
 
 const {Meta} = Card;
 
@@ -15,7 +17,7 @@ type CreateTrainingCardProps = {
     selectedDate: Moment | string,
     setAddNewWorkout: Dispatch<SetStateAction<boolean>>,
     setCreateWorkout: Dispatch<SetStateAction<boolean>>,
-    setEditingTrainingName: Dispatch<SetStateAction<string | undefined>>,
+    setEditingTrainingName: Dispatch<SetStateAction<string | null>>,
 }
 
 export const CreateTrainingCard = ({
@@ -32,11 +34,10 @@ export const CreateTrainingCard = ({
         setAddNewWorkout(false);
     }
 
-    const isTrainingsExists = userTrainings?.[moment(selectedDate).format('YYYY-MM-DD')] ?? [];
-    const dateString = moment(selectedDate).format('YYYY-MM-DD');
+    const isTrainingsExists = userTrainings?.[moment(selectedDate).format(YYYYMMDD)] ?? [];
+    const dateString = moment(selectedDate).format(YYYYMMDD);
     const trainingByDay = userTrainings && userTrainings[dateString];
 
-    const isOldDate = (date?: Moment | string) => Boolean(date && moment(date).isBefore(moment()));
     const disabledButton = isOldDate(selectedDate) || trainingByDay?.length === trainingList?.length;
 
     const onClickEdit = (name: string) => {
@@ -46,10 +47,10 @@ export const CreateTrainingCard = ({
 
     return (
         <div data-test-id='modal-create-training'
-             className={isLeft ? styles.cardWrapper : styles.cardWrapper2}
+             className={isLeft ? styles.wrapperLeft : styles.wrapperRight}
              onClick={e => e.stopPropagation()}>
             <Card
-                title={`Тренировки на ${moment(selectedDate).format('DD.MM.YYYY')}`}
+                title={`Тренировки на ${moment(selectedDate).format(DDMMYYYY)}`}
                 extra={<Button
                     data-test-id='modal-create-training-button-close'
                     type='text'

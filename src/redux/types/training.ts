@@ -5,7 +5,6 @@ export type TrainingItem = {
     key: string
 }
 
-
 export type UserTrainingData = {
     name: string;
     date: string | Moment;
@@ -25,4 +24,4 @@ export type UserTraining = UserTrainingData & {
     exercises: Exercise[];
 };
 
-export type UserTrainingTransform = Record<string, UserTraining[]>;
+export type UserTrainingByDate = Record<string, UserTraining[]>;

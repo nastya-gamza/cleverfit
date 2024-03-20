@@ -1,33 +1,30 @@
 import {Dispatch, SetStateAction, useEffect} from 'react';
+import {useNavigate} from 'react-router-dom';
+import moment from 'moment';
 import {Button, Card, Divider, Select} from 'antd';
 import {useAppDispatch, useAppSelector} from '@hooks/typed-react-redux-hooks.ts';
 import {ArrowLeftOutlined} from '@ant-design/icons';
 import {
-    resetCreatedTraining, resetTraining,
+    resetCreatedTraining, resetTraining, selectTrainingData,
     setCreatedTraining,
     setTraining
 } from '@redux/slices/training-slice.ts';
-import {
-    useCreateTrainingMutation,
-    useGetTrainingListQuery,
-    useGetUserTrainingsQuery
-} from '@redux/api/training-api.ts';
+import {useCreateTrainingMutation} from '@redux/api/training-api.ts';
 import {EmptyCart} from '@pages/calendar-page/empty-cart/empty-cart.tsx';
-import styles from './add-exercises-card.module.less';
-import moment from 'moment';
 import {TrainingBadgeEdit} from '@pages/calendar-page/training-badge/training-badge.tsx';
 import {Exercise} from '@redux/types/training.ts';
-import {error} from '@pages/calendar-page/modals/notification-modal/error-notification-modal.tsx';
-import {useNavigate} from 'react-router-dom';
+import {error} from '@pages/calendar-page/notification-modal/error-notification-modal.tsx';
 import {PATHS} from '@constants/paths.ts';
+import {YYYYMMDD} from '@constants/date-formates.ts';
+import styles from './add-exercises-card.module.less';
 
 type AddExercisesCardProps = {
     isLeft: boolean,
     setCreateWorkout: Dispatch<SetStateAction<boolean>>,
     setOpenDrawer: Dispatch<SetStateAction<boolean>>,
-    editingTrainingName: string | undefined,
+    editingTrainingName: string | null,
     onUpdate: () => void,
-    setEditingTrainingName: Dispatch<SetStateAction<string | undefined>>,
+    setEditingTrainingName: Dispatch<SetStateAction<string | null>>,
     setAddNewWorkout: Dispatch<SetStateAction<boolean>>,
     resultExercises: Exercise[]
 }
@@ -42,15 +39,17 @@ export const AddExercisesCard = ({
                                      setAddNewWorkout,
                                      resultExercises
                                  }: AddExercisesCardProps) => {
-    const trainingList = useAppSelector(state => state.training.trainingList);
-    const selectedTraining = useAppSelector(state => state.training.training);
-    const selectedDate = useAppSelector(state => state.training.date);
-    const training = useAppSelector(state => state.training.training);
-    const exercises = useAppSelector(state => state.training.createdTraining);
-    const userTraining = useAppSelector(state => state.training.userTraining);
+    const {
+        trainingList,
+        training: selectedTraining,
+        date: selectedDate,
+        createdTraining: exercises,
+        userTraining
+    } = useAppSelector(selectTrainingData);
 
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
+    const [createTraining] = useCreateTrainingMutation();
 
     const handleChange = (value: string) => {
         const selectedTraining = trainingList.find(training => training.key === value);
@@ -62,18 +61,14 @@ export const AddExercisesCard = ({
     };
 
     const isSaveDisable = exercises.exercises.some(i => i.name !== '');
+    const formattedSelectedDate = moment(selectedDate).format(YYYYMMDD);
+    const userTrainingByDay = userTraining[formattedSelectedDate];
 
-    const [createTraining] = useCreateTrainingMutation();
-
-    //TODO
-    const test = moment(selectedDate).format('YYYY-MM-DD');
-    const test2 = userTraining[test];
-
-    const namesToRemove = test2?.map(exercise => exercise.name);
     const currentTrainingList = trainingList?.map(({key, name}) => ({
         value: key,
         label: name
     }));
+    const namesToRemove = userTrainingByDay?.map(exercise => exercise.name);
     const filteredExercises = currentTrainingList?.filter(exercise => !namesToRemove?.includes(exercise.label));
 
     const convertToResultExercises = (exercises: Exercise[]) =>
@@ -83,9 +78,6 @@ export const AddExercisesCard = ({
             weight: e.weight || 0,
             replays: e.replays || 1
         }))
-
-        useGetUserTrainingsQuery();
-        useGetTrainingListQuery();
 
     const onSaveTraining = async () => {
         const body = {
@@ -98,6 +90,7 @@ export const AddExercisesCard = ({
         try {
             dispatch(resetTraining());
             dispatch(resetCreatedTraining());
+
             if (editingTrainingName) {
                 onUpdate()
             } else {
@@ -123,7 +116,8 @@ export const AddExercisesCard = ({
 
     useEffect(() => {
         if (editingTrainingName) {
-            const editingTraining = test2?.find(e => e.name === editingTrainingName);
+            const editingTraining = userTrainingByDay?.find(e => e.name === editingTrainingName);
+
             if (editingTraining) {
                 dispatch(setCreatedTraining(editingTraining))
             }
@@ -134,20 +128,16 @@ export const AddExercisesCard = ({
         setOpenDrawer(true)
     }
 
-    useEffect(() => {
-        console.log(editingTrainingName)
-    }, [editingTrainingName]);
-
     return (
         <div data-test-id='modal-create-exercise'
-             className={isLeft ? styles.cardWrapper : styles.cardWrapper2}
+             className={isLeft ? styles.wrapperLeft : styles.wrapperRight}
              onClick={e => e.stopPropagation()}>
             <Card
                 className={styles.card}
                 actions={[
                     <>
                         <Button
-                            disabled={!training && !editingTrainingName}
+                            disabled={!selectedTraining && !editingTrainingName}
                             size='middle'
                             type='ghost'
                             block
@@ -170,7 +160,7 @@ export const AddExercisesCard = ({
                     <ArrowLeftOutlined
                         onClick={() => {
                             setCreateWorkout(false);
-                            setEditingTrainingName(undefined)
+                            setEditingTrainingName(null)
                         }}
                         style={{width: 16}}
                         data-test-id='modal-exercise-training-button-close'

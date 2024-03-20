@@ -3,7 +3,6 @@ import {Modal, Typography} from 'antd';
 import {CloseCircleOutlined, CloseOutlined} from '@ant-design/icons';
 import styles from './error-notification-modal.module.less';
 
-
 export const error = (title: ReactNode,
                       content: string,
                       btnText: string,
