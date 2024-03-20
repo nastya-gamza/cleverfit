@@ -1,31 +1,26 @@
 import {useEffect, useState} from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
 import moment, {Moment} from 'moment/moment';
-import {Calendar, Grid, Modal} from 'antd';
+import {Calendar, Grid} from 'antd';
 import {
-    useGetTrainingListQuery,
     useGetUserTrainingsQuery
 } from '@redux/api/training-api.ts';
 import {selectTrainingData, setDate} from '@redux/slices/training-slice.ts';
 import {useAppDispatch, useAppSelector} from '@hooks/typed-react-redux-hooks.ts';
 import {calendarLocale} from '@utils/calendar-options.ts';
 import {PATHS} from '@constants/paths.ts';
-import {error} from '@pages/calendar-page/notification-modal/error-notification-modal.tsx';
 import {TrainingPopover} from '@pages/calendar-page/popover/training-popover.tsx';
 import {ExercisesPopover} from '@pages/calendar-page/popover/exercises-popover.tsx';
 import {TrainingBadge} from '@pages/calendar-page/training-badge/training-badge.tsx';
 import {YYYYMMDD} from '@constants/date-formates.ts';
 import styles from './training-calendar.module.less';
-import {selectIsError} from '@redux/slices/app-slice.ts';
 
 const {useBreakpoint} = Grid;
 
 export const TrainingCalendar = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
-    const isError = useAppSelector(selectIsError);
     const {data} = useGetUserTrainingsQuery();
-    const {isError: isGetTrainingListError, refetch} = useGetTrainingListQuery();
     const {date: selectedDate} = useAppSelector(selectTrainingData);
 
     const [isFullScreen, setIsFullScreen] = useState(true);
@@ -54,25 +49,6 @@ export const TrainingCalendar = () => {
         }
 
     }, [location.state, navigate]);
-
-    useEffect(() => {
-        if (isError) {
-            navigate('/');
-            return;
-        }
-    }, [isError, navigate]);
-
-    useEffect(() => {
-        Modal.destroyAll();
-        if (isGetTrainingListError && !isError) {
-            error(
-                <>При открытии данных <br/> произошла ошибка</>,
-                'Попробуйте еще раз.',
-                'Обновить',
-                refetch
-            );
-        }
-    }, [isGetTrainingListError, isError, refetch]);
 
     const onSelect = (date: Moment) => {
         setAddNewWorkout(true);
