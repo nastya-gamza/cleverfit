@@ -1,11 +1,11 @@
 import {useNavigate} from 'react-router-dom';
-import {FormInstance} from 'antd';
-import {setEmail, setRetryEmail, setToken} from '@redux/slices/auth-slice.ts';
-import {useCheckEmailMutation, useLoginMutation} from '@redux/api/auth-api.ts';
-import {useAppDispatch} from "@hooks/typed-react-redux-hooks.ts";
-import {PATHS} from '@constants/paths.ts';
 import {BASE_API_URL} from '@constants/api.ts';
 import {ENDPOINTS} from '@constants/endpoints.ts';
+import {PATHS} from '@constants/paths.ts';
+import {useAppDispatch} from '@hooks/typed-react-redux-hooks.ts';
+import {useCheckEmailMutation, useLoginMutation} from '@redux/api/auth-api.ts';
+import {setEmail, setRetryEmail, setToken} from '@redux/slices/auth-slice.ts';
+import {FormInstance} from 'antd';
 
 export type FormFields = {
     email: string;
@@ -22,6 +22,7 @@ export const useAuth = () => {
     const onSubmit = async (data: FormFields) => {
         try {
             const response = await login({email: data.email, password: data.password}).unwrap();
+
             navigate(PATHS.main, {state: {from: 'redirect'}});
 
             if (data.remember) {
@@ -46,7 +47,6 @@ export const useAuth = () => {
         } catch (err) {
             if (err.data?.message === 'Email не найден') {
                 navigate(PATHS.resultErrorNoEmailExist, {state: {from: 'redirect'}});
-                return;
             } else {
                 if (form.getFieldValue('email')) {
                     dispatch(setEmail({email: form.getFieldValue('email')}))

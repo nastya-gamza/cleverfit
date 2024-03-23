@@ -1,5 +1,11 @@
-import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
-import moment from 'moment';
+import {BASE_API_URL} from '@constants/api.ts';
+import {ENDPOINTS} from '@constants/endpoints.ts';
+import {setIsError, setIsLoading} from '@redux/slices/app-slice.ts';
+import {
+    resetCreatedTraining,
+    setTrainingList,
+    setUserTrainings,
+} from '@redux/slices/training-slice.ts';
 import {RootState} from '@redux/store.ts';
 import {TAGS} from '@redux/types/tags.ts';
 import {
@@ -7,14 +13,8 @@ import {
     UserTraining,
     UserTrainingByDate
 } from '@redux/types/training.ts';
-import {
-    setUserTrainings,
-    setTrainingList,
-    resetCreatedTraining,
-} from '@redux/slices/training-slice.ts';
-import {setIsError, setIsLoading} from '@redux/slices/app-slice.ts';
-import {BASE_API_URL} from '@constants/api.ts';
-import {ENDPOINTS} from '@constants/endpoints.ts';
+import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
+import moment from 'moment';
 
 export const trainingApi = createApi({
     reducerPath: 'trainingApi',
@@ -23,11 +23,12 @@ export const trainingApi = createApi({
         credentials: 'include',
         prepareHeaders: (headers, {getState}) => {
             const lsToken = localStorage.getItem('token');
-            const token = (getState() as RootState).auth.token;
+            const {token} = (getState() as RootState).auth;
 
             if (lsToken || token) {
                 headers.set('Authorization', `Bearer ${lsToken || token}`);
             }
+
             return headers;
         },
     }),
@@ -39,6 +40,7 @@ export const trainingApi = createApi({
                 try {
                     dispatch(setIsLoading(true));
                     const {data} = await queryFulfilled;
+
                     dispatch(setIsLoading(false));
                     dispatch(setUserTrainings(data));
                 } catch (err) {
@@ -49,7 +51,9 @@ export const trainingApi = createApi({
             transformResponse: (response: Array<Omit<UserTraining, 'id'> & { _id: string }>) =>
                 response.reduce((acc: UserTrainingByDate, curr) => {
                     const date = moment(curr.date).format('YYYY-MM-DD');
+
                     acc[date] = [...(acc[date] ?? []), { ...curr, _id: curr._id }];
+
                     return acc;
                 }, {}),
             providesTags: [{ type: TAGS.training, id: 'LIST' }]
@@ -60,6 +64,7 @@ export const trainingApi = createApi({
                 try {
                     dispatch(setIsLoading(true));
                     const {data} = await queryFulfilled;
+
                     dispatch(setTrainingList(data));
                     dispatch(setIsLoading(false));
                 } catch (err) {

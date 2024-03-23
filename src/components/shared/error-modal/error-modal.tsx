@@ -1,9 +1,10 @@
 import {useNavigate} from 'react-router-dom';
-import {Button, Grid, Modal, ModalProps, Result} from 'antd';
+import {HttpStatuses} from '@constants/http-statuses.ts';
+import {PATHS} from '@constants/paths.ts';
 import {useAppDispatch} from '@hooks/typed-react-redux-hooks.ts';
 import {setIsError} from '@redux/slices/app-slice.ts';
-import {HTTP_STATUSES} from '@constants/http-statuses.ts';
-import {PATHS} from '@constants/paths.ts';
+import {Button, Grid, Modal, ModalProps, Result} from 'antd';
+
 import styles from './error-modal.module.less';
 
 const {useBreakpoint} = Grid;
@@ -20,8 +21,8 @@ export const ErrorModal = ({...props}: ModalProps) => {
 
     return (
         <Modal
-            open
-            centered
+            open={true}
+            centered={true}
             width={screens.xs ? 328 : 540}
             closable={false}
             footer={null}
@@ -31,7 +32,7 @@ export const ErrorModal = ({...props}: ModalProps) => {
             {...props}
         >
             <Result
-                status={HTTP_STATUSES.serverError}
+                status={HttpStatuses.serverError}
                 title='Что-то пошло не так.'
                 subTitle='Произошла ошибка, попробуйте ещё раз.'
                 extra={<Button type='primary' size='large' onClick={handleClose}>Назад</Button>}

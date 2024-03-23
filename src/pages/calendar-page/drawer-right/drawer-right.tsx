@@ -1,6 +1,7 @@
 import {ReactNode} from 'react';
-import {Button, Drawer} from 'antd';
 import {CloseOutlined} from '@ant-design/icons';
+import {Button, Drawer} from 'antd';
+
 import styles from './drawer-right.module.less';
 
 type DrawerRightProps = {

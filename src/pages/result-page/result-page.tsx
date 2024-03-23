@@ -1,6 +1,7 @@
 import {useNavigate, useParams} from 'react-router-dom';
-import {Button, Card, Result} from 'antd';
 import {AuthResults, ResultStatuses} from '@constants/auth-statuses.ts';
+import {Button, Card, Result} from 'antd';
+
 import styles from './result-page.module.less';
 
 export const ResultPage = () => {

@@ -1,11 +1,12 @@
-import {Dispatch, SetStateAction, useEffect, useState} from 'react';
-import {Button, Divider, Form, Input, Modal} from 'antd';
-import {usePostFeedbackMutation} from '@redux/api/feedback-api.ts';
-import {ResultModal} from '@pages/feedbacks-page/modals';
-import {FeedbackRequest} from '@redux/types/feedback.ts';
-import {Rating} from '@pages/feedbacks-page/rating/rating.tsx';
+import React, {Dispatch, SetStateAction, useEffect, useState} from 'react';
 import {Loader} from '@components/loader';
 import {RESULTS} from '@constants/results.ts';
+import {ResultModal} from '@pages/feedbacks-page/modals';
+import {Rating} from '@pages/feedbacks-page/rating/rating.tsx';
+import {usePostFeedbackMutation} from '@redux/api/feedback-api.ts';
+import {FeedbackRequest} from '@redux/types/feedback.ts';
+import {Button, Divider, Form, Input, Modal} from 'antd';
+
 import styles from './add-feedback-modal.module.less';
 
 type AddFeedbackModalProps = {
@@ -54,13 +55,13 @@ export const AddFeedbackModal = ({showFeedbackModal, setShowFeedbackModal}: AddF
     };
 
     return (
-        <>
+        <React.Fragment>
             {isLoading && <Loader/>}
             <Modal
                 open={showFeedbackModal}
                 title='Ваш отзыв'
                 width={540}
-                centered
+                centered={true}
                 bodyStyle={{padding: 0}}
                 onCancel={handleCancel}
                 maskStyle={{background: 'rgba(121, 156, 212, 0.1)', backdropFilter: 'blur(6px)'}}
@@ -71,7 +72,7 @@ export const AddFeedbackModal = ({showFeedbackModal, setShowFeedbackModal}: AddF
                     onFinish={onSubmit}
                     onValuesChange={onValuesChange}
                     className={styles.form}>
-                    <Form.Item name='rating' required>
+                    <Form.Item name='rating' required={true}>
                         <Rating/>
                     </Form.Item>
                     <Form.Item name='message'>
@@ -97,6 +98,6 @@ export const AddFeedbackModal = ({showFeedbackModal, setShowFeedbackModal}: AddF
                 open={openResultModal}
                 setOpen={setOpenResultModal}
                 setOpenAddFeedback={setShowFeedbackModal}/>
-        </>
+        </React.Fragment>
     )
 }

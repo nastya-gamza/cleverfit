@@ -1,6 +1,7 @@
 import {Dispatch, SetStateAction} from 'react';
-import {Button, Grid, Modal, Result} from 'antd';
 import {RESULTS} from '@constants/results.ts';
+import {Button, Grid, Modal, Result} from 'antd';
+
 import styles from './result-modal.module.less';
 
 type SuccessModalProps = {
@@ -28,7 +29,7 @@ export const ResultModal = ({open, setOpen, setOpenAddFeedback, result}: Success
             open={open}
             onCancel={handleCancel}
             closable={false}
-            centered
+            centered={true}
             width={screens.xs ? 328 : 540}
             maskStyle={{background: 'rgba(121, 156, 212, 0.5)', backdropFilter: 'blur(6px)'}}
             className={styles.modal}
@@ -40,7 +41,7 @@ export const ResultModal = ({open, setOpen, setOpenAddFeedback, result}: Success
                     title='Отзыв успешно опубликован'
                     className={styles.result}
                     extra={
-                        <Button type='primary' onClick={handleCancel} block>
+                        <Button type='primary' onClick={handleCancel} block={true}>
                             Отлично
                         </Button>
                     }

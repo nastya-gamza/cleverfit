@@ -1,9 +1,9 @@
-import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
-import {RootState} from '@redux/store.ts';
 import {BASE_API_URL} from '@constants/api.ts';
-import {Feedback, FeedbackRequest} from '@redux/types/feedback.ts';
 import {ENDPOINTS} from '@constants/endpoints.ts';
+import {RootState} from '@redux/store.ts';
+import {Feedback, FeedbackRequest} from '@redux/types/feedback.ts';
 import {TAGS} from '@redux/types/tags.ts';
+import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
 
 export const feedbackApi = createApi({
     reducerPath: 'feedbackApi',
@@ -12,11 +12,12 @@ export const feedbackApi = createApi({
         credentials: 'include',
         prepareHeaders: (headers, {getState}) => {
             const lsToken = localStorage.getItem('token');
-            const token = (getState() as RootState).auth.token;
+            const {token} = (getState() as RootState).auth;
 
             if (lsToken || token) {
                 headers.set('Authorization', `Bearer ${lsToken || token}`);
             }
+
             return headers;
         },
     }),
@@ -27,7 +28,7 @@ export const feedbackApi = createApi({
             providesTags: (result) =>
                 result
                     ? [
-                        ...result.map(({id}) => ({type: TAGS.feedback as const, id})),
+                        ...result.map(({_id}) => ({type: TAGS.feedback as const, _id})),
                         {type: TAGS.feedback, id: 'LIST'},
                     ]
                     : [{type: TAGS.feedback, id: 'LIST'}],

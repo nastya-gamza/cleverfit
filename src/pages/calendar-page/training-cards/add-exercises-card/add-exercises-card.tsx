@@ -1,21 +1,22 @@
-import {Dispatch, SetStateAction, useEffect} from 'react';
+import React, {Dispatch, SetStateAction, useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
-import moment from 'moment';
-import {Button, Card, Divider, Select} from 'antd';
-import {useAppDispatch, useAppSelector} from '@hooks/typed-react-redux-hooks.ts';
 import {ArrowLeftOutlined} from '@ant-design/icons';
+import {YYYYMMDD} from '@constants/date-formates.ts';
+import {PATHS} from '@constants/paths.ts';
+import {useAppDispatch, useAppSelector} from '@hooks/typed-react-redux-hooks.ts';
+import {EmptyCart} from '@pages/calendar-page/empty-cart/empty-cart.tsx';
+import {error} from '@pages/calendar-page/notification-modal/error-notification-modal.tsx';
+import {TrainingBadgeEdit} from '@pages/calendar-page/training-badge/training-badge.tsx';
+import {useCreateTrainingMutation} from '@redux/api/training-api.ts';
 import {
     resetCreatedTraining, resetTraining, selectTrainingData,
     setCreatedTraining,
     setTraining
 } from '@redux/slices/training-slice.ts';
-import {useCreateTrainingMutation} from '@redux/api/training-api.ts';
-import {EmptyCart} from '@pages/calendar-page/empty-cart/empty-cart.tsx';
-import {TrainingBadgeEdit} from '@pages/calendar-page/training-badge/training-badge.tsx';
 import {Exercise} from '@redux/types/training.ts';
-import {error} from '@pages/calendar-page/notification-modal/error-notification-modal.tsx';
-import {PATHS} from '@constants/paths.ts';
-import {YYYYMMDD} from '@constants/date-formates.ts';
+import {Button, Card, Divider, Select} from 'antd';
+import moment from 'moment';
+
 import styles from './add-exercises-card.module.less';
 
 type AddExercisesCardProps = {
@@ -52,9 +53,11 @@ export const AddExercisesCard = ({
     const [createTraining] = useCreateTrainingMutation();
 
     const handleChange = (value: string) => {
-        const selectedTraining = trainingList.find(training => training.key === value);
-        if (selectedTraining) {
-            const trainingName = selectedTraining.name;
+        const selectedTrainingName = trainingList.find(training => training.key === value);
+
+        if (selectedTrainingName) {
+            const trainingName = selectedTrainingName.name;
+
             dispatch(resetCreatedTraining())
             dispatch(setTraining(trainingName));
         }
@@ -135,12 +138,12 @@ export const AddExercisesCard = ({
             <Card
                 className={styles.card}
                 actions={[
-                    <>
+                    <React.Fragment>
                         <Button
                             disabled={!selectedTraining && !editingTrainingName}
                             size='middle'
                             type='ghost'
-                            block
+                            block={true}
                             onClick={() => setOpenDrawer(true)}
                         >
                             Добавить упражнения
@@ -153,7 +156,7 @@ export const AddExercisesCard = ({
                         >
                             {editingTrainingName ? 'Сохранить изменения' : 'Сохранить'}
                         </Button>
-                    </>
+                    </React.Fragment>
                 ]}
             >
                 <div className={styles.cardSelect}>
@@ -175,25 +178,23 @@ export const AddExercisesCard = ({
                     />
                 </div>
                 <Divider/>
-                <>
-                    {
-                        currentExercises?.length === 0
-                            ?
-                            <EmptyCart/>
-                            :
-                            <div className={styles.editBadgeWrapper}>
-                                {currentExercises?.map((e, i) =>
-                                    <TrainingBadgeEdit
-                                        type='exercises'
-                                        key={i}
-                                        index={i}
-                                        name={e.name}
-                                        _id={e._id}
-                                        onClick={onClickEdit}
-                                    />)}
-                            </div>
-                    }
-                </>
+                {
+                    currentExercises?.length === 0
+                        ?
+                        <EmptyCart/>
+                        :
+                        <div className={styles.editBadgeWrapper}>
+                            {currentExercises?.map((e, i) =>
+                                <TrainingBadgeEdit
+                                    type='exercises'
+                                    key={i}
+                                    index={i}
+                                    name={e.name}
+                                    _id={e._id}
+                                    onClick={onClickEdit}
+                                />)}
+                        </div>
+                }
             </Card>
         </div>
     )

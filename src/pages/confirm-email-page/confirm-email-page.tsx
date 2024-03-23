@@ -1,15 +1,17 @@
-import {Card, Result} from 'antd';
+import React from 'react';
 import VerificationInput from 'react-verification-input';
-import clsn from 'classnames';
 import {Loader} from '@components/loader';
-import {useConfirmEmail} from "@pages/confirm-email-page/hooks/use-confirm-email.ts";
+import {useConfirmEmail} from '@pages/confirm-email-page/hooks/use-confirm-email.ts';
+import {Card, Result} from 'antd';
+import clsn from 'classnames';
+
 import styles from './confirm-email-page.module.less'
 
 export const ConfirmEmailPage = () => {
     const {code, setCode, email, handleComplete, errorRef, isLoading} = useConfirmEmail();
 
     return (
-        <>
+        <React.Fragment>
             {isLoading && <Loader/>}
             <Card className={styles.card}>
                 <Result className={styles.result}
@@ -45,6 +47,6 @@ export const ConfirmEmailPage = () => {
                 />
                 <p className={styles.note}>Не пришло письмо? Проверьте папку Спам.</p>
             </Card>
-        </>
+        </React.Fragment>
     );
 };

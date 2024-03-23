@@ -1,6 +1,6 @@
 import {Link, useLocation} from 'react-router-dom';
-import {Breadcrumb} from 'antd';
 import {PATHS} from '@constants/paths.ts';
+import {Breadcrumb} from 'antd';
 
 const breadcrumbNameMap: Record<string, string> = {
     [PATHS.feedbacks]: 'Отзывы пользователей',

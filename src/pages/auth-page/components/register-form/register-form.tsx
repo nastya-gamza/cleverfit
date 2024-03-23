@@ -1,11 +1,12 @@
-import {useEffect} from 'react';
-import {Button, Form, Grid, Input} from 'antd';
-import {useAppSelector} from '@hooks/typed-react-redux-hooks.ts';
-import {authSelector} from '@redux/selectors/selectors.ts';
-import {useRegister, useRegisterFieldsValidation} from '@pages/auth-page/hooks';
-import {Loader} from '@components/loader';
-import {isValidConfirmPassword, isValidEmail, isValidPassword,} from '@utils/validation.ts';
+import React, {useEffect} from 'react';
 import {GooglePlusOutlined} from '@ant-design/icons';
+import {Loader} from '@components/loader';
+import {useAppSelector} from '@hooks/typed-react-redux-hooks.ts';
+import {useRegister, useRegisterFieldsValidation} from '@pages/auth-page/hooks';
+import {authSelector} from '@redux/selectors/selectors.ts';
+import {isValidConfirmPassword, isValidEmail, isValidPassword,} from '@utils/validation.ts';
+import {Button, Form, Grid, Input} from 'antd';
+
 import styles from './register-form.module.less';
 
 const {useBreakpoint} = Grid;
@@ -24,7 +25,7 @@ export const RegisterForm = () => {
     }, [credentials, onSubmit, retryRegister]);
 
     return (
-        <>
+        <React.Fragment>
             {isLoading && <Loader/>}
             <Form
                 form={form}
@@ -70,6 +71,6 @@ export const RegisterForm = () => {
                     </Button>
                 </div>
             </Form>
-        </>
+        </React.Fragment>
     )
 }

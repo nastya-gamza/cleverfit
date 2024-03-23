@@ -1,6 +1,7 @@
 import {ReactNode} from 'react';
-import {Modal, Typography} from 'antd';
 import {CloseCircleOutlined, CloseOutlined} from '@ant-design/icons';
+import {Modal, Typography} from 'antd';
+
 import styles from './error-notification-modal.module.less';
 
 export const error = (title: ReactNode,

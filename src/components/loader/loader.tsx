@@ -1,7 +1,8 @@
-import Lottie from 'lottie-react';
-import loader from './assets/loader-animation.json'
-import styles from './loader.module.less';
 import {useAppSelector} from '@hooks/typed-react-redux-hooks.ts';
+import Lottie from 'lottie-react';
+
+import loader from './assets/loader-animation.json';
+import styles from './loader.module.less';
 
 export const Loader = () => {
     const isLoading = useAppSelector(state => state.app.isLoading);

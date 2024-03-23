@@ -1,9 +1,10 @@
 import {useLocation} from 'react-router-dom';
-import {Layout, Typography, Grid, Breadcrumb, Button} from 'antd';
 import {SettingOutlined} from '@ant-design/icons';
 import {BreadcrumbItems,} from '@components/page-header/breadcrumb-items/breadcrumb-items.tsx';
-import styles from './page-header.module.less';
 import {PATHS} from '@constants/paths.ts';
+import {Breadcrumb, Button,Grid, Layout, Typography} from 'antd';
+
+import styles from './page-header.module.less';
 
 const {Title} = Typography;
 const {Header} = Layout;
@@ -27,7 +28,7 @@ export const PageHeader = () => {
                         которое поможет тебе добиться своей мечты!
                     </Title>
                 )}
-                {location.pathname === PATHS.main || location.pathname === PATHS.calendar && (
+                {(location.pathname === PATHS.main || location.pathname === PATHS.calendar) && (
                     <Button
                         icon={<SettingOutlined/>}
                         type='link'

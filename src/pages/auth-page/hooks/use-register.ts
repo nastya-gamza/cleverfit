@@ -1,11 +1,11 @@
 import {useNavigate} from 'react-router-dom';
-import {setCredentials} from '@redux/slices/auth-slice.ts';
+import {HttpStatuses} from '@constants/http-statuses.ts';
+import {PATHS} from '@constants/paths.ts';
+import {useAppDispatch} from '@hooks/typed-react-redux-hooks.ts';
 import {useRegisterMutation} from '@redux/api/auth-api.ts';
 import {isFetchBaseQueryError} from '@redux/helpers/helpers.ts';
-import {useAppDispatch} from '@hooks/typed-react-redux-hooks.ts';
-import {PATHS} from '@constants/paths.ts';
+import {setCredentials} from '@redux/slices/auth-slice.ts';
 import {RegisterRequest} from '@redux/types/auth.ts';
-import {HTTP_STATUSES} from '@constants/http-statuses.ts';
 
 export const useRegister = () => {
     const navigate = useNavigate();
@@ -18,8 +18,9 @@ export const useRegister = () => {
             dispatch(setCredentials({credentials: data, retryRegister: false}));
         } catch (err) {
             if (isFetchBaseQueryError(err)) {
-                if (err.status === HTTP_STATUSES.conflict) {
+                if (err.status === HttpStatuses.conflict) {
                     navigate(PATHS.resultErrorUserExist, {state: {from: 'redirect'}});
+
                     return;
                 }
                 navigate(PATHS.resultErrorRegister, {state: {from: 'redirect'}});

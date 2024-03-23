@@ -1,6 +1,6 @@
-import {HeartFilled, IdcardOutlined} from "@ant-design/icons";
-import CalendarIcon from '@public/icons/calendar.svg?react';
+import {HeartFilled, IdcardOutlined} from '@ant-design/icons';
 import {PATHS} from '@constants/paths.ts';
+import CalendarIcon from '@public/icons/calendar.svg?react';
 
 export const ACTIONS = [
     {

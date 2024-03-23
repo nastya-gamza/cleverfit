@@ -1,9 +1,11 @@
 import {Outlet} from 'react-router-dom';
-import {Layout} from 'antd';
-import {SideBar} from '@components/sidebar';
 import {PageHeader} from '@components/page-header';
+import {SideBar} from '@components/sidebar';
+import {Layout} from 'antd';
+
 import {useSidebarContext} from '../../../context/sidebar/use-sidebar-context.ts';
-import styles from './main-layout.module.less'
+
+import styles from './main-layout.module.less';
 
 const {Content} = Layout;
 

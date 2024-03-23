@@ -1,11 +1,12 @@
-import {useEffect} from 'react';
-import {Button, Checkbox, Form, Grid, Input} from 'antd';
-import {isValidEmail, isValidPassword} from '@utils/validation.ts';
-import {authSelector} from '@redux/selectors/selectors.ts';
+import React, {useEffect} from 'react';
+import {GooglePlusOutlined} from '@ant-design/icons';
+import {Loader} from '@components/loader';
 import {useAppSelector} from '@hooks/typed-react-redux-hooks.ts';
 import {useAuth, useEmailValidation} from '@pages/auth-page/hooks';
-import {Loader} from '@components/loader';
-import {GooglePlusOutlined} from '@ant-design/icons';
+import {authSelector} from '@redux/selectors/selectors.ts';
+import {isValidEmail, isValidPassword} from '@utils/validation.ts';
+import {Button, Checkbox, Form, Grid, Input} from 'antd';
+
 import styles from './auth-form.module.less';
 
 const {useBreakpoint} = Grid;
@@ -30,7 +31,7 @@ export const AuthForm = () => {
     }, [form, retry, retryEmail]);
 
     return (
-        <>
+        <React.Fragment>
             {(isCheckEmailLoading || isLoginLoading) && <Loader/>}
             <Form
                 name='auth'
@@ -41,6 +42,7 @@ export const AuthForm = () => {
                 onFinish={onSubmit}
                 onFieldsChange={(changedFields) => {
                     const emailField = changedFields?.find((field) => field.name.includes('email'));
+
                     if (emailField) validateEmail();
                 }}
             >
@@ -86,5 +88,5 @@ export const AuthForm = () => {
                     </Button>
                 </Form.Item>
             </Form>
-        </>)
+        </React.Fragment>)
 }

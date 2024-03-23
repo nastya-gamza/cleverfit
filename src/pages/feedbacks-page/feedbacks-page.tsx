@@ -1,12 +1,13 @@
-import {useState} from 'react';
-import {Button} from 'antd';
-import {useGetFeedbacksQuery} from '@redux/api/feedback-api.ts';
-import {AddFeedbackModal} from '@pages/feedbacks-page/modals';
-import {ErrorModal} from '@components/shared/error-modal';
-import {NoFeedbacks} from '@pages/feedbacks-page/no-feedbacks';
-import {FeedbackCard} from '@pages/feedbacks-page/feedback-card';
+import React, {useState} from 'react';
 import {Loader} from '@components/loader';
+import {ErrorModal} from '@components/shared/error-modal';
+import {FeedbackCard} from '@pages/feedbacks-page/feedback-card';
+import {AddFeedbackModal} from '@pages/feedbacks-page/modals';
+import {NoFeedbacks} from '@pages/feedbacks-page/no-feedbacks';
+import {useGetFeedbacksQuery} from '@redux/api/feedback-api.ts';
 import {sortByDate} from '@utils/sort.ts';
+import {Button} from 'antd';
+
 import styles from './feedbacks-page.module.less';
 
 export const FeedbacksPage = () => {
@@ -18,6 +19,7 @@ export const FeedbacksPage = () => {
 
     const getAllFeedbacks = (count = 4) => {
         const sortedFeedbacks = sortByDate(data);
+
         return showAllFeedbacks ? sortedFeedbacks : sortedFeedbacks.slice(0, count);
     }
 
@@ -30,13 +32,13 @@ export const FeedbacksPage = () => {
     }
 
     return (
-        <>
+        <React.Fragment>
             {isLoading && <Loader/>}
             {isError && <ErrorModal/>}
-            {<AddFeedbackModal
+            <AddFeedbackModal
                 showFeedbackModal={showAddFeedbackModal}
-                setShowFeedbackModal={setShowAddFeedbackModal}/>
-            }
+                setShowFeedbackModal={setShowAddFeedbackModal}
+            />
             {isDataEmpty ?
                 <NoFeedbacks/>
                 :
@@ -62,6 +64,6 @@ export const FeedbacksPage = () => {
                     </div>
                 </div>
             }
-        </>
+        </React.Fragment>
     );
 }

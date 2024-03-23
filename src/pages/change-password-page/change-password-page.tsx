@@ -1,10 +1,11 @@
-import {useEffect} from 'react';
-import {Button, Card, Form, Input, Typography} from 'antd';
-import {authSelector} from '@redux/selectors/selectors.ts';
-import {useAppSelector} from '@hooks/typed-react-redux-hooks.ts';
-import {isValidConfirmPassword, isValidPassword} from '@utils/validation.ts';
-import {useChangePassword} from '@pages/change-password-page/hooks/use-change-password.ts';
+import React, {useEffect} from 'react';
 import {Loader} from '@components/loader';
+import {useAppSelector} from '@hooks/typed-react-redux-hooks.ts';
+import {useChangePassword} from '@pages/change-password-page/hooks/use-change-password.ts';
+import {authSelector} from '@redux/selectors/selectors.ts';
+import {isValidConfirmPassword, isValidPassword} from '@utils/validation.ts';
+import {Button, Card, Form, Input, Typography} from 'antd';
+
 import styles from './change-password-page.module.less'
 
 const {Title} = Typography;
@@ -21,7 +22,7 @@ export const ChangePasswordPage = () => {
     }, [onSubmit, password, retryPassword]);
 
     return (
-        <>
+        <React.Fragment>
             {isLoading && <Loader/>}
             <Card className={styles.card}>
                 <Title level={3} style={{marginBottom: '32px'}}>Восстановление аккаунта</Title>
@@ -50,7 +51,7 @@ export const ChangePasswordPage = () => {
                     <Button
                         type='primary'
                         htmlType='submit'
-                        block
+                        block={true}
                         size='large'
                         className={styles.btn}
                         data-test-id='change-submit-button'
@@ -59,7 +60,7 @@ export const ChangePasswordPage = () => {
                     </Button>
                 </Form>
             </Card>
-        </>
+        </React.Fragment>
 
     )
 }

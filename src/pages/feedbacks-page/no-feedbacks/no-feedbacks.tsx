@@ -1,6 +1,7 @@
 import {useState} from 'react';
-import {Button, Card, Typography} from 'antd';
 import {AddFeedbackModal} from '@pages/feedbacks-page/modals';
+import {Button, Card, Typography} from 'antd';
+
 import styles from './no-feedbacks.module.less';
 
 const {Title, Text} = Typography;

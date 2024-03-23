@@ -1,7 +1,8 @@
-import moment from 'moment';
-import {Avatar, Card, Typography} from 'antd';
 import {UserOutlined} from '@ant-design/icons';
 import {Rating} from '@pages/feedbacks-page/rating/rating.tsx';
+import {Avatar, Card, Typography} from 'antd';
+import moment from 'moment';
+
 import styles from './feedback-card.module.less';
 
 const {Text, Title} = Typography;
@@ -30,7 +31,7 @@ export const FeedbackCard = ({fullName, image, message, rating, createdAt}: Feed
                 </div>
                 <div className={styles.feedbackWrapper}>
                     <div className={styles.rating}>
-                        <Rating value={rating} disabled/>
+                        <Rating value={rating} disabled={true}/>
                         <Text className={styles.date}>{formattedDate}</Text>
                     </div>
                     <Text type='secondary'>{message}</Text>

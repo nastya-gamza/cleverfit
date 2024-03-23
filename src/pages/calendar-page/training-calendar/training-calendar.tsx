@@ -1,18 +1,17 @@
-import {useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
-import moment, {Moment} from 'moment/moment';
-import {Calendar, Grid} from 'antd';
-import {
-    useGetUserTrainingsQuery
-} from '@redux/api/training-api.ts';
-import {selectTrainingData, setDate} from '@redux/slices/training-slice.ts';
-import {useAppDispatch, useAppSelector} from '@hooks/typed-react-redux-hooks.ts';
-import {calendarLocale} from '@utils/calendar-options.ts';
-import {PATHS} from '@constants/paths.ts';
-import {TrainingPopover} from '@pages/calendar-page/popover/training-popover.tsx';
-import {ExercisesPopover} from '@pages/calendar-page/popover/exercises-popover.tsx';
-import {TrainingBadge} from '@pages/calendar-page/training-badge/training-badge.tsx';
 import {YYYYMMDD} from '@constants/date-formates.ts';
+import {PATHS} from '@constants/paths.ts';
+import {useAppDispatch, useAppSelector} from '@hooks/typed-react-redux-hooks.ts';
+import {ExercisesPopover} from '@pages/calendar-page/popover/exercises-popover.tsx';
+import {TrainingPopover} from '@pages/calendar-page/popover/training-popover.tsx';
+import {TrainingBadge} from '@pages/calendar-page/training-badge/training-badge.tsx';
+import {useGetUserTrainingsQuery} from '@redux/api/training-api.ts';
+import {selectTrainingData, setDate} from '@redux/slices/training-slice.ts';
+import {calendarLocale} from '@utils/calendar-options.ts';
+import {Calendar, Grid} from 'antd';
+import moment, {Moment} from 'moment';
+
 import styles from './training-calendar.module.less';
 
 const {useBreakpoint} = Grid;
@@ -42,13 +41,13 @@ export const TrainingCalendar = () => {
     }, [screens.sm]);
 
     useEffect(() => {
-        const state = location.state;
+        const {state} = location;
 
         if (state?.from !== 'redirect') {
             navigate(PATHS.main);
         }
 
-    }, [location.state, navigate]);
+    }, [location, navigate]);
 
     const onSelect = (date: Moment) => {
         setAddNewWorkout(true);
@@ -65,6 +64,7 @@ export const TrainingCalendar = () => {
 
         if (isPopoverRight) {
             setIsLeft(false);
+
             return;
         }
 
@@ -106,14 +106,14 @@ export const TrainingCalendar = () => {
         }
 
         return (
-            <>
+            <React.Fragment>
                 {popoverComponent}
                 {trainingByDay?.map(({_id, name}) => (
                     <div key={_id} className={!isFullScreen ? styles.mobileCell : ''}>
                         {isFullScreen && <TrainingBadge training={name}/>}
                     </div>
                 ))}
-            </>
+            </React.Fragment>
         );
     }
 

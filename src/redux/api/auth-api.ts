@@ -1,7 +1,6 @@
-import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
-import {RootState} from '@redux/store.ts';
 import {BASE_API_URL} from '@constants/api.ts';
 import {ENDPOINTS} from '@constants/endpoints.ts';
+import {RootState} from '@redux/store.ts';
 import {
     ChangePasswordRequest, ChangePasswordResponse,
     CheckEmailRequest, CheckEmailResponse, ConfirmEmailRequest, ConfirmEmailResponse,
@@ -9,6 +8,7 @@ import {
     LoginResponse,
     RegisterRequest
 } from '@redux/types/auth.ts';
+import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
 
 export const authApi = createApi({
     reducerPath: 'authApi',
@@ -16,11 +16,13 @@ export const authApi = createApi({
         baseUrl: BASE_API_URL,
         credentials: 'include',
         prepareHeaders: (headers, {getState}) => {
-            const token = (getState() as RootState).auth.token;
+            const {token} = (getState() as RootState).auth;
+
             if (token) {
                 headers.set('Authorization', `Bearer ${token}`);
             }
-            return headers
+
+            return headers;
         },
     }),
     endpoints: (build) => ({

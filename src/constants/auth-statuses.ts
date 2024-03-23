@@ -1,6 +1,6 @@
-import {PATHS} from "@constants/paths.ts";
-import {ResultStatusType} from "antd/es/result";
-import {HTTP_STATUSES} from '@constants/http-statuses.ts';
+import {HttpStatuses} from '@constants/http-statuses.ts';
+import {PATHS} from '@constants/paths.ts';
+import {ResultStatusType} from 'antd/es/result';
 
 export type ResultStatuses =
     | 'success'
@@ -63,7 +63,7 @@ export const AuthResults: Record<ResultStatuses, AuthResultsTypes> = {
         redirectTo: PATHS.auth,
     },
     'error-check-email': {
-        status: HTTP_STATUSES.serverError,
+        status: HttpStatuses.serverError,
         title: 'Что-то пошло не так',
         subTitle: 'Произошла ошибка, попробуйте отправить форму ещё раз',
         buttonText: 'Назад',

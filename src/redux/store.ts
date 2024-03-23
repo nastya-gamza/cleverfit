@@ -1,12 +1,12 @@
-import {combineReducers, configureStore} from '@reduxjs/toolkit';
 import {createReduxHistoryContext} from 'redux-first-history';
-import {createBrowserHistory} from 'history';
 import {authApi} from '@redux/api/auth-api.ts';
-import authReducer from '@redux/slices/auth-slice.ts';
-import trainingReducer from '@redux/slices/training-slice.ts';
-import appReducer from '@redux/slices/app-slice.ts';
 import {feedbackApi} from '@redux/api/feedback-api.ts';
 import {trainingApi} from '@redux/api/training-api.ts';
+import appReducer from '@redux/slices/app-slice.ts';
+import authReducer from '@redux/slices/auth-slice.ts';
+import trainingReducer from '@redux/slices/training-slice.ts';
+import {combineReducers, configureStore} from '@reduxjs/toolkit';
+import {createBrowserHistory} from 'history';
 
 const {
     createReduxHistory,
