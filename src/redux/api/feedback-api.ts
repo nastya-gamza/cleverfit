@@ -1,27 +1,9 @@
-import {BASE_API_URL} from '@constants/api.ts';
 import {ENDPOINTS} from '@constants/endpoints.ts';
-import {RootState} from '@redux/store.ts';
+import {baseApi} from '@redux/api/base-api.ts';
 import {Feedback, FeedbackRequest} from '@redux/types/feedback.ts';
 import {TAGS} from '@redux/types/tags.ts';
-import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
 
-export const feedbackApi = createApi({
-    reducerPath: 'feedbackApi',
-    baseQuery: fetchBaseQuery({
-        baseUrl: BASE_API_URL,
-        credentials: 'include',
-        prepareHeaders: (headers, {getState}) => {
-            const lsToken = localStorage.getItem('token');
-            const {token} = (getState() as RootState).auth;
-
-            if (lsToken || token) {
-                headers.set('Authorization', `Bearer ${lsToken || token}`);
-            }
-
-            return headers;
-        },
-    }),
-    tagTypes: [TAGS.feedback],
+export const feedbackApi = baseApi.injectEndpoints({
     endpoints: (build) => ({
         getFeedbacks: build.query<Feedback[], void>({
             query: () => ENDPOINTS.feedback,
@@ -39,7 +21,7 @@ export const feedbackApi = createApi({
                 method: 'POST',
                 body: arg,
             }),
-            invalidatesTags: [{ type: TAGS.feedback, id: 'LIST' }],
+            invalidatesTags: [{type: TAGS.feedback, id: 'LIST'}],
         }),
     }),
 })
