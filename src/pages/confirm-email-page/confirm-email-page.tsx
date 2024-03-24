@@ -1,6 +1,5 @@
 import React from 'react';
 import VerificationInput from 'react-verification-input';
-import {Loader} from '@components/loader';
 import {useConfirmEmail} from '@pages/confirm-email-page/hooks/use-confirm-email.ts';
 import {Card, Result} from 'antd';
 import clsn from 'classnames';
@@ -8,11 +7,10 @@ import clsn from 'classnames';
 import styles from './confirm-email-page.module.less'
 
 export const ConfirmEmailPage = () => {
-    const {code, setCode, email, handleComplete, errorRef, isLoading} = useConfirmEmail();
+    const {code, setCode, email, handleComplete, errorRef} = useConfirmEmail();
 
     return (
         <React.Fragment>
-            {isLoading && <Loader/>}
             <Card className={styles.card}>
                 <Result className={styles.result}
                         status={errorRef.current ? 'error' : 'info'}
@@ -24,8 +22,9 @@ export const ConfirmEmailPage = () => {
                         }
                         subTitle={
                             <div>
-                                Мы отправили вам на e-mail <span className={styles.email}>{email}</span>
-                                <br/> шестизначный код. Введите его в поле ниже.
+                                Мы отправили вам на e-mail
+                                <span className={styles.email}>{email}</span><br/>
+                                шестизначный код. Введите его в поле ниже.
                             </div>
                         }
                 />

@@ -7,6 +7,7 @@ import {
     LoginResponse,
     RegisterRequest
 } from '@redux/types/auth.ts';
+import {setIsLoading} from '@redux/slices/app-slice.ts';
 
 export const authApi = baseApi.injectEndpoints({
     endpoints: (build) => ({
@@ -16,6 +17,15 @@ export const authApi = baseApi.injectEndpoints({
                 method: 'POST',
                 body: credentials,
             }),
+            async onQueryStarted(_, {dispatch, queryFulfilled}) {
+                try {
+                    dispatch(setIsLoading(true));
+                    await queryFulfilled;
+                    dispatch(setIsLoading(false));
+                } catch (err) {
+                    dispatch(setIsLoading(false));
+                }
+            },
         }),
         register: build.mutation<void, RegisterRequest>({
             query: (credentials) => ({
@@ -23,6 +33,15 @@ export const authApi = baseApi.injectEndpoints({
                 method: 'POST',
                 body: credentials,
             }),
+            async onQueryStarted(_, {dispatch, queryFulfilled}) {
+                try {
+                    dispatch(setIsLoading(true));
+                    await queryFulfilled;
+                    dispatch(setIsLoading(false));
+                } catch (err) {
+                    dispatch(setIsLoading(false));
+                }
+            },
         }),
         checkEmail: build.mutation<CheckEmailResponse, CheckEmailRequest>({
             query: (email) => ({
@@ -30,6 +49,15 @@ export const authApi = baseApi.injectEndpoints({
                 method: 'POST',
                 body: {email},
             }),
+            async onQueryStarted(_, {dispatch, queryFulfilled}) {
+                try {
+                    dispatch(setIsLoading(true));
+                    await queryFulfilled;
+                    dispatch(setIsLoading(false));
+                } catch (err) {
+                    dispatch(setIsLoading(false));
+                }
+            },
         }),
         confirmEmail: build.mutation<ConfirmEmailResponse, ConfirmEmailRequest>({
             query: (arg) => ({
@@ -37,6 +65,15 @@ export const authApi = baseApi.injectEndpoints({
                 method: 'POST',
                 body: arg,
             }),
+            async onQueryStarted(_, {dispatch, queryFulfilled}) {
+                try {
+                    dispatch(setIsLoading(true));
+                    await queryFulfilled;
+                    dispatch(setIsLoading(false));
+                } catch (err) {
+                    dispatch(setIsLoading(false));
+                }
+            },
         }),
         changePassword: build.mutation<ChangePasswordResponse, ChangePasswordRequest>({
             query: (arg) => ({
@@ -44,6 +81,15 @@ export const authApi = baseApi.injectEndpoints({
                 method: 'POST',
                 body: arg,
             }),
+            async onQueryStarted(_, {dispatch, queryFulfilled}) {
+                try {
+                    dispatch(setIsLoading(true));
+                    await queryFulfilled;
+                    dispatch(setIsLoading(false));
+                } catch (err) {
+                    dispatch(setIsLoading(false));
+                }
+            },
         }),
     }),
 })

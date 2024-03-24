@@ -1,18 +1,13 @@
-export type UserCredentials = {
+export type ProfileInfo = {
     email: string;
     firstName: string;
     lastName: string;
     birthday: string;
     imgSrc: string;
     readyForJointTraining: boolean;
-    sendNotification: false;
-}
-
-export type UserTariff = {
+    sendNotification: boolean;
     tariff: {
         tariffId: string;
         expired: string;
     }
 }
-
-export type ProfileInfo = UserCredentials & UserTariff;

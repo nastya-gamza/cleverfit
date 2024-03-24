@@ -1,5 +1,4 @@
-import React, {useEffect} from 'react';
-import {Loader} from '@components/loader';
+import {useEffect} from 'react';
 import {useAppSelector} from '@hooks/typed-react-redux-hooks.ts';
 import {useChangePassword} from '@pages/change-password-page/hooks/use-change-password.ts';
 import {authSelector} from '@redux/selectors/selectors.ts';
@@ -13,7 +12,7 @@ const {Title} = Typography;
 export const ChangePasswordPage = () => {
     const [form] = Form.useForm();
     const {retryPassword, password} = useAppSelector(authSelector);
-    const {onSubmit, isLoading} = useChangePassword();
+    const {onSubmit} = useChangePassword();
 
     useEffect(() => {
         if (retryPassword) {
@@ -22,45 +21,42 @@ export const ChangePasswordPage = () => {
     }, [onSubmit, password, retryPassword]);
 
     return (
-        <React.Fragment>
-            {isLoading && <Loader/>}
-            <Card className={styles.card}>
-                <Title level={3} style={{marginBottom: '32px'}}>Восстановление аккаунта</Title>
-                <Form
-                    form={form}
-                    onFinish={onSubmit}
+        <Card className={styles.card}>
+            <Title level={3} style={{marginBottom: '32px'}}>Восстановление аккаунта</Title>
+            <Form
+                form={form}
+                onFinish={onSubmit}
+            >
+                <Form.Item
+                    name='password'
+                    className={styles.password}
+                    rules={[{required: true, message: ''}, {validator: isValidPassword}]}
+                    help='Пароль не менее 8 символов, с заглавной буквой и цифрой'
                 >
-                    <Form.Item
-                        name='password'
-                        className={styles.password}
-                        rules={[{required: true, message: ''}, {validator: isValidPassword}]}
-                        help='Пароль не менее 8 символов, с заглавной буквой и цифрой'
-                    >
-                        <Input.Password data-test-id='change-password'
-                                        placeholder='Новый пароль'/>
-                    </Form.Item>
-                    <Form.Item
-                        name='confirmPassword'
-                        dependencies={['password']}
-                        className={styles.password}
-                        rules={[{required: true, message: ''}, isValidConfirmPassword]}
-                    >
-                        <Input.Password data-test-id='change-confirm-password'
-                                        placeholder='Повторите пароль'/>
-                    </Form.Item>
-                    <Button
-                        type='primary'
-                        htmlType='submit'
-                        block={true}
-                        size='large'
-                        className={styles.btn}
-                        data-test-id='change-submit-button'
-                    >
-                        Сохранить
-                    </Button>
-                </Form>
-            </Card>
-        </React.Fragment>
+                    <Input.Password data-test-id='change-password'
+                                    placeholder='Новый пароль'/>
+                </Form.Item>
+                <Form.Item
+                    name='confirmPassword'
+                    dependencies={['password']}
+                    className={styles.password}
+                    rules={[{required: true, message: ''}, isValidConfirmPassword]}
+                >
+                    <Input.Password data-test-id='change-confirm-password'
+                                    placeholder='Повторите пароль'/>
+                </Form.Item>
+                <Button
+                    type='primary'
+                    htmlType='submit'
+                    block={true}
+                    size='large'
+                    className={styles.btn}
+                    data-test-id='change-submit-button'
+                >
+                    Сохранить
+                </Button>
+            </Form>
+        </Card>
 
     )
 }

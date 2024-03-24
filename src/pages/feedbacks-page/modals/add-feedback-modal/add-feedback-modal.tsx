@@ -1,5 +1,4 @@
 import React, {Dispatch, SetStateAction, useEffect, useState} from 'react';
-import {Loader} from '@components/loader';
 import {RESULTS} from '@constants/results.ts';
 import {ResultModal} from '@pages/feedbacks-page/modals';
 import {Rating} from '@pages/feedbacks-page/rating/rating.tsx';
@@ -21,7 +20,7 @@ export const AddFeedbackModal = ({showFeedbackModal, setShowFeedbackModal}: AddF
     const [result, setResult] = useState<Result | null>(null)
     const [isDisabled, setIsDisabled] = useState(true);
     const [openResultModal, setOpenResultModal] = useState(false);
-    const [postFeedback, {isLoading, isError, isSuccess}] = usePostFeedbackMutation();
+    const [postFeedback, {isError, isSuccess}] = usePostFeedbackMutation();
 
     useEffect(() => {
         if (isSuccess) {
@@ -56,7 +55,6 @@ export const AddFeedbackModal = ({showFeedbackModal, setShowFeedbackModal}: AddF
 
     return (
         <React.Fragment>
-            {isLoading && <Loader/>}
             <Modal
                 open={showFeedbackModal}
                 title='Ваш отзыв'

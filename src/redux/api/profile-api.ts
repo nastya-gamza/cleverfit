@@ -15,7 +15,6 @@ export const profileApi = baseApi.injectEndpoints({
 
                     dispatch(setIsLoading(false));
                     dispatch(setProfileInfo(data));
-
                 } catch (err) {
                     dispatch(setIsLoading(false));
                 }

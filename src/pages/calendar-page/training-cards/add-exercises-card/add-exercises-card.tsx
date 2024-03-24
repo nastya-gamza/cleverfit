@@ -190,7 +190,6 @@ export const AddExercisesCard = ({
                                     key={i}
                                     index={i}
                                     name={e.name}
-                                    _id={e._id}
                                     onClick={onClickEdit}
                                 />)}
                         </div>

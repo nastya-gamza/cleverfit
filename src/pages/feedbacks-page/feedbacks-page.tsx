@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import {Loader} from '@components/loader';
 import {ErrorModal} from '@components/shared/error-modal';
 import {FeedbackCard} from '@pages/feedbacks-page/feedback-card';
 import {AddFeedbackModal} from '@pages/feedbacks-page/modals';
@@ -13,7 +12,7 @@ import styles from './feedbacks-page.module.less';
 export const FeedbacksPage = () => {
     const [showAllFeedbacks, setShowAllFeedBacks] = useState(false);
     const [showAddFeedbackModal, setShowAddFeedbackModal] = useState(false);
-    const {data = [], isLoading, isError} = useGetFeedbacksQuery();
+    const {data = [], isError} = useGetFeedbacksQuery();
 
     const isDataEmpty = data.length === 0;
 
@@ -33,7 +32,6 @@ export const FeedbacksPage = () => {
 
     return (
         <React.Fragment>
-            {isLoading && <Loader/>}
             {isError && <ErrorModal/>}
             <AddFeedbackModal
                 showFeedbackModal={showAddFeedbackModal}

@@ -79,9 +79,6 @@ export const CreateTrainingCard = ({
                                 key={_id ?? i}
                                 index={i}
                                 name={name}
-                                setCreateWorkout={setCreateWorkout}
-                                setEditingTrainingName={setEditingTrainingName}
-                                _id={_id}
                                 onClick={() => onClickEdit(name)}
                                 isDisabled={isImplementation}
                             />)

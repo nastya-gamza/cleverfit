@@ -16,8 +16,8 @@ export type FormFields = {
 export const useAuth = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
-    const [login, {isLoading: isLoginLoading}] = useLoginMutation();
-    const [checkEmail, {isLoading: isCheckEmailLoading}] = useCheckEmailMutation();
+    const [login] = useLoginMutation();
+    const [checkEmail] = useCheckEmailMutation();
 
     const onSubmit = async (data: FormFields) => {
         try {
@@ -61,5 +61,5 @@ export const useAuth = () => {
         window.location.href = `${BASE_API_URL}${ENDPOINTS.loginGoogle}`;
     };
 
-    return {onSubmit, retry, isLoginLoading, isCheckEmailLoading, handleGoogleAuth};
+    return {onSubmit, retry, handleGoogleAuth};
 }

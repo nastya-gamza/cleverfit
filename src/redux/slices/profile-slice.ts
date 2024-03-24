@@ -7,13 +7,13 @@ type ProfileState = {
 
 const initialState: ProfileState = {
     profileInfo: {
-        firstName: '',
         email: '',
+        firstName: '',
         lastName: '',
         birthday: '',
         imgSrc: '',
-        sendNotification: false,
         readyForJointTraining: false,
+        sendNotification: false,
         tariff: {
             tariffId: '',
             expired: '',
@@ -21,7 +21,7 @@ const initialState: ProfileState = {
     },
 };
 
-const slice = createSlice({
+const profileSlice = createSlice({
     name: 'profile',
     initialState,
     reducers: {
@@ -29,8 +29,13 @@ const slice = createSlice({
             state.profileInfo = action.payload;
         },
     },
+    selectors: {
+        selectProfileInfo: state => state.profileInfo,
+    },
 })
 
-export const {setProfileInfo} = slice.actions
+export const {setProfileInfo} = profileSlice.actions;
 
-export default slice.reducer
+export const {selectProfileInfo} = profileSlice.selectors;
+
+export default profileSlice.reducer

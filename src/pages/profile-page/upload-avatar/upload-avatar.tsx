@@ -1,12 +1,15 @@
 import {PlusOutlined, UploadOutlined} from '@ant-design/icons';
+import {useAppSelector} from '@hooks/typed-react-redux-hooks.ts';
+import {selectProfileInfo} from '@redux/slices/profile-slice.ts';
 import {Button, Grid, Typography, Upload} from 'antd';
 
 import styles from './upload-avatar.module.less';
 
-export const UploadAvatar = () => {
-    const {useBreakpoint} = Grid;
+const {useBreakpoint} = Grid;
 
+export const UploadAvatar = () => {
     const {xs} = useBreakpoint();
+    const {imgSrc} = useAppSelector(selectProfileInfo);
 
     const listType = xs ? 'picture' : 'picture-card';
 
@@ -27,6 +30,7 @@ export const UploadAvatar = () => {
     return (
         <Upload
             name='avatar'
+            action={`https://training-api.clevertec.ru/${imgSrc}`}
             maxCount={1}
             listType={listType}
             className={styles.uploader}
