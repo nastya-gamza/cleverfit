@@ -8,6 +8,7 @@ import {ConfirmEmailPage} from '@pages/confirm-email-page';
 import {FeedbacksPage} from '@pages/feedbacks-page';
 import {MainPage} from '@pages/main-page';
 import {NotFoundPage} from '@pages/not-found-page';
+import {ProfilePage} from '@pages/profile-page';
 import {ResultPage} from '@pages/result-page';
 
 import {ProtectedRoute} from './protected-route.tsx';
@@ -40,6 +41,7 @@ export const routes = (
                 <Route element={<MainLayout/>}>
                     <Route path={PATHS.feedbacks} element={<FeedbacksPage/>}/>
                     <Route path={PATHS.calendar} element={<CalendarPage/>}/>
+                    <Route path={PATHS.profile} element={<ProfilePage/>}/>
                 </Route>
             </Route>
 

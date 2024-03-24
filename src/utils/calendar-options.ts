@@ -1,36 +1,11 @@
 import {PickerLocale} from 'antd/es/date-picker/generatePicker';
+import locale from 'antd/es/date-picker/locale/ru_RU';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import CalendarLocale from 'rc-picker/lib/locale/ru_RU';
 
 export const calendarLocale: PickerLocale = {
     lang: {
-        locale: 'ru_RU',
-        placeholder: 'Выберите дату',
-        rangePlaceholder: ['Начальная дата', 'Конечная дата'],
-        today: 'Сегодня',
-        now: 'Сейчас',
-        backToToday: 'Back to today',
-        ok: 'OK',
-        clear: 'Clear',
-        month: 'Месяц',
-        year: 'Год',
-        timeSelect: 'Select time',
-        dateSelect: 'Select date',
-        monthSelect: 'Choose a month',
-        yearSelect: 'Choose a year',
-        decadeSelect: 'Choose a decade',
-        yearFormat: 'YYYY',
-        dateFormat: 'D/M/YYYY',
-        dayFormat: 'D',
-        dateTimeFormat: 'D/M/YYYY HH:mm:ss',
-        monthFormat: 'MMMM',
-        monthBeforeYear: true,
-        previousMonth: 'Previous month (PageUp)',
-        nextMonth: 'Next month (PageDown)',
-        previousYear: 'Last year (Control + left)',
-        nextYear: 'Next year (Control + right)',
-        previousDecade: 'Last decade',
-        nextDecade: 'Next decade',
-        previousCentury: 'Last century',
-        nextCentury: 'Next century',
+        ...locale.lang,
         shortWeekDays: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
         shortMonths: [
             'Янв',
@@ -45,15 +20,11 @@ export const calendarLocale: PickerLocale = {
             'Окт',
             'Ноя',
             'Дек',
-        ]
+        ],
+        ...CalendarLocale,
     },
     timePickerLocale: {
-        placeholder: 'Select time'
+        ...locale.timePickerLocale,
     },
-    dateFormat: 'DD-MM-YYYY',
-    dateTimeFormat: 'DD-MM-YYYY HH:mm:ss',
-    weekFormat: 'wo-YYYY',
-    monthFormat: 'MM-YYYY',
-}
-
+};
 

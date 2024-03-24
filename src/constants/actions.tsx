@@ -20,7 +20,7 @@ export const ACTIONS = [
     {
         name: 'Профиль',
         icon: <IdcardOutlined/>,
-        path: PATHS.calendar,
+        path: PATHS.profile,
         action: 'Заполнить профиль',
         dataTestId: 'menu-button-profile'
     },

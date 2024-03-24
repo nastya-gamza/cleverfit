@@ -28,7 +28,7 @@ export const feedbackApi = createApi({
             providesTags: (result) =>
                 result
                     ? [
-                        ...result.map(({_id}) => ({type: TAGS.feedback as const, _id})),
+                        ...result.map(({id}) => ({type: TAGS.feedback as const, id})),
                         {type: TAGS.feedback, id: 'LIST'},
                     ]
                     : [{type: TAGS.feedback, id: 'LIST'}],
