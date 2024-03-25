@@ -8,6 +8,7 @@ export const error = (title: ReactNode,
                       content: string,
                       btnText: string,
                       onClick: () => void,
+                      dataTestId: string,
                       isOnSave = false,
 ) => {
     Modal.error({
@@ -17,7 +18,7 @@ export const error = (title: ReactNode,
             </Typography.Title>
         ),
         content: (
-            <Typography.Text data-test-id='modal-error-user-training-subtitle' type='secondary'>
+            <Typography.Text data-test-id={dataTestId} type='secondary'>
                 {content}
             </Typography.Text>
         ),
@@ -27,7 +28,7 @@ export const error = (title: ReactNode,
             background: 'rgba(121, 156, 212, 0.1)',
             backdropFilter: 'blur(5px)',
         },
-        okText: <span data-test-id='modal-error-user-training-button'>{btnText}</span>,
+        okText: <span data-test-id={dataTestId}>{btnText}</span>,
         icon: <CloseCircleOutlined style={{color: isOnSave ? '#FF4D4F' : '#2F54EBFF'}}/>,
         closeIcon: <CloseOutlined data-test-id='modal-error-user-training-button-close'/>,
         className: styles.notification,

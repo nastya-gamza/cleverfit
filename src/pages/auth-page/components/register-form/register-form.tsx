@@ -40,7 +40,7 @@ export const RegisterForm = () => {
             <Form.Item
                 name='password'
                 className={styles.password}
-                rules={[{required: true, message: ''}, {validator: isValidPassword}]}
+                rules={[isValidPassword()]}
                 help='Пароль не менее 8 символов, с заглавной буквой и цифрой'
             >
                 <Input.Password data-test-id='registration-password' placeholder='Пароль'/>

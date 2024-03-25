@@ -8,13 +8,19 @@ export const isValidEmail = (_rule: unknown, value: string) => {
     return Promise.reject(new Error());
 };
 
-export const isValidPassword = (_rule: unknown, value: string) => {
-    if (value && REGEX.password.test(value)) {
-        return Promise.resolve()
-    }
+export const isValidPassword = (isRequired = true) => ({
+    validator(_: unknown, value: string) {
+        if (value && REGEX.password.test(value)) {
+            return Promise.resolve();
+        }
 
-    return Promise.reject(new Error());
-};
+        if (!isRequired && !value) {
+            return Promise.resolve();
+        }
+
+        return Promise.reject(new Error());
+    },
+});
 
 export const isValidConfirmPassword = ({ getFieldValue }: { getFieldValue: any }) => ({
     validator(_rule: unknown, value: string) {

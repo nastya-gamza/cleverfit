@@ -33,7 +33,8 @@ export const CalendarPage = () => {
                 <span>При открытии данных <br/> произошла ошибка</span>,
                 'Попробуйте еще раз.',
                 'Обновить',
-                refetchTrainingList
+                refetchTrainingList,
+                'modal-error-user-training-button',
             );
 
             return () => Modal.destroyAll();

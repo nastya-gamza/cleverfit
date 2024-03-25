@@ -19,6 +19,6 @@ export const baseApi = createApi({
             return headers;
         },
     }),
-    tagTypes: [TAGS.feedback, TAGS.training],
+    tagTypes: [TAGS.feedback, TAGS.training, TAGS.profile],
     endpoints: () => ({}),
 });

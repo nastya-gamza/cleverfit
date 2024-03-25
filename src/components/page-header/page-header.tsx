@@ -39,6 +39,7 @@ export const PageHeader = () => {
                         icon={<SettingOutlined/>}
                         type='link'
                         className={styles.link}
+                        data-test-id='header-settings'
                     >
                         {screens.xs ? '' : 'Настройки'}
                     </Button>

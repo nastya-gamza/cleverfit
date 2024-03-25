@@ -50,7 +50,7 @@ export const AuthForm = () => {
                        className={styles.email}/>
             </Form.Item>
             <Form.Item name='password'
-                       rules={[{required: true, message: ''}, {validator: isValidPassword}]}>
+                       rules={[isValidPassword()]}>
                 <Input.Password data-test-id='login-password' placeholder='Пароль'/>
             </Form.Item>
             <div className={styles.row}>

@@ -8,5 +8,6 @@ export enum ENDPOINTS {
     loginGoogle = '/auth/google',
     training = '/training',
     trainingList = '/catalogs/training-list',
-    userMe = '/user/me'
+    userMe = '/user/me',
+    user = '/user'
 }

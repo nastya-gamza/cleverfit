@@ -87,6 +87,7 @@ export const ExercisesPopover = ({
                 'Придётся попробовать ещё раз',
                 'Закрыть',
                 () => navigate(PATHS.calendar, {state: {from: 'redirect'}}),
+                'modal-error-user-training-button',
                 true,
             );
             setAddNewWorkout(false);

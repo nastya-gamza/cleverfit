@@ -106,6 +106,7 @@ export const AddExercisesCard = ({
                 'Придётся попробовать ещё раз',
                 'Закрыть',
                 () => navigate(PATHS.calendar, {state: {from: 'redirect'}}),
+                'modal-error-user-training-button',
                 true,
             );
             setAddNewWorkout(false);
@@ -153,6 +154,7 @@ export const AddExercisesCard = ({
                             size='middle'
                             type='link'
                             disabled={!isSaveDisable}
+                            data-test-id='profile-submit'
                         >
                             {editingTrainingName ? 'Сохранить изменения' : 'Сохранить'}
                         </Button>
