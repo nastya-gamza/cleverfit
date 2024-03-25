@@ -1,6 +1,9 @@
 import {DDMMYYYY} from '@constants/date-formates.ts';
+import {useAppSelector} from '@hooks/typed-react-redux-hooks.ts';
 import {UploadAvatar} from '@pages/profile-page/upload-avatar/upload-avatar.tsx';
 import CalendarIcon from '@public/icons/calendar.svg?react';
+import {useGetUserQuery} from '@redux/api/profile-api.ts';
+import {selectProfileInfo} from '@redux/slices/profile-slice.ts';
 import {calendarLocale} from '@utils/calendar-options.ts';
 import {isValidConfirmPassword, isValidEmail, isValidPassword} from '@utils/validation.ts';
 import {Button, DatePicker, Form, Grid, Input, Space, Typography} from 'antd';
@@ -11,6 +14,9 @@ const {useBreakpoint} = Grid;
 
 export const ProfilePage = () => {
     const {xs} = useBreakpoint();
+    const {imgSrc} = useAppSelector(selectProfileInfo);
+
+    useGetUserQuery();
 
     return (
         <div className={styles.contentWrapper}>
@@ -19,8 +25,8 @@ export const ProfilePage = () => {
                     <Typography.Title level={5}>Личная информация</Typography.Title>
 
                     <div className={styles.personalInfo}>
-                        <Form.Item name='imgSrc'>
-                            <UploadAvatar/>
+                        <Form.Item name='avatar'>
+                            <UploadAvatar url={imgSrc}/>
                         </Form.Item>
                         <div className={styles.personalInfoForm}>
                             <Form.Item name='firstName'>

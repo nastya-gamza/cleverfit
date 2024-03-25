@@ -1,5 +1,6 @@
 import {ENDPOINTS} from '@constants/endpoints.ts';
 import {baseApi} from '@redux/api/base-api.ts';
+import {setIsLoading} from '@redux/slices/app-slice.ts';
 import {
     ChangePasswordRequest, ChangePasswordResponse,
     CheckEmailRequest, CheckEmailResponse, ConfirmEmailRequest, ConfirmEmailResponse,
@@ -7,7 +8,6 @@ import {
     LoginResponse,
     RegisterRequest
 } from '@redux/types/auth.ts';
-import {setIsLoading} from '@redux/slices/app-slice.ts';
 
 export const authApi = baseApi.injectEndpoints({
     endpoints: (build) => ({

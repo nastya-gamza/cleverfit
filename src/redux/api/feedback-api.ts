@@ -1,8 +1,8 @@
 import {ENDPOINTS} from '@constants/endpoints.ts';
 import {baseApi} from '@redux/api/base-api.ts';
+import {setIsLoading} from '@redux/slices/app-slice.ts';
 import {Feedback, FeedbackRequest} from '@redux/types/feedback.ts';
 import {TAGS} from '@redux/types/tags.ts';
-import {setIsLoading} from '@redux/slices/app-slice.ts';
 
 export const feedbackApi = baseApi.injectEndpoints({
     endpoints: (build) => ({
