@@ -162,6 +162,7 @@ export const ExercisesPopover = ({
                 isFullScreen={isFullScreen}
                 close={handleClose}
                 closeIcon={editingTrainingName ? <EditOutlined/> : <PlusOutlined/>}
+                dataTestId='modal-drawer-right'
             >
                 <div className={styles.drawerInfo}>
                     <Badge

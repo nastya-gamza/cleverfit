@@ -1,0 +1,47 @@
+.label {
+    display: flex;
+    align-items: center;
+    gap: 153px;
+    justify-content: space-between;
+
+    :global(h5.ant-typography) {
+        margin: 0;
+    }
+}
+
+.priceForm {
+    display: flex;
+    flex-direction: column;
+    height: 90%;
+
+    :global {
+        span {
+            padding: 0;
+        }
+
+        div.ant-space-item,
+        div.ant-radio-group {
+            width: 100%;
+        }
+
+        .ant-radio-wrapper {
+            width: 100%;
+            justify-content: space-between;
+        }
+
+        .ant-form-item {
+            margin-bottom: 0;
+        }
+    }
+}
+
+.radioBtnWrapper {
+    width: 100%;
+
+    :global {
+        .ant-radio {
+            order: 2;
+            margin-left: 48px;
+        }
+    }
+}

@@ -1,49 +1,46 @@
 import {ENDPOINTS} from '@constants/endpoints.ts';
 import {baseApi} from '@redux/api/base-api.ts';
 import {setIsLoading} from '@redux/slices/app-slice.ts';
-import {setProfileInfo} from '@redux/slices/profile-slice.ts';
-import {ProfileInfo} from '@redux/types/profile.ts';
-import {TAGS} from '@redux/types/tags.ts';
+import {setShowSuccessModal, setTariffList} from '@redux/slices/settings-slice.ts';
+import {NewTariff, TariffItem} from '@redux/types/settings.ts';
 
-export const profileApi = baseApi.injectEndpoints({
-    endpoints: (build) => ({
-        getCurrentUser: build.query<ProfileInfo, void>({
-            query: () => ENDPOINTS.userMe,
+export const settingsApi = baseApi.injectEndpoints({
+    endpoints: build => ({
+        getTariffList: build.query<TariffItem[], void>({
+            query: () => ENDPOINTS.tariffList,
             async onQueryStarted(_, {dispatch, queryFulfilled}) {
                 try {
                     dispatch(setIsLoading(true));
                     const {data} = await queryFulfilled;
 
                     dispatch(setIsLoading(false));
-                    dispatch(setProfileInfo(data));
+                    dispatch(setTariffList(data));
                 } catch (err) {
                     dispatch(setIsLoading(false));
                 }
             },
         }),
-        updateCurrentUser: build.mutation<ProfileInfo, Partial<ProfileInfo>>({
-            query: (body) => ({
-                url: ENDPOINTS.user,
-                method: 'PUT',
+        buyNewTariff: build.mutation<void, NewTariff>({
+            query: body => ({
+                url: ENDPOINTS.newTariff,
+                method: 'POST',
                 body,
             }),
             async onQueryStarted(_, {dispatch, queryFulfilled}) {
                 try {
                     dispatch(setIsLoading(true));
-                    const {data} = await queryFulfilled;
-
+                    await queryFulfilled;
+                    dispatch(setShowSuccessModal(true));
                     dispatch(setIsLoading(false));
-                    dispatch(setProfileInfo(data));
                 } catch {
                     dispatch(setIsLoading(false));
                 }
             },
-            invalidatesTags: [{type: TAGS.profile, id: 'LIST'}],
         }),
     }),
 });
 
 export const {
-    useLazyGetCurrentUserQuery,
-    useUpdateCurrentUserMutation,
-} = profileApi;
+    useGetTariffListQuery,
+    useBuyNewTariffMutation,
+} = settingsApi;

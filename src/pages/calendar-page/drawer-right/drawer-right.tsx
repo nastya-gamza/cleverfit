@@ -1,16 +1,17 @@
 import {ReactNode} from 'react';
 import {CloseOutlined} from '@ant-design/icons';
-import {Button, Drawer} from 'antd';
+import {Button, Drawer, DrawerProps} from 'antd';
 
 import styles from './drawer-right.module.less';
 
-type DrawerRightProps = {
+type DrawerRightProps = DrawerProps & {
     title: string;
     open: boolean;
     close: () => void;
     isFullScreen: boolean;
-    closeIcon: ReactNode;
     children: ReactNode;
+    dataTestId: string;
+    closeIcon?: ReactNode;
 }
 
 export const DrawerRight = ({
@@ -19,7 +20,9 @@ export const DrawerRight = ({
                                 close,
                                 closeIcon,
                                 isFullScreen,
-                                children
+                                children,
+                                dataTestId,
+                                ...props
                             }: DrawerRightProps) => (
     <Drawer
         title={title}
@@ -33,7 +36,7 @@ export const DrawerRight = ({
         maskStyle={{background: 'transparent'}}
         className={styles.drawer}
         onClick={(e) => e.stopPropagation()}
-        data-test-id='modal-drawer-right'
+        data-test-id={dataTestId}
         extra={
             <Button
                 data-test-id='modal-drawer-right-button-close'
@@ -43,6 +46,7 @@ export const DrawerRight = ({
                 onClick={close}
             />
         }
+        {...props}
     >
         {children}
     </Drawer>

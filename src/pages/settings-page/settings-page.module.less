@@ -1,0 +1,37 @@
+.title {
+    margin-bottom: 16px;
+}
+
+.contentWrapper {
+    background: @white;
+    border-radius: 8px;
+    padding: 24px;
+    max-width: 1184px;
+    min-height: 886px;
+
+    @media (max-width: 834px) {
+        min-height: 1032px;
+    }
+
+    @media (max-width: 575px) {
+        min-height: 667px;
+        padding: 16px 24px;
+        margin: 0 -16px;
+        border-radius: 0;
+    }
+}
+
+.btnWrapper {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    flex-wrap: wrap;
+
+    @media (max-width: 525px) {
+        flex-direction: column;
+
+        button {
+            width: 100%;
+        }
+    }
+}

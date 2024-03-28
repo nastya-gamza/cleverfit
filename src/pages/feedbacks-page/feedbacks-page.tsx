@@ -49,6 +49,7 @@ export const FeedbacksPage = () => {
                             type='primary'
                             onClick={handleShowAddFeedbackModal}
                             data-test-id='write-review'
+                            size='large'
                         >
                             Написать отзыв
                         </Button>

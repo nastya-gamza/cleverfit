@@ -41,7 +41,10 @@ export const ResultModal = ({open, setOpen, setOpenAddFeedback, result}: Success
                     title='Отзыв успешно опубликован'
                     className={styles.result}
                     extra={
-                        <Button type='primary' onClick={handleCancel} block={true}>
+                        <Button
+                            type='primary'
+                            onClick={handleCancel}
+                            block={true}>
                             Отлично
                         </Button>
                     }

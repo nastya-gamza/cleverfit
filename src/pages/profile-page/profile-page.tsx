@@ -1,21 +1,20 @@
 import React, {useEffect, useState} from 'react';
+import {useNavigate} from 'react-router-dom';
 import {DDMMYYYY} from '@constants/date-formates.ts';
+import {PATHS} from '@constants/paths.ts';
 import {useAppSelector} from '@hooks/typed-react-redux-hooks.ts';
 import {FormFields} from '@pages/auth-page/hooks/use-auth.ts';
+import {error} from '@pages/calendar-page/notification-modal/error-notification-modal.tsx';
 import {UploadAvatar} from '@pages/profile-page/upload-avatar/upload-avatar.tsx';
 import CalendarIcon from '@public/icons/calendar.svg?react';
 import {useUpdateCurrentUserMutation} from '@redux/api/profile-api.ts';
 import {selectProfileInfo} from '@redux/slices/profile-slice.ts';
 import {calendarLocale} from '@utils/calendar-options.ts';
 import {isValidConfirmPassword, isValidEmail, isValidPassword} from '@utils/validation.ts';
-import {Button, DatePicker, Form, Grid, Input, Space, Typography, Alert} from 'antd';
-import {error} from '@pages/calendar-page/notification-modal/error-notification-modal.tsx';
+import {Alert,Button, DatePicker, Form, Grid, Input, Space, Typography} from 'antd';
+import moment from 'moment';
 
 import styles from './profile-page.module.less';
-import moment from 'moment';
-import {Simulate} from 'react-dom/test-utils';
-import {useNavigate} from 'react-router-dom';
-import {PATHS} from '@constants/paths.ts';
 
 const {useBreakpoint} = Grid;
 
@@ -42,9 +41,10 @@ export const ProfilePage = () => {
     useEffect(() => {
         if (isSuccess) {
             setShowSuccessModal(true);
+            form.resetFields(['password', 'confirm-password']);
             setIsDisabled(true);
         }
-    }, [isSuccess]);
+    }, [isSuccess, form]);
 
     useEffect(() => {
         if (isError) {
@@ -63,8 +63,8 @@ export const ProfilePage = () => {
         <React.Fragment>
             {showSuccessModal &&
                 <Alert
-                    message="Данные профиля успешно обновлены"
-                    type="success"
+                    message='Данные профиля успешно обновлены'
+                    type='success'
                     showIcon={true}
                     closable={true}
                     className={styles.alert}
@@ -100,7 +100,7 @@ export const ProfilePage = () => {
                                         placeholder='Дата рождения'
                                         defaultValue={birthday ? moment(birthday) : undefined}
                                         className={styles.datePicker}
-                                        suffixIcon={<CalendarIcon fill="rgba(0, 0, 0, 0.25)"/>}
+                                        suffixIcon={<CalendarIcon fill='rgba(0, 0, 0, 0.25)'/>}
                                         data-test-id='profile-birthday'
                                         onChange={()=>setIsDisabled(false)}
                                     />

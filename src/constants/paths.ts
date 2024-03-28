@@ -20,4 +20,5 @@ export enum PATHS {
     profile = '/profile',
     feedbacks = '/feedbacks',
     calendar = '/calendar',
+    settings = '/settings',
 }

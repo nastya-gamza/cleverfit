@@ -2,14 +2,16 @@ import {Dispatch, SetStateAction, useEffect, useMemo, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {PlusOutlined, UploadOutlined} from '@ant-design/icons';
 import {PATHS} from '@constants/paths.ts';
+import {useAppDispatch, useAppSelector} from '@hooks/typed-react-redux-hooks.ts';
 import {error} from '@pages/calendar-page/notification-modal/error-notification-modal.tsx';
-import {Button, Grid, Typography, Upload} from 'antd';
+import {selectProfileInfo, setProfileInfo} from '@redux/slices/profile-slice.ts';
+import {Button, Grid, Modal, Typography, Upload} from 'antd';
 import type {UploadProps} from 'antd/es/upload';
 import type {UploadFile, UploadFileStatus} from 'antd/es/upload/interface';
 
 import styles from './upload-avatar.module.less';
-import {useAppDispatch, useAppSelector} from '@hooks/typed-react-redux-hooks.ts';
-import {selectProfileInfo, setProfileInfo} from '@redux/slices/profile-slice.ts';
+import {BASE_API_URL} from '@constants/api.ts';
+import {ENDPOINTS} from '@constants/endpoints.ts';
 
 const {useBreakpoint} = Grid;
 
@@ -96,14 +98,14 @@ export const UploadAvatar = ({url, setIsDisabled}: UploadAvatarProps) => {
         }
 
         if (newFile?.error?.status === 409) {
-            // error(
-            //     'Файл слишком большой',
-            //     'Выберите файл размером до 5 МБ.',
-            //     'Закрыть',
-            //     () => navigate(PATHS.main, {state: {from: 'redirect'}}),
-            //     'big-file-error-close',
-            //     true,
-            // );
+            error(
+                'Файл слишком большой',
+                'Выберите файл размером до 5 МБ.',
+                'Закрыть',
+                () => navigate(PATHS.profile, {state: {from: 'redirect'}}),
+                'big-file-error-close',
+                true,
+            );
             setIsDisabled(true);
         }
     };
@@ -111,12 +113,12 @@ export const UploadAvatar = ({url, setIsDisabled}: UploadAvatarProps) => {
     return (
         <Upload
             headers={{Authorization: `Bearer ${lsToken}`}}
-            action='https://marathon-api.clevertec.ru/upload-image'
+            action={`${BASE_API_URL}${ENDPOINTS.uploadImage}`}
+            onChange={handleChange}
             maxCount={1}
             fileList={fileList}
             listType={listType}
             className={styles.uploader}
-            onChange={handleChange}
             progress={{showInfo: false, strokeWidth: 4, strokeColor: '#2F54EB',}}
         >
             {!showPreview && uploadButton}
