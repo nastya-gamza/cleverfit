@@ -44,10 +44,9 @@ export const routes = (
                     <Route path={PATHS.calendar} element={<CalendarPage/>}/>
                     <Route path={PATHS.profile} element={<ProfilePage/>}/>
                     <Route path={PATHS.settings} element={<SettingsPage/>}/>
+                    <Route path='*' element={<NotFoundPage/>}/>
                 </Route>
             </Route>
-
-            <Route path='*' element={<NotFoundPage/>}/>
         </Route>
     </Routes>
 )

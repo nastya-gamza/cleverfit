@@ -18,7 +18,7 @@ export const SettingsPage = () => {
     const [showAddFeedbackModal, setShowAddFeedbackModal] = useState(false);
 
     useGetTariffListQuery();
-    console.log(isShowSuccessModal)
+
     const handleShowAddFeedbackModal = () => {
         setShowAddFeedbackModal(true)
     }

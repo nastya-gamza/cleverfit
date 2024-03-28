@@ -7,6 +7,7 @@ import {Button, Space, Typography} from 'antd';
 import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
 
 import styles from './tariffs-drawer.module.less';
+import symbols = Mocha.reporters.Base.symbols;
 
 type TariffsDrawerProps = {
     open: boolean;
@@ -17,9 +18,11 @@ type TariffsDrawerProps = {
 
 export const TariffItem = ({title, isFree}: { title: string, isFree: boolean }) => (
     <div className={styles.itemWrapper}>
-        <Typography.Text>{title}</Typography.Text>
-        <div>{isFree ? <CheckCircleFilled/> : <CloseCircleOutlined/>}</div>
-        <div><CheckCircleFilled/></div>
+        <span>{title}</span>
+        <div className={styles.icons}>
+            <div>{isFree ? <CheckCircleFilled/> : <CloseCircleOutlined/>}</div>
+            <div><CheckCircleFilled/></div>
+        </div>
     </div>
 )
 
@@ -68,7 +71,7 @@ export const TariffsDrawer = ({open, close, proTariff, date}: TariffsDrawerProps
                 <div className={styles.pro}>pro {proTariff &&
                     <CheckCircleOutlined style={{color: '#52C41A'}}/>}</div>
             </div>
-            <Space direction='vertical' size={16} style={{marginBottom: 80}}>
+            <Space direction='vertical' size={screens.xs ? 8 : 16} className={styles.comparisonForm}>
                 {TariffsComparison.map(({title, isFree}) =>
                     <TariffItem
                         key={title}

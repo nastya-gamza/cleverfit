@@ -4,8 +4,22 @@
             border-bottom: none;
         }
 
+        .ant-drawer-title {
+            font-size: 20px;
+        }
+
+        button.ant-btn span svg{
+            width: 14px;
+            height: 14px;
+            color: @text-color-secondary;
+        }
+
         .ant-drawer-body {
             min-height: 280px;
+
+            @media (max-width: 575px) {
+                padding: 16px;
+            }
         }
 
         .ant-drawer-content-wrapper,
@@ -13,7 +27,7 @@
             border-radius: 8px 0 0 8px;
 
             @media (max-width: 575px) {
-                min-height: 89%;
+                min-height: 90%;
                 border-radius: 24px 24px 0 0;
             }
         }
@@ -26,6 +40,10 @@
     justify-content: flex-end;
     gap: 14px;
     margin: 24px 0;
+
+    @media (max-width: 575px) {
+        margin-top: 0;
+    }
 }
 
 .free,
@@ -47,9 +65,28 @@
 }
 
 .itemWrapper {
-    display: grid;
-    grid-template-columns: 222px 56px 56px;
-    gap: 12px;
+    //display: grid;
+    //grid-template-columns: 222px 56px 56px;
+    //gap: 12px;
+
+    display: flex;
+    //justify-content: space-between;
+    width: 100%;
+
+    span {
+        flex: 1 1 auto;
+    }
+
+    .icons {
+        display: flex;
+        gap: 14px;
+
+        div {
+            padding: 0 22px;
+        }
+    }
+
+    //@media (max-width: )
 
     div {
         justify-self: center;
@@ -58,6 +95,15 @@
     svg {
         width: 18px;
         height: 18px;
+    }
+}
+
+.comparisonForm {
+    margin-bottom: 80px;
+    width: 100%;
+
+    @media (max-width: 575px) {
+        margin-bottom: 24px;
     }
 }
 

@@ -7,7 +7,7 @@ import {setShowSuccessModal} from '@redux/slices/settings-slice.ts';
 import {Modal, Result, Typography} from 'antd';
 import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
 
-// import styles from './success-modal.module.less';
+import styles from './success-modal.module.less';
 
 export const SuccessModal = ({open}: {open: boolean}) => {
     const screens = useBreakpoint();
@@ -30,16 +30,16 @@ export const SuccessModal = ({open}: {open: boolean}) => {
             footer={null}
             onCancel={handleOnClose}
             maskStyle={{background: 'rgba(121, 156, 212, 0.5)', backdropFilter: 'blur(6px)'}}
+            className={styles.modal}
             data-test-id='tariff-modal-success'
         >
             <Result
                 status='success'
                 title='Чек для оплаты у вас на почте.'
-                style={{padding: '48px 24px'}}
                 subTitle={
                     <Typography.Text type='secondary'>
                         Мы отправили инструкцию для оплаты вам на e-mail
-                        <span> {email} </span>.
+                        <span className={styles.email}> {email} </span>.
                         После подтверждения оплаты войдите в&nbsp;приложение&nbsp;заново.
                     </Typography.Text>
                 }
@@ -48,6 +48,7 @@ export const SuccessModal = ({open}: {open: boolean}) => {
                         Не пришло письмо? Проверьте папку Спам.
                     </Typography.Text>
                 }
+                className={styles.result}
             />
         </Modal>
     )
