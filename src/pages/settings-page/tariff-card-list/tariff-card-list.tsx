@@ -10,9 +10,9 @@ import moment from 'moment';
 import styles from './tariff-card-list.module.less';
 
 export const TariffCardList = () => {
-    const {tariff: userTariff} = useAppSelector(selectProfileInfo);
-
     const [openTariffDrawer, setOpenTariffDrawer] = useState(false);
+
+    const {tariff: userTariff} = useAppSelector(selectProfileInfo);
 
     const formattedDate = moment(userTariff?.expired)?.format(DDMM);
 

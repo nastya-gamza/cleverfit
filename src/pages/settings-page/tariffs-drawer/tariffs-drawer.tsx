@@ -2,21 +2,25 @@ import {useEffect, useState} from 'react';
 import {CheckCircleFilled, CheckCircleOutlined, CloseCircleOutlined} from '@ant-design/icons';
 import {TariffsComparison} from '@constants/tariffs-comparison.ts';
 import {DrawerRight} from '@pages/calendar-page/drawer-right/drawer-right.tsx';
-import {TariffPriceForm} from '@pages/settings-page/tariff-price-form/tariff-price-form.tsx';
+import {TariffPriceForm} from '@pages/settings-page/tariff-price-form';
 import {Button, Space, Typography} from 'antd';
 import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
 
 import styles from './tariffs-drawer.module.less';
-import symbols = Mocha.reporters.Base.symbols;
 
 type TariffsDrawerProps = {
     open: boolean;
     close: () => void;
-    proTariff: { tariffId: string, expired: string };
     date: string;
+    proTariff: { tariffId: string, expired: string };
 }
 
-export const TariffItem = ({title, isFree}: { title: string, isFree: boolean }) => (
+type TariffItemProps = {
+    title: string;
+    isFree: boolean;
+}
+
+export const TariffItem = ({title, isFree}: TariffItemProps) => (
     <div className={styles.itemWrapper}>
         <span>{title}</span>
         <div className={styles.icons}>
@@ -24,7 +28,7 @@ export const TariffItem = ({title, isFree}: { title: string, isFree: boolean }) 
             <div><CheckCircleFilled/></div>
         </div>
     </div>
-)
+);
 
 export const TariffsDrawer = ({open, close, proTariff, date}: TariffsDrawerProps) => {
     const screens = useBreakpoint();
@@ -51,7 +55,7 @@ export const TariffsDrawer = ({open, close, proTariff, date}: TariffsDrawerProps
             footer={
                 !proTariff &&
                 <Button
-                    form='form'
+                    form='tarriff-form'
                     type='primary'
                     size='large'
                     block={true}
@@ -63,15 +67,20 @@ export const TariffsDrawer = ({open, close, proTariff, date}: TariffsDrawerProps
                 </Button>
             }
         >
-            {proTariff && <div className={styles.expireProDate}>
-                <Typography.Title level={5}>Ваш PRO tarif активен до {date}</Typography.Title>
-            </div>}
+            {proTariff &&
+                <div className={styles.expireProDate}>
+                    <Typography.Title level={5}>Ваш PRO tarif активен до {date}</Typography.Title>
+                </div>}
             <div className={styles.headerRow}>
                 <div className={styles.free}>free</div>
                 <div className={styles.pro}>pro {proTariff &&
                     <CheckCircleOutlined style={{color: '#52C41A'}}/>}</div>
             </div>
-            <Space direction='vertical' size={screens.xs ? 8 : 16} className={styles.comparisonForm}>
+            <Space
+                direction='vertical'
+                size={screens.xs ? 8 : 16}
+                className={styles.comparisonForm}
+            >
                 {TariffsComparison.map(({title, isFree}) =>
                     <TariffItem
                         key={title}

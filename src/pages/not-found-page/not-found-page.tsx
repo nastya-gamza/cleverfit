@@ -1,7 +1,7 @@
 import {useNavigate} from 'react-router-dom';
+import {HttpStatuses} from '@constants/http-statuses.ts';
 import {PATHS} from '@constants/paths.ts';
 import {Button, Result} from 'antd';
-import {HttpStatuses} from '@constants/http-statuses.ts';
 
 import styles from './not-found-page.module.less';
 

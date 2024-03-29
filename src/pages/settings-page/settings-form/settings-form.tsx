@@ -1,10 +1,10 @@
 import {ExclamationCircleOutlined} from '@ant-design/icons';
-import {SettingOptions} from '@constants/setting-options.ts';
+import {SettingsOptions} from '@constants/settings-options.ts';
 import {useAppSelector} from '@hooks/typed-react-redux-hooks.ts';
 import {useUpdateCurrentUserMutation} from '@redux/api/profile-api.ts';
 import {selectProfileInfo} from '@redux/slices/profile-slice.ts';
 import {ProfileInfo} from '@redux/types/profile.ts';
-import {Form, Switch, Tooltip, Typography} from 'antd';
+import {Form, Switch, Tooltip} from 'antd';
 import classNames from 'classnames';
 
 import styles from './settings-form.module.less';
@@ -19,8 +19,12 @@ export const SettingsForm = () => {
     };
 
     return (
-        <Form className={styles.form} initialValues={profileInfo} onValuesChange={handleChange}>
-            {SettingOptions.map(({title, tooltip, isPro, name, dataTestId, dataTestIdIcon}) => {
+        <Form
+            initialValues={profileInfo}
+            onValuesChange={handleChange}
+            className={styles.form}
+        >
+            {SettingsOptions.map(({title, tooltip, isPro, name, dataTestId, dataTestIdIcon}) => {
                 const coverPro = !profileInfo.tariff && isPro;
 
                 return (
@@ -32,8 +36,8 @@ export const SettingsForm = () => {
                             </Tooltip>
                         </div>
                         <Form.Item
-                            name={name}
                             key={title}
+                            name={name}
                             valuePropName='checked'
                             className={styles.option}
                         >

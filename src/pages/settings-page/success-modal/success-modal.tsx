@@ -9,7 +9,7 @@ import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
 
 import styles from './success-modal.module.less';
 
-export const SuccessModal = ({open}: {open: boolean}) => {
+export const SuccessModal = ({open}: { open: boolean }) => {
     const screens = useBreakpoint();
     const dispatch = useAppDispatch();
     const {email} = useAppSelector(selectProfileInfo);
@@ -25,10 +25,10 @@ export const SuccessModal = ({open}: {open: boolean}) => {
         <Modal
             open={open}
             centered={true}
-            width={screens.xs ? 328 : 540}
             closable={true}
             footer={null}
             onCancel={handleOnClose}
+            width={screens.xs ? 328 : 540}
             maskStyle={{background: 'rgba(121, 156, 212, 0.5)', backdropFilter: 'blur(6px)'}}
             className={styles.modal}
             data-test-id='tariff-modal-success'
@@ -39,7 +39,7 @@ export const SuccessModal = ({open}: {open: boolean}) => {
                 subTitle={
                     <Typography.Text type='secondary'>
                         Мы отправили инструкцию для оплаты вам на e-mail
-                        <span className={styles.email}> {email} </span>.
+                        <span className={styles.email}> {email}</span>.
                         После подтверждения оплаты войдите в&nbsp;приложение&nbsp;заново.
                     </Typography.Text>
                 }

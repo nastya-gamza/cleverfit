@@ -1,17 +1,18 @@
 import {Dispatch, SetStateAction, useEffect, useMemo, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {PlusOutlined, UploadOutlined} from '@ant-design/icons';
+import {BASE_API_URL, TRAINING_API_URL} from '@constants/api.ts';
+import {ENDPOINTS} from '@constants/endpoints.ts';
 import {PATHS} from '@constants/paths.ts';
 import {useAppDispatch, useAppSelector} from '@hooks/typed-react-redux-hooks.ts';
 import {error} from '@pages/calendar-page/notification-modal/error-notification-modal.tsx';
+import {authSelector} from '@redux/selectors/selectors.ts';
 import {selectProfileInfo, setProfileInfo} from '@redux/slices/profile-slice.ts';
-import {Button, Grid, Modal, Typography, Upload} from 'antd';
+import {Button, Grid, Typography, Upload} from 'antd';
 import type {UploadProps} from 'antd/es/upload';
 import type {UploadFile, UploadFileStatus} from 'antd/es/upload/interface';
 
 import styles from './upload-avatar.module.less';
-import {BASE_API_URL} from '@constants/api.ts';
-import {ENDPOINTS} from '@constants/endpoints.ts';
 
 const {useBreakpoint} = Grid;
 
@@ -22,14 +23,15 @@ type UploadAvatarProps = {
 
 export const UploadAvatar = ({url, setIsDisabled}: UploadAvatarProps) => {
     const {xs} = useBreakpoint();
-    const profileInfo = useAppSelector(selectProfileInfo);
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
+    const profileInfo = useAppSelector(selectProfileInfo);
 
+    const {token} = useAppSelector(authSelector);
     const lsToken = localStorage.getItem('token');
+    const accessToken = token || lsToken;
 
-
-    const initialFile = useMemo(
+    const initialAvatar = useMemo(
         () => ({
             uid: '1',
             name: 'avatar.png',
@@ -38,16 +40,17 @@ export const UploadAvatar = ({url, setIsDisabled}: UploadAvatarProps) => {
         [url],
     );
 
-    const [fileList, setFileList] = useState<UploadFile[]>(url ? [initialFile] : []);
-    const showPreview = !!fileList[0];
-
-    const listType = xs ? 'picture' : 'picture-card';
+    const [fileList, setFileList] = useState<UploadFile[]>(url ? [initialAvatar] : []);
 
     useEffect(() => {
         if (url) {
-            setFileList([initialFile]);
+            setFileList([initialAvatar]);
         }
-    }, [url, initialFile]);
+    }, [url, initialAvatar]);
+
+    const showPreview = !!fileList[0];
+
+    const listType = xs ? 'picture' : 'picture-card';
 
     const uploadButton = (
         xs ?
@@ -80,7 +83,7 @@ export const UploadAvatar = ({url, setIsDisabled}: UploadAvatarProps) => {
         if (newFile?.response?.url) {
             const updatedProfileInfo = {
                 ...profileInfo,
-                imgSrc: `https://training-api.clevertec.ru/${newFile.response.url}`,
+                imgSrc: `${TRAINING_API_URL}/${newFile.response.url}`,
             };
 
             dispatch(setProfileInfo(updatedProfileInfo));
@@ -88,7 +91,7 @@ export const UploadAvatar = ({url, setIsDisabled}: UploadAvatarProps) => {
 
         if (newFile?.status === 'error') {
             const errorFile = {
-                ...initialFile,
+                ...initialAvatar,
                 url: '',
                 name: newFile.name,
                 status: 'error' as UploadFileStatus,
@@ -112,12 +115,12 @@ export const UploadAvatar = ({url, setIsDisabled}: UploadAvatarProps) => {
 
     return (
         <Upload
-            headers={{Authorization: `Bearer ${lsToken}`}}
+            headers={{Authorization: `Bearer ${accessToken}`}}
             action={`${BASE_API_URL}${ENDPOINTS.uploadImage}`}
             onChange={handleChange}
-            maxCount={1}
             fileList={fileList}
             listType={listType}
+            maxCount={1}
             className={styles.uploader}
             progress={{showInfo: false, strokeWidth: 4, strokeColor: '#2F54EB',}}
         >

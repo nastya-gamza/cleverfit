@@ -1,4 +1,4 @@
-export const SettingOptions = [
+export const SettingsOptions = [
     {
         name: 'readyForJointTraining',
         title: 'Открыт для совместных тренировок',
@@ -16,8 +16,8 @@ export const SettingOptions = [
     {
         title: 'Тёмная тема',
         tooltip: 'темная тема доступна для PRO tarif',
-        isPro: true,
         dataTestId: 'tariff-theme',
         dataTestIdIcon: 'tariff-theme-icon',
+        isPro: true,
     },
 ];

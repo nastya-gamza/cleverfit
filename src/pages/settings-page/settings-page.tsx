@@ -1,16 +1,16 @@
-import {useState} from 'react';
+import React, {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {PATHS} from '@constants/paths.ts';
+import {useAppSelector} from '@hooks/typed-react-redux-hooks.ts';
 import {AddFeedbackModal} from '@pages/feedbacks-page/modals';
 import {SettingsForm} from '@pages/settings-page/settings-form';
+import {SuccessModal} from '@pages/settings-page/success-modal';
 import {TariffCardList} from '@pages/settings-page/tariff-card-list';
 import {useGetTariffListQuery} from '@redux/api/settings-api.ts';
+import {selectSuccessModal} from '@redux/slices/settings-slice.ts';
 import {Button, Space, Typography} from 'antd';
 
-import {useAppSelector} from '@hooks/typed-react-redux-hooks.ts';
 import styles from './settings-page.module.less';
-import {selectSuccessModal} from '@redux/slices/settings-slice.ts';
-import {SuccessModal} from '@pages/settings-page/success-modal';
 
 export const SettingsPage = () => {
     const navigate = useNavigate();
@@ -23,8 +23,12 @@ export const SettingsPage = () => {
         setShowAddFeedbackModal(true)
     }
 
+    const handleNavigate = () => {
+        navigate(PATHS.feedbacks)
+    }
+
     return (
-        <>
+        <React.Fragment>
             <div className={styles.contentWrapper}>
                 <Typography.Title level={4} className={styles.title}>Мой тариф</Typography.Title>
                 <Space direction='vertical' size={24}>
@@ -34,17 +38,17 @@ export const SettingsPage = () => {
                         <Button
                             type='primary'
                             onClick={handleShowAddFeedbackModal}
-                            data-test-id='write-review'
                             size='large'
+                            data-test-id='write-review'
                         >
                             Написать отзыв
                         </Button>
                         <Button
                             type='link'
-                            onClick={() => navigate(PATHS.feedbacks)}
+                            onClick={handleNavigate}
                             className={styles.link}
-                            data-test-id='see-reviews'
                             size='large'
+                            data-test-id='see-reviews'
                         >
                             Смотреть все отзывы
                         </Button>
@@ -56,6 +60,6 @@ export const SettingsPage = () => {
                 setShowFeedbackModal={setShowAddFeedbackModal}
             />
             <SuccessModal open={isShowSuccessModal}/>
-        </>
+        </React.Fragment>
     )
 }
