@@ -8,16 +8,16 @@ import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
 
 import styles from './tariffs-drawer.module.less';
 
+type TariffItemProps = {
+    title: string;
+    isFree: boolean;
+}
+
 type TariffsDrawerProps = {
     open: boolean;
     close: () => void;
     date: string;
     proTariff: { tariffId: string, expired: string };
-}
-
-type TariffItemProps = {
-    title: string;
-    isFree: boolean;
 }
 
 export const TariffItem = ({title, isFree}: TariffItemProps) => (

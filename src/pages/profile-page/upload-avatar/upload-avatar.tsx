@@ -28,8 +28,6 @@ export const UploadAvatar = ({url, setIsDisabled}: UploadAvatarProps) => {
     const profileInfo = useAppSelector(selectProfileInfo);
 
     const {token} = useAppSelector(authSelector);
-    const lsToken = localStorage.getItem('token');
-    const accessToken = token || lsToken;
 
     const initialAvatar = useMemo(
         () => ({
@@ -115,7 +113,7 @@ export const UploadAvatar = ({url, setIsDisabled}: UploadAvatarProps) => {
 
     return (
         <Upload
-            headers={{Authorization: `Bearer ${accessToken}`}}
+            headers={{Authorization: `Bearer ${token}`}}
             action={`${BASE_API_URL}${ENDPOINTS.uploadImage}`}
             onChange={handleChange}
             fileList={fileList}

@@ -54,7 +54,7 @@ export const ProfileForm = () => {
                 'Придется попробовать еще раз',
                 'Закрыть',
                 () => navigate(PATHS.profile, {state: {from: 'redirect'}}),
-                'big-file-error-close',
+                '',
                 true,
             );
         }
@@ -150,8 +150,8 @@ export const ProfileForm = () => {
                                 type='primary'
                                 htmlType='submit'
                                 disabled={isDisabled}
-                                data-test-id='profile-submit'
                                 block={xs}
+                                data-test-id='profile-submit'
                             >
                                 Сохранить изменения
                             </Button>

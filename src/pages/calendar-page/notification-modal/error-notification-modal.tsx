@@ -18,7 +18,7 @@ export const error = (title: ReactNode,
             </Typography.Title>
         ),
         content: (
-            <Typography.Text data-test-id={dataTestId} type='secondary'>
+            <Typography.Text type='secondary'>
                 {content}
             </Typography.Text>
         ),
