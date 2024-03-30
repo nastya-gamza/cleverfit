@@ -1,10 +1,10 @@
-import {Button, List, Space, Typography} from 'antd';
-import {InfoCard} from '@components/card';
-import {ActionCard} from '@components/card';
-import {FEATURES_LIST} from '@constants/features-list.ts';
+import {ActionCard,InfoCard} from '@components/card';
 import {ACTIONS} from '@constants/actions.tsx';
-import styles from './page-main-content.module.less'
+import {FEATURES_LIST} from '@constants/features-list.ts';
 import {useRedirectNavigation} from '@hooks/use-redirect-navigation.ts';
+import {Button, List, Space, Typography} from 'antd';
+
+import styles from './page-main-content.module.less'
 
 const {Title, Paragraph} = Typography;
 

@@ -1,5 +1,5 @@
-import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {ChangePasswordRequest, RegisterRequest} from '@redux/types/auth.ts';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 
 type AuthState = {
     credentials: RegisterRequest;

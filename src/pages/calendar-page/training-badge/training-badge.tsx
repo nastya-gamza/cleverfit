@@ -1,7 +1,7 @@
-import {Dispatch, SetStateAction} from 'react';
-import {Badge, Button, Typography} from 'antd';
 import {EditOutlined} from '@ant-design/icons';
 import {TRAINING_COLORS_MAP} from '@constants/training-colors-map.ts';
+import {Badge, Button, Typography} from 'antd';
+
 import styles from './training-badge.module.less';
 
 type TrainingBadgeProps = {
@@ -12,20 +12,15 @@ type TrainingBadgeEditProps = {
     name: string,
     index: number,
     type?: string,
-    setCreateWorkout?: Dispatch<SetStateAction<boolean>>,
-    setEditingTrainingName?: Dispatch<SetStateAction<string | null>>,
     onClick: (name?: string) => void,
-    _id?: string,
     isDisabled?: boolean
 }
 
-export const TrainingBadge = ({training}: TrainingBadgeProps) => {
-    return (
-        <div className={styles.badgeRow}>
-            <Badge color={TRAINING_COLORS_MAP[training]} text={training}/>
-        </div>
-    )
-}
+export const TrainingBadge = ({training}: TrainingBadgeProps) => (
+    <div className={styles.badgeRow}>
+        <Badge color={TRAINING_COLORS_MAP[training]} text={training}/>
+    </div>
+)
 
 export const TrainingBadgeEdit = ({
                                       name,

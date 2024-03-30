@@ -3,6 +3,16 @@
     background: url('/img/bg-main.png') center/cover no-repeat;
 }
 
+.calendarLayout {
+    min-height: 100vh;
+    background-color: @bg-color-light;
+}
+
+.settingsLayout {
+    min-height: 100vh;
+    background-color: @hover-gray;
+}
+
 .open {
     margin-left: 208px;
     transition: all 0.3s ease-in;
@@ -26,6 +36,6 @@
 
     @media (max-width: 575px) {
         flex: 0 1 auto;
-        padding: 20px 16px;
+        padding: 20px 12px;
     }
 }

@@ -1,5 +1,6 @@
 import {Dispatch, ReactNode, SetStateAction} from 'react';
 import {Popover, PopoverProps} from 'antd';
+
 import styles from './cell-popover.module.less'
 
 type CellPopoverProps = PopoverProps & {
@@ -23,9 +24,11 @@ export const CellPopover = ({
         if (isFullScreen && isLeft) {
             return 'topLeft'
         }
+
         if (isFullScreen && !isLeft) {
             return 'topRight'
         }
+
         return 'bottom'
     }
 
@@ -33,7 +36,7 @@ export const CellPopover = ({
         <Popover
             placement={placement()}
             showArrow={false}
-            destroyTooltipOnHide
+            destroyTooltipOnHide={true}
             overlayInnerStyle={{width: 0, height: 0, padding: 0}}
             open={isOpen}
             overlayClassName={styles.innerContent}

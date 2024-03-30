@@ -12,9 +12,8 @@ export const ProtectedRoute = () => {
     useEffect(() => {
         if (!auth.token && !localStorageToken ) {
             navigate(PATHS.auth, {replace: true});
-            return;
         }
-    }, [navigate]);
+    }, [navigate, auth.token, localStorageToken]);
 
     return <Outlet/>;
 };

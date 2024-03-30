@@ -1,0 +1,60 @@
+.uploader {
+    .preview {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        padding: 0 16px;
+    }
+
+    .mobilePreview {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 12px;
+
+        button {
+            min-width: 147px;
+
+            svg {
+                fill: rgba(0, 0, 0, 0.25);
+            }
+        }
+    }
+
+    :global {
+        .ant-upload.ant-upload-select-picture-card,
+        .ant-upload-list-picture-card-container {
+            margin: 0;
+        }
+
+        .ant-upload.ant-upload-select.ant-upload-select-picture {
+            width: 100%;
+        }
+
+        .ant-upload-list-picture-card-container {
+            margin: 0;
+        }
+
+        div.ant-upload-select-picture-card .ant-upload-text {
+            margin-top: 8px;
+            color: red;
+        }
+
+        div.ant-upload-list-item-thumbnail:not(.ant-upload-list-item-file) {
+            position: relative;
+            visibility: hidden;
+        }
+
+        div.ant-upload-list-item-thumbnail:not(.ant-upload-list-item-file):after {
+            content: 'Загружаем';
+            display: block;
+            position: absolute;
+            width: 100%;
+            top: 0;
+            visibility: visible;
+            color: #262626;
+        }
+    }
+}

@@ -1,4 +1,4 @@
-export enum HTTP_STATUSES {
+export enum HttpStatuses {
     ok = 200,
     notFound = 404,
     conflict = 409,

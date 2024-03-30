@@ -1,0 +1,43 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 96px;
+
+    @media (max-width: 425px) {
+        margin-bottom: 20px;
+    }
+}
+
+.option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 80px;
+
+    :global(.ant-form-item) {
+        margin: 0;
+    }
+
+}
+
+.optionTitle {
+    font-weight: bold;
+}
+
+.label {
+    display: flex;
+    align-items: flex-start;
+    gap: 4px;
+
+    svg {
+        width: 16px;
+        height: 16px;
+    }
+}
+
+.disabled {
+    span {
+        color: #BFBFBF;
+    }
+}

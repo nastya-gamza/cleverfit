@@ -1,8 +1,9 @@
 import {useState} from 'react';
-import {Checkbox, Form, Input, InputNumber, Space, Typography} from 'antd';
+import {useAppDispatch} from '@hooks/typed-react-redux-hooks.ts';
 import {setExerciseData} from '@redux/slices/training-slice.ts';
 import {Exercise} from '@redux/types/training.ts';
-import {useAppDispatch} from '@hooks/typed-react-redux-hooks.ts';
+import {Checkbox, Form, Input, InputNumber, Space, Typography} from 'antd';
+
 import styles from './exercises-form.module.less';
 
 type ExercisesFormProps = {
@@ -14,7 +15,6 @@ type ExercisesFormProps = {
     isCheckbox: boolean;
     addDeletedExercise: (id: number) => void,
     excludeDeletedExercise: (id: number) => void,
-    _id?: string
 };
 
 export const ExercisesForm = ({
@@ -42,7 +42,7 @@ export const ExercisesForm = ({
     };
 
     const handleChange = (_, exercise: Exercise) => {
-        dispatch(setExerciseData({exercise: exercise, index}));
+        dispatch(setExerciseData({exercise, index}));
     };
 
     return (

@@ -1,10 +1,10 @@
-import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {
     Exercise,
     TrainingItem,
     UserTraining,
     UserTrainingByDate
 } from '@redux/types/training.ts';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 
 type TrainingState = {
     date: string,
@@ -67,6 +67,7 @@ const trainingSlice = createSlice({
             index: number
         }>) => {
             const {exercise, index} = action.payload;
+
             state.createdTraining.exercises[index] = exercise;
         },
         setCreatedTraining: (state, action: PayloadAction<UserTraining>) => {

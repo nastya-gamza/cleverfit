@@ -1,12 +1,12 @@
-import {combineReducers, configureStore} from '@reduxjs/toolkit';
 import {createReduxHistoryContext} from 'redux-first-history';
-import {createBrowserHistory} from 'history';
-import {authApi} from '@redux/api/auth-api.ts';
-import authReducer from '@redux/slices/auth-slice.ts';
-import trainingReducer from '@redux/slices/training-slice.ts';
+import {baseApi} from '@redux/api/base-api.ts';
 import appReducer from '@redux/slices/app-slice.ts';
-import {feedbackApi} from '@redux/api/feedback-api.ts';
-import {trainingApi} from '@redux/api/training-api.ts';
+import authReducer from '@redux/slices/auth-slice.ts';
+import profileReducer from '@redux/slices/profile-slice.ts'
+import trainingReducer from '@redux/slices/training-slice.ts';
+import settingsReducer from '@redux/slices/settings-slice.ts';
+import {combineReducers, configureStore} from '@reduxjs/toolkit';
+import {createBrowserHistory} from 'history';
 
 const {
     createReduxHistory,
@@ -16,16 +16,16 @@ const {
 
 export const store = configureStore({
     reducer: combineReducers({
-        [authApi.reducerPath]: authApi.reducer,
-        [feedbackApi.reducerPath]: feedbackApi.reducer,
-        [trainingApi.reducerPath]: trainingApi.reducer,
         app: appReducer,
         auth: authReducer,
         training: trainingReducer,
+        profile: profileReducer,
+        settings: settingsReducer,
         router: routerReducer,
+        [baseApi.reducerPath]: baseApi.reducer,
     }),
     middleware: (getDefaultMiddleware) => getDefaultMiddleware()
-        .concat(routerMiddleware, authApi.middleware, feedbackApi.middleware, trainingApi.middleware),
+        .concat(routerMiddleware, baseApi.middleware),
 });
 
 export const history = createReduxHistory(store);

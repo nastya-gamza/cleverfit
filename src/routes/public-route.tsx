@@ -1,8 +1,8 @@
 import {useEffect} from 'react';
 import {Outlet, useNavigate} from 'react-router-dom';
-import {authSelector} from '@redux/selectors/selectors.ts';
-import {useAppSelector} from '@hooks/typed-react-redux-hooks.ts';
 import {PATHS} from '@constants/paths.ts';
+import {useAppSelector} from '@hooks/typed-react-redux-hooks.ts';
+import {authSelector} from '@redux/selectors/selectors.ts';
 
 export const PublicRoute = () => {
     const navigate = useNavigate();
@@ -13,7 +13,7 @@ export const PublicRoute = () => {
         if (token || localStorageToken) {
             navigate(PATHS.main, {replace: true});
         }
-    }, [navigate]);
+    }, [navigate, token, localStorageToken]);
 
     return <Outlet/>;
 }

@@ -1,4 +1,5 @@
 export enum TAGS {
     feedback = 'Feedback',
-    training = 'Training'
+    training = 'Training',
+    profile = 'Profile',
 }

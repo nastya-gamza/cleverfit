@@ -1,9 +1,10 @@
 import {useNavigate} from 'react-router-dom';
-import {Card, Tabs} from 'antd';
-import {AuthForm} from './components/auth-form'
-import {RegisterForm} from './components/register-form';
 import {PATHS} from '@constants/paths.ts';
 import Logo from '@public/icons/logo.svg?react';
+import {Card, Tabs} from 'antd';
+
+import {AuthForm} from './components/auth-form'
+import {RegisterForm} from './components/register-form';
 import styles from './auth-page.module.less';
 
 type ActiveTab = {
@@ -13,9 +14,9 @@ type ActiveTab = {
 export const AuthPage = ({activeTab = 'register'}: ActiveTab) => {
     const navigate = useNavigate();
 
-    const handleActiveTab = (tab: string) => {
-        tab === 'login' ? navigate(PATHS.auth) : navigate(PATHS.register);
-    }
+    const handleActiveTab = (tab: string) => (
+        tab === 'login' ? navigate(PATHS.auth) : navigate(PATHS.register)
+    );
 
     const items = [
         {label: 'Вход', key: 'login', children: <AuthForm/>},

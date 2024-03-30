@@ -2,13 +2,17 @@ import React from 'react';
 import {createRoot} from 'react-dom/client';
 import {Provider} from 'react-redux';
 import {HistoryRouter} from 'redux-first-history/rr6';
+import {Loader} from '@components/loader';
+import {history, store} from '@redux/store.ts';
+
 import {SidebarProvider} from './context/sidebar/sidebar-provider.tsx';
 
-import {history, store} from '@redux/store.ts';
+
 import 'normalize.css';
+
 import './index.less';
-import {routes} from './routes/routes.tsx';
-import {Loader} from '@components/loader';
+
+import {routes} from './routes';
 
 const domNode = document.getElementById('root') as HTMLDivElement;
 const root = createRoot(domNode);

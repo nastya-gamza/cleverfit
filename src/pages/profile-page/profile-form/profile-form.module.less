@@ -1,0 +1,76 @@
+.contentWrapper {
+    background: @white;
+    border-radius: 8px;
+    padding: 24px;
+    max-width: 1184px;
+    min-height: 886px;
+
+    @media (max-width: 834px) {
+        min-height: 1032px;
+    }
+
+    @media (max-width: 575px) {
+        min-height: 667px;
+        padding: 16px 24px;
+        margin: 0 -12px;
+        border-radius: 0;
+    }
+}
+
+.formContainer {
+    max-width: 480px;
+    width: 100%;
+
+    @media (max-width: 575px) {
+        max-width: 100%;
+    }
+
+    :global {
+        .ant-input,
+        .ant-picker-input  input{
+            font-size: 14px;
+        }
+    }
+}
+
+.personalInfo {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 16px;
+
+    @media (max-width: 575px) {
+        flex-direction: column-reverse;
+    }
+
+    :global {
+        .ant-form-item {
+            margin-bottom: 16px;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+}
+
+.personalInfoForm,
+.datePicker {
+    width: 100%;
+}
+
+.password {
+    margin-bottom: 46px;
+
+    :global {
+        .ant-form-item-explain {
+            font-size: 12px;
+        }
+    }
+}
+
+.alert {
+    position: absolute;
+    bottom: 8%;
+    left: 50%;
+    transform: translate(-50%);
+}

@@ -1,8 +1,8 @@
-import {Outlet, useLocation, useNavigate, useSearchParams} from 'react-router-dom';
-import {useAppDispatch} from '@hooks/typed-react-redux-hooks.ts';
 import {useEffect} from 'react';
-import {setToken} from '@redux/slices/auth-slice.ts';
+import {Outlet, useLocation, useNavigate, useSearchParams} from 'react-router-dom';
 import {PATHS} from '@constants/paths.ts';
+import {useAppDispatch} from '@hooks/typed-react-redux-hooks.ts';
+import {setToken} from '@redux/slices/auth-slice.ts';
 
 export const RootRoute = () => {
     const [searchParams] = useSearchParams();
@@ -20,7 +20,7 @@ export const RootRoute = () => {
         if (location.pathname === PATHS.root) {
             navigate(PATHS.main)
         }
-    }, [navigate]);
+    }, [navigate, accessToken, location.pathname]);
 
     return (
         <Outlet/>

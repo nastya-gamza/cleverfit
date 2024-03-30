@@ -1,18 +1,20 @@
-import {Link} from 'react-router-dom';
-import {useSidebarContext} from '../../context/sidebar/use-sidebar-context.ts';
-import {Button, Divider, Grid, Layout} from 'antd';
-import {MenuList} from '@components/menu-list';
-import {MenuFoldOutlined, MenuUnfoldOutlined} from '@ant-design/icons';
-import Logo from '@public/icons/logo.svg?react';
-import LogoMini from '@public/icons/logo-sm.svg?react';
-import LogoMobile from '@public/icons/logo-mobile.svg?react';
-import ExitIcon from '@public/icons/exit.svg?react';
-import styles from './sidebar.module.less'
-import {useAppDispatch} from "@hooks/typed-react-redux-hooks.ts";
-import {logout} from "@redux/slices/auth-slice.ts";
-import {push} from "redux-first-history";
-import {PATHS} from "@constants/paths.ts";
 import {useEffect} from 'react';
+import {Link} from 'react-router-dom';
+import {push} from 'redux-first-history';
+import {MenuFoldOutlined, MenuUnfoldOutlined} from '@ant-design/icons';
+import {MenuList} from '@components/menu-list';
+import {PATHS} from '@constants/paths.ts';
+import {useAppDispatch} from '@hooks/typed-react-redux-hooks.ts';
+import ExitIcon from '@public/icons/exit.svg?react';
+import Logo from '@public/icons/logo.svg?react';
+import LogoMobile from '@public/icons/logo-mobile.svg?react';
+import LogoMini from '@public/icons/logo-sm.svg?react';
+import {logout} from '@redux/slices/auth-slice.ts';
+import {Button, Divider, Grid, Layout} from 'antd';
+
+import {useSidebarContext} from '../../context/sidebar/use-sidebar-context.ts';
+
+import styles from './sidebar.module.less'
 
 const {Sider} = Layout;
 const {useBreakpoint} = Grid;
@@ -31,16 +33,17 @@ export const SideBar = () => {
     useEffect(() => {
         if (!screens.sm) {
             setCollapsed(true);
+
             return;
         }
 
         setCollapsed(false);
-    }, [screens.sm]);
+    }, [screens.sm, setCollapsed]);
 
     return (
         <div className={styles.wrapper} data-collapsed={collapsed}>
             <Sider
-                collapsible
+                collapsible={true}
                 collapsed={collapsed}
                 trigger={null}
                 collapsedWidth={screens.xs ? 0 : 64}
@@ -72,9 +75,7 @@ export const SideBar = () => {
                     type='default'
                     onClick={toggleCollapsed}
                     data-test-id={screens.xs ? 'sider-switch-mobile' : 'sider-switch'}
-                    icon={collapsed ? <MenuUnfoldOutlined/> : <MenuFoldOutlined/>}>
-
-                </Button>
+                    icon={collapsed ? <MenuUnfoldOutlined/> : <MenuFoldOutlined/>} />
             </div>
         </div>
 

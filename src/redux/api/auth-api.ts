@@ -1,7 +1,6 @@
-import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
-import {RootState} from '@redux/store.ts';
-import {BASE_API_URL} from '@constants/api.ts';
 import {ENDPOINTS} from '@constants/endpoints.ts';
+import {baseApi} from '@redux/api/base-api.ts';
+import {setIsLoading} from '@redux/slices/app-slice.ts';
 import {
     ChangePasswordRequest, ChangePasswordResponse,
     CheckEmailRequest, CheckEmailResponse, ConfirmEmailRequest, ConfirmEmailResponse,
@@ -10,19 +9,7 @@ import {
     RegisterRequest
 } from '@redux/types/auth.ts';
 
-export const authApi = createApi({
-    reducerPath: 'authApi',
-    baseQuery: fetchBaseQuery({
-        baseUrl: BASE_API_URL,
-        credentials: 'include',
-        prepareHeaders: (headers, {getState}) => {
-            const token = (getState() as RootState).auth.token;
-            if (token) {
-                headers.set('Authorization', `Bearer ${token}`);
-            }
-            return headers
-        },
-    }),
+export const authApi = baseApi.injectEndpoints({
     endpoints: (build) => ({
         login: build.mutation<LoginResponse, LoginRequest>({
             query: (credentials) => ({
@@ -30,6 +17,15 @@ export const authApi = createApi({
                 method: 'POST',
                 body: credentials,
             }),
+            async onQueryStarted(_, {dispatch, queryFulfilled}) {
+                try {
+                    dispatch(setIsLoading(true));
+                    await queryFulfilled;
+                    dispatch(setIsLoading(false));
+                } catch (err) {
+                    dispatch(setIsLoading(false));
+                }
+            },
         }),
         register: build.mutation<void, RegisterRequest>({
             query: (credentials) => ({
@@ -37,6 +33,15 @@ export const authApi = createApi({
                 method: 'POST',
                 body: credentials,
             }),
+            async onQueryStarted(_, {dispatch, queryFulfilled}) {
+                try {
+                    dispatch(setIsLoading(true));
+                    await queryFulfilled;
+                    dispatch(setIsLoading(false));
+                } catch (err) {
+                    dispatch(setIsLoading(false));
+                }
+            },
         }),
         checkEmail: build.mutation<CheckEmailResponse, CheckEmailRequest>({
             query: (email) => ({
@@ -44,6 +49,15 @@ export const authApi = createApi({
                 method: 'POST',
                 body: {email},
             }),
+            async onQueryStarted(_, {dispatch, queryFulfilled}) {
+                try {
+                    dispatch(setIsLoading(true));
+                    await queryFulfilled;
+                    dispatch(setIsLoading(false));
+                } catch (err) {
+                    dispatch(setIsLoading(false));
+                }
+            },
         }),
         confirmEmail: build.mutation<ConfirmEmailResponse, ConfirmEmailRequest>({
             query: (arg) => ({
@@ -51,6 +65,15 @@ export const authApi = createApi({
                 method: 'POST',
                 body: arg,
             }),
+            async onQueryStarted(_, {dispatch, queryFulfilled}) {
+                try {
+                    dispatch(setIsLoading(true));
+                    await queryFulfilled;
+                    dispatch(setIsLoading(false));
+                } catch (err) {
+                    dispatch(setIsLoading(false));
+                }
+            },
         }),
         changePassword: build.mutation<ChangePasswordResponse, ChangePasswordRequest>({
             query: (arg) => ({
@@ -58,6 +81,15 @@ export const authApi = createApi({
                 method: 'POST',
                 body: arg,
             }),
+            async onQueryStarted(_, {dispatch, queryFulfilled}) {
+                try {
+                    dispatch(setIsLoading(true));
+                    await queryFulfilled;
+                    dispatch(setIsLoading(false));
+                } catch (err) {
+                    dispatch(setIsLoading(false));
+                }
+            },
         }),
     }),
 })

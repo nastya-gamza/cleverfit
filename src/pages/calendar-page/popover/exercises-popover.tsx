@@ -1,26 +1,26 @@
-import {Dispatch, SetStateAction, useEffect, useState} from 'react';
+import React, {Dispatch, SetStateAction, useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
-import {useAppDispatch, useAppSelector} from '@hooks/typed-react-redux-hooks.ts';
-import moment from 'moment';
-import {Badge, Button, Typography} from 'antd';
 import {EditOutlined, MinusOutlined, PlusOutlined} from '@ant-design/icons';
+import {DDMMYYYY} from '@constants/date-formates.ts';
+import {PATHS} from '@constants/paths.ts';
+import {TRAINING_COLORS_MAP} from '@constants/training-colors-map.ts';
+import {useAppDispatch, useAppSelector} from '@hooks/typed-react-redux-hooks.ts';
+import styles from '@pages/calendar-page/calendar-page.module.less';
+import {DrawerRight} from '@pages/calendar-page/drawer-right/drawer-right.tsx';
+import {ExercisesForm} from '@pages/calendar-page/exercises-form/exercises-form.tsx';
+import {error} from '@pages/calendar-page/notification-modal/error-notification-modal.tsx';
+import {CellPopover} from '@pages/calendar-page/popover/cell-popover';
+import {AddExercisesCard} from '@pages/calendar-page/training-cards/add-exercises-card';
+import {useUpdateTrainingMutation} from '@redux/api/training-api.ts';
 import {
     addExercises,
     resetTraining, selectCreatedTraining, selectTrainingData, setCreatedTraining,
     setExercises
 } from '@redux/slices/training-slice.ts';
 import {Exercise} from '@redux/types/training.ts';
-import {useUpdateTrainingMutation} from '@redux/api/training-api.ts';
-import {CellPopover} from '@pages/calendar-page/popover/cell-popover';
-import {AddExercisesCard} from '@pages/calendar-page/training-cards/add-exercises-card';
-import {ExercisesForm} from '@pages/calendar-page/exercises-form/exercises-form.tsx';
-import {DrawerRight} from '@pages/calendar-page/drawer-right/drawer-right.tsx';
-import {error} from '@pages/calendar-page/notification-modal/error-notification-modal.tsx';
-import {PATHS} from '@constants/paths.ts';
-import {TRAINING_COLORS_MAP} from '@constants/training-colors-map.ts';
-import styles from '@pages/calendar-page/calendar-page.module.less';
-import {isOldDate} from '@utils/checkDate.ts';
-import {DDMMYYYY} from '@constants/date-formates.ts';
+import {isOldDate} from '@utils/check-date.ts';
+import {Badge, Button, Typography} from 'antd';
+import moment from 'moment';
 
 type CreateWorkoutModalProps = {
     isLeft: boolean,
@@ -44,7 +44,6 @@ export const ExercisesPopover = ({
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const [update] = useUpdateTrainingMutation();
-
     const {exercises} = useAppSelector(selectCreatedTraining);
     const createdTraining = useAppSelector(selectCreatedTraining);
     const {training, date: selectedDate} = useAppSelector(selectTrainingData);
@@ -55,7 +54,8 @@ export const ExercisesPopover = ({
     const [resultExercises, setResultExercises] = useState<Exercise[]>([]);
 
     useEffect(() => {
-        const result = editingTrainingName ? createdTraining.name : training
+        const result = editingTrainingName ? createdTraining.name : training;
+
         setTrainingName(result)
 
     }, [editingTrainingName, training, createdTraining.name]);
@@ -71,7 +71,7 @@ export const ExercisesPopover = ({
         }
 
         if (isOldDate(requestData.date)) {
-            requestData['isImplementation'] = true
+            requestData.isImplementation = true
         }
 
         try {
@@ -87,6 +87,7 @@ export const ExercisesPopover = ({
                 'Придётся попробовать ещё раз',
                 'Закрыть',
                 () => navigate(PATHS.calendar, {state: {from: 'redirect'}}),
+                'modal-error-user-training-button',
                 true,
             );
             setAddNewWorkout(false);
@@ -97,19 +98,20 @@ export const ExercisesPopover = ({
     }
 
     const onDelete = () => {
-        const resultExercises = exercises.filter((_, index) => {
-            return !deletedExercises.includes(index);
-        })
-        setResultExercises(resultExercises)
+        const filteredResultExercises = exercises.filter((_, index) => !deletedExercises.includes(index));
+
+        setResultExercises(filteredResultExercises)
     }
 
     const addDeletedExercise = (index: number) => {
         const resultDeletedExercises = [...deletedExercises, index];
+
         setDeletedExercises(resultDeletedExercises);
     };
 
     const excludeDeletedExercise = (index: number) => {
-        const resultDeletedExercises = deletedExercises.filter(e => e != index);
+        const resultDeletedExercises = deletedExercises.filter(e => e !== index);
+
         setDeletedExercises(resultDeletedExercises);
     };
 
@@ -123,14 +125,16 @@ export const ExercisesPopover = ({
 
     const handleClose = () => {
         setOpenDrawer(false);
+
         if (!editingTrainingName) {
-            const resultExercises = exercises.filter((e, index) => (e.name !== '') || (index == 0));
-            dispatch(setExercises(resultExercises))
+            const filteredExercises = exercises.filter(({name}, index) => (name !== '') || (index === 0));
+
+            dispatch(setExercises(filteredExercises))
         }
     }
 
     return (
-        <>
+        <React.Fragment>
             <CellPopover
                 isLeft={isLeft}
                 isFullScreen={isFullScreen}
@@ -158,6 +162,7 @@ export const ExercisesPopover = ({
                 isFullScreen={isFullScreen}
                 close={handleClose}
                 closeIcon={editingTrainingName ? <EditOutlined/> : <PlusOutlined/>}
+                dataTestId='modal-drawer-right'
             >
                 <div className={styles.drawerInfo}>
                     <Badge
@@ -179,7 +184,6 @@ export const ExercisesPopover = ({
                         weight={weight}
                         approaches={approaches}
                         isCheckbox={!!editingTrainingName}
-                        _id={_id}
                         addDeletedExercise={addDeletedExercise}
                         excludeDeletedExercise={excludeDeletedExercise}
                     />
@@ -206,6 +210,6 @@ export const ExercisesPopover = ({
                     )}
                 </div>
             </DrawerRight>
-        </>
+        </React.Fragment>
     )
 }

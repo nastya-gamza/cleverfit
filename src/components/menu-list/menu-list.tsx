@@ -1,7 +1,8 @@
-import {Grid, Menu} from 'antd';
 import {MENU_ITEMS} from '@constants/menu-items.tsx';
-import styles from './menu-list.module.less'
 import {useRedirectNavigation} from '@hooks/use-redirect-navigation.ts';
+import {Grid, Menu} from 'antd';
+
+import styles from './menu-list.module.less'
 
 const {Item} = Menu;
 const {useBreakpoint} = Grid;

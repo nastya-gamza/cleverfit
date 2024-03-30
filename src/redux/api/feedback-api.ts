@@ -1,29 +1,22 @@
-import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
-import {RootState} from '@redux/store.ts';
-import {BASE_API_URL} from '@constants/api.ts';
-import {Feedback, FeedbackRequest} from '@redux/types/feedback.ts';
 import {ENDPOINTS} from '@constants/endpoints.ts';
+import {baseApi} from '@redux/api/base-api.ts';
+import {setIsLoading} from '@redux/slices/app-slice.ts';
+import {Feedback, FeedbackRequest} from '@redux/types/feedback.ts';
 import {TAGS} from '@redux/types/tags.ts';
 
-export const feedbackApi = createApi({
-    reducerPath: 'feedbackApi',
-    baseQuery: fetchBaseQuery({
-        baseUrl: BASE_API_URL,
-        credentials: 'include',
-        prepareHeaders: (headers, {getState}) => {
-            const lsToken = localStorage.getItem('token');
-            const token = (getState() as RootState).auth.token;
-
-            if (lsToken || token) {
-                headers.set('Authorization', `Bearer ${lsToken || token}`);
-            }
-            return headers;
-        },
-    }),
-    tagTypes: [TAGS.feedback],
+export const feedbackApi = baseApi.injectEndpoints({
     endpoints: (build) => ({
         getFeedbacks: build.query<Feedback[], void>({
             query: () => ENDPOINTS.feedback,
+            async onQueryStarted(_, {dispatch, queryFulfilled}) {
+                try {
+                    dispatch(setIsLoading(true));
+                    await queryFulfilled;
+                    dispatch(setIsLoading(false));
+                } catch (err) {
+                    dispatch(setIsLoading(false));
+                }
+            },
             providesTags: (result) =>
                 result
                     ? [
@@ -38,7 +31,16 @@ export const feedbackApi = createApi({
                 method: 'POST',
                 body: arg,
             }),
-            invalidatesTags: [{ type: TAGS.feedback, id: 'LIST' }],
+            async onQueryStarted(_, {dispatch, queryFulfilled}) {
+                try {
+                    dispatch(setIsLoading(true));
+                    await queryFulfilled;
+                    dispatch(setIsLoading(false));
+                } catch (err) {
+                    dispatch(setIsLoading(false));
+                }
+            },
+            invalidatesTags: [{type: TAGS.feedback, id: 'LIST'}],
         }),
     }),
 })

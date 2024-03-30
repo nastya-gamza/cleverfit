@@ -1,13 +1,13 @@
 import {Dispatch, SetStateAction} from 'react';
-import {Moment} from 'moment';
-import moment from 'moment/moment';
-import {Button, Card} from 'antd';
 import {CloseOutlined} from '@ant-design/icons';
-import {useGetTrainingListQuery, useGetUserTrainingsQuery} from '@redux/api/training-api.ts';
+import {DDMMYYYY, YYYYMMDD} from '@constants/date-formates.ts';
 import {EmptyCart} from '@pages/calendar-page/empty-cart/empty-cart.tsx';
 import {TrainingBadgeEdit} from '@pages/calendar-page/training-badge/training-badge.tsx';
-import {isOldDate} from '@utils/checkDate.ts';
-import {DDMMYYYY, YYYYMMDD} from '@constants/date-formates.ts';
+import {useGetTrainingListQuery, useGetUserTrainingsQuery} from '@redux/api/training-api.ts';
+import {isOldDate} from '@utils/check-date.ts';
+import {Button, Card} from 'antd';
+import moment, {Moment} from 'moment';
+
 import styles from './create-training-card.module.less';
 
 const {Meta} = Card;
@@ -65,7 +65,7 @@ export const CreateTrainingCard = ({
                         className={styles.actionButton}
                         size='large'
                         type='primary'
-                        block
+                        block={true}
                         onClick={() => setCreateWorkout(true)}
                     >
                         Создать тренировку
@@ -79,9 +79,6 @@ export const CreateTrainingCard = ({
                                 key={_id ?? i}
                                 index={i}
                                 name={name}
-                                setCreateWorkout={setCreateWorkout}
-                                setEditingTrainingName={setEditingTrainingName}
-                                _id={_id}
                                 onClick={() => onClickEdit(name)}
                                 isDisabled={isImplementation}
                             />)

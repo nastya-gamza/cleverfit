@@ -1,23 +1,24 @@
-import {useState} from 'react';
-import {Button} from 'antd';
-import {useGetFeedbacksQuery} from '@redux/api/feedback-api.ts';
-import {AddFeedbackModal} from '@pages/feedbacks-page/modals';
+import React, {useState} from 'react';
 import {ErrorModal} from '@components/shared/error-modal';
-import {NoFeedbacks} from '@pages/feedbacks-page/no-feedbacks';
 import {FeedbackCard} from '@pages/feedbacks-page/feedback-card';
-import {Loader} from '@components/loader';
+import {AddFeedbackModal} from '@pages/feedbacks-page/modals';
+import {NoFeedbacks} from '@pages/feedbacks-page/no-feedbacks';
+import {useGetFeedbacksQuery} from '@redux/api/feedback-api.ts';
 import {sortByDate} from '@utils/sort.ts';
+import {Button} from 'antd';
+
 import styles from './feedbacks-page.module.less';
 
 export const FeedbacksPage = () => {
     const [showAllFeedbacks, setShowAllFeedBacks] = useState(false);
     const [showAddFeedbackModal, setShowAddFeedbackModal] = useState(false);
-    const {data = [], isLoading, isError} = useGetFeedbacksQuery();
+    const {data = [], isError} = useGetFeedbacksQuery();
 
     const isDataEmpty = data.length === 0;
 
     const getAllFeedbacks = (count = 4) => {
         const sortedFeedbacks = sortByDate(data);
+
         return showAllFeedbacks ? sortedFeedbacks : sortedFeedbacks.slice(0, count);
     }
 
@@ -30,25 +31,25 @@ export const FeedbacksPage = () => {
     }
 
     return (
-        <>
-            {isLoading && <Loader/>}
+        <React.Fragment>
             {isError && <ErrorModal/>}
-            {<AddFeedbackModal
+            <AddFeedbackModal
                 showFeedbackModal={showAddFeedbackModal}
-                setShowFeedbackModal={setShowAddFeedbackModal}/>
-            }
+                setShowFeedbackModal={setShowAddFeedbackModal}
+            />
             {isDataEmpty ?
                 <NoFeedbacks/>
                 :
                 <div className={styles.wrapper}>
                     <div className={styles.cardsWrapper}>
-                        {getAllFeedbacks().map(item => <FeedbackCard key={item._id} {...item}/>)}
+                        {getAllFeedbacks().map(item => <FeedbackCard key={item.id} {...item}/>)}
                     </div>
                     <div className={styles.btnWrapper}>
                         <Button
                             type='primary'
                             onClick={handleShowAddFeedbackModal}
                             data-test-id='write-review'
+                            size='large'
                         >
                             Написать отзыв
                         </Button>
@@ -62,6 +63,6 @@ export const FeedbacksPage = () => {
                     </div>
                 </div>
             }
-        </>
+        </React.Fragment>
     );
 }

@@ -1,7 +1,7 @@
 export type Feedback = {
-    _id: string,
+    id: string,
     fullName: string | null,
-    image: string | null,
+    imageSrc: string | null,
     message: string | null,
     rating: number,
     createdAt: string,
