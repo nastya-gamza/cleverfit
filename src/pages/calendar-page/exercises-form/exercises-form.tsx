@@ -13,8 +13,8 @@ type ExercisesFormProps = {
     replays: number | null;
     index: number;
     isCheckbox: boolean;
-    addDeletedExercise: (id: number) => void,
-    excludeDeletedExercise: (id: number) => void,
+    addDeletedExercise?: (id: number) => void,
+    excludeDeletedExercise?: (id: number) => void,
 };
 
 export const ExercisesForm = ({
@@ -33,10 +33,12 @@ export const ExercisesForm = ({
     const [isChecked, setIsChecked] = useState(false)
 
     const onChange = () => {
-        if (!isChecked) {
-            addDeletedExercise(index);
-        } else {
-            excludeDeletedExercise(index)
+        if (addDeletedExercise && excludeDeletedExercise) {
+            if (!isChecked) {
+                addDeletedExercise(index);
+            } else {
+                excludeDeletedExercise(index)
+            }
         }
         setIsChecked(!isChecked);
     };
@@ -63,7 +65,7 @@ export const ExercisesForm = ({
             <Form.Item name='name' className={styles.exerciseField}>
                 <Input
                     value={name}
-                    placeholder='Упражнения'
+                    placeholder='Упражнение'
                     maxLength={32}
                     width='100%'
                     data-test-id={`modal-drawer-right-input-exercise${index}`}

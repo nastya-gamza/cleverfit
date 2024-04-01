@@ -6,7 +6,7 @@ export const ACTIONS = [
     {
         name: 'Тренировки',
         icon: <HeartFilled/>,
-        path: PATHS.workouts,
+        path: PATHS.training,
         action: 'Расписать тренировки',
         dataTestId: 'menu-button-workouts'
     },

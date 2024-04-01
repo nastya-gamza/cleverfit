@@ -11,6 +11,7 @@ import {NotFoundPage} from '@pages/not-found-page';
 import {ProfilePage} from '@pages/profile-page';
 import {ResultPage} from '@pages/result-page';
 import {SettingsPage} from '@pages/settings-page';
+import {TrainingPage} from '@pages/training-page';
 
 import {ProtectedRoute} from './protected-route.tsx';
 import {PublicRoute} from './public-route.tsx';
@@ -44,6 +45,7 @@ export const routes = (
                     <Route path={PATHS.calendar} element={<CalendarPage/>}/>
                     <Route path={PATHS.profile} element={<ProfilePage/>}/>
                     <Route path={PATHS.settings} element={<SettingsPage/>}/>
+                    <Route path={PATHS.training} element={<TrainingPage/>}/>
                     <Route path='*' element={<NotFoundPage/>}/>
                 </Route>
             </Route>

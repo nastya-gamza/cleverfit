@@ -1,0 +1,34 @@
+.contentWrapper {
+    background: @white;
+    border-radius: 8px;
+    padding: 24px;
+    max-width: 1184px;
+    min-height: 886px;
+
+    @media (max-width: 834px) {
+        min-height: 1032px;
+    }
+
+    @media (max-width: 575px) {
+        min-height: 667px;
+        padding: 16px 24px;
+        margin: 0 -12px;
+        border-radius: 0;
+    }
+}
+
+.tabs {
+    :global {
+        .ant-tabs-nav-wrap,
+        .ant-tabs-nav-list {
+            width: 100%;
+        }
+        .ant-tabs-nav-list {
+            justify-content: space-between;
+        }
+
+        .ant-tabs-tab-btn {
+            font-size: 24px;
+        }
+    }
+}

@@ -5,6 +5,7 @@ import {Breadcrumb} from 'antd';
 const breadcrumbNameMap: Record<string, string> = {
     [PATHS.feedbacks]: 'Отзывы пользователей',
     [PATHS.calendar]: 'Календарь',
+    [PATHS.training]: 'Тренировки',
 };
 
 export const BreadcrumbItems = () => {

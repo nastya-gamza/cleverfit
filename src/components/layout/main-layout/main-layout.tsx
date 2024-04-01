@@ -1,5 +1,6 @@
 import {Outlet, useLocation} from 'react-router-dom';
 import {PageHeader} from '@components/page-header';
+import {AppAlert} from '@components/shared/app-alert';
 import {SideBar} from '@components/sidebar';
 import {PATHS} from '@constants/paths.ts';
 import {Layout} from 'antd';
@@ -26,7 +27,10 @@ export const MainLayout = () => {
             <SideBar/>
             <Layout className={collapsed ? styles.close : styles.open}>
                 <PageHeader/>
-                <Content className={styles.content}><Outlet/></Content>
+                <Content className={styles.content}>
+                    <Outlet/>
+                    <AppAlert/>
+                </Content>
             </Layout>
         </Layout>
     )

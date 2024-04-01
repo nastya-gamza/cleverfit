@@ -19,7 +19,7 @@ import {
 } from '@redux/slices/training-slice.ts';
 import {Exercise} from '@redux/types/training.ts';
 import {isOldDate} from '@utils/check-date.ts';
-import {Badge, Button, Typography} from 'antd';
+import {Badge, Button, Space, Typography} from 'antd';
 import moment from 'moment';
 
 type CreateWorkoutModalProps = {
@@ -164,51 +164,53 @@ export const ExercisesPopover = ({
                 closeIcon={editingTrainingName ? <EditOutlined/> : <PlusOutlined/>}
                 dataTestId='modal-drawer-right'
             >
-                <div className={styles.drawerInfo}>
-                    <Badge
-                        color={TRAINING_COLORS_MAP[trainingName]}
-                        text={
-                            <Typography.Text type='secondary'>{trainingName}</Typography.Text>
-                        }
-                    />
-                    <Typography.Text type='secondary'>
-                        {moment(selectedDate).format(DDMMYYYY)}
-                    </Typography.Text>
-                </div>
-                {resultExercises.map(({weight, approaches, name, replays, _id}, index) => (
-                    <ExercisesForm
-                        key={`${_id}${index}`}
-                        index={index}
-                        name={name}
-                        replays={replays}
-                        weight={weight}
-                        approaches={approaches}
-                        isCheckbox={!!editingTrainingName}
-                        addDeletedExercise={addDeletedExercise}
-                        excludeDeletedExercise={excludeDeletedExercise}
-                    />
-                ))}
-                <div className={styles.btnGroup}>
-                    <Button
-                        type='link'
-                        icon={<PlusOutlined style={{fill: '#2F54EB'}}/>}
-                        size='small'
-                        onClick={handleAddExercise}
-                    >
-                        Добавить ещё
-                    </Button>
-                    {editingTrainingName && (
+                <Space direction='vertical' size={24}>
+                    <div className={styles.drawerInfo}>
+                        <Badge
+                            color={TRAINING_COLORS_MAP[trainingName]}
+                            text={
+                                <Typography.Text type='secondary'>{trainingName}</Typography.Text>
+                            }
+                        />
+                        <Typography.Text type='secondary'>
+                            {moment(selectedDate).format(DDMMYYYY)}
+                        </Typography.Text>
+                    </div>
+                    {resultExercises.map(({weight, approaches, name, replays, _id}, index) => (
+                        <ExercisesForm
+                            key={`${_id}${index}`}
+                            index={index}
+                            name={name}
+                            replays={replays}
+                            weight={weight}
+                            approaches={approaches}
+                            isCheckbox={!!editingTrainingName}
+                            addDeletedExercise={addDeletedExercise}
+                            excludeDeletedExercise={excludeDeletedExercise}
+                        />
+                    ))}
+                    <div className={styles.btnGroup}>
                         <Button
-                            type='text'
-                            icon={<MinusOutlined/>}
-                            onClick={onDelete}
+                            type='link'
+                            icon={<PlusOutlined style={{fill: '#2F54EB'}}/>}
                             size='small'
-                            disabled={deletedExercises.length === 0}
+                            onClick={handleAddExercise}
                         >
-                            Удалить
+                            Добавить ещё
                         </Button>
-                    )}
-                </div>
+                        {editingTrainingName && (
+                            <Button
+                                type='text'
+                                icon={<MinusOutlined/>}
+                                onClick={onDelete}
+                                size='small'
+                                disabled={deletedExercises.length === 0}
+                            >
+                                Удалить
+                            </Button>
+                        )}
+                    </div>
+                </Space>
             </DrawerRight>
         </React.Fragment>
     )

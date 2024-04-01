@@ -33,6 +33,12 @@ const initialState: TrainingState = {
         date: '',
         _id: '',
         isImplementation: false,
+        parameters: {
+            repeat: false,
+            period: null,
+            jointTraining: false,
+            participants: [],
+        },
         exercises: initialExerciseState,
     },
 };
@@ -70,8 +76,9 @@ const trainingSlice = createSlice({
 
             state.createdTraining.exercises[index] = exercise;
         },
-        setCreatedTraining: (state, action: PayloadAction<UserTraining>) => {
-            state.createdTraining = action.payload;
+        setCreatedTraining: (state, action: PayloadAction<Partial<UserTraining>>) => {
+            state.createdTraining = {...state.createdTraining, ...action.payload};
+
         },
         resetCreatedTraining: (state) => {
             state.createdTraining = initialState.createdTraining;
