@@ -1,11 +1,9 @@
-import React, {Dispatch, SetStateAction,useState} from 'react';
+import React, {Dispatch, SetStateAction, useState} from 'react';
 import {DownOutlined, EditOutlined, PlusOutlined} from '@ant-design/icons';
 import {periodicityOptions} from '@constants/periodicity-options.ts';
 import {useAppDispatch, useAppSelector} from '@hooks/typed-react-redux-hooks.ts';
 import {TrainingBadge} from '@pages/calendar-page/training-badge/training-badge.tsx';
-import {
-    TrainingCard
-} from '@pages/training-page/personal-trainings/training-card/training-card.tsx';
+import {TrainingCard} from '@pages/training-page/personal-trainings/training-card';
 import {
     selectTrainingData, setCreatedTraining,
     setExercises,
@@ -22,37 +20,42 @@ export type TrainingTableProps = {
     setEditingTrainingName: Dispatch<SetStateAction<string>>
 }
 
+const EDIT_TYPE_DRAWER = 'drawer';
+const EDIT_TYPE_CARD = 'card';
+
 const getTrainingPeriod = (period: number | null | undefined) => periodicityOptions.find((option) => option.value === period)?.label ?? '';
 
 export const TrainingTable = ({openDrawer, setEditingTrainingName}: TrainingTableProps) => {
     const dispatch = useAppDispatch();
     const {userTraining} = useAppSelector(selectTrainingData);
     const [openTrainingCard, setOpenTrainingCard] = useState(false);
-    // const {date} = useAppSelector(selectCreatedTraining);
     const [selectedTraining, setSelectedTraining] = useState<UserTraining>();
-
-    const handleOpen = (record: UserTraining) => {
-        setSelectedTraining(record);
-        setOpenTrainingCard(true);
-
-        console.log(record)
-    }
 
     const handleCloseTrainingCard = () => {
         setOpenTrainingCard(false)
     }
 
-
-    const onClickEdit = (record: UserTraining) => {
+    const onClickEdit = (record: UserTraining, type = EDIT_TYPE_DRAWER) => {
         const editDate = moment(record.date).toISOString();
 
-        openDrawer();
-        setOpenTrainingCard(true);
+        setSelectedTraining(record);
         setEditingTrainingName(record.name);
         dispatch(setExercises(record.exercises));
-        dispatch(setCreatedTraining({_id: record._id, name: record.name, date: editDate, parameters: record.parameters}))
-    }
+        dispatch(setCreatedTraining({
+            _id: record._id,
+            name: record.name,
+            date: editDate,
+            parameters: record.parameters
+        }));
 
+        if (type === EDIT_TYPE_CARD) {
+            setOpenTrainingCard(true);
+
+            return;
+        }
+
+        openDrawer();
+    }
 
     const columns: ColumnsType<UserTraining> = [
         {
@@ -64,7 +67,7 @@ export const TrainingTable = ({openDrawer, setEditingTrainingName}: TrainingTabl
                     <TrainingBadge training={record.name}/>
                     <Button
                         type='link'
-                        onClick={()=>handleOpen(record)}
+                        onClick={() => onClickEdit(record, EDIT_TYPE_CARD)}
                     >
                         <DownOutlined/>
                     </Button>
