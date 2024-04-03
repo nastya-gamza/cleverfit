@@ -8,7 +8,7 @@ export const ACTIONS = [
         icon: <HeartFilled/>,
         path: PATHS.training,
         action: 'Расписать тренировки',
-        dataTestId: 'menu-button-workouts'
+        dataTestId: 'menu-button-training'
     },
     {
         name: 'Календарь',

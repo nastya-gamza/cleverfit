@@ -76,7 +76,13 @@ export const trainingApi = baseApi.injectEndpoints({
             query: (body) => ({
                 url: `training/${body._id}`,
                 method: 'PUT',
-                body,
+                body: {
+                    name: body.name,
+                    date: body.date,
+                    isImplementation: body.isImplementation,
+                    exercises: body.exercises,
+                    parameters: body.parameters,
+                },
             }),
             async onQueryStarted(_, {dispatch, queryFulfilled}) {
                 try {

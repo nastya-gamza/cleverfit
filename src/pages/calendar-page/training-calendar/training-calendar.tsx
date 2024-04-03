@@ -53,7 +53,7 @@ export const TrainingCalendar = () => {
         setAddNewWorkout(true);
         setCreateWorkout(false);
 
-        dispatch(setDate(date.toISOString()))
+        dispatch(setDate(date?.toISOString()))
 
         const dayInNumber = moment(date).day();
 

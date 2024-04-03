@@ -55,13 +55,11 @@ export const ExercisesPopover = ({
 
     useEffect(() => {
         const result = editingTrainingName ? createdTraining.name : training;
-
-        setTrainingName(result)
-
+        setTrainingName(result);
     }, [editingTrainingName, training, createdTraining.name]);
 
     useEffect(() => {
-        setResultExercises(exercises)
+        setResultExercises(exercises);
     }, [exercises]);
 
     const onUpdate = async () => {

@@ -1,11 +1,11 @@
-import {useState} from 'react';
-import {DDMMYYYY, YYYYMMDD} from '@constants/date-formates.ts';
+import {DDMMYYYY} from '@constants/date-formates.ts';
 import {periodicityOptions} from '@constants/periodicity-options.ts';
-import {useAppDispatch} from '@hooks/typed-react-redux-hooks.ts';
+import {useAppDispatch, useAppSelector} from '@hooks/typed-react-redux-hooks.ts';
 import CalendarIcon from '@public/icons/calendar.svg?react';
-import {setCreatedTraining} from '@redux/slices/training-slice.ts';
+import {selectCreatedTraining, setCreatedTraining} from '@redux/slices/training-slice.ts';
 import {calendarLocale} from '@utils/calendar-options.ts';
 import {Checkbox, DatePicker, Select} from 'antd';
+import {CheckboxChangeEvent} from 'antd/es/checkbox';
 import {RangePickerProps} from 'antd/es/date-picker';
 import moment, {Moment} from 'moment';
 
@@ -13,11 +13,35 @@ import styles from './periodicity-block.module.less';
 
 export const PeriodicityBlock = () => {
     const dispatch = useAppDispatch();
-    const [isChecked, setIsChecked] = useState(false);
+    const {date, parameters} = useAppSelector(selectCreatedTraining);
 
     const handleChangeDate = (date: Moment) => {
-        dispatch(setCreatedTraining({date: date.toISOString()}));
+        dispatch(setCreatedTraining({date: date?.toISOString()}));
     }
+
+    const handleChangePeriodicity = (period: number) => {
+        dispatch(setCreatedTraining({
+            parameters: {
+                period,
+                repeat: parameters?.repeat as boolean,
+                jointTraining: parameters?.jointTraining as boolean,
+                participants: []
+            }
+        }));
+    }
+
+    const frequencyHandler = (e: CheckboxChangeEvent) => {
+        dispatch(
+            setCreatedTraining({
+                parameters: {
+                    period: 0,
+                    repeat: e.target.checked,
+                    jointTraining: parameters?.jointTraining as boolean,
+                    participants: [],
+                },
+            }),
+        );
+    };
 
     const disabledDate: RangePickerProps['disabledDate'] = current => current && current < moment().endOf('day');
 
@@ -28,6 +52,7 @@ export const PeriodicityBlock = () => {
                     locale={calendarLocale}
                     format={DDMMYYYY}
                     size='small'
+                    defaultValue={date ? moment(date) : undefined}
                     disabledDate={disabledDate}
                     onChange={handleChangeDate}
                     suffixIcon={<CalendarIcon fill='rgba(0, 0, 0, 0.25)'/>}
@@ -35,17 +60,19 @@ export const PeriodicityBlock = () => {
                     data-test-id='modal-drawer-right-date-picker'
                 />
                 <Checkbox
-                    onChange={() => setIsChecked(!isChecked)}
+                    checked={parameters?.repeat}
+                    onChange={frequencyHandler}
                     data-test-id='modal-drawer-right-checkbox-period'
                 >
                     С периодичностью
                 </Checkbox>
             </div>
-            {isChecked &&
+            {parameters?.repeat &&
                 <Select
-                    defaultValue='Периодичность'
+                    defaultValue={parameters?.period || 'Периодичность'}
                     options={periodicityOptions}
                     className={styles.periodicitySelect}
+                    onChange={handleChangePeriodicity}
                     data-test-id='modal-drawer-right-select-period'
                 />}
         </div>

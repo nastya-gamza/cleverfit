@@ -1,0 +1,38 @@
+.trainingTable {
+    max-width: 555px;
+
+    :global {
+        .ant-table table {
+            border-spacing: 12px 0;
+
+            button.ant-btn.ant-btn-link {
+                padding: 0;
+            }
+
+            td.ant-table-cell:last-child {
+                padding: 0;
+            }
+        }
+
+        .ant-table-thead {
+            font-size: 12px;
+
+            th.ant-table-cell {
+                background-color: @bg-gray;
+                border: none;
+            }
+
+            th:last-child {
+                background-color: @white;
+                border: none;
+            }
+        }
+
+    }
+}
+
+.editPen {
+    :global {
+
+    }
+}
