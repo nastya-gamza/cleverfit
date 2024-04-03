@@ -1,0 +1,40 @@
+.card {
+    position: absolute;
+    z-index: 3;
+    top: 0;
+    left: 5%;
+    width: 264px;
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.15);
+
+    @media (max-width: 575px) {
+        width: 100%;
+    }
+
+    :global {
+        .ant-divider.ant-divider-horizontal {
+            border: none;
+        }
+
+        .ant-card-body {
+            padding: 0;
+        }
+
+        .ant-divider {
+            margin: 0;
+        }
+    }
+}
+
+.cardHeader {
+    padding: 18px 9px;
+    display: flex;
+    gap: 14px;
+}
+
+.cardContent {
+    padding: 18px 9px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-height: 130px;
+}

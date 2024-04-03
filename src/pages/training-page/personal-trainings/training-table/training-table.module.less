@@ -1,5 +1,6 @@
 .trainingTable {
     max-width: 555px;
+    margin-bottom: 24px;
 
     :global {
         .ant-table table {
@@ -9,13 +10,14 @@
                 padding: 0;
             }
 
-            td.ant-table-cell:last-child {
+            td.ant-table-cell {
                 padding: 0;
             }
         }
 
         .ant-table-thead {
             font-size: 12px;
+            margin: 24px;
 
             th.ant-table-cell {
                 background-color: @bg-gray;
@@ -26,13 +28,24 @@
                 background-color: @white;
                 border: none;
             }
+
+            th.ant-table-cell::before {
+                opacity: 0;
+            }
         }
 
+        td.ant-table-cell:last-child {
+            border-bottom: none;
+        }
+
+        .ant-pagination {
+            margin: 24px 0 32px;
+        }
     }
 }
 
-.editPen {
-    :global {
-
-    }
+.cellContent {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }

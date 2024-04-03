@@ -4,12 +4,13 @@ import {periodicityOptions} from '@constants/periodicity-options.ts';
 import {useAppDispatch, useAppSelector} from '@hooks/typed-react-redux-hooks.ts';
 import {TrainingBadge} from '@pages/calendar-page/training-badge/training-badge.tsx';
 import {
-    selectCreatedTraining,
+    TrainingCard
+} from '@pages/training-page/personal-trainings/training-card/training-card.tsx';
+import {
     selectTrainingData, setCreatedTraining,
     setExercises,
 } from '@redux/slices/training-slice.ts';
 import {UserTraining} from '@redux/types/training.ts';
-import {isOldDate} from '@utils/check-date.ts';
 import {Button, Table} from 'antd';
 import {ColumnsType} from 'antd/es/table';
 import moment from 'moment';
@@ -26,15 +27,27 @@ const getTrainingPeriod = (period: number | null | undefined) => periodicityOpti
 export const TrainingTable = ({openDrawer, setEditingTrainingName}: TrainingTableProps) => {
     const dispatch = useAppDispatch();
     const {userTraining} = useAppSelector(selectTrainingData);
-    const [openEditCard, setOpenEditCard] = useState(false);
-    const {date} = useAppSelector(selectCreatedTraining);
+    const [openTrainingCard, setOpenTrainingCard] = useState(false);
+    // const {date} = useAppSelector(selectCreatedTraining);
+    const [selectedTraining, setSelectedTraining] = useState<UserTraining>();
+
+    const handleOpen = (record: UserTraining) => {
+        setSelectedTraining(record);
+        setOpenTrainingCard(true);
+
+        console.log(record)
+    }
+
+    const handleCloseTrainingCard = () => {
+        setOpenTrainingCard(false)
+    }
 
 
     const onClickEdit = (record: UserTraining) => {
         const editDate = moment(record.date).toISOString();
 
         openDrawer();
-        setOpenEditCard(true);
+        setOpenTrainingCard(true);
         setEditingTrainingName(record.name);
         dispatch(setExercises(record.exercises));
         dispatch(setCreatedTraining({_id: record._id, name: record.name, date: editDate, parameters: record.parameters}))
@@ -47,18 +60,22 @@ export const TrainingTable = ({openDrawer, setEditingTrainingName}: TrainingTabl
             dataIndex: 'trainingType',
             key: 'trainingType',
             render: (_, record) => (
-                <div
-                    style={{display: 'flex', justifyContent: 'space-between'}}
-                >
+                <div className={styles.cellContent}>
                     <TrainingBadge training={record.name}/>
-
                     <Button
                         type='link'
-                        onClick={() => setOpenEditCard(true)}
-                        disabled={isOldDate(date)}
+                        onClick={()=>handleOpen(record)}
                     >
                         <DownOutlined/>
                     </Button>
+                    {
+                        openTrainingCard && record._id === selectedTraining?._id &&
+                        <TrainingCard
+                            selectedTraining={record}
+                            openDrawer={openDrawer}
+                            closeCard={handleCloseTrainingCard}
+                        />
+                    }
                 </div>
             ),
         },

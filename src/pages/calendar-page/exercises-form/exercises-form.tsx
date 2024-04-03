@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {useAppDispatch} from '@hooks/typed-react-redux-hooks.ts';
 import {setExerciseData} from '@redux/slices/training-slice.ts';
 import {Exercise} from '@redux/types/training.ts';
@@ -30,7 +30,14 @@ export const ExercisesForm = ({
 
     const [form] = Form.useForm();
     const dispatch = useAppDispatch();
-    const [isChecked, setIsChecked] = useState(false)
+    const [isChecked, setIsChecked] = useState(false);
+    const inputRef = useRef<HTMLInputElement>(null);
+
+    useEffect(() => {
+        if (inputRef.current) {
+            inputRef.current.focus();
+        }
+    }, []);
 
     const onChange = () => {
         if (addDeletedExercise && excludeDeletedExercise) {
@@ -64,6 +71,7 @@ export const ExercisesForm = ({
         >
             <Form.Item name='name' className={styles.exerciseField}>
                 <Input
+                    ref={inputRef}
                     value={name}
                     placeholder='Упражнение'
                     maxLength={32}

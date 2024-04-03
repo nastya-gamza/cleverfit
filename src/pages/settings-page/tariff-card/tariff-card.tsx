@@ -25,7 +25,6 @@ export const TariffCard = ({
     <Card
         key={title}
         title={title}
-        hoverable={false}
         extra={
             <Button type='link' onClick={handleOpen}>
                 Подробнее
