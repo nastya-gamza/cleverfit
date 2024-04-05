@@ -9,6 +9,7 @@ export enum ENDPOINTS {
     training = '/training',
     trainingList = '/catalogs/training-list',
     tariffList = '/catalogs/tariff-list',
+    userJointTrainingList = '/catalogs/user-joint-training-list',
     newTariff = '/tariff',
     uploadImage = '/upload-image',
     userMe = '/user/me',

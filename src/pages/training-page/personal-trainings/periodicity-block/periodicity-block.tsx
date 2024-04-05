@@ -10,7 +10,6 @@ import {
 import {calendarLocale} from '@utils/calendar-options.ts';
 import {Checkbox, DatePicker, Select} from 'antd';
 import {CheckboxChangeEvent} from 'antd/es/checkbox';
-import {RangePickerProps} from 'antd/es/date-picker';
 import moment, {Moment} from 'moment';
 
 import styles from './periodicity-block.module.less';
@@ -62,8 +61,6 @@ export const PeriodicityBlock = () => {
         );
     };
 
-    const disabledDate: RangePickerProps['disabledDate'] = current => current && current < moment().endOf('day');
-
     return (
         <div>
             <div className={styles.dateBlock}>
@@ -74,7 +71,7 @@ export const PeriodicityBlock = () => {
                     defaultValue={date ? moment(date) : undefined}
                     dateRender={dateRender}
                     onChange={handleChangeDate}
-                    disabledDate={disabledDate}
+                    disabledDate={date => date.isBefore(moment())}
                     suffixIcon={<CalendarIcon fill='rgba(0, 0, 0, 0.25)'/>}
                     className={styles.datePicker}
                     data-test-id='modal-drawer-right-date-picker'

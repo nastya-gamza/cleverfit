@@ -1,0 +1,41 @@
+.header {
+    display: flex;
+    align-items: center;
+    gap: 160px;
+    margin-bottom: 24px;
+}
+
+.btnBack {
+    display: flex;
+    align-items: center;
+    gap: 17px;
+}
+
+.list {
+    :global {
+        .ant-list-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 234px));
+            align-items: stretch;
+            justify-content: flex-start;
+            gap: 16px;
+
+            @media (max-width: 643px) {
+                grid-template-columns: repeat(auto-fill, minmax(312px, 312px));
+                justify-content: center;
+            }
+        }
+
+        .ant-row {
+            gap: 16px;
+        }
+
+        .ant-row > div {
+            max-width: 234px !important;
+        }
+
+        .ant-list-pagination {
+            text-align: left;
+        }
+    }
+}

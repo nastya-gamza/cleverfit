@@ -2,6 +2,7 @@ import {useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {useAppSelector} from '@hooks/typed-react-redux-hooks.ts';
 import {error} from '@pages/calendar-page/notification-modal/error-notification-modal.tsx';
+import {JointTrainings} from '@pages/training-page/joint-trainings';
 import {PersonalTrainings} from '@pages/training-page/personal-trainings/personal-trainings.tsx';
 import {useGetTrainingListQuery, useGetUserTrainingsQuery} from '@redux/api/training-api.ts';
 import {selectIsError} from '@redux/slices/app-slice.ts';
@@ -39,7 +40,7 @@ export const TrainingPage = () => {
 
     const items = [
         {label: 'Мои тренировки', key: 'my-training', children: <PersonalTrainings/>},
-        {label: 'Совместные тренировки', key: 'joint-training', children: <div>2</div>},
+        {label: 'Совместные тренировки', key: 'joint-training', children: <JointTrainings/>},
         {label: 'Марафоны', key: 'marathons', children: <div>3</div>},
     ];
 

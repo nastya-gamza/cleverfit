@@ -17,7 +17,9 @@ import styles from './training-table.module.less';
 
 export type TrainingTableProps = {
     openDrawer: () => void;
-    setEditingTrainingName: Dispatch<SetStateAction<string>>
+    setEditingTrainingName: Dispatch<SetStateAction<string>>;
+    openCard: boolean;
+    setOpenCard: Dispatch<SetStateAction<boolean>>;
 }
 
 const EDIT_TYPE_DRAWER = 'drawer';
@@ -25,14 +27,14 @@ const EDIT_TYPE_CARD = 'card';
 
 const getTrainingPeriod = (period: number | null | undefined) => periodicityOptions.find((option) => option.value === period)?.label ?? '';
 
-export const TrainingTable = ({openDrawer, setEditingTrainingName}: TrainingTableProps) => {
+export const TrainingTable = ({openDrawer, setEditingTrainingName, openCard, setOpenCard}: TrainingTableProps) => {
     const dispatch = useAppDispatch();
     const {userTraining} = useAppSelector(selectTrainingData);
-    const [openTrainingCard, setOpenTrainingCard] = useState(false);
+    // const [openTrainingCard, setOpenTrainingCard] = useState(false);
     const [selectedTraining, setSelectedTraining] = useState<UserTraining>();
 
     const handleCloseTrainingCard = () => {
-        setOpenTrainingCard(false)
+        setOpenCard(false)
     }
 
     const onClickEdit = (record: UserTraining, type = EDIT_TYPE_DRAWER) => {
@@ -49,7 +51,7 @@ export const TrainingTable = ({openDrawer, setEditingTrainingName}: TrainingTabl
         }));
 
         if (type === EDIT_TYPE_CARD) {
-            setOpenTrainingCard(true);
+            setOpenCard(true);
 
             return;
         }
@@ -72,7 +74,7 @@ export const TrainingTable = ({openDrawer, setEditingTrainingName}: TrainingTabl
                         <DownOutlined/>
                     </Button>
                     {
-                        openTrainingCard && record._id === selectedTraining?._id &&
+                        openCard && record._id === selectedTraining?._id &&
                         <TrainingCard
                             selectedTraining={record}
                             openDrawer={openDrawer}
@@ -131,6 +133,5 @@ export const TrainingTable = ({openDrawer, setEditingTrainingName}: TrainingTabl
                 Новая тренировка
             </Button>
         </React.Fragment>
-
     )
 }

@@ -25,6 +25,7 @@ export const PersonalTrainings = () => {
     const navigate = useNavigate();
 
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+    const [openTrainingCard, setOpenTrainingCard] = useState(false);
     const [editingTrainingName, setEditingTrainingName] = useState('');
     const [isDisabled, setIsDisabled] = useState(true);
     const {_id, name, date, exercises, parameters} = useAppSelector(selectCreatedTraining);
@@ -32,8 +33,8 @@ export const PersonalTrainings = () => {
     const [createTraining] = useCreateTrainingMutation();
     const [update] = useUpdateTrainingMutation();
     const [deletedExercises, setDeletedExercises] = useState<number[]>([]);
-
     const {trainingList} = useAppSelector(selectTrainingData);
+
     const currentTrainingList = trainingList?.map(({key, name}) => ({
         value: key,
         label: name
@@ -48,8 +49,8 @@ export const PersonalTrainings = () => {
         setIsDisabled(true)
     }, [name, date, exercises]);
 
-    const handleOpen = () => setIsDrawerOpen(true);
-    const handleClose = () => {
+    const handleOpenDrawer = () => setIsDrawerOpen(true);
+    const handleCloseDrawer = () => {
         setIsDrawerOpen(false);
         setEditingTrainingName('');
         dispatch(resetCreatedTraining());
@@ -103,7 +104,8 @@ export const PersonalTrainings = () => {
                     true,
                 );
             } finally {
-                handleClose();
+                handleCloseDrawer();
+                setOpenTrainingCard(false);
                 dispatch(resetCreatedTraining());
             }
 
@@ -127,7 +129,7 @@ export const PersonalTrainings = () => {
                 true,
             );
         } finally {
-            handleClose();
+            handleCloseDrawer();
             dispatch(resetCreatedTraining());
         }
     }
@@ -154,16 +156,18 @@ export const PersonalTrainings = () => {
         <React.Fragment>
             {Object.values(userTraining).length ?
                 <TrainingTable
-                    openDrawer={handleOpen}
+                    openDrawer={handleOpenDrawer}
+                    openCard={openTrainingCard}
+                    setOpenCard={setOpenTrainingCard}
                     setEditingTrainingName={setEditingTrainingName}
                 /> :
-                <NoPersonalTrainings openDrawer={handleOpen}/>
+                <NoPersonalTrainings openDrawer={handleOpenDrawer}/>
             }
             <DrawerRight
                 title={editingTrainingName ? 'Редактирование' : 'Добавление упражнений'}
                 open={isDrawerOpen}
                 isFullScreen={true}
-                close={handleClose}
+                close={handleCloseDrawer}
                 closeIcon={editingTrainingName ? <EditOutlined/> : <PlusOutlined/>}
                 dataTestId='modal-drawer-right'
                 footer={
