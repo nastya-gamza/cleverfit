@@ -5,10 +5,12 @@ import {useAppDispatch, useAppSelector} from '@hooks/typed-react-redux-hooks.ts'
 import {TrainingBadge} from '@pages/calendar-page/training-badge/training-badge.tsx';
 import {TrainingCard} from '@pages/training-page/personal-trainings/training-card';
 import {
-    selectTrainingData, setCreatedTraining,
+    selectTrainingData,
+    setCreatedTraining,
     setExercises,
+    setTrainingMode,
 } from '@redux/slices/training-slice.ts';
-import {UserTraining} from '@redux/types/training.ts';
+import {TrainingMode, UserTraining} from '@redux/types/training.ts';
 import {Button, Table} from 'antd';
 import {ColumnsType} from 'antd/es/table';
 import moment from 'moment';
@@ -17,7 +19,6 @@ import styles from './training-table.module.less';
 
 export type TrainingTableProps = {
     openDrawer: () => void;
-    setEditingTrainingName: Dispatch<SetStateAction<string>>;
     openCard: boolean;
     setOpenCard: Dispatch<SetStateAction<boolean>>;
 }
@@ -27,7 +28,7 @@ const EDIT_TYPE_CARD = 'card';
 
 const getTrainingPeriod = (period: number | null | undefined) => periodicityOptions.find((option) => option.value === period)?.label ?? '';
 
-export const TrainingTable = ({openDrawer, setEditingTrainingName, openCard, setOpenCard}: TrainingTableProps) => {
+export const TrainingTable = ({openDrawer, openCard, setOpenCard}: TrainingTableProps) => {
     const dispatch = useAppDispatch();
     const {userTraining} = useAppSelector(selectTrainingData);
     // const [openTrainingCard, setOpenTrainingCard] = useState(false);
@@ -38,10 +39,10 @@ export const TrainingTable = ({openDrawer, setEditingTrainingName, openCard, set
     }
 
     const onClickEdit = (record: UserTraining, type = EDIT_TYPE_DRAWER) => {
+        dispatch(setTrainingMode(TrainingMode.EDIT));
         const editDate = moment(record.date).toISOString();
 
         setSelectedTraining(record);
-        setEditingTrainingName(record.name);
         dispatch(setExercises(record.exercises));
         dispatch(setCreatedTraining({
             _id: record._id,
@@ -74,7 +75,7 @@ export const TrainingTable = ({openDrawer, setEditingTrainingName, openCard, set
                         <DownOutlined/>
                     </Button>
                     {
-                        openCard && record._id === selectedTraining?._id &&
+                        openCard && record?._id === selectedTraining?._id &&
                         <TrainingCard
                             selectedTraining={record}
                             openDrawer={openDrawer}

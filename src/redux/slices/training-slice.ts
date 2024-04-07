@@ -1,17 +1,19 @@
 import {
     Exercise,
-    TrainingItem,
+    TrainingItem, TrainingMode,
     UserTraining,
     UserTrainingByDate
 } from '@redux/types/training.ts';
-import {createSlice, PayloadAction} from '@reduxjs/toolkit'
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
 type TrainingState = {
-    date: string,
-    training: string,
-    userTraining: UserTrainingByDate,
-    trainingList: TrainingItem[],
+    date: string;
+    training: string;
+    trainingMode: TrainingMode;
+    userTraining: UserTrainingByDate;
+    trainingList: TrainingItem[];
     createdTraining: UserTraining;
+    isDrawerOpen: boolean;
 }
 
 const initialExerciseState = [
@@ -26,6 +28,7 @@ const initialExerciseState = [
 const initialState: TrainingState = {
     date: '',
     training: '',
+    trainingMode: TrainingMode.NEW,
     userTraining: {},
     trainingList: [],
     createdTraining: {
@@ -41,6 +44,7 @@ const initialState: TrainingState = {
         },
         exercises: initialExerciseState,
     },
+    isDrawerOpen: false,
 };
 
 const trainingSlice = createSlice({
@@ -58,6 +62,9 @@ const trainingSlice = createSlice({
         },
         setTraining: (state, action: PayloadAction<string>) => {
             state.training = action.payload
+        },
+        setTrainingMode: (state, action: PayloadAction<TrainingMode>) => {
+            state.trainingMode = action.payload
         },
         resetTraining: (state) => {
             state.training = initialState.training;
@@ -83,6 +90,9 @@ const trainingSlice = createSlice({
         resetCreatedTraining: (state) => {
             state.createdTraining = initialState.createdTraining;
         },
+        setIsOpenTrainingDrawer: (state, action: PayloadAction<boolean>) => {
+            state.isDrawerOpen = action.payload;
+        }
     },
     selectors: {
         selectTrainingData: state => state,
@@ -95,12 +105,14 @@ export const {
     setTrainingList,
     setTraining,
     setDate,
+    setTrainingMode,
     resetTraining,
     addExercises,
     setExerciseData,
     setExercises,
     resetCreatedTraining,
     setCreatedTraining,
+    setIsOpenTrainingDrawer,
 } = trainingSlice.actions
 
 export const {selectTrainingData, selectCreatedTraining} = trainingSlice.selectors;

@@ -4,9 +4,11 @@ import {useAppSelector} from '@hooks/typed-react-redux-hooks.ts';
 import {error} from '@pages/calendar-page/notification-modal/error-notification-modal.tsx';
 import {JointTrainings} from '@pages/training-page/joint-trainings';
 import {PersonalTrainings} from '@pages/training-page/personal-trainings/personal-trainings.tsx';
+import {useGetInviteListQuery} from '@redux/api/invite-api.ts';
 import {useGetTrainingListQuery, useGetUserTrainingsQuery} from '@redux/api/training-api.ts';
 import {selectIsError} from '@redux/slices/app-slice.ts';
-import {Modal, Tabs} from 'antd';
+import {selectUserJointTrainings} from '@redux/slices/invite-slice.ts';
+import {Badge, Modal, Tabs} from 'antd';
 
 import styles from './training-page.module.less';
 
@@ -14,8 +16,15 @@ export const TrainingPage = () => {
     const navigate = useNavigate();
 
     const isError = useAppSelector(selectIsError);
+    const {invitationList} = useAppSelector(selectUserJointTrainings);
+
+    useGetInviteListQuery();
+
     const {isSuccess: isGetUserTrainingsSuccess,} = useGetUserTrainingsQuery();
-    const {isError: isGetTrainingListError, refetch: refetchTrainingList} = useGetTrainingListQuery();
+    const {
+        isError: isGetTrainingListError,
+        refetch: refetchTrainingList
+    } = useGetTrainingListQuery();
 
     useEffect(() => {
         if (isError) {
@@ -40,7 +49,11 @@ export const TrainingPage = () => {
 
     const items = [
         {label: 'Мои тренировки', key: 'my-training', children: <PersonalTrainings/>},
-        {label: 'Совместные тренировки', key: 'joint-training', children: <JointTrainings/>},
+        {
+            label: <span> Совместные тренировки <Badge count={invitationList.length}/></span>,
+            key: 'joint-training',
+            children: <JointTrainings/>
+        },
         {label: 'Марафоны', key: 'marathons', children: <div>3</div>},
     ];
 

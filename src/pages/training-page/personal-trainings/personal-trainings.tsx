@@ -1,21 +1,25 @@
 import React, {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {EditOutlined, MinusOutlined, PlusOutlined} from '@ant-design/icons';
+import {DRAWER_TITLES_MAP} from '@constants/drawer-titles-map.ts';
 import {PATHS} from '@constants/paths.ts';
 import {useAppDispatch, useAppSelector} from '@hooks/typed-react-redux-hooks.ts';
 import {DrawerRight} from '@pages/calendar-page/drawer-right/drawer-right.tsx';
 import {ExercisesForm} from '@pages/calendar-page/exercises-form/exercises-form.tsx';
 import {error} from '@pages/calendar-page/notification-modal/error-notification-modal.tsx';
+import {PartnerInfo} from '@pages/training-page/joint-trainings/partner-info';
 import {NoPersonalTrainings} from '@pages/training-page/personal-trainings/no-personal-trainings';
 import {PeriodicityBlock} from '@pages/training-page/personal-trainings/periodicity-block';
 import {TrainingTable} from '@pages/training-page/personal-trainings/training-table';
 import {useCreateTrainingMutation, useUpdateTrainingMutation} from '@redux/api/training-api.ts';
 import {setAlert} from '@redux/slices/app-slice.ts';
+import {selectUserJointTrainings} from '@redux/slices/invite-slice.ts';
 import {
     addExercises, resetCreatedTraining,
     selectCreatedTraining,
-    selectTrainingData, setCreatedTraining,
+    selectTrainingData, setCreatedTraining, setIsOpenTrainingDrawer, setTrainingMode,
 } from '@redux/slices/training-slice.ts';
+import {TrainingMode} from '@redux/types/training.ts';
 import {Button, Select, Space} from 'antd';
 
 import styles from './personal-trainings.module.less';
@@ -24,16 +28,20 @@ export const PersonalTrainings = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
-    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+    const {isDrawerOpen} = useAppSelector(selectTrainingData);
+    const {partnerInfo} = useAppSelector(selectUserJointTrainings);
     const [openTrainingCard, setOpenTrainingCard] = useState(false);
-    const [editingTrainingName, setEditingTrainingName] = useState('');
     const [isDisabled, setIsDisabled] = useState(true);
     const {_id, name, date, exercises, parameters} = useAppSelector(selectCreatedTraining);
-    const {userTraining} = useAppSelector(selectTrainingData);
+    const {userTraining, trainingMode} = useAppSelector(selectTrainingData);
     const [createTraining] = useCreateTrainingMutation();
     const [update] = useUpdateTrainingMutation();
     const [deletedExercises, setDeletedExercises] = useState<number[]>([]);
     const {trainingList} = useAppSelector(selectTrainingData);
+
+    const isEditMode = trainingMode === TrainingMode.EDIT;
+    const isAddNewMode = trainingMode === TrainingMode.NEW;
+    const isJointMode = trainingMode === TrainingMode.JOINT;
 
     const currentTrainingList = trainingList?.map(({key, name}) => ({
         value: key,
@@ -49,16 +57,14 @@ export const PersonalTrainings = () => {
         setIsDisabled(true)
     }, [name, date, exercises]);
 
-    const handleOpenDrawer = () => setIsDrawerOpen(true);
+    const handleOpenDrawer = () => dispatch(setIsOpenTrainingDrawer(true));
     const handleCloseDrawer = () => {
-        setIsDrawerOpen(false);
-        setEditingTrainingName('');
+        dispatch(setIsOpenTrainingDrawer(false))
         dispatch(resetCreatedTraining());
+        dispatch(setTrainingMode(TrainingMode.NEW));
     };
 
-    const handleAddExercise = () => {
-        dispatch(addExercises());
-    }
+    const handleAddExercise = () => dispatch(addExercises());
 
     const handleChangeTraining = (value: string) => {
         const selectedTrainingName = trainingList.find(training => training.key === value);
@@ -86,7 +92,7 @@ export const PersonalTrainings = () => {
             })),
         };
 
-        if (editingTrainingName) {
+        if (isEditMode) {
             try {
                 await update(body).unwrap();
                 dispatch(setAlert({
@@ -159,16 +165,15 @@ export const PersonalTrainings = () => {
                     openDrawer={handleOpenDrawer}
                     openCard={openTrainingCard}
                     setOpenCard={setOpenTrainingCard}
-                    setEditingTrainingName={setEditingTrainingName}
                 /> :
                 <NoPersonalTrainings openDrawer={handleOpenDrawer}/>
             }
             <DrawerRight
-                title={editingTrainingName ? 'Редактирование' : 'Добавление упражнений'}
+                title={DRAWER_TITLES_MAP[trainingMode]}
                 open={isDrawerOpen}
                 isFullScreen={true}
                 close={handleCloseDrawer}
-                closeIcon={editingTrainingName ? <EditOutlined/> : <PlusOutlined/>}
+                closeIcon={isEditMode ? <EditOutlined/> : <PlusOutlined/>}
                 dataTestId='modal-drawer-right'
                 footer={
                     <Button
@@ -178,19 +183,22 @@ export const PersonalTrainings = () => {
                         disabled={isDisabled}
                         onClick={onSaveTraining}
                     >
-                        Сохранить
+                        {isJointMode ? 'Отправить приглашение' : 'Сохранить'}
                     </Button>
                 }
             >
                 <Space direction='vertical' size={24}>
-                    <Select
-                        defaultValue={name || 'Выбор типа тренировки'}
-                        options={currentTrainingList}
-                        onChange={handleChangeTraining}
-                        disabled={!!editingTrainingName}
-                        className={styles.select}
-                        data-test-id='modal-create-exercise-select'
-                    />
+                    {
+                        isJointMode ? <PartnerInfo partner={partnerInfo}/> :
+                            <Select
+                                defaultValue={name || 'Выбор типа тренировки'}
+                                options={currentTrainingList}
+                                onChange={handleChangeTraining}
+                                disabled={isEditMode}
+                                className={styles.select}
+                                data-test-id='modal-create-exercise-select'
+                            />
+                    }
                     <PeriodicityBlock/>
                     {exercises.map(({weight, approaches, name, replays, _id}, index) => (
                         <ExercisesForm
@@ -200,31 +208,32 @@ export const PersonalTrainings = () => {
                             replays={replays}
                             weight={weight}
                             approaches={approaches}
-                            isCheckbox={!!editingTrainingName}
+                            isCheckbox={!isAddNewMode}
                             addDeletedExercise={addDeletedExercise}
                             excludeDeletedExercise={excludeDeletedExercise}
                         />
                     ))}
-                    <Button
-                        type='link'
-                        icon={<PlusOutlined style={{fill: '#2F54EB'}}/>}
-                        size='large'
-                        className={styles.btnGroup}
-                        onClick={handleAddExercise}
-                    >
-                        Добавить ещё упражнение
-                    </Button>
-                    {editingTrainingName && (
+                    <div className={styles.btnGroup}>
                         <Button
-                            type='text'
-                            icon={<MinusOutlined/>}
-                            onClick={onDelete}
-                            size='small'
-                            disabled={deletedExercises.length === 0}
+                            type='link'
+                            icon={<PlusOutlined style={{fill: '#2F54EB'}}/>}
+                            size='large'
+                            onClick={handleAddExercise}
                         >
-                            Удалить
+                            Добавить ещё
                         </Button>
-                    )}
+                        {!isAddNewMode && (
+                            <Button
+                                type='text'
+                                icon={<MinusOutlined/>}
+                                onClick={onDelete}
+                                size='small'
+                                disabled={deletedExercises.length === 0}
+                            >
+                                Удалить
+                            </Button>
+                        )}
+                    </div>
                 </Space>
             </DrawerRight>
         </React.Fragment>

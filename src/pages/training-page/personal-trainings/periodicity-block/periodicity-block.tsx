@@ -2,6 +2,7 @@ import {DDMMYYYY, YYYYMMDD} from '@constants/date-formates.ts';
 import {periodicityOptions} from '@constants/periodicity-options.ts';
 import {useAppDispatch, useAppSelector} from '@hooks/typed-react-redux-hooks.ts';
 import CalendarIcon from '@public/icons/calendar.svg?react';
+import {selectProfileInfo} from '@redux/slices/profile-slice.ts';
 import {
     selectCreatedTraining,
     selectTrainingData,
@@ -18,6 +19,7 @@ export const PeriodicityBlock = () => {
     const dispatch = useAppDispatch();
     const {date, parameters} = useAppSelector(selectCreatedTraining);
     const {userTraining} = useAppSelector(selectTrainingData);
+    const {readyForJointTraining} = useAppSelector(selectProfileInfo);
 
     const handleChangeDate = (date: Moment) => {
         dispatch(setCreatedTraining({date: date?.toISOString()}));
@@ -54,7 +56,7 @@ export const PeriodicityBlock = () => {
                 parameters: {
                     period: 0,
                     repeat: e.target.checked,
-                    jointTraining: parameters?.jointTraining as boolean,
+                    jointTraining: readyForJointTraining,
                     participants: [],
                 },
             }),

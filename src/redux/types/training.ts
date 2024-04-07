@@ -5,6 +5,12 @@ export type TrainingItem = {
     key: string;
 }
 
+export enum TrainingMode {
+    NEW = 'new',
+    EDIT = 'edit',
+    JOINT = 'joint',
+}
+
 export type Parameters = {
     repeat: boolean;
     period: number | null;

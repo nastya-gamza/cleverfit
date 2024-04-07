@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import {useNavigate} from 'react-router-dom';
 import {ArrowLeftOutlined} from '@ant-design/icons';
 import {useAppSelector} from '@hooks/typed-react-redux-hooks.ts';
 import {PartnerCard} from '@pages/training-page/joint-trainings/partner-card';
@@ -9,8 +8,11 @@ import Search from 'antd/es/input/Search';
 
 import styles from './random-choice.module.less';
 
-export const RandomChoice = () => {
-    const navigate = useNavigate();
+type RandomChoiceProps = {
+    back: () => void;
+}
+
+export const RandomChoice = ({back}: RandomChoiceProps) => {
     const [searchValue, setSearchValue] = useState('');
     const {userJointTrainingList} = useAppSelector(selectUserJointTrainings);
 
@@ -19,7 +21,7 @@ export const RandomChoice = () => {
     };
 
     const filteredData = searchValue ?
-        userJointTrainingList?.filter(i => i.name.trim().toLowerCase().includes(searchValue)) :
+        userJointTrainingList?.filter(i => i.name?.trim().toLowerCase().includes(searchValue)) :
         userJointTrainingList;
 
     return (
@@ -27,7 +29,7 @@ export const RandomChoice = () => {
             <div className={styles.header}>
                 <Button
                     type='text'
-                    onClick={() => navigate(-1)}
+                    onClick={back}
                     className={styles.btnBack}
                 >
                     <ArrowLeftOutlined/>
@@ -45,11 +47,8 @@ export const RandomChoice = () => {
                 renderItem={(partner) => (
                     <PartnerCard
                         key={partner.id}
-                        name={partner.name}
+                        partner={partner}
                         searchValue={searchValue}
-                        imageSrc={partner.imageSrc}
-                        trainingType={partner.trainingType}
-                        avgWeightInWeek={partner.avgWeightInWeek}
                     />
                 )}
                 pagination={

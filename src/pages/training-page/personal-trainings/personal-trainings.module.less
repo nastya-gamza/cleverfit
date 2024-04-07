@@ -3,20 +3,26 @@
     margin-top: 14px;
 }
 
+.alert {
+    position: absolute;
+    bottom: 8%;
+}
+
+
 .btnGroup {
-    width: 100%;
-    padding: 8px 12px;
-    font-size: 14px;
-    text-align: left;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 8px;
     border-radius: 0 0 @border-radius-m @border-radius-m;
     background-color: @bg-gray;
+
+    button {
+        width: 50%;
+        font-size: 14px;
+    }
 
     :global(.anticon-plus) svg {
         fill: @primary-color;
     }
-}
-
-.alert {
-    position: absolute;
-    bottom: 8%;
 }

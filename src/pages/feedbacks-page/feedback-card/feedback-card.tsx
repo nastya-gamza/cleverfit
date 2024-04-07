@@ -1,4 +1,5 @@
 import {UserOutlined} from '@ant-design/icons';
+import {DDMMYYYY} from '@constants/date-formates.ts';
 import {Rating} from '@pages/feedbacks-page/rating/rating.tsx';
 import {Avatar, Card, Typography} from 'antd';
 import moment from 'moment';
@@ -17,7 +18,7 @@ type FeedbackCardProps = {
 
 export const FeedbackCard = ({fullName, imageSrc, message, rating, createdAt}: FeedbackCardProps) => {
     const [name, surname] = fullName?.split(' ') ?? [];
-    const formattedDate = moment(createdAt).format('DD.MM.YYYY');
+    const formattedDate = moment(createdAt).format(DDMMYYYY);
 
     return (
         <Card>
