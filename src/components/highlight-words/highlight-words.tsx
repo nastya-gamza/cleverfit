@@ -7,7 +7,7 @@ type HighlightWordsProps = {
 }
 
 export const HighlightWords = ({text, searchWords, className}: HighlightWordsProps) => {
-    if (!searchWords.trim()) return text;
+    if (!searchWords?.trim()) return text;
 
     const searchWordsArray = searchWords?.split(' ');
     const searchRegex = new RegExp(`(${searchWordsArray.join('|')})`, 'gi');
@@ -15,12 +15,12 @@ export const HighlightWords = ({text, searchWords, className}: HighlightWordsPro
 
     return (
         <React.Fragment>
-            {parts?.map((part, i) => {
+            {parts?.map((part) => {
                 const isHighlighted = searchWordsArray?.some(word => part.toLowerCase().includes(word.toLowerCase()));
 
                 return isHighlighted ?
-                    <span key={i} className={className}>{part}</span> :
-                    <span key={i}>{part}</span>;
+                    <span className={className}>{part}</span> :
+                    <span>{part}</span>;
             })}
         </React.Fragment>
     );

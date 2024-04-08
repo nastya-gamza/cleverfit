@@ -11,6 +11,7 @@ import {PartnerInfo} from '@pages/training-page/joint-trainings/partner-info';
 import {NoPersonalTrainings} from '@pages/training-page/personal-trainings/no-personal-trainings';
 import {PeriodicityBlock} from '@pages/training-page/personal-trainings/periodicity-block';
 import {TrainingTable} from '@pages/training-page/personal-trainings/training-table';
+import {useCreateInvitationMutation} from '@redux/api/invite-api.ts';
 import {useCreateTrainingMutation, useUpdateTrainingMutation} from '@redux/api/training-api.ts';
 import {setAlert} from '@redux/slices/app-slice.ts';
 import {selectUserJointTrainings} from '@redux/slices/invite-slice.ts';
@@ -36,6 +37,7 @@ export const PersonalTrainings = () => {
     const {userTraining, trainingMode} = useAppSelector(selectTrainingData);
     const [createTraining] = useCreateTrainingMutation();
     const [update] = useUpdateTrainingMutation();
+    const [createInvitation, { isError: isInvitationError }] = useCreateInvitationMutation();
     const [deletedExercises, setDeletedExercises] = useState<number[]>([]);
     const {trainingList} = useAppSelector(selectTrainingData);
 
@@ -49,13 +51,10 @@ export const PersonalTrainings = () => {
     }));
 
     useEffect(() => {
-        if (name && date && exercises.some(e => e.name !== '')) {
-            setIsDisabled(false);
+        const hasValidInputs = (isJointMode || name) && date && exercises.some(e => e.name !== '');
 
-            return;
-        }
-        setIsDisabled(true)
-    }, [name, date, exercises]);
+        setIsDisabled(!hasValidInputs);
+    }, [name, date, exercises, isJointMode]);
 
     const handleOpenDrawer = () => dispatch(setIsOpenTrainingDrawer(true));
     const handleCloseDrawer = () => {
@@ -77,9 +76,11 @@ export const PersonalTrainings = () => {
     }
 
     const onSaveTraining = async () => {
+        const trainingName = isJointMode ? partnerInfo.trainingType : name;
+
         const body = {
             _id,
-            name,
+            name: trainingName,
             date,
             parameters,
             isImplementation: false,
@@ -119,7 +120,12 @@ export const PersonalTrainings = () => {
         }
 
         try {
-            await createTraining(body).unwrap();
+            const data = await createTraining(body).unwrap();
+
+            if (isJointMode) {
+                createInvitation({to: partnerInfo.id, trainingId: data._id || ''});
+            }
+
             dispatch(setAlert({
                 type: 'success',
                 message: 'Новая тренировка успешно добавлена',

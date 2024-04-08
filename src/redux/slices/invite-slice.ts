@@ -2,14 +2,16 @@ import {Invitation, UserJointTrainingList} from '@redux/types/invite.ts';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 
 type InviteState = {
-    userJointTrainingList: UserJointTrainingList[];
     invitationList: Invitation[];
+    userJointTrainingList: UserJointTrainingList[];
+    acceptedJointTrainingList: UserJointTrainingList[];
     partnerInfo: UserJointTrainingList;
 }
 
 const initialState: InviteState = {
     userJointTrainingList: [],
     invitationList: [],
+    acceptedJointTrainingList: [],
     partnerInfo: {
         id: '',
         name: null,
@@ -28,14 +30,23 @@ const inviteSlice = createSlice({
         setUserJointTrainingList: (state, action: PayloadAction<UserJointTrainingList[]>) => {
             state.userJointTrainingList = action.payload;
         },
-        setUsersAcceptingJointTraining: (state, action: PayloadAction<UserJointTrainingList[]>) => {
-            state.userJointTrainingList = action.payload;
+        setUsersAcceptedJointTraining: (state, action: PayloadAction<UserJointTrainingList[]>) => {
+            state.acceptedJointTrainingList = action.payload;
         },
         setInvitationList: (state, action: PayloadAction<Invitation[]>) => {
             state.invitationList = action.payload;
         },
         setPartnerInfo: (state, action: PayloadAction<UserJointTrainingList>) => {
             state.partnerInfo = action.payload;
+        },
+        setJointTrainingStatus(
+            state,
+            {payload: {id, status}}: PayloadAction<{ id: string; status: string }>,
+        ) {
+            state.userJointTrainingList = state.userJointTrainingList.map(user => user.id === id ? {
+                ...user,
+                status
+            } : user);
         },
     },
     selectors: {
@@ -45,9 +56,10 @@ const inviteSlice = createSlice({
 
 export const {
     setUserJointTrainingList,
-    setUsersAcceptingJointTraining,
+    setUsersAcceptedJointTraining,
     setInvitationList,
     setPartnerInfo,
+    setJointTrainingStatus,
 } = inviteSlice.actions;
 
 export const {selectUserJointTrainings} = inviteSlice.selectors;

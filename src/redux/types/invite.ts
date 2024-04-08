@@ -22,3 +22,8 @@ export type Invitation = {
     status: string;
     createdAt: string;
 };
+
+export type CreateInvitationRequest = {
+    to: string;
+    trainingId: string;
+}

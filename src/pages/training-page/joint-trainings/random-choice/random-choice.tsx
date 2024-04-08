@@ -16,12 +16,12 @@ export const RandomChoice = ({back}: RandomChoiceProps) => {
     const [searchValue, setSearchValue] = useState('');
     const {userJointTrainingList} = useAppSelector(selectUserJointTrainings);
 
-    const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setSearchValue(e.target.value);
+    const handleSearch = (name: string) => {
+        setSearchValue(name);
     };
 
     const filteredData = searchValue ?
-        userJointTrainingList?.filter(i => i.name?.trim().toLowerCase().includes(searchValue)) :
+        userJointTrainingList?.filter(i => i.name?.trim().includes(searchValue)) :
         userJointTrainingList;
 
     return (
@@ -37,16 +37,17 @@ export const RandomChoice = ({back}: RandomChoiceProps) => {
                 </Button>
                 <Search
                     placeholder='Поиск по имени'
-                    onChange={e => handleSearch(e)}
+                    onSearch={handleSearch}
                     style={{width: 484}}
                     data-test-id='search-input'
                 />
             </div>
             <List
                 dataSource={filteredData}
-                renderItem={(partner) => (
+                renderItem={(partner, i) => (
                     <PartnerCard
                         key={partner.id}
+                        index={i}
                         partner={partner}
                         searchValue={searchValue}
                     />

@@ -54,7 +54,7 @@ export const trainingApi = baseApi.injectEndpoints({
                 }
             },
         }),
-        createTraining: build.mutation<void, UserTraining>({
+        createTraining: build.mutation<UserTraining, UserTraining>({
             query: (body) => ({
                 url: ENDPOINTS.training,
                 method: 'POST',

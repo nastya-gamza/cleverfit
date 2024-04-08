@@ -4,6 +4,7 @@ import {error} from '@pages/calendar-page/notification-modal/error-notification-
 import {
     JointTrainingRequestList
 } from '@pages/training-page/joint-trainings/joint-training-request-list';
+import {PartnerCard} from '@pages/training-page/joint-trainings/partner-card';
 import {RandomChoice} from '@pages/training-page/joint-trainings/random-choice';
 import {
     useGetUsersAcceptingJointTrainingQuery,
@@ -12,14 +13,14 @@ import {
 import {selectUserJointTrainings} from '@redux/slices/invite-slice.ts';
 import {selectTrainingData} from '@redux/slices/training-slice.ts';
 import {findMostPopularTraining} from '@utils/get-most-popular-training.ts';
-import {Button, Card, Typography} from 'antd';
+import {Button, Card, List, Space,Typography} from 'antd';
 import Meta from 'antd/es/card/Meta';
 
 import styles from './joint-training.module.less';
 
 export const JointTrainings = () => {
     const [getUserJointTrainingList, {isError}] = useLazyGetUserJointTrainingListQuery();
-    const {invitationList} = useAppSelector(selectUserJointTrainings);
+    const {invitationList, acceptedJointTrainingList} = useAppSelector(selectUserJointTrainings);
     const {userTraining} = useAppSelector(selectTrainingData);
 
     useGetUsersAcceptingJointTrainingQuery();
@@ -53,7 +54,7 @@ export const JointTrainings = () => {
                 'modal-error-user-training-button',
             );
         }
-    }, [isError]);
+    }, [getUserJointTrainingList, isError]);
 
     if (isOpenJointTrainings && !isError) {
         return (<RandomChoice back={handleCloseJointTrainings}/>);
@@ -90,15 +91,29 @@ export const JointTrainings = () => {
                     }
                 />
             </Card>
-            <div>
-                <Typography.Title level={4} style={{fontWeight: 500}}>
+            <Space direction='vertical' size={12}>
+                <Typography.Title level={4} className={styles.title} style={{fontWeight: 500}}>
                     Мои партнеры по тренировкам
                 </Typography.Title>
-
-                <Typography.Text type='secondary'>
-                    У вас пока нет партнёров для совместных тренировок
-                </Typography.Text>
-            </div>
+                {acceptedJointTrainingList.length ? (
+                    <div className={styles.cardsContainer}>
+                        <List
+                            dataSource={acceptedJointTrainingList}
+                            renderItem={(partner, i) => (
+                                <PartnerCard
+                                    partner={partner}
+                                    index={i}
+                                    isMyPartner={true}
+                                />
+                            )}
+                        />
+                    </div>
+                ) : (
+                    <Typography.Text type='secondary'>
+                        У вас пока нет партнёров для совместных тренировок
+                    </Typography.Text>
+                )}
+            </Space>
         </React.Fragment>
     )
 }

@@ -39,28 +39,25 @@ export const PeriodicityBlock = () => {
         return current.date();
     };
 
-    const handleChangePeriodicity = (period: number) => {
-        dispatch(setCreatedTraining({
-            parameters: {
-                period,
-                repeat: parameters?.repeat as boolean,
-                jointTraining: parameters?.jointTraining as boolean,
-                participants: []
-            }
-        }));
-    }
-
-    const frequencyHandler = (e: CheckboxChangeEvent) => {
+    const handleParameterChange = (period: number, repeat: boolean) => {
         dispatch(
             setCreatedTraining({
                 parameters: {
-                    period: 0,
-                    repeat: e.target.checked,
-                    jointTraining: readyForJointTraining,
+                    period,
+                    repeat,
+                    jointTraining: parameters?.jointTraining as boolean,
                     participants: [],
                 },
             }),
         );
+    };
+
+    const handleTogglePeriodicity = (e: CheckboxChangeEvent) => {
+        handleParameterChange(0, e.target.checked);
+    };
+
+    const handleChangePeriodicity = (period: number) => {
+        handleParameterChange(period, parameters?.repeat || false);
     };
 
     return (
@@ -72,7 +69,7 @@ export const PeriodicityBlock = () => {
                     size='small'
                     defaultValue={date ? moment(date) : undefined}
                     dateRender={dateRender}
-                    onChange={handleChangeDate}
+                    onSelect={handleChangeDate}
                     disabledDate={date => date.isBefore(moment())}
                     suffixIcon={<CalendarIcon fill='rgba(0, 0, 0, 0.25)'/>}
                     className={styles.datePicker}
@@ -80,7 +77,7 @@ export const PeriodicityBlock = () => {
                 />
                 <Checkbox
                     checked={parameters?.repeat}
-                    onChange={frequencyHandler}
+                    onChange={handleTogglePeriodicity}
                     data-test-id='modal-drawer-right-checkbox-period'
                 >
                     С периодичностью
