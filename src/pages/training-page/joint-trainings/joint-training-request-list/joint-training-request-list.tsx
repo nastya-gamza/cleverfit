@@ -10,12 +10,12 @@ import {Button, Typography} from 'antd';
 import styles from './joint-training-request-list.module.less';
 
 export const JointTrainingRequestList = () => {
-    const [showAllMessages, setShowAllMessages] = useState(false);
+    const [showAllInvitations, setShowAllInvitations] = useState(false);
     const {invitationList} = useAppSelector(selectUserJointTrainings);
 
-    const list = showAllMessages ? invitationList : [invitationList[0]];
+    const list = showAllInvitations ? invitationList : [invitationList[0]];
 
-    const handleToggleShowAll = () => setShowAllMessages(!showAllMessages);
+    const handleToggleShowAll = () => setShowAllInvitations(!showAllInvitations);
 
     return (
         <div className={styles.container}>
@@ -25,6 +25,7 @@ export const JointTrainingRequestList = () => {
             {list.map(({_id, from, training}) =>
                 <JointTrainingRequestCard
                     key={_id}
+                    id={_id}
                     from={from}
                     training={training}
                 />
@@ -32,9 +33,9 @@ export const JointTrainingRequestList = () => {
             <Button
                 type='link'
                 onClick={handleToggleShowAll}
-                icon={showAllMessages ? <UpOutlined/> : <DownOutlined/>}
+                icon={showAllInvitations ? <UpOutlined/> : <DownOutlined/>}
             >
-                {showAllMessages ? 'Скрыть все сообщения' : 'Показать все сообщения'}
+                {showAllInvitations ? 'Скрыть все сообщения' : 'Показать все сообщения'}
             </Button>
         </div>
     )

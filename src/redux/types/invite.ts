@@ -27,3 +27,8 @@ export type CreateInvitationRequest = {
     to: string;
     trainingId: string;
 }
+
+export type ResponseToInvitationRequest = {
+    id: string;
+    status: string;
+}

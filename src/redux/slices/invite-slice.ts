@@ -48,6 +48,12 @@ const inviteSlice = createSlice({
                 status
             } : user);
         },
+        removeJointTraining(
+            state,
+            { payload: { inviteId } }: PayloadAction<{ inviteId: string | null}>,
+        ) {
+            state.acceptedJointTrainingList = state.acceptedJointTrainingList.filter(el => el.inviteId !== inviteId);
+        },
     },
     selectors: {
         selectUserJointTrainings: state => state,
@@ -60,6 +66,7 @@ export const {
     setInvitationList,
     setPartnerInfo,
     setJointTrainingStatus,
+    removeJointTraining,
 } = inviteSlice.actions;
 
 export const {selectUserJointTrainings} = inviteSlice.selectors;

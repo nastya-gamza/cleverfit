@@ -1,0 +1,53 @@
+.modal {
+    :global(.ant-modal-body) {
+        padding: 32px;
+    }
+}
+
+.content {
+    display: grid;
+    gap: 16px;
+
+    @media (min-width: 525px) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.partnerInfo {
+    display: flex;
+    gap: 8px;
+}
+
+.trainingInfo {
+    display: flex;
+    gap: 16px;
+}
+
+.trainingInfoWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 12px;
+}
+
+.trainingData {
+    color: @primary-color;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.highlight {
+    color: red;
+}
+
+.status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    @media (max-width: 525px) {
+        order: 1;
+    }
+}
+
+

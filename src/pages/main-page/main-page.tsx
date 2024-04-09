@@ -6,16 +6,20 @@ import {useAppSelector} from '@hooks/typed-react-redux-hooks.ts';
 import {useGetInviteListQuery} from '@redux/api/invite-api.ts';
 import {useLazyGetCurrentUserQuery} from '@redux/api/profile-api.ts';
 import {selectIsError} from '@redux/slices/app-slice.ts';
+import {selectProfileInfo} from '@redux/slices/profile-slice.ts';
 
 export const MainPage = () => {
     const isError = useAppSelector(selectIsError);
+    const profileInfo = useAppSelector(selectProfileInfo);
     const [getUserTraining] = useLazyGetCurrentUserQuery();
 
     useGetInviteListQuery();
 
     useEffect(() => {
-        getUserTraining();
-    }, [getUserTraining]);
+        if (!profileInfo.email) {
+            getUserTraining();
+        }
+    }, [getUserTraining, profileInfo.email]);
 
     return (
         <React.Fragment>

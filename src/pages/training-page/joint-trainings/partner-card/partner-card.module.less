@@ -1,11 +1,7 @@
 .card {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
     min-width: 234px;
     padding: 16px 16px 36px;
     background-color: @bg-color-light;
-    border-radius: 2px;
 
     :global(div.ant-card-body) {
         padding: 0;
@@ -14,12 +10,14 @@
 
 .myPartnerCard {
     background-color: transparent;
+    padding: 12px;
 }
 
 .partnerInfo {
     display: flex;
     align-items: center;
     gap: 8px;
+    margin-bottom: 12px;
 }
 
 .trainingInfo {
@@ -31,7 +29,7 @@
     display: flex;
     flex-direction: column;
     gap: 4px;
-    margin-bottom: 4px;
+    margin-bottom: 14px;
     font-size: 12px;
 }
 
@@ -49,4 +47,6 @@
     position: absolute;
     bottom: 8px;
     left: 12%;
+    display: flex;
+    gap: 8px;
 }

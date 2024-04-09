@@ -3,11 +3,18 @@ import {Statuses} from '@constants/statuses.ts';
 import {baseApi} from '@redux/api/base-api.ts';
 import {setIsLoading} from '@redux/slices/app-slice.ts';
 import {
+    removeJointTraining,
     setInvitationList, setJointTrainingStatus,
     setUserJointTrainingList,
     setUsersAcceptedJointTraining
 } from '@redux/slices/invite-slice.ts';
-import {CreateInvitationRequest, Invitation, UserJointTrainingList} from '@redux/types/invite.ts';
+import {
+    CreateInvitationRequest,
+    Invitation,
+    ResponseToInvitationRequest,
+    UserJointTrainingList
+} from '@redux/types/invite.ts';
+import {TAGS} from '@redux/types/tags.ts';
 
 export const inviteApi = baseApi.injectEndpoints({
     endpoints: (build) => ({
@@ -53,6 +60,13 @@ export const inviteApi = baseApi.injectEndpoints({
                     dispatch(setIsLoading(false));
                 }
             },
+            providesTags: (result) =>
+                result
+                    ? [
+                        ...result.map(({id}) => ({type: TAGS.invite as const, id})),
+                        {type: TAGS.invite, id: 'LIST'},
+                    ]
+                    : [{type: TAGS.invite, id: 'LIST'}],
         }),
         getInviteList: build.query<Invitation[], void>({
             query: () => ENDPOINTS.invite,
@@ -67,6 +81,13 @@ export const inviteApi = baseApi.injectEndpoints({
                     dispatch(setIsLoading(false));
                 }
             },
+            providesTags: (result) =>
+                result
+                    ? [
+                        ...result.map(({_id}) => ({type: TAGS.invite as const, _id})),
+                        {type: TAGS.invite, id: 'LIST'},
+                    ]
+                    : [{type: TAGS.invite, id: 'LIST'}],
         }),
         createInvitation: build.mutation<Invitation, CreateInvitationRequest>({
             query: (body) => ({
@@ -86,6 +107,43 @@ export const inviteApi = baseApi.injectEndpoints({
                 }
             },
         }),
+        responseToInvitation: build.mutation<Invitation, ResponseToInvitationRequest>({
+            query: (body) => ({
+                url: ENDPOINTS.invite,
+                method: 'PUT',
+                body,
+            }),
+            async onQueryStarted(data, {dispatch, queryFulfilled}) {
+                try {
+                    dispatch(setIsLoading(true));
+                    await queryFulfilled;
+
+                    dispatch(setIsLoading(false));
+                    dispatch(setJointTrainingStatus({ id: data.id, status: data.status }));
+                } catch (err) {
+                    dispatch(setIsLoading(false));
+                }
+            },
+            invalidatesTags: [{type: TAGS.invite, id: 'LIST'}],
+        }),
+        cancelJointTraining: build.mutation<void, { inviteId: string | null }>({
+            query: ({inviteId}) => ({
+                url: `${ENDPOINTS.invite}/${inviteId}`,
+                method: 'DELETE',
+            }),
+            async onQueryStarted(data, {dispatch, queryFulfilled}) {
+                try {
+                    dispatch(setIsLoading(true));
+                    await queryFulfilled;
+
+                    dispatch(setIsLoading(false));
+                    dispatch(removeJointTraining(data));
+                } catch (err) {
+                    dispatch(setIsLoading(false));
+                }
+            },
+            invalidatesTags: [{type: TAGS.invite, id: 'LIST'}],
+        }),
     }),
 });
 
@@ -94,4 +152,6 @@ export const {
     useGetUsersAcceptingJointTrainingQuery,
     useGetInviteListQuery,
     useCreateInvitationMutation,
+    useResponseToInvitationMutation,
+    useCancelJointTrainingMutation
 } = inviteApi;

@@ -5,15 +5,18 @@ import {
     JointTrainingRequestList
 } from '@pages/training-page/joint-trainings/joint-training-request-list';
 import {PartnerCard} from '@pages/training-page/joint-trainings/partner-card';
+import {PartnerModal} from '@pages/training-page/joint-trainings/partner-modal';
 import {RandomChoice} from '@pages/training-page/joint-trainings/random-choice';
 import {
+    useCancelJointTrainingMutation,
     useGetUsersAcceptingJointTrainingQuery,
     useLazyGetUserJointTrainingListQuery
 } from '@redux/api/invite-api.ts';
 import {selectUserJointTrainings} from '@redux/slices/invite-slice.ts';
 import {selectTrainingData} from '@redux/slices/training-slice.ts';
+import {UserJointTrainingList} from '@redux/types/invite.ts';
 import {findMostPopularTraining} from '@utils/get-most-popular-training.ts';
-import {Button, Card, List, Space,Typography} from 'antd';
+import {Button, Card, List, Space, Typography} from 'antd';
 import Meta from 'antd/es/card/Meta';
 
 import styles from './joint-training.module.less';
@@ -25,9 +28,13 @@ export const JointTrainings = () => {
 
     useGetUsersAcceptingJointTrainingQuery();
 
+    const [cancelJointTraining] = useCancelJointTrainingMutation();
+
     const isInvitationListEmpty = invitationList.length === 0;
 
     const [isOpenJointTrainings, setIsOpenJointTrainings] = useState(false);
+    const [showPartnerModal, setShowPartnerModal] = useState(false);
+    const [selectedPartner, setSelectedPartner] = useState<UserJointTrainingList>({} as UserJointTrainingList);
 
     const handleCloseJointTrainings = () => setIsOpenJointTrainings(false);
 
@@ -35,6 +42,15 @@ export const JointTrainings = () => {
         setIsOpenJointTrainings(true);
         getUserJointTrainingList({});
     }
+
+    const handleShowPartnerModal = () => setShowPartnerModal(true);
+
+    const handleHidePartnerModal = () => setShowPartnerModal(false);
+
+    const onCancelJointTraining = (inviteId: string | null) => {
+        cancelJointTraining({inviteId});
+        handleCloseJointTrainings();
+    };
 
     const handleOpenTrainingsByType = () => {
         const listOfAllTrainings = Object.values(userTraining).flatMap((trainingsArray) => trainingsArray);
@@ -50,15 +66,17 @@ export const JointTrainings = () => {
                 <span>При открытии данных <br/> произошла ошибка</span>,
                 'Попробуйте еще раз.',
                 'Обновить',
-                ()=>getUserJointTrainingList({}),
+                () => getUserJointTrainingList({}),
                 'modal-error-user-training-button',
             );
         }
     }, [getUserJointTrainingList, isError]);
 
+
     if (isOpenJointTrainings && !isError) {
         return (<RandomChoice back={handleCloseJointTrainings}/>);
     }
+
 
     return (
         <React.Fragment>
@@ -104,6 +122,8 @@ export const JointTrainings = () => {
                                     partner={partner}
                                     index={i}
                                     isMyPartner={true}
+                                    onClick={handleShowPartnerModal}
+                                    selectedPartner={setSelectedPartner}
                                 />
                             )}
                         />
@@ -114,6 +134,12 @@ export const JointTrainings = () => {
                     </Typography.Text>
                 )}
             </Space>
+            <PartnerModal
+                open={showPartnerModal}
+                onClose={handleHidePartnerModal}
+                partner={selectedPartner}
+                onClick={onCancelJointTraining}
+            />
         </React.Fragment>
     )
 }

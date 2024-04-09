@@ -1,10 +1,12 @@
 import {useState} from 'react';
 import {UserOutlined} from '@ant-design/icons';
 import {DDMMYYYY} from '@constants/date-formates.ts';
+import {Statuses} from '@constants/statuses.ts';
 import {TRAININGS_MAP} from '@constants/trainings-map.ts';
 import {
     PartnerTrainingDetailsCard
 } from '@pages/training-page/joint-trainings/partner-training-details-card';
+import {useResponseToInvitationMutation} from '@redux/api/invite-api.ts';
 import {UserTraining} from '@redux/types/training.ts';
 import {Avatar, Button, Card, Typography} from 'antd';
 import moment from 'moment/moment';
@@ -12,6 +14,7 @@ import moment from 'moment/moment';
 import styles from './joint-training-request-card.module.less';
 
 type JointTrainingRequestCardProps = {
+    id: string;
     from: {
         firstName: string | null,
         lastName: string | null,
@@ -20,12 +23,21 @@ type JointTrainingRequestCardProps = {
     training: UserTraining,
 }
 
-export const JointTrainingRequestCard = ({from, training}: JointTrainingRequestCardProps) => {
+export const JointTrainingRequestCard = ({id, from, training}: JointTrainingRequestCardProps) => {
     const [openTrainingDetails, setOpenTrainingDetails] = useState(false);
     const formattedDate = moment(training.date).format(DDMMYYYY);
+    const [responseToInvitation] = useResponseToInvitationMutation();
 
     const handleOpenTrainingDetails = () => setOpenTrainingDetails(true);
     const handleCloseTrainingDetails = () => setOpenTrainingDetails(false);
+
+    const handleAcceptTraining = (id: string) => {
+        responseToInvitation({id, status: Statuses.accepted});
+    }
+
+    const handleRejectTraining = (id: string) => {
+        responseToInvitation({id, status: Statuses.rejected})
+    }
 
     return (
         <Card bordered={false} className={styles.card}>
@@ -73,12 +85,14 @@ export const JointTrainingRequestCard = ({from, training}: JointTrainingRequestC
                         type='primary'
                         block={true}
                         size='large'
+                        onClick={()=>handleAcceptTraining(id)}
                     >
                         Тренироваться вместе
                     </Button>
                     <Button
                         block={true}
                         size='large'
+                        onClick={()=>handleRejectTraining(id)}
                     >
                         Отклонить запрос
                     </Button>

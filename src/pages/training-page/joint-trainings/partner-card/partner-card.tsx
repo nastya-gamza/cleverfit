@@ -1,8 +1,13 @@
-import React from 'react';
-import {CheckCircleTwoTone, InfoCircleOutlined, UserOutlined} from '@ant-design/icons';
+import React, {Dispatch, SetStateAction} from 'react';
+import {
+    CheckCircleFilled,
+    InfoCircleOutlined,
+    UserOutlined
+} from '@ant-design/icons';
 import {HighlightWords} from '@components/highlight-words/highlight-words.tsx';
 import {Statuses, STATUSES_MAP} from '@constants/statuses.ts';
 import {useAppDispatch} from '@hooks/typed-react-redux-hooks.ts';
+import {useCancelJointTrainingMutation} from '@redux/api/invite-api.ts';
 import {setPartnerInfo} from '@redux/slices/invite-slice.ts';
 import {
     setCreatedTraining,
@@ -21,6 +26,8 @@ export type PartnerCardProps = {
     index: number;
     searchValue?: string;
     isMyPartner?: boolean;
+    onClick?: () => void;
+    selectedPartner?: Dispatch<SetStateAction<UserJointTrainingList>>
 }
 
 export const PartnerCard = ({
@@ -28,12 +35,25 @@ export const PartnerCard = ({
                                 index,
                                 searchValue,
                                 isMyPartner,
+                                onClick,
+                                selectedPartner,
                             }: PartnerCardProps) => {
     const isPending = partner?.status === Statuses.pending;
     const isAccepted = partner?.status === Statuses.accepted;
     const isRejected = partner?.status === Statuses.rejected;
 
+    const [cancelJointTraining] = useCancelJointTrainingMutation();
+
     const dispatch = useAppDispatch();
+
+    const onCancelJointTraining = (inviteId: string | null) => {
+        cancelJointTraining({inviteId});
+    };
+
+    const handleClickPartner = (partner: UserJointTrainingList) => {
+        if (onClick) onClick();
+        if (selectedPartner) selectedPartner(partner);
+    }
 
     const handleCreateTraining = () => {
         dispatch(setIsOpenTrainingDrawer(true));
@@ -52,8 +72,12 @@ export const PartnerCard = ({
 
     return (
         <Card
+            hoverable={isMyPartner}
+            bordered={isMyPartner}
+            onClick={()=>handleClickPartner(partner)}
             data-test-id={`joint-training-cards${index}`}
-            className={classNames(styles.card, {[styles.myPartnerCard]: isMyPartner})}>
+            className={classNames(styles.card, {[styles.myPartnerCard]: isMyPartner})}
+        >
             <div className={styles.partnerInfo}>
                 <Avatar size={42} src={partner.imageSrc} icon={<UserOutlined/>}/>
                 <div className={styles.partnerName}>
@@ -83,16 +107,26 @@ export const PartnerCard = ({
                 &&
                 (
                     <React.Fragment>
-                        <Button
-                            type='primary'
-                            block={true}
-                            onClick={handleCreateTraining}
-                            disabled={isPending || isRejected}
-                        >
-                            {partner.status === Statuses.accepted
-                                ? 'Отменить тренировку'
-                                : 'Создать тренировку'}
-                        </Button>
+                        {partner.status === null ? (
+                            <Button
+                                block={true}
+                                type='primary'
+                                onClick={handleCreateTraining}
+                            >
+                                Создать тренировку
+                            </Button>
+                        ) : (
+                            <Button
+                                block={true}
+                                type={isAccepted ? 'default' : 'primary'}
+                                onClick={() => onCancelJointTraining(partner.inviteId)}
+                                disabled={isRejected || isPending}
+                            >
+                                {isAccepted
+                                    ? 'Отменить тренировку'
+                                    : 'Создать тренировку'}
+                            </Button>
+                        )}
                         {partner.status && (
                             <div className={styles.partnerStatus}>
                                 {STATUSES_MAP[partner.status as keyof typeof Statuses]}
@@ -106,7 +140,7 @@ export const PartnerCard = ({
                                     </Tooltip>
                                 )}
                                 {isAccepted && (
-                                    <CheckCircleTwoTone twoToneColor='#52c41a'/>
+                                    <CheckCircleFilled style={{color: '#52C41A'}}/>
                                 )}
                             </div>
                         )}
