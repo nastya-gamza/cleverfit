@@ -14,7 +14,7 @@
 
 .features-card {
   color: #061178;
-  font-size: 16px;
+  font-size: var(--font-base);
   line-height: 1.3;
 }
 .features-card :global .ant-typography {
@@ -23,7 +23,7 @@
 }
 .features-card :global .ant-list-item {
   color: #061178;
-  font-size: 16px;
+  font-size: var(--font-base);
   line-height: 1.3;
 }
 .features-card :global .ant-list-split .ant-list-item {
@@ -76,7 +76,7 @@
   padding: 0 24px;
 }
 .action-card :global .ant-card-head-title {
-  font-size: 16px;
+  font-size: var(--font-base);
   font-weight: 400;
   line-height: 1.3;
 }

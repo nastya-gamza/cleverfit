@@ -5,30 +5,30 @@
         }
 
         .ant-drawer-title {
-            font-size: 20px;
+            font-size: var(--font-xl);
         }
 
         button.ant-btn span svg {
-            width: 14px;
-            height: 14px;
-            color: @text-color-secondary;
+            width: var(--size-7);
+            height: var(--size-7);
+            color: var(--neutral-gray-7);
         }
 
         .ant-drawer-body {
             min-height: 280px;
 
             @media (max-width: 575px) {
-                padding: 16px;
+                padding: var(--size-8);
             }
         }
 
         .ant-drawer-content-wrapper,
         .ant-drawer-content {
-            border-radius: 8px 0 0 8px;
+            border-radius: var(--radius-lg) 0 0 var(--radius-lg);
 
             @media (max-width: 575px) {
                 min-height: 90%;
-                border-radius: 24px 24px 0 0;
+                border-radius: var(--size-12) var(--size-12) 0 0;
             }
         }
     }
@@ -38,8 +38,8 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    gap: 14px;
-    margin: 24px 0;
+    gap: var(--size-7);
+    margin: var(--size-12) 0;
 
     @media (max-width: 575px) {
         margin-top: 0;
@@ -48,20 +48,20 @@
 
 .free,
 .pro {
-    padding: 4px 8px;
+    padding: var(--size-2) var(--size-4);
     min-width: 56px;
-    font-size: 14px;
+    font-size: var(--font-sm);
     text-align: center;
     text-transform: uppercase;
 }
 
 .free {
-    background-color: @bg-gray;
+    background-color: var(--character-light-dividers);
 }
 
 .pro {
-    background-color: @bg-color-light;
-    color: #1D39C4;
+    background-color: var(--primary-light-1);
+    color: var(--primary-light-7);
 }
 
 .itemWrapper {
@@ -74,7 +74,7 @@
 
     .icons {
         display: flex;
-        gap: 14px;
+        gap: var(--size-7);
 
         div {
             padding: 0 19px;
@@ -86,8 +86,8 @@
     }
 
     svg {
-        width: 18px;
-        height: 18px;
+        width: var(--size-9);
+        height: var(--size-9);
     }
 }
 
@@ -96,23 +96,23 @@
     width: 100%;
 
     @media (max-width: 575px) {
-        margin-bottom: 24px;
+        margin-bottom: var(--size-12);
     }
 }
 
 .priceTitle {
-    font-size: 14px;
-    font-weight: 700;
-    margin-bottom: 24px;
+    font-size: var(--font-sm);
+    font-weight: var(--fw-bold);
+    margin-bottom: var(--size-12);
 }
 
 .expireProDate {
-    padding: 12px 0;
+    padding: var(--size-6) 0;
     margin-bottom: 48px;
     text-align: center;
     background-color: rgba(240, 245, 255, 1);
 
     h5 {
-        color: #030852;
+        color: var(--primary-light-10);
     }
 }

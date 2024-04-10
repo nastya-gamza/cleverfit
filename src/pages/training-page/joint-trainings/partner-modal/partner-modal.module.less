@@ -1,16 +1,16 @@
 .modal {
     :global(.ant-modal-body) {
-        padding: 32px;
+        padding: var(--size-16);
 
         @media (max-width: 525px) {
-            padding: 16px 12px;
+            padding: var(--size-8) var(--size-6);
         }
     }
 }
 
 .content {
     display: grid;
-    gap: 16px;
+    gap: var(--size-8);
 
     @media (min-width: 525px) {
         grid-template-columns: repeat(2, 1fr);
@@ -19,7 +19,7 @@
 
 .partnerInfo {
     display: flex;
-    gap: 8px;
+    gap: var(--size-4);
 
     @media (max-width: 525px) {
         max-width: 300px;
@@ -28,20 +28,20 @@
 
 .trainingInfo {
     display: flex;
-    gap: 16px;
+    gap: var(--size-8);
 }
 
 .trainingInfoWrapper {
     display: flex;
     flex-direction: column;
-    gap: 4px;
-    font-size: 12px;
+    gap: var(--size-2);
+    font-size: var(--font-xs);
 }
 
 .trainingData {
-    color: @primary-color;
-    font-weight: 500;
-    font-size: 14px;
+    color: var(--primary-light-6);
+    font-weight: var(--fw-medium);
+    font-size: var(--font-sm);
 }
 
 .highlight {
@@ -51,7 +51,7 @@
 .status {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: var(--size-4);
 
     @media (max-width: 525px) {
         order: 1;

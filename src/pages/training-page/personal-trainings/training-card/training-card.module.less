@@ -6,10 +6,6 @@
     width: 264px;
     box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.15);
 
-    @media (max-width: 575px) {
-        width: 100%;
-    }
-
     :global {
         .ant-divider.ant-divider-horizontal {
             border: none;
@@ -26,15 +22,15 @@
 }
 
 .cardHeader {
-    padding: 18px 9px;
+    padding: var(--size-9) 9px;
     display: flex;
-    gap: 14px;
+    gap: var(--size-7);
 }
 
 .cardContent {
-    padding: 18px 9px;
+    padding: var(--size-9) 9px;
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: var(--size-3);
     min-height: 130px;
 }

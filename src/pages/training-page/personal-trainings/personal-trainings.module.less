@@ -1,6 +1,6 @@
 .select {
     width: 100%;
-    margin-top: 14px;
+    margin-top: var(--size-7);
 }
 
 .alert {
@@ -13,16 +13,16 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 8px;
+    padding: 0 var(--size-4);
     border-radius: 0 0 @border-radius-m @border-radius-m;
-    background-color: @bg-gray;
+    background-color: var(--character-light-dividers);
 
     button {
         width: 50%;
-        font-size: 14px;
+        font-size: var(--font-sm);
     }
 
     :global(.anticon-plus) svg {
-        fill: @primary-color;
+        fill: var(--primary-light-6);
     }
 }

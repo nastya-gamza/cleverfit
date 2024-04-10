@@ -2,15 +2,15 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     align-items: center;
-    margin-bottom: 8px;
-    gap: 32px;
+    margin-bottom: var(--size-4);
+    gap: var(--size-16);
 
     :global {
         .ant-checkbox + span {
             padding-right: 0;
 
             @media (max-width: 375px) {
-                padding-left: 4px;
+                padding-left: var(--size-2);
             }
         }
     }
@@ -22,7 +22,7 @@
 
 .datePicker {
     flex: 1 1 auto;
-    padding: 5px 12px;
+    padding: 5px var(--size-6);
     max-width: 147px;
 }
 

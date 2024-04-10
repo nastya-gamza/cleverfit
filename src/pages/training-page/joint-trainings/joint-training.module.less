@@ -1,5 +1,5 @@
 .card {
-    margin-bottom: 40px;
+    margin-bottom: var(--size-21);
     background-color: #FAFAFA;
 
     :global {
@@ -22,10 +22,10 @@
         }
 
         div.ant-card-body {
-            padding-top: 32px;
+            padding-top: var(--size-16);
 
             @media (max-width: 765px) {
-                padding: 32px 8px 24px;
+                padding: var(--size-16) var(--size-4) var(--size-12);
             }
         }
     }
@@ -36,13 +36,13 @@
 
     :global {
         h3.ant-typography {
-            margin-bottom: 32px;
-            font-weight: 500;
-            color: @primary-dark-color;
+            margin-bottom: var(--size-16);
+            font-weight: var(--fw-medium);
+            color: var(--primary-light-9);
         }
     }
 }
 
 .title {
-    font-weight: 500;
+    font-weight: var(--fw-medium);
 }

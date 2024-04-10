@@ -25,7 +25,7 @@
 
 .link {
   color: #2F54EB;
-  font-size: 16px;
+  font-size: var(--font-base);
   padding-bottom: 10px;
 }
 
@@ -61,13 +61,13 @@
 
 .download-btn {
   font-weight: 400;
-  font-size: 16px;
+  font-size: var(--font-base);
   color: #2F54EB;
 }
 
 .pro-tariff {
   font-weight: 400;
-  color: #8C8C8C;
+  color: var(--neutral-gray-7);
 }
 
 .phones {

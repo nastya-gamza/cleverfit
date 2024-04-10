@@ -1,7 +1,7 @@
 .modal {
     @media (max-width: 575px) {
         :global(.ant-modal-body) {
-            padding: 34px 15px;
+            padding: var(--size-18) 15px;
         }
     }
 }
@@ -10,13 +10,13 @@
     padding: 44px 62px;
 
     :global(.ant-result-title, .ant-result-subtitle) {
-        line-height: @line-height-base;
+        line-height: var(--line-height-base);
     }
 
     :global {
         .ant-result-title,
         .ant-result-subtitle {
-            line-height: @line-height-base;
+            line-height: var(--line-height-base);
         }
     }
 
@@ -28,7 +28,7 @@
 .btnRow {
     display: flex;
     justify-content: space-between;
-    gap: 8px;
+    gap: var(--size-4);
 
     button {
         flex: 1;

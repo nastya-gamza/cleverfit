@@ -1,7 +1,7 @@
 .contentWrapper {
-    background: @white;
-    border-radius: 8px;
-    padding: 24px;
+    background: var(--neutral-gray-1);
+    border-radius: var(--radius-lg);
+    padding: var(--size-12);
     width: 100%;
     min-height: 886px;
 
@@ -11,7 +11,7 @@
 
     @media (max-width: 575px) {
         min-height: 667px;
-        padding: 16px 24px;
+        padding: var(--size-8) var(--size-12);
         border-radius: 0;
     }
 }
@@ -31,17 +31,17 @@
         }
 
         .ant-tabs-tab-btn {
-            font-size: 24px;
+            font-size: var(--font-2xl);
 
             @media (max-width: 834px) {
-                font-size: 14px;
+                font-size: var(--font-sm);
             }
         }
 
         .ant-badge-count {
-            min-width: 24px;
-            height: 16px;
-            line-height: 1.3;
+            min-width: var(--size-12);
+            height: var(--size-8);
+            line-height: var(--line-height-base);
         }
     }
 }

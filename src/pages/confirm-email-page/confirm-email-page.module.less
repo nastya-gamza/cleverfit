@@ -6,24 +6,24 @@
 
 .result:global.ant-result {
     padding: 0;
-    margin-bottom: 24px;
+    margin-bottom: var(--size-12);
 
     .ant-result-title {
-        font-weight: 500;
-        line-height: 1.3;
+        font-weight: var(--fw-medium);
+        line-height: var(--line-height-base);
     }
 }
 
 .wrapper {
-    gap: 12px;
+    gap: var(--size-6);
     justify-content: center;
-    margin-bottom: 24px;
+    margin-bottom: var(--size-12);
     margin-inline: auto;
 
 }
 
 .email {
-    font-weight: 700;
+    font-weight: var(--fw-bold);
 }
 
 .note {
@@ -32,22 +32,22 @@
 }
 
 .input:global.ant-input {
-    width: 40px;
-    height: 40px;
-    font-size: 14px;
-    font-weight: 400;
+    width: var(--size-21);
+    height: var(--size-21);
+    font-size: var(--font-sm);
+    font-weight: var(--fw-regular);
     display: flex;
     align-items: center;
     justify-content: center;
 
     &.vi__character--selected {
-        border: 1px solid @primary-light-color;
-        box-shadow: @primary-shadow;
+        border: 1px solid var(--primary-light-5);
+        box-shadow: var(--primary-shadow);
         outline: 0;
 
         &.ant-input-status-error {
-            border-color: @error-color;
-            box-shadow: @error-shadow;
+            border-color: var(--character-light-error);
+            box-shadow: var(--error-shadow);
         }
     }
 }

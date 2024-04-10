@@ -1,18 +1,18 @@
 .drawerInfo {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 8px;
+    margin-bottom: var(--size-4);
 }
 
 .btnGroup {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 8px 20px;
-    border-radius: 0 0 @border-radius-m @border-radius-m;
-    background-color: @bg-gray;
+    padding: var(--size-4) var(--size-10);
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+    background-color: var(--character-light-dividers);
 
     :global(.anticon-plus) svg {
-        fill: @primary-color;
+        fill: var(----primary-light-6);
     }
 }

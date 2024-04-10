@@ -2,7 +2,7 @@
     display: flex;
     align-items: center;
     gap: 128px;
-    margin-bottom: 24px;
+    margin-bottom: var(--size-12);
 
     @media (max-width: 834px) {
         gap: 64px;
@@ -11,7 +11,7 @@
     @media (max-width: 768px) {
         flex-direction: column;
         align-items: flex-start;
-        gap: 14px;
+        gap: var(--size-7);
     }
 }
 
@@ -36,7 +36,7 @@
             grid-template-columns: repeat(auto-fill, minmax(200px, 234px));
             align-items: stretch;
             justify-content: flex-start;
-            gap: 16px;
+            gap: var(--size-8);
 
             @media (max-width: 643px) {
                 grid-template-columns: repeat(auto-fill, minmax(312px, 312px));
@@ -45,7 +45,7 @@
         }
 
         .ant-row {
-            gap: 16px;
+            gap: var(--size-8);
         }
 
         .ant-list-pagination {

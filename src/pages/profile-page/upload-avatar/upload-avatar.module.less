@@ -3,8 +3,8 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 8px;
-        padding: 0 16px;
+        gap: var(--size-4);
+        padding: 0 var(--size-8);
     }
 
     .mobilePreview {
@@ -12,7 +12,7 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        font-size: 12px;
+        font-size: var(--font-xs);
 
         button {
             min-width: 147px;
@@ -38,7 +38,7 @@
         }
 
         div.ant-upload-select-picture-card .ant-upload-text {
-            margin-top: 8px;
+            margin-top: var(--size-4);
             color: red;
         }
 
@@ -54,7 +54,7 @@
             width: 100%;
             top: 0;
             visibility: visible;
-            color: #262626;
+            color: var(--character-light-primary-85);
         }
     }
 }

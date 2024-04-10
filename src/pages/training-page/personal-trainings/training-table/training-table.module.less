@@ -1,13 +1,13 @@
 .trainingTable {
     max-width: 555px;
-    margin-bottom: 24px;
+    margin-bottom: var(--size-12);
 
     :global {
         .ant-table table {
-            border-spacing: 12px 0;
+            border-spacing: var(--size-6) 0;
 
             @media (max-width: 375px) {
-                border-spacing: 8px 0;
+                border-spacing: var(--size-4) 0;
             }
 
             button.ant-btn.ant-btn-link {
@@ -20,16 +20,16 @@
         }
 
         .ant-table-thead {
-            font-size: 12px;
-            margin: 24px;
+            font-size: var(--font-xs);
+            margin: var(--size-12);
 
             th.ant-table-cell {
-                background-color: @bg-gray;
+                background-color: var(--character-light-dividers);
                 border: none;
             }
 
             th:last-child {
-                background-color: @white;
+                background-color: var(--neutral-gray-1);
                 border: none;
             }
 

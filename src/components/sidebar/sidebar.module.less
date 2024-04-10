@@ -22,7 +22,7 @@
         }
 
         .logoWrapper {
-            padding: 45px 18px 53px;
+            padding: 45px var(--size-9) 53px;
         }
     }
 }
@@ -40,7 +40,7 @@
     transition: all 0.3s ease-in;
 
     @media (max-width: 575px) {
-        padding: 16px 19px 25px;
+        padding: var(--size-8) 19px 25px;
     }
 }
 
@@ -62,12 +62,12 @@
     display: flex;
     align-items: center;
     gap: 25px;
-    padding: 0 16px;
+    padding: 0 var(--size-8);
     color: black;
     transition: all 0.3s ease-in;
 
     &:hover {
-        color: @primary-color;
+        color: var(--primary-light-6);
     }
 
     @media (max-width: 575px) {
@@ -90,19 +90,19 @@
 
     button {
         position: absolute;
-        width: 20px;
+        width: var(--size-10);
         height: 66px;
         border: transparent;
-        color: @gray;
+        color: var(--neutral-gray-7);
         clip-path: polygon(0 0, 100% 15%, 100% 85%, 0% 100%);
 
         &:hover, &:active, &:focus {
-            background-color: @white;
-            color: @gray;
+            background-color: var(--neutral-gray-1);
+            color: var(--neutral-gray-7);
         }
 
         @media (max-width: 575px) {
-            width: 32px;
+            width: var(--size-16);
             height: 48px;
         }
     }

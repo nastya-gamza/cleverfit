@@ -1,7 +1,7 @@
 .drawer {
     svg {
         @media (max-width: 360px) {
-            width: 14px;
+            width: var(--size-7);
         }
     }
 
@@ -10,22 +10,22 @@
             padding: 0;
 
             @media (max-width: 360px) {
-                margin-right: 8px;
+                margin-right: var(--size-4);
             }
 
         }
         .ant-drawer-content-wrapper,
         .ant-drawer-content {
-            border-radius: 8px 0 0 8px;
+            border-radius: var(--radius-lg) 0 0 var(--radius-lg);
 
             @media (max-width: 575px) {
                 min-height: 89%;
-                border-radius: 24px 24px 0 0;
+                border-radius: var(--radius-2xl) var(--radius-2xl) 0 0;
             }
         }
 
         .ant-drawer-wrapper-body {
-            border-radius: 8px 0 0 8px;
+            border-radius: var(--radius-lg) 0 0 var(--radius-lg);
         }
 
         .ant-drawer-header {
@@ -38,18 +38,18 @@
         }
 
         .ant-drawer-title {
-            font-size: 20px;
+            font-size: var(--font-xl);
         }
 
         .ant-drawer-body {
             padding: 10px 32px 24px;
             @media (max-width: 575px) {
-                padding: 0 16px;
+                padding: 0 var(--size-8);
             }
         }
 
         .anticon-close svg {
-            fill: #8C8C8C;
+            fill: var(--neutral-gray-7);
         }
     }
 }

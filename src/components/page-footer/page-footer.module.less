@@ -1,14 +1,14 @@
 .footer {
-    padding: 24px 0 0;
+    padding: var(--size-12) 0 0;
 
     @media (max-width: 575px) {
-        padding: 0 12px;
+        padding: 0 var(--size-6);
     }
 }
 
 .row {
     justify-content: space-between;
-    gap: 30px;
+    gap: var(--size-12);
 
     @media (max-width: 575px) {
         justify-content: center;
@@ -24,9 +24,9 @@
 }
 
 .link {
-    color: @primary-color;
-    font-size: @font-md;
-    padding-bottom: 10px;
+    color: var(--primary-light-6);
+    font-size: var(--font-base);
+    padding-bottom: var(--size-5);
 }
 
 .card {
@@ -34,7 +34,7 @@
 
     :global {
         .ant-card-head {
-            padding: 0 24px;
+            padding: 0 var(--size-12);
 
             .ant-card-head-title {
                 padding: 0;
@@ -42,7 +42,7 @@
         }
 
         .ant-card-body {
-            padding: 20px 12px;
+            padding: var(--size-10) var(--size-6);
         }
 
         @media (max-width: 575px) {
@@ -58,7 +58,7 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 8px;
+    gap: var(--size-4);
 
     @media (max-width: 575px) {
         align-items: center;
@@ -66,21 +66,21 @@
 }
 
 .downloadBtn {
-    font-weight: 400;
-    font-size: @font-md;
-    color: @primary-color;
+    font-weight: var(--fw-regular);
+    font-size: var(--font-base);
+    color: var(--primary-light-6);
 }
 
 .proTariff {
-    font-weight: 400;
-    color: @gray;
+    font-weight: var(--fw-regular);
+    color: var(--neutral-gray-7);
 }
 
 .phones {
     display: flex;
-    gap: 30px;
+    gap: var(--size-12);
     a {
-        color: @dark-text;
+        color: var(--character-light-primary-85);
     }
 
     @media (max-width: 575px) {

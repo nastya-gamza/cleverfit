@@ -1,7 +1,7 @@
 .card {
     max-width: 234px;
-    padding: 16px 16px 36px;
-    background-color: @bg-color-light;
+    padding: var(--size-8) var(--size-8) var(--size-14);
+    background-color: var(--primary-light-1);
 
     :global(div.ant-card-body) {
         padding: 0;
@@ -14,14 +14,14 @@
 
 .myPartnerCard {
     background-color: transparent;
-    padding: 12px;
+    padding: var(--size-6);
 }
 
 .partnerInfo {
     display: flex;
     align-items: center;
-    gap: 8px;
-    margin-bottom: 12px;
+    gap: var(--size-4);
+    margin-bottom: var(--size-6);
 }
 
 .partnerName {
@@ -40,15 +40,15 @@
 .trainingInfoWrapper {
     display: flex;
     flex-direction: column;
-    gap: 4px;
-    margin-bottom: 14px;
-    font-size: 12px;
+    gap: var(--size-2);
+    margin-bottom: var(--size-7);
+    font-size: var(--font-xs);
 }
 
 .trainingData {
-    color: @primary-color;
-    font-weight: 500;
-    font-size: 14px;
+    color: var(--primary-light-6);
+    font-weight: var(--fw-medium);
+    font-size: var(--font-sm);
 }
 
 .highlight {
@@ -57,10 +57,10 @@
 
 .partnerStatus {
     position: absolute;
-    bottom: 8px;
+    bottom: var(--size-4);
     left: 12%;
     display: flex;
-    gap: 8px;
+    gap: var(--size-4);
 
     @media (max-width: 768px) {
         left: 24%;
