@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid';
 import {
     Exercise,
     TrainingItem, TrainingMode,
@@ -16,14 +17,12 @@ type TrainingState = {
     isDrawerOpen: boolean;
 }
 
-const initialExerciseState = [
-    {
+const initialExerciseState = {
         name: '',
         approaches: null,
         weight: null,
         replays: null,
-    },
-];
+    };
 
 const initialState: TrainingState = {
     date: '',
@@ -42,7 +41,7 @@ const initialState: TrainingState = {
             jointTraining: false,
             participants: [],
         },
-        exercises: initialExerciseState,
+        exercises: [initialExerciseState],
     },
     isDrawerOpen: false,
 };
@@ -70,7 +69,7 @@ const trainingSlice = createSlice({
             state.training = initialState.training;
         },
         addExercises: (state) => {
-            state.createdTraining.exercises.push(...initialExerciseState);
+            state.createdTraining.exercises.push({...initialExerciseState, tempId: uuidv4()});
         },
         setExercises: (state, action: PayloadAction<Exercise[]>) => {
             state.createdTraining.exercises = action.payload;

@@ -89,7 +89,6 @@ export const PersonalTrainings = () => {
     }
 
     const onSaveTraining = async () => {
-        console.log(parameters)
         const trainingName = isJointMode ? partnerInfo.trainingType : name;
 
         const body = {
@@ -167,6 +166,8 @@ export const PersonalTrainings = () => {
     const onDelete = () => {
         const filteredResultExercises = exercises.filter((_, index) => !deletedExercises.includes(index));
 
+        setDeletedExercises([]);
+
         dispatch(setCreatedTraining({exercises: filteredResultExercises}))
     }
 
@@ -224,9 +225,10 @@ export const PersonalTrainings = () => {
                             />
                     }
                     <PeriodicityBlock/>
-                    {exercises.map(({weight, approaches, name, replays, _id}, index) => (
+                    {exercises.map(({weight, approaches, name, replays, _id, tempId}, index) => (
                         <ExercisesForm
-                            key={`${_id}${index}`}
+                            key={_id || tempId}
+                            tempId={tempId}
                             index={index}
                             name={name}
                             replays={replays}

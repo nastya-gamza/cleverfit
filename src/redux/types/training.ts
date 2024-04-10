@@ -31,6 +31,7 @@ export type Exercise = {
     replays: number | null;
     weight: number | null;
     approaches: number | null;
+    tempId?: string;
     _id?: string;
 };
 

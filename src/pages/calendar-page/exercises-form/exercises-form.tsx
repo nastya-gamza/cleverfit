@@ -7,6 +7,7 @@ import {Checkbox, Form, Input, InputNumber, Space, Typography} from 'antd';
 import styles from './exercises-form.module.less';
 
 type ExercisesFormProps = {
+    tempId?: string,
     weight: number | null;
     approaches: number | null;
     name: string;
@@ -18,6 +19,7 @@ type ExercisesFormProps = {
 };
 
 export const ExercisesForm = ({
+                                  tempId,
                                   weight,
                                   approaches,
                                   name,
@@ -51,8 +53,10 @@ export const ExercisesForm = ({
     };
 
     const handleChange = (_, exercise: Exercise) => {
-        dispatch(setExerciseData({exercise, index}));
-    };
+        const currentExercise: Exercise = {...exercise, tempId};
+
+        dispatch(setExerciseData({exercise:currentExercise, index})
+    );};
 
     return (
         <Form

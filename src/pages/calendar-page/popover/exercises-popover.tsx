@@ -99,6 +99,9 @@ export const ExercisesPopover = ({
     const onDelete = () => {
         const filteredResultExercises = exercises.filter((_, index) => !deletedExercises.includes(index));
 
+        setDeletedExercises([]);
+
+        dispatch(setCreatedTraining({exercises: filteredResultExercises}))
         setResultExercises(filteredResultExercises)
     }
 
@@ -175,9 +178,10 @@ export const ExercisesPopover = ({
                             {moment(selectedDate).format(DDMMYYYY)}
                         </Typography.Text>
                     </div>
-                    {resultExercises.map(({weight, approaches, name, replays, _id}, index) => (
+                    {resultExercises.map(({weight, approaches, name, replays, _id, tempId}, index) => (
                         <ExercisesForm
-                            key={`${_id}${index}`}
+                            key={_id || tempId}
+                            tempId={tempId}
                             index={index}
                             name={name}
                             replays={replays}
