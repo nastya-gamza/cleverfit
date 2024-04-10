@@ -30,46 +30,31 @@ import styles from './personal-trainings.module.less';
 export const PersonalTrainings = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
+    const screens = useBreakpoint();
 
-    const {isDrawerOpen} = useAppSelector(selectTrainingData);
-    const {partnerInfo} = useAppSelector(selectUserJointTrainings);
-    const [openTrainingCard, setOpenTrainingCard] = useState(false);
-    const [isFullScreen, setIsFullScreen] = useState(true);
-    const [isDisabled, setIsDisabled] = useState(true);
-    const {_id, name, date, exercises, parameters} = useAppSelector(selectCreatedTraining);
-    const {userTraining, trainingMode} = useAppSelector(selectTrainingData);
     const [createTraining] = useCreateTrainingMutation();
     const [update] = useUpdateTrainingMutation();
     const [createInvitation] = useCreateInvitationMutation();
-    const [deletedExercises, setDeletedExercises] = useState<number[]>([]);
+
+    const {isDrawerOpen} = useAppSelector(selectTrainingData);
+    const {partnerInfo} = useAppSelector(selectUserJointTrainings);
+    const {_id, name, date, exercises, parameters} = useAppSelector(selectCreatedTraining);
+    const {userTraining, trainingMode} = useAppSelector(selectTrainingData);
     const {trainingList} = useAppSelector(selectTrainingData);
 
-    const screens = useBreakpoint();
+    const [openTrainingCard, setOpenTrainingCard] = useState(false);
+    const [isFullScreen, setIsFullScreen] = useState(true);
+    const [deletedExercises, setDeletedExercises] = useState<number[]>([]);
+    const [isDisabled, setIsDisabled] = useState(true);
 
     const isEditMode = trainingMode === TrainingMode.EDIT;
     const isAddNewMode = trainingMode === TrainingMode.NEW;
     const isJointMode = trainingMode === TrainingMode.JOINT;
 
-    const currentTrainingList = trainingList?.map(({key, name}) => ({
-        value: key,
-        label: name
-    }));
-
-    useEffect(() => {
-        const hasValidInputs = (isJointMode || name) && date && exercises.some(e => e.name !== '');
-
-        setIsDisabled(!hasValidInputs);
-    }, [name, date, exercises, isJointMode]);
-
-    useEffect(() => {
-        if (!screens.sm) {
-            setIsFullScreen(false);
-        } else {
-            setIsFullScreen(true)
-        }
-    }, [screens.sm]);
+    const currentTrainingList = trainingList?.map(({key, name}) => ({value: key, label: name}));
 
     const handleOpenDrawer = () => dispatch(setIsOpenTrainingDrawer(true));
+
     const handleCloseDrawer = () => {
         dispatch(setIsOpenTrainingDrawer(false))
         dispatch(resetCreatedTraining());
@@ -182,6 +167,20 @@ export const PersonalTrainings = () => {
 
         setDeletedExercises(resultDeletedExercises);
     };
+
+    useEffect(() => {
+        const hasValidInputs = (isJointMode || name) && date && exercises.some(e => e.name !== '');
+
+        setIsDisabled(!hasValidInputs);
+    }, [name, date, exercises, isJointMode]);
+
+    useEffect(() => {
+        if (!screens.sm) {
+            setIsFullScreen(false);
+        } else {
+            setIsFullScreen(true)
+        }
+    }, [screens.sm]);
 
     return (
         <React.Fragment>

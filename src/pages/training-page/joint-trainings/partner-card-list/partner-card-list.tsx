@@ -22,8 +22,8 @@ export const PartnerCardList = ({
                 dataSource={acceptedJointTrainingList}
                 renderItem={(partner, i) => (
                     <PartnerCard
-                        partner={partner}
                         index={i}
+                        partner={partner}
                         isMyPartner={true}
                         onClick={handleShowPartnerModal}
                         selectedPartner={setSelectedPartner}

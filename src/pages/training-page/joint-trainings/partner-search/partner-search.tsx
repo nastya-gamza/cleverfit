@@ -7,13 +7,13 @@ import {sortJointTrainingList} from '@utils/sort-joint-training-list.ts';
 import {Button, List, Typography} from 'antd';
 import Search from 'antd/es/input/Search';
 
-import styles from './random-choice.module.less';
+import styles from './partner-search.module.less';
 
 type RandomChoiceProps = {
     back: () => void;
 }
 
-export const RandomChoice = ({back}: RandomChoiceProps) => {
+export const PartnerSearch = ({back}: RandomChoiceProps) => {
     const [searchValue, setSearchValue] = useState('');
     const {userJointTrainingList} = useAppSelector(selectUserJointTrainings);
 

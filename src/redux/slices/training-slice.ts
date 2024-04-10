@@ -1,4 +1,3 @@
-import { v4 as uuidv4 } from 'uuid';
 import {
     Exercise,
     TrainingItem, TrainingMode,
@@ -6,6 +5,7 @@ import {
     UserTrainingByDate
 } from '@redux/types/training.ts';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import { v4 as uuidv4 } from 'uuid';
 
 type TrainingState = {
     date: string;

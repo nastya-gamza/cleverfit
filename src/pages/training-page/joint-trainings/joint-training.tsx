@@ -8,7 +8,7 @@ import {
 } from '@pages/training-page/joint-trainings/joint-training-request-list';
 import {PartnerCardList} from '@pages/training-page/joint-trainings/partner-card-list';
 import {PartnerModal} from '@pages/training-page/joint-trainings/partner-modal';
-import {RandomChoice} from '@pages/training-page/joint-trainings/random-choice';
+import {PartnerSearch} from '@pages/training-page/joint-trainings/partner-search';
 import {
     useCancelJointTrainingMutation,
     useGetUsersAcceptingJointTrainingQuery,
@@ -24,14 +24,15 @@ import Meta from 'antd/es/card/Meta';
 import styles from './joint-training.module.less';
 
 export const JointTrainings = () => {
-    const [getUserJointTrainingList, {isError: isErrorGetJointTrainingList}] = useLazyGetUserJointTrainingListQuery();
-    const {invitationList, acceptedJointTrainingList} = useAppSelector(selectUserJointTrainings);
-    const {userTraining} = useAppSelector(selectTrainingData);
     const navigate = useNavigate();
 
-    useGetUsersAcceptingJointTrainingQuery();
+    const {invitationList, acceptedJointTrainingList} = useAppSelector(selectUserJointTrainings);
+    const {userTraining} = useAppSelector(selectTrainingData);
 
+    const [getUserJointTrainingList, {isError: isErrorGetJointTrainingList}] = useLazyGetUserJointTrainingListQuery();
     const [cancelJointTraining, {isError: isErrorCancelJointTraining}] = useCancelJointTrainingMutation();
+
+    useGetUsersAcceptingJointTrainingQuery();
 
     const isInvitationListEmpty = invitationList.length === 0;
 
@@ -47,9 +48,7 @@ export const JointTrainings = () => {
         getUserJointTrainingList({});
     }
 
-    const handleShowPartnerModal = () => {
-        setShowPartnerModal(true);
-    };
+    const handleShowPartnerModal = () => setShowPartnerModal(true);
 
     const handleHidePartnerModal = () => setShowPartnerModal(false);
 
@@ -58,6 +57,14 @@ export const JointTrainings = () => {
         handleCloseJointTrainings();
         handleHidePartnerModal();
     };
+
+    const handleOpenTrainingsByType = () => {
+        const listOfAllTrainings = Object.values(userTraining).flatMap((trainingsArray) => trainingsArray);
+        const mostPopularTrainingType = findMostPopularTraining(listOfAllTrainings);
+
+        getUserJointTrainingList({trainingType: mostPopularTrainingType});
+        setIsOpenJointTrainings(true);
+    }
 
     useEffect(() => {
         if (isErrorCancelJointTraining) {
@@ -84,14 +91,6 @@ export const JointTrainings = () => {
         }
     }, [getUserJointTrainingList, isErrorGetJointTrainingList]);
 
-    const handleOpenTrainingsByType = () => {
-        const listOfAllTrainings = Object.values(userTraining).flatMap((trainingsArray) => trainingsArray);
-        const mostPopularTrainingType = findMostPopularTraining(listOfAllTrainings);
-
-        getUserJointTrainingList({trainingType: mostPopularTrainingType});
-        setIsOpenJointTrainings(true);
-    }
-
     const PartnerListAndModal = () => (
         <React.Fragment>
             {acceptedJointTrainingList.length ? (
@@ -115,7 +114,7 @@ export const JointTrainings = () => {
     );
 
     if (isOpenJointTrainings && !isErrorGetJointTrainingList) {
-        return (<RandomChoice back={handleCloseJointTrainings}/>);
+        return (<PartnerSearch back={handleCloseJointTrainings}/>);
     }
 
     if (showMyPartners) {

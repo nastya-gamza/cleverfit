@@ -25,20 +25,6 @@ export const PeriodicityBlock = () => {
         dispatch(setCreatedTraining({date: date?.toISOString()}));
     }
 
-    const dateRender = (current: Moment) => {
-        const formattedDate = moment(current).format(YYYYMMDD);
-
-        if (Object.keys(userTraining).includes(formattedDate)) {
-            return (
-                <div className="ant-picker-cell-inner" style={{backgroundColor: '#F0F5FF'}}>
-                    {current.date()}
-                </div>
-            );
-        }
-
-        return current.date();
-    };
-
     const handleParameterChange = (period: number, repeat: boolean) => {
         dispatch(
             setCreatedTraining({
@@ -58,6 +44,20 @@ export const PeriodicityBlock = () => {
 
     const handleChangePeriodicity = (period: number) => {
         handleParameterChange(period, parameters?.repeat || false);
+    };
+
+    const dateRender = (current: Moment) => {
+        const formattedDate = moment(current).format(YYYYMMDD);
+
+        if (Object.keys(userTraining).includes(formattedDate)) {
+            return (
+                <div className='ant-picker-cell-inner' style={{backgroundColor: '#F0F5FF'}}>
+                    {current.date()}
+                </div>
+            );
+        }
+
+        return current.date();
     };
 
     return (

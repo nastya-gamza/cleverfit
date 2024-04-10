@@ -10,19 +10,19 @@ type PartnerInfoProps = {
 };
 
 export const PartnerInfo = ({partner}: PartnerInfoProps) => (
-        <div className={styles.container}>
-            <div className={styles.partnerInfo}>
-                <Avatar
-                    size={42}
-                    src={partner.imageSrc}
-                    icon={<UserOutlined/>}
-                    className={styles.partnerAvatar}
-                />
-                <div className={styles.partnerName}>
-                    <Typography.Text>{partner.name}</Typography.Text>
-                </div>
+    <div className={styles.container}>
+        <div className={styles.partnerInfo}>
+            <Avatar
+                size={42}
+                src={partner.imageSrc}
+                icon={<UserOutlined/>}
+                className={styles.partnerAvatar}
+            />
+            <div className={styles.partnerName}>
+                <Typography.Text>{partner.name}</Typography.Text>
             </div>
-            <TrainingBadge training={partner.trainingType}/>
         </div>
-    )
+        <TrainingBadge training={partner.trainingType}/>
+    </div>
+)
 

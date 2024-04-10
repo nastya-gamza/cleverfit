@@ -23,12 +23,11 @@ export const TrainingCard = ({selectedTraining, openDrawer, closeCard}: Training
             </Button>
         ]}
     >
-        <div className={styles.cardHeader}
-             style={{borderBottom: `2px solid ${TRAINING_COLORS_MAP[selectedTraining.name]}`}}>
-            <ArrowLeftOutlined
-                onClick={closeCard}
-                style={{width: 16}}
-            />
+        <div
+            className={styles.cardHeader}
+            style={{borderBottom: `2px solid ${TRAINING_COLORS_MAP[selectedTraining.name]}`}}
+        >
+            <ArrowLeftOutlined onClick={closeCard} style={{width: 16}}/>
             <Typography.Text>{selectedTraining.name}</Typography.Text>
         </div>
         <Divider/>
