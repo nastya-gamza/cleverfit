@@ -20,6 +20,10 @@
 .partnerInfo {
     display: flex;
     gap: 8px;
+
+    @media (max-width: 525px) {
+        max-width: 300px;
+    }
 }
 
 .trainingInfo {
@@ -51,7 +55,14 @@
 
     @media (max-width: 525px) {
         order: 1;
+        justify-content: center;
     }
 }
 
+.avatar {
+    flex: 1 0 auto;
+}
 
+.fullName {
+    word-spacing: 300px;
+}

@@ -6,9 +6,7 @@ import {error} from '@pages/calendar-page/notification-modal/error-notification-
 import {
     JointTrainingRequestList
 } from '@pages/training-page/joint-trainings/joint-training-request-list';
-import {
-    PartnerCardList
-} from '@pages/training-page/joint-trainings/partner-card-list/partner-card-list.tsx';
+import {PartnerCardList} from '@pages/training-page/joint-trainings/partner-card-list';
 import {PartnerModal} from '@pages/training-page/joint-trainings/partner-modal';
 import {RandomChoice} from '@pages/training-page/joint-trainings/random-choice';
 import {

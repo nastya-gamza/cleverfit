@@ -28,8 +28,13 @@ export const PartnerModal = ({open, onClose, partner, onClick}: PartnerModalProp
     >
         <div className={styles.content}>
             <div className={styles.partnerInfo}>
-                <Avatar size={42} src={partner?.imageSrc} icon={<UserOutlined/>}/>
-                <Typography.Text>{partner?.name}</Typography.Text>
+                <Avatar
+                    size={42}
+                    src={partner?.imageSrc}
+                    icon={<UserOutlined/>}
+                    className={styles.avatar}
+                />
+                <Typography.Text className={styles.fullName}>{partner?.name}</Typography.Text>
             </div>
             <div className={styles.trainingInfoWrapper}>
                 <div className={styles.trainingInfo}>

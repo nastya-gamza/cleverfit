@@ -1,8 +1,9 @@
 import {Dispatch, SetStateAction} from 'react';
-import styles from '@pages/training-page/joint-trainings/joint-training.module.less';
 import {PartnerCard} from '@pages/training-page/joint-trainings/partner-card';
 import {UserJointTrainingList} from '@redux/types/invite.ts';
 import {List} from 'antd';
+
+import styles from './partner-card-list.module.less';
 
 type PartnerCardListProps = {
     acceptedJointTrainingList: UserJointTrainingList[];

@@ -17,8 +17,8 @@ export const RandomChoice = ({back}: RandomChoiceProps) => {
     const [searchValue, setSearchValue] = useState('');
     const {userJointTrainingList} = useAppSelector(selectUserJointTrainings);
 
-    const handleSearch = (name: string) => {
-        setSearchValue(name);
+    const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setSearchValue(e.target.value);
     };
 
     const filteredData = searchValue ?
@@ -39,7 +39,7 @@ export const RandomChoice = ({back}: RandomChoiceProps) => {
                 </Button>
                 <Search
                     placeholder='Поиск по имени'
-                    onSearch={handleSearch}
+                    onChange={(e) => handleSearch(e)}
                     className={styles.search}
                     data-test-id='search-input'
                 />
