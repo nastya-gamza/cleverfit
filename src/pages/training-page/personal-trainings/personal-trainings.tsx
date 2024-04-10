@@ -21,7 +21,9 @@ import {
     selectTrainingData, setCreatedTraining, setIsOpenTrainingDrawer, setTrainingMode,
 } from '@redux/slices/training-slice.ts';
 import {TrainingMode} from '@redux/types/training.ts';
+import {isOldDate} from '@utils/check-date.ts';
 import {Button, Select, Space} from 'antd';
+import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
 
 import styles from './personal-trainings.module.less';
 
@@ -32,14 +34,17 @@ export const PersonalTrainings = () => {
     const {isDrawerOpen} = useAppSelector(selectTrainingData);
     const {partnerInfo} = useAppSelector(selectUserJointTrainings);
     const [openTrainingCard, setOpenTrainingCard] = useState(false);
+    const [isFullScreen, setIsFullScreen] = useState(true);
     const [isDisabled, setIsDisabled] = useState(true);
     const {_id, name, date, exercises, parameters} = useAppSelector(selectCreatedTraining);
     const {userTraining, trainingMode} = useAppSelector(selectTrainingData);
     const [createTraining] = useCreateTrainingMutation();
     const [update] = useUpdateTrainingMutation();
-    const [createInvitation, { isError: isInvitationError }] = useCreateInvitationMutation();
+    const [createInvitation] = useCreateInvitationMutation();
     const [deletedExercises, setDeletedExercises] = useState<number[]>([]);
     const {trainingList} = useAppSelector(selectTrainingData);
+
+    const screens = useBreakpoint();
 
     const isEditMode = trainingMode === TrainingMode.EDIT;
     const isAddNewMode = trainingMode === TrainingMode.NEW;
@@ -55,6 +60,14 @@ export const PersonalTrainings = () => {
 
         setIsDisabled(!hasValidInputs);
     }, [name, date, exercises, isJointMode]);
+
+    useEffect(() => {
+        if (!screens.sm) {
+            setIsFullScreen(false);
+        } else {
+            setIsFullScreen(true)
+        }
+    }, [screens.sm]);
 
     const handleOpenDrawer = () => dispatch(setIsOpenTrainingDrawer(true));
     const handleCloseDrawer = () => {
@@ -76,6 +89,7 @@ export const PersonalTrainings = () => {
     }
 
     const onSaveTraining = async () => {
+        console.log(parameters)
         const trainingName = isJointMode ? partnerInfo.trainingType : name;
 
         const body = {
@@ -95,6 +109,10 @@ export const PersonalTrainings = () => {
 
         if (isEditMode) {
             try {
+                if (isOldDate(body.date)) {
+                    body.isImplementation = true
+                }
+
                 await update(body).unwrap();
                 dispatch(setAlert({
                     type: 'success',
@@ -177,7 +195,7 @@ export const PersonalTrainings = () => {
             <DrawerRight
                 title={DRAWER_TITLES_MAP[trainingMode]}
                 open={isDrawerOpen}
-                isFullScreen={true}
+                isFullScreen={isFullScreen}
                 close={handleCloseDrawer}
                 closeIcon={isEditMode ? <EditOutlined/> : <PlusOutlined/>}
                 dataTestId='modal-drawer-right'

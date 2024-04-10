@@ -1,10 +1,14 @@
 import React, {useEffect, useState} from 'react';
+import {useNavigate} from 'react-router-dom';
+import {PATHS} from '@constants/paths.ts';
 import {useAppSelector} from '@hooks/typed-react-redux-hooks.ts';
 import {error} from '@pages/calendar-page/notification-modal/error-notification-modal.tsx';
 import {
     JointTrainingRequestList
 } from '@pages/training-page/joint-trainings/joint-training-request-list';
-import {PartnerCard} from '@pages/training-page/joint-trainings/partner-card';
+import {
+    PartnerCardList
+} from '@pages/training-page/joint-trainings/partner-card-list/partner-card-list.tsx';
 import {PartnerModal} from '@pages/training-page/joint-trainings/partner-modal';
 import {RandomChoice} from '@pages/training-page/joint-trainings/random-choice';
 import {
@@ -16,22 +20,24 @@ import {selectUserJointTrainings} from '@redux/slices/invite-slice.ts';
 import {selectTrainingData} from '@redux/slices/training-slice.ts';
 import {UserJointTrainingList} from '@redux/types/invite.ts';
 import {findMostPopularTraining} from '@utils/get-most-popular-training.ts';
-import {Button, Card, List, Space, Typography} from 'antd';
+import {Button, Card, Space, Typography} from 'antd';
 import Meta from 'antd/es/card/Meta';
 
 import styles from './joint-training.module.less';
 
 export const JointTrainings = () => {
-    const [getUserJointTrainingList, {isError}] = useLazyGetUserJointTrainingListQuery();
+    const [getUserJointTrainingList, {isError: isErrorGetJointTrainingList}] = useLazyGetUserJointTrainingListQuery();
     const {invitationList, acceptedJointTrainingList} = useAppSelector(selectUserJointTrainings);
     const {userTraining} = useAppSelector(selectTrainingData);
+    const navigate = useNavigate();
 
     useGetUsersAcceptingJointTrainingQuery();
 
-    const [cancelJointTraining] = useCancelJointTrainingMutation();
+    const [cancelJointTraining, {isError: isErrorCancelJointTraining}] = useCancelJointTrainingMutation();
 
     const isInvitationListEmpty = invitationList.length === 0;
 
+    const [showMyPartners, setShowMyPartners] = useState(false);
     const [isOpenJointTrainings, setIsOpenJointTrainings] = useState(false);
     const [showPartnerModal, setShowPartnerModal] = useState(false);
     const [selectedPartner, setSelectedPartner] = useState<UserJointTrainingList>({} as UserJointTrainingList);
@@ -43,14 +49,42 @@ export const JointTrainings = () => {
         getUserJointTrainingList({});
     }
 
-    const handleShowPartnerModal = () => setShowPartnerModal(true);
+    const handleShowPartnerModal = () => {
+        setShowPartnerModal(true);
+    };
 
     const handleHidePartnerModal = () => setShowPartnerModal(false);
 
     const onCancelJointTraining = (inviteId: string | null) => {
         cancelJointTraining({inviteId});
         handleCloseJointTrainings();
+        handleHidePartnerModal();
     };
+
+    useEffect(() => {
+        if (isErrorCancelJointTraining) {
+            error(
+                'При сохранении данных произошла ошибка',
+                'Придётся попробовать ещё раз',
+                'Закрыть',
+                () => navigate(PATHS.training, {state: {from: 'redirect'}}),
+                'modal-error-user-training-button',
+                true,
+            );
+        }
+    }, [isErrorCancelJointTraining, navigate]);
+
+    useEffect(() => {
+        if (isErrorGetJointTrainingList) {
+            error(
+                <span>При открытии данных <br/> произошла ошибка</span>,
+                'Попробуйте еще раз.',
+                'Обновить',
+                () => getUserJointTrainingList({}),
+                'modal-error-user-training-button',
+            );
+        }
+    }, [getUserJointTrainingList, isErrorGetJointTrainingList]);
 
     const handleOpenTrainingsByType = () => {
         const listOfAllTrainings = Object.values(userTraining).flatMap((trainingsArray) => trainingsArray);
@@ -60,27 +94,40 @@ export const JointTrainings = () => {
         setIsOpenJointTrainings(true);
     }
 
-    useEffect(() => {
-        if (isError) {
-            error(
-                <span>При открытии данных <br/> произошла ошибка</span>,
-                'Попробуйте еще раз.',
-                'Обновить',
-                () => getUserJointTrainingList({}),
-                'modal-error-user-training-button',
-            );
-        }
-    }, [getUserJointTrainingList, isError]);
+    const PartnerListAndModal = () => (
+        <React.Fragment>
+            {acceptedJointTrainingList.length ? (
+                <PartnerCardList
+                    acceptedJointTrainingList={acceptedJointTrainingList}
+                    setSelectedPartner={setSelectedPartner}
+                    handleShowPartnerModal={handleShowPartnerModal}
+                />
+            ) : (
+                <Typography.Text type='secondary'>
+                    У вас пока нет партнёров для совместных тренировок
+                </Typography.Text>
+            )}
+            <PartnerModal
+                open={showPartnerModal}
+                onClose={handleHidePartnerModal}
+                partner={selectedPartner}
+                onClick={onCancelJointTraining}
+            />
+        </React.Fragment>
+    );
 
-
-    if (isOpenJointTrainings && !isError) {
+    if (isOpenJointTrainings && !isErrorGetJointTrainingList) {
         return (<RandomChoice back={handleCloseJointTrainings}/>);
     }
 
+    if (showMyPartners) {
+        return <PartnerListAndModal/>
+    }
 
     return (
         <React.Fragment>
-            {!isInvitationListEmpty && <JointTrainingRequestList/>}
+            {!isInvitationListEmpty &&
+                <JointTrainingRequestList showMyPartners={setShowMyPartners}/>}
             <Card
                 actions={[
                     <Button type='link' onClick={handleOpenRandomTrainings}>
@@ -113,33 +160,8 @@ export const JointTrainings = () => {
                 <Typography.Title level={4} className={styles.title} style={{fontWeight: 500}}>
                     Мои партнеры по тренировкам
                 </Typography.Title>
-                {acceptedJointTrainingList.length ? (
-                    <div className={styles.cardsContainer}>
-                        <List
-                            dataSource={acceptedJointTrainingList}
-                            renderItem={(partner, i) => (
-                                <PartnerCard
-                                    partner={partner}
-                                    index={i}
-                                    isMyPartner={true}
-                                    onClick={handleShowPartnerModal}
-                                    selectedPartner={setSelectedPartner}
-                                />
-                            )}
-                        />
-                    </div>
-                ) : (
-                    <Typography.Text type='secondary'>
-                        У вас пока нет партнёров для совместных тренировок
-                    </Typography.Text>
-                )}
+                <PartnerListAndModal/>
             </Space>
-            <PartnerModal
-                open={showPartnerModal}
-                onClose={handleHidePartnerModal}
-                partner={selectedPartner}
-                onClick={onCancelJointTraining}
-            />
         </React.Fragment>
     )
 }

@@ -3,6 +3,7 @@ import {ArrowLeftOutlined} from '@ant-design/icons';
 import {useAppSelector} from '@hooks/typed-react-redux-hooks.ts';
 import {PartnerCard} from '@pages/training-page/joint-trainings/partner-card';
 import {selectUserJointTrainings} from '@redux/slices/invite-slice.ts';
+import {sortJointTrainingList} from '@utils/sort-joint-training-list.ts';
 import {Button, List, Typography} from 'antd';
 import Search from 'antd/es/input/Search';
 
@@ -21,8 +22,9 @@ export const RandomChoice = ({back}: RandomChoiceProps) => {
     };
 
     const filteredData = searchValue ?
-        userJointTrainingList?.filter(i => i.name?.trim().includes(searchValue)) :
-        userJointTrainingList;
+        sortJointTrainingList(userJointTrainingList)?.filter(i =>
+            i.name?.toLocaleLowerCase().trim().includes(searchValue.toLowerCase())) :
+        sortJointTrainingList(userJointTrainingList);
 
     return (
         <React.Fragment>
@@ -38,7 +40,7 @@ export const RandomChoice = ({back}: RandomChoiceProps) => {
                 <Search
                     placeholder='Поиск по имени'
                     onSearch={handleSearch}
-                    style={{width: 484}}
+                    className={styles.search}
                     data-test-id='search-input'
                 />
             </div>

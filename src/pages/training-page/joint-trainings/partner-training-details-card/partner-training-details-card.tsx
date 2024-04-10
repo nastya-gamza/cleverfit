@@ -46,7 +46,9 @@ export const PartnerTrainingDetailsCard = ({
         >
             <div>
                 <div className={styles.dateInfo}>
-                    <Typography.Text className={styles.periodicity}>{getPeriodicityLabel(period)}</Typography.Text>
+                    <Typography.Text className={styles.periodicity}>
+                        {getPeriodicityLabel(period)}
+                    </Typography.Text>
                     <Typography.Text>{date}</Typography.Text>
                 </div>
                 <div className={styles.exercises}>

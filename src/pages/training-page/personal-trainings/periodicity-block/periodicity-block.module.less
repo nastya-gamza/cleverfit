@@ -1,14 +1,29 @@
 .dateBlock {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     align-items: center;
-    justify-content: space-between;
     margin-bottom: 8px;
     gap: 32px;
+
+    :global {
+        .ant-checkbox + span {
+            padding-right: 0;
+
+            @media (max-width: 375px) {
+                padding-left: 4px;
+            }
+        }
+    }
+
+    @media (max-width: 375px) {
+        gap: 0;
+    }
 }
 
 .datePicker {
     flex: 1 1 auto;
     padding: 5px 12px;
+    max-width: 147px;
 }
 
 .periodicitySelect {

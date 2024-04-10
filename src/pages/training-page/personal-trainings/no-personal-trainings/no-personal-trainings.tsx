@@ -15,6 +15,7 @@ export const NoPersonalTrainings = ({openDrawer}: NoPersonalTrainingsProps) => (
                 type='primary'
                 size='large'
                 onClick={openDrawer}
+                className={styles.btn}
             >
                 Создать тренировку
             </Button>

@@ -50,6 +50,12 @@ export const TrainingCalendar = () => {
     }, [location, navigate]);
 
     const onSelect = (date: Moment) => {
+        if (isFullScreen && !date.isSame(selectedMonth, 'month')) {
+            setAddNewWorkout(false);
+
+            return;
+        }
+
         setAddNewWorkout(true);
         setCreateWorkout(false);
 
@@ -71,9 +77,7 @@ export const TrainingCalendar = () => {
         setIsLeft(true);
     }
 
-    const handlePanelChange = (value: Moment) => {
-        setSelectedMonth(value);
-    };
+    const handlePanelChange = (value: Moment) => setSelectedMonth(value);
 
     const dateCellRender = (value: Moment) => {
         const dateString = value.format(YYYYMMDD);

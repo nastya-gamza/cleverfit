@@ -20,9 +20,9 @@ const {Sider} = Layout;
 const {useBreakpoint} = Grid;
 
 export const SideBar = () => {
-    const {collapsed, setCollapsed, toggleCollapsed} = useSidebarContext();
     const screens = useBreakpoint();
     const dispatch = useAppDispatch();
+    const {collapsed, setCollapsed, toggleCollapsed} = useSidebarContext();
 
     const handleLogout = () => {
         localStorage.removeItem('token')

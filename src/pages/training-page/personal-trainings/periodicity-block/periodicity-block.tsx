@@ -45,7 +45,7 @@ export const PeriodicityBlock = () => {
                 parameters: {
                     period,
                     repeat,
-                    jointTraining: parameters?.jointTraining as boolean,
+                    jointTraining: readyForJointTraining,
                     participants: [],
                 },
             }),

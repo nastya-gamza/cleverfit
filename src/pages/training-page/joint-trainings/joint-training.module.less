@@ -6,8 +6,26 @@
         .ant-card-actions {
             background-color: #FAFAFA;
 
+            @media (max-width: 834px) {
+                display: block;
+                margin: 0 auto;
+                text-align: center;
+            }
+
             li {
                 border-right: none;
+                @media (max-width: 834px) {
+                    width: 100% !important;
+                }
+
+            }
+        }
+
+        div.ant-card-body {
+            padding-top: 32px;
+
+            @media (max-width: 765px) {
+                padding: 32px 8px 24px;
             }
         }
     }
@@ -30,6 +48,10 @@
         display: flex;
         flex-wrap: wrap;
         gap: 16px;
+
+        @media (max-width: 768px) {
+            justify-content: center;
+        }
     }
 
 }

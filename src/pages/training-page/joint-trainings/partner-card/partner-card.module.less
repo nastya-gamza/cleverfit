@@ -6,6 +6,10 @@
     :global(div.ant-card-body) {
         padding: 0;
     }
+
+    @media (max-width: 768px) {
+        min-width: 100%;
+    }
 }
 
 .myPartnerCard {
@@ -18,6 +22,14 @@
     align-items: center;
     gap: 8px;
     margin-bottom: 12px;
+}
+
+.partnerName {
+    word-spacing: 300px;
+}
+
+.partnerAvatar {
+    flex: 0 0 auto;
 }
 
 .trainingInfo {
@@ -49,4 +61,8 @@
     left: 12%;
     display: flex;
     gap: 8px;
+
+    @media (max-width: 768px) {
+        left: 24%;
+    }
 }

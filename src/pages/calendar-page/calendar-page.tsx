@@ -13,7 +13,6 @@ moment.updateLocale('ru', {
         dow: 1
     }
 });
-
 export const CalendarPage = () => {
     const navigate = useNavigate();
     const isError = useAppSelector(selectIsError);

@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {Dispatch, SetStateAction, useState} from 'react';
 import {DownOutlined, UpOutlined} from '@ant-design/icons';
 import {useAppSelector} from '@hooks/typed-react-redux-hooks.ts';
 import {
@@ -9,18 +9,23 @@ import {Button, Typography} from 'antd';
 
 import styles from './joint-training-request-list.module.less';
 
-export const JointTrainingRequestList = () => {
+type JointTrainingRequestListProps = {
+    showMyPartners: Dispatch<SetStateAction<boolean>>;
+}
+
+export const JointTrainingRequestList = ({showMyPartners}: JointTrainingRequestListProps) => {
     const [showAllInvitations, setShowAllInvitations] = useState(false);
     const {invitationList} = useAppSelector(selectUserJointTrainings);
 
     const list = showAllInvitations ? invitationList : [invitationList[0]];
+    const invitationsCount = invitationList.length;
 
     const handleToggleShowAll = () => setShowAllInvitations(!showAllInvitations);
 
     return (
         <div className={styles.container}>
             <Typography.Text type='secondary'>
-                Новое сообщение ({invitationList.length})
+                Новое сообщение ({invitationsCount})
             </Typography.Text>
             {list.map(({_id, from, training}) =>
                 <JointTrainingRequestCard
@@ -28,15 +33,23 @@ export const JointTrainingRequestList = () => {
                     id={_id}
                     from={from}
                     training={training}
+                    showMyPartners={showMyPartners}
                 />
             )}
-            <Button
-                type='link'
-                onClick={handleToggleShowAll}
-                icon={showAllInvitations ? <UpOutlined/> : <DownOutlined/>}
-            >
-                {showAllInvitations ? 'Скрыть все сообщения' : 'Показать все сообщения'}
-            </Button>
+            {
+                invitationsCount > 1 && (
+                    <Button
+                        type='link'
+                        onClick={handleToggleShowAll}
+                        icon={showAllInvitations ? <UpOutlined/> : <DownOutlined/>}
+                    >
+                        {showAllInvitations ?
+                            'Скрыть все сообщения' :
+                            'Показать все сообщения'
+                        }
+                    </Button>
+                )
+            }
         </div>
     )
 }

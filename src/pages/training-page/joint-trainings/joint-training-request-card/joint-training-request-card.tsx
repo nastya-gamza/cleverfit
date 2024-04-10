@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {Dispatch, SetStateAction, useState} from 'react';
 import {UserOutlined} from '@ant-design/icons';
 import {DDMMYYYY} from '@constants/date-formates.ts';
 import {Statuses} from '@constants/statuses.ts';
@@ -21,9 +21,15 @@ type JointTrainingRequestCardProps = {
         imageSrc: string | null,
     },
     training: UserTraining,
+    showMyPartners: Dispatch<SetStateAction<boolean>>
 }
 
-export const JointTrainingRequestCard = ({id, from, training}: JointTrainingRequestCardProps) => {
+export const JointTrainingRequestCard = ({
+                                             id,
+                                             from,
+                                             training,
+                                             showMyPartners
+                                         }: JointTrainingRequestCardProps) => {
     const [openTrainingDetails, setOpenTrainingDetails] = useState(false);
     const formattedDate = moment(training.date).format(DDMMYYYY);
     const [responseToInvitation] = useResponseToInvitationMutation();
@@ -33,6 +39,7 @@ export const JointTrainingRequestCard = ({id, from, training}: JointTrainingRequ
 
     const handleAcceptTraining = (id: string) => {
         responseToInvitation({id, status: Statuses.accepted});
+        showMyPartners(true);
     }
 
     const handleRejectTraining = (id: string) => {
@@ -43,23 +50,28 @@ export const JointTrainingRequestCard = ({id, from, training}: JointTrainingRequ
         <Card bordered={false} className={styles.card}>
             <div className={styles.wrapper}>
                 <div className={styles.userInfo}>
-                    <Avatar size={42} src={from.imageSrc} icon={<UserOutlined/>}
-                            className={styles.avatar}/>
+                    <Avatar
+                        size={42}
+                        src={from.imageSrc}
+                        icon={<UserOutlined/>}
+                        className={styles.avatar}
+                    />
                     <div>
-                        <Typography.Title
-                            level={5}>{from.firstName || 'Пользователь'}</Typography.Title>
-                        <Typography.Title
-                            level={5}>{from.lastName || ''}</Typography.Title>
+                        <Typography.Title level={5}>
+                            {from.firstName || 'Пользователь'}
+                        </Typography.Title>
+                        <Typography.Title level={5}>
+                            {from.lastName || ''}
+                        </Typography.Title>
                     </div>
                 </div>
                 <div className={styles.trainingInfo}>
                     <Typography.Text className={styles.date}>{formattedDate}</Typography.Text>
                     <Typography.Title level={5}>
-                        Привет, я ищу партнёра для
-                        совместных {TRAININGS_MAP[training.name]}.
+                        Привет, я ищу партнёра для совместных {TRAININGS_MAP[training.name]}.
                         Ты хочешь присоединиться ко мне на следующих тренировках?
                     </Typography.Title>
-                    <div style={{position: 'relative'}}>
+                    <div className={styles.showDetailsBtn}>
                         <Button
                             type='link'
                             size='small'
@@ -85,14 +97,14 @@ export const JointTrainingRequestCard = ({id, from, training}: JointTrainingRequ
                         type='primary'
                         block={true}
                         size='large'
-                        onClick={()=>handleAcceptTraining(id)}
+                        onClick={() => handleAcceptTraining(id)}
                     >
                         Тренироваться вместе
                     </Button>
                     <Button
                         block={true}
                         size='large'
-                        onClick={()=>handleRejectTraining(id)}
+                        onClick={() => handleRejectTraining(id)}
                     >
                         Отклонить запрос
                     </Button>

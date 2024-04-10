@@ -16,6 +16,10 @@
     }
 }
 
+.marathonsBg {
+    background: url('/img/bg-marathon.png') center/cover no-repeat;
+}
+
 .tabs {
     :global {
         .ant-tabs-nav-wrap,
@@ -28,6 +32,16 @@
 
         .ant-tabs-tab-btn {
             font-size: 24px;
+
+            @media (max-width: 834px) {
+                font-size: 14px;
+            }
+        }
+
+        .ant-badge-count {
+            min-width: 24px;
+            height: 16px;
+            line-height: 1.3;
         }
     }
 }

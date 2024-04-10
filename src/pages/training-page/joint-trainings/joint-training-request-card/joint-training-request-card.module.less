@@ -2,12 +2,16 @@
     max-width: 1088px;
     margin: 0 auto;
     border-radius: 2px 16px 16px;
-    box-shadow: rgba(0, 0, 0, 0.02);
 
     :global {
         .ant-card-body {
+            min-height: 151px;
             padding: 20px 20px 20px 12px;
         }
+    }
+
+    @media (max-width: 1024px) {
+        border-radius: 2px;
     }
 }
 
@@ -15,9 +19,10 @@
     display: flex;
     gap: 8px;
 
-    @media (max-width: 575px) {
+    @media (max-width: 1024px) {
         flex-direction: column;
         align-items: flex-start;
+        gap: 12px;
     }
 }
 
@@ -25,26 +30,26 @@
     display: block;
     min-width: 174px;
     text-align: center;
+
     :global(.ant-typography + h5.ant-typography ) {
         margin-top: 0;
         line-height: 1;
     }
 
-    @media (max-width: 768px) {
-        min-width: 100px;
-    }
-
-    @media (max-width: 575px) {
+    @media (max-width: 1024px) {
         display: flex;
         gap: 16px;
+        min-width: 100%;
+        text-align: left;
+        margin-bottom: 4px;
     }
+}
 
-    .avatar {
-        margin-bottom: 12px;
+.avatar {
+    margin-bottom: 12px;
 
-        @media (max-width: 575px) {
-            margin-bottom: 0;
-        }
+    @media (max-width: 1024px) {
+        margin-bottom: 0;
     }
 }
 
@@ -71,6 +76,16 @@
 
 .date {
     color: @light-gray;
+    @media (max-width: 1024px) {
+        margin-bottom: 4px;
+    }
+}
+
+.showDetailsBtn {
+    position: relative;
+    @media (max-width: 1024px) {
+        margin-top: 6px;
+    }
 }
 
 .btnGroup {
@@ -79,5 +94,11 @@
     align-items: center;
     justify-content: center;
     gap: 16px;
+
+    @media (max-width: 1024px) {
+        width: 100%;
+        gap: 12px;
+        margin-top: 24px;
+    }
 }
 

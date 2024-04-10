@@ -11,6 +11,12 @@
     transition: width 0.3s ease-in;
 
     &[data-collapsed='true'] {
+        :global {
+            .ant-badge-count {
+                transform: translate(50%, 50%);
+            }
+        }
+
         @media (max-width: 575px) {
             width: 0;
         }

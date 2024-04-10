@@ -74,21 +74,24 @@ export const PartnerCard = ({
         <Card
             hoverable={isMyPartner}
             bordered={isMyPartner}
-            onClick={()=>handleClickPartner(partner)}
+            onClick={() => handleClickPartner(partner)}
             data-test-id={`joint-training-cards${index}`}
             className={classNames(styles.card, {[styles.myPartnerCard]: isMyPartner})}
         >
             <div className={styles.partnerInfo}>
-                <Avatar size={42} src={partner.imageSrc} icon={<UserOutlined/>}/>
-                <div className={styles.partnerName}>
-                    <Typography.Text>
-                        <HighlightWords
-                            searchWords={searchValue ?? ''}
-                            text={partner.name ?? 'Пользователь'}
-                            className={styles.highlight}
-                        />
-                    </Typography.Text>
-                </div>
+                <Avatar
+                    size={42}
+                    src={partner.imageSrc}
+                    icon={<UserOutlined/>}
+                    className={styles.partnerAvatar}
+                />
+                <Typography.Text className={styles.partnerName}>
+                    <HighlightWords
+                        searchWords={searchValue ?? ''}
+                        text={partner.name ?? 'Пользователь'}
+                        className={styles.highlight}
+                    />
+                </Typography.Text>
             </div>
             <div className={styles.trainingInfoWrapper}>
                 <div className={styles.trainingInfo}>
