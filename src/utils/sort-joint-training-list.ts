@@ -21,11 +21,11 @@ export const sortJointTrainingList = (arr: UserJointTrainingList[]) => {
             return statusComparison;
         }
 
-        const [firstNameA, lastNameA] = (a.name || '').toLowerCase().split(' ');
-        const [firstNameB, lastNameB] = (b.name || '').toLowerCase().split(' ');
+        const [firstNameA, lastNameA] = (a.name || '')?.toLowerCase().split(' ');
+        const [firstNameB, lastNameB] = (b.name || '')?.toLowerCase().split(' ');
 
-        const nameComparison = firstNameA.localeCompare(firstNameB);
+        const nameComparison = firstNameA?.localeCompare(firstNameB);
 
-        return nameComparison === 0 ? lastNameA.localeCompare(lastNameB) : nameComparison;
+        return nameComparison === 0 ? lastNameA?.localeCompare(lastNameB) : nameComparison;
     });
 }
