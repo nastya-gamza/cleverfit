@@ -27,7 +27,7 @@ export const UploadAvatar = ({url, setIsDisabled}: UploadAvatarProps) => {
     const dispatch = useAppDispatch();
     const profileInfo = useAppSelector(selectProfileInfo);
 
-    const {token} = useAppSelector(authSelector);
+    const token = useAppSelector(authSelector).token || localStorage.getItem('token');
 
     const initialAvatar = useMemo(
         () => ({
