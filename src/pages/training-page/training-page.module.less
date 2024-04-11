@@ -1,0 +1,47 @@
+.contentWrapper {
+    background: var(--neutral-gray-1);
+    border-radius: var(--radius-lg);
+    padding: var(--size-12);
+    width: 100%;
+    min-height: 886px;
+
+    @media (max-width: 834px) {
+        min-height: 1032px;
+    }
+
+    @media (max-width: 575px) {
+        min-height: 667px;
+        padding: var(--size-8) var(--size-12);
+        border-radius: 0;
+    }
+}
+
+.marathonsBg {
+    background: url('/img/bg-marathon.png') center/cover no-repeat;
+}
+
+.tabs {
+    :global {
+        .ant-tabs-nav-wrap,
+        .ant-tabs-nav-list {
+            width: 100%;
+        }
+        .ant-tabs-nav-list {
+            justify-content: space-between;
+        }
+
+        .ant-tabs-tab-btn {
+            font-size: var(--font-2xl);
+
+            @media (max-width: 834px) {
+                font-size: var(--font-sm);
+            }
+        }
+
+        .ant-badge-count {
+            min-width: var(--size-12);
+            height: var(--size-8);
+            line-height: var(--line-height-base);
+        }
+    }
+}

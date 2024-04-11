@@ -1,0 +1,37 @@
+.dateBlock {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: center;
+    margin-bottom: var(--size-4);
+    gap: var(--size-16);
+
+    :global {
+        .ant-checkbox + span {
+            padding-right: 0;
+
+            @media (max-width: 375px) {
+                padding-left: var(--size-2);
+            }
+        }
+    }
+
+    @media (max-width: 375px) {
+        gap: 0;
+    }
+}
+
+.datePicker {
+    flex: 1 1 auto;
+    padding: 5px var(--size-6);
+    max-width: 147px;
+}
+
+.periodicitySelect {
+    min-width: 147px;
+
+    :global {
+        .ant-select-selector .ant-select-selection-item {
+            padding-right: 15px;
+        }
+    }
+}

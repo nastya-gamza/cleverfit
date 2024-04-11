@@ -7,7 +7,7 @@
     @media (max-width: 575px) {
         top: -20px;
         width: 100%;
-        padding: 0 24px;
+        padding: 0 var(--size-12);
     }
 }
 
@@ -46,7 +46,7 @@
         .ant-card-head {
             min-height: 0;
             border-bottom: none;
-            line-height: @line-height-base;
+            line-height: var(--line-height-base);
         }
 
         .ant-card-body {
@@ -57,12 +57,12 @@
         .ant-card-extra,
         .ant-card-meta-avatar,
         .ant-card-actions {
-            padding: 0 12px;
+            padding: 0 var(--size-6);
         }
 
         .ant-card-head-title {
-            font-size: 14px;
-            margin-bottom: 8px;
+            font-size: var(--font-sm);
+            margin-bottom: var(--size-4);
         }
 
         .ant-card-meta {
@@ -79,9 +79,9 @@
 .cardSelect {
     display: flex;
     align-items: center;
-    padding: 10px 0;
-    margin-left: 10px;
-    line-height: @line-height-base;
+    padding: var(--size-5) 0;
+    margin-left: var(--size-5);
+    line-height: var(--line-height-base);
 }
 
 .buttonGroup {
@@ -91,7 +91,7 @@
 .editBadgeWrapper {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: var(--size-6);
     min-height: 90px;
-    padding: 16px 0;
+    padding: var(--size-8) 0;
 }

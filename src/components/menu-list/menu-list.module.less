@@ -1,7 +1,7 @@
 .menu {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: var(--size-5);
     border-right: none;
 
     li {
@@ -9,7 +9,7 @@
     }
 
     @media (max-width: 575px) {
-        gap: 2px;
+        gap: var(--size-1);
     }
 
     :global {
@@ -17,22 +17,22 @@
             margin: 0;
 
             svg {
-                fill: @primary-dark-color;
+                fill: var(--primary-light-9);
             }
 
             &:hover {
-                fill: @primary-dark-color;
-                color: @primary-color;
-                background-color: @bg-color-light;
+                fill: var(--primary-light-9);
+                color: var(--primary-light-6);
+                background-color: var(--primary-light-1);
             }
 
             &.ant-menu-item-selected {
-                background-color: @bg-color-light;
-                color: @primary-color;
+                background-color: var(--primary-light-1);
+                color: var(--primary-light-6);
             }
 
             @media (max-width: 575px) {
-                padding: 0 8px;
+                padding: 0 var(--size-4);
             }
         }
     }

@@ -14,7 +14,7 @@ export default defineConfig(({command}) => ({
         preprocessorOptions: {
             less: {
                 javascriptEnabled: true,
-                additionalData: '@import \'./src/vars\';'
+                additionalData: '@import \'./src/styles/reset-ant-styles\';'
             },
         },
     },

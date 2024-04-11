@@ -10,7 +10,7 @@ import {SidebarProvider} from './context/sidebar/sidebar-provider.tsx';
 
 import 'normalize.css';
 
-import './index.less';
+import './styles/index.less';
 
 import {routes} from './routes';
 

@@ -1,9 +1,9 @@
 .form {
-    margin-top: 8px;
+    margin-top: var(--size-4);
 
     :global {
         .ant-form-item-explain.ant-form-item-explain-connected {
-            font-size: @font-xs;
+            font-size: var(--font-xs);
             text-align: left;
         }
 
@@ -16,11 +16,11 @@
         }
 
         .ant-input-group-addon {
-            color: @dark-text;
+            color: var(--character-light-primary-85);
         }
 
         input#register_email.ant-input.ant-input-status-error {
-            border-left-color: @border-light;
+            border-left-color: var(----neutral-gray-5);
         }
     }
 
@@ -32,8 +32,8 @@
 .btnWrapper {
     display: flex;
     flex-direction: column;
-    gap: 16px;
-    margin: 62px 0 16px;
+    gap: var(--size-8);
+    margin: 62px 0 var(--size-8);
 
     @media (max-width: 575px) {
         margin: 55px 0 0;
@@ -41,7 +41,7 @@
 
     .btn {
         @media (min-width: 576px) {
-            font-size: @font-md;
+            font-size: var(--font-base);
         }
     }
 }

@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {useAppDispatch} from '@hooks/typed-react-redux-hooks.ts';
 import {setExerciseData} from '@redux/slices/training-slice.ts';
 import {Exercise} from '@redux/types/training.ts';
@@ -7,17 +7,19 @@ import {Checkbox, Form, Input, InputNumber, Space, Typography} from 'antd';
 import styles from './exercises-form.module.less';
 
 type ExercisesFormProps = {
+    tempId?: string,
     weight: number | null;
     approaches: number | null;
     name: string;
     replays: number | null;
     index: number;
     isCheckbox: boolean;
-    addDeletedExercise: (id: number) => void,
-    excludeDeletedExercise: (id: number) => void,
+    addDeletedExercise?: (id: number) => void,
+    excludeDeletedExercise?: (id: number) => void,
 };
 
 export const ExercisesForm = ({
+                                  tempId,
                                   weight,
                                   approaches,
                                   name,
@@ -30,20 +32,31 @@ export const ExercisesForm = ({
 
     const [form] = Form.useForm();
     const dispatch = useAppDispatch();
-    const [isChecked, setIsChecked] = useState(false)
+    const [isChecked, setIsChecked] = useState(false);
+    const inputRef = useRef<HTMLInputElement>(null);
+
+    useEffect(() => {
+        if (inputRef.current) {
+            inputRef.current.focus();
+        }
+    }, []);
 
     const onChange = () => {
-        if (!isChecked) {
-            addDeletedExercise(index);
-        } else {
-            excludeDeletedExercise(index)
+        if (addDeletedExercise && excludeDeletedExercise) {
+            if (!isChecked) {
+                addDeletedExercise(index);
+            } else {
+                excludeDeletedExercise(index)
+            }
         }
         setIsChecked(!isChecked);
     };
 
     const handleChange = (_, exercise: Exercise) => {
-        dispatch(setExerciseData({exercise, index}));
-    };
+        const currentExercise: Exercise = {...exercise, tempId};
+
+        dispatch(setExerciseData({exercise:currentExercise, index})
+    );};
 
     return (
         <Form
@@ -62,8 +75,9 @@ export const ExercisesForm = ({
         >
             <Form.Item name='name' className={styles.exerciseField}>
                 <Input
+                    ref={inputRef}
                     value={name}
-                    placeholder='Упражнения'
+                    placeholder='Упражнение'
                     maxLength={32}
                     width='100%'
                     data-test-id={`modal-drawer-right-input-exercise${index}`}

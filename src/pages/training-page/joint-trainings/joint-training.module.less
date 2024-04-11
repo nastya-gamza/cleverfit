@@ -1,0 +1,48 @@
+.card {
+    margin-bottom: var(--size-21);
+    background-color: #FAFAFA;
+
+    :global {
+        .ant-card-actions {
+            background-color: #FAFAFA;
+
+            @media (max-width: 834px) {
+                display: block;
+                margin: 0 auto;
+                text-align: center;
+            }
+
+            li {
+                border-right: none;
+                @media (max-width: 834px) {
+                    width: 100% !important;
+                }
+
+            }
+        }
+
+        div.ant-card-body {
+            padding-top: var(--size-16);
+
+            @media (max-width: 765px) {
+                padding: var(--size-16) var(--size-4) var(--size-12);
+            }
+        }
+    }
+}
+
+.cardHeader {
+    text-align: center;
+
+    :global {
+        h3.ant-typography {
+            margin-bottom: var(--size-16);
+            font-weight: var(--fw-medium);
+            color: var(--primary-light-9);
+        }
+    }
+}
+
+.title {
+    font-weight: var(--fw-medium);
+}

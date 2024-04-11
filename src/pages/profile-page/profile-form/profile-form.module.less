@@ -1,8 +1,8 @@
 .contentWrapper {
-    background: @white;
-    border-radius: 8px;
-    padding: 24px;
-    max-width: 1184px;
+    background: var(--neutral-gray-1);
+    border-radius: var(--radius-lg);
+    padding: var(--size-12);
+    width: 100%;
     min-height: 886px;
 
     @media (max-width: 834px) {
@@ -11,8 +11,7 @@
 
     @media (max-width: 575px) {
         min-height: 667px;
-        padding: 16px 24px;
-        margin: 0 -12px;
+        padding: var(--size-8) var(--size-12);
         border-radius: 0;
     }
 }
@@ -28,15 +27,15 @@
     :global {
         .ant-input,
         .ant-picker-input  input{
-            font-size: 14px;
+            font-size: var(--font-sm);
         }
     }
 }
 
 .personalInfo {
     display: flex;
-    gap: 24px;
-    margin-bottom: 16px;
+    gap: var(--size-12);
+    margin-bottom: var(--size-8);
 
     @media (max-width: 575px) {
         flex-direction: column-reverse;
@@ -44,7 +43,7 @@
 
     :global {
         .ant-form-item {
-            margin-bottom: 16px;
+            margin-bottom: var(--size-8);
 
             &:last-child {
                 margin-bottom: 0;
@@ -63,7 +62,7 @@
 
     :global {
         .ant-form-item-explain {
-            font-size: 12px;
+            font-size: var(--font-xs);
         }
     }
 }

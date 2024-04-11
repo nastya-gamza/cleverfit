@@ -22,13 +22,15 @@ export const PageHeader = () => {
     const isPathFeedbacks = pathname === PATHS.feedbacks;
     const isPathProfile = pathname === PATHS.profile;
     const isPathSettings = pathname === PATHS.settings;
+    const isPathTraining = pathname === PATHS.training;
 
 
     return (
         <Header className={styles.header}>
             {(isPathMain ||
                     isPathCalendar ||
-                    isPathFeedbacks) &&
+                    isPathFeedbacks ||
+                    isPathTraining) &&
                 <Breadcrumb className={styles.breadcrumbItems}>
                     {breadcrumbItems}
                 </Breadcrumb>
@@ -41,7 +43,7 @@ export const PageHeader = () => {
                     className={styles.settings}
                     onClick={() => navigate(-1)}
                 >
-                    <ArrowLeftOutlined />
+                    <ArrowLeftOutlined/>
                     <Typography.Title level={4}>Настройки</Typography.Title>
                 </Button>
             )}
@@ -63,7 +65,6 @@ export const PageHeader = () => {
                     </Button>
                 )}
             </div>
-
         </Header>
     );
 }

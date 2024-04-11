@@ -15,10 +15,10 @@ export enum PATHS {
     resultErrorCheckEmail  = '/result/error-check-email',
     resultSuccessChangePassword = '/result/success-change-password',
     resultErrorChangePassword = '/result/error-change-password',
-    workouts = '/workouts',
     achievements = '/achievements',
     profile = '/profile',
     feedbacks = '/feedbacks',
     calendar = '/calendar',
     settings = '/settings',
+    training = '/training',
 }

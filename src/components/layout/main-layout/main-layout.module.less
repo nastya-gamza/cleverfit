@@ -5,12 +5,12 @@
 
 .calendarLayout {
     min-height: 100vh;
-    background-color: @bg-color-light;
+    background-color: var(--primary-light-1);
 }
 
 .settingsLayout {
     min-height: 100vh;
-    background-color: @hover-gray;
+    background-color: var(--neutral-gray-3);
 }
 
 .open {
@@ -32,10 +32,10 @@
 }
 
 .content {
-    padding: 24px;
+    padding: var(--size-12);
 
     @media (max-width: 575px) {
         flex: 0 1 auto;
-        padding: 20px 12px;
+        padding: var(--size-10) 0;
     }
 }

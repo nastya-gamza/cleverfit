@@ -2,26 +2,30 @@
     display: grid;
     grid-template-columns: repeat(3, auto);
     grid-template-rows: repeat(2, auto);
-    gap: 10px;
+    gap: var(--size-5);
 }
 
 .label {
-    background-color: @bg-gray;
-    padding: 3.5px 8px;
+    background-color: var(--character-light-dividers);
+    padding: 3.5px var(--size-4);
 }
 
 .exerciseForm {
+    :global(.ant-form-item) {
+        margin-bottom: 0;
+    }
+
     .approachesField {
         max-width: 120px;
-        margin-right: 28px;
+        margin-right: var(--size-14);
 
         @media (max-width: 360px) {
-            margin-right: 16px;
+            margin-right: var(--size-8);
         }
     }
 
     .exerciseField {
-        margin-bottom: 8px;
+        margin-bottom: var(--size-4);
     }
 
     .field {
@@ -30,15 +34,15 @@
 
     :global {
         .ant-col.ant-form-item-label {
-            padding: 0 0 0 8px;
+            padding: 0 0 0 var(--size-4);
             text-align: left;
-            background-color: @bg-gray;
-            margin-bottom: 6px;
+            background-color: var(--character-light-dividers);
+            margin-bottom: var(--size-3);
         }
 
         .ant-form-item-label label{
-            height: 24px;
-            font-size: 12px;
+            height: var(--size-12);
+            font-size: var(--font-xs);
         }
 
         .ant-row.ant-form-item-row {

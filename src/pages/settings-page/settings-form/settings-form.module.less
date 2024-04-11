@@ -1,11 +1,11 @@
 .form {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: var(--size-8);
     margin-bottom: 96px;
 
     @media (max-width: 425px) {
-        margin-bottom: 20px;
+        margin-bottom: var(--size-10);
     }
 }
 
@@ -28,16 +28,16 @@
 .label {
     display: flex;
     align-items: flex-start;
-    gap: 4px;
+    gap: var(--size-2);
 
     svg {
-        width: 16px;
-        height: 16px;
+        width: var(--size-8);
+        height: var(--size-8);
     }
 }
 
 .disabled {
     span {
-        color: #BFBFBF;
+        color: var(--neutral-gray-6);
     }
 }

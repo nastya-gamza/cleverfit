@@ -1,11 +1,11 @@
 .header {
     height: auto;
-    padding: 16px 40px 20px 15px;
-    line-height: 1.3;
+    padding: var(--size-8) var(--size-21) var(--size-10) 15px;
+    line-height: var(--line-height-base);
     background: @layout-header-background;
 
     @media (max-width: 575px) {
-        padding: 16px 24px;
+        padding: var(--size-8) var(--size-12);
         margin-bottom: 7px;
     }
 
@@ -14,31 +14,31 @@
         margin-bottom: 15px;
 
         @media (max-width: 575px) {
-            margin-bottom: 10px;
+            margin-bottom: var(--size-5);
         }
     }
 
     h1 {
-        font-weight: 700;
-        line-height: 1.3;
+        font-weight: var(--fw-bold);
+        line-height: var(--line-height-base);
 
         @media (max-width: 834px) {
-            font-weight: 500;
-            font-size: @font-extra-lg;
+            font-weight: var(--fw-medium);
+            font-size: var(--font-2xl);
         }
 
         @media (max-width: 575px) {
-            font-size: @font-lg;
+            font-size: var(--font-xl);
         }
     }
 
     .profile {
-        font-size: 14px;
-        padding: 4px 0;
+        font-size: var(--font-sm);
+        padding: var(--size-2) 0;
 
         @media (min-width: 835px) {
             position: absolute;
-            font-size: 16px;
+            font-size: var(--font-base);
         }
 
         @media (max-width: 575px) {
@@ -49,12 +49,16 @@
     .settings {
         display: flex;
         align-items: center;
-        gap: 12px;
+        gap: var(--size-6);
     }
 
     :global{
         .ant-breadcrumb {
-            margin-bottom: 14px;
+            margin-bottom: var(--size-7);
+
+            @media (max-width: 535px) {
+                margin-bottom: 0;
+            }
         }
 
         .ant-breadcrumb ol li {
@@ -77,7 +81,7 @@
 }
 
 .link {
-    color: @dark-text;
+    color: var(--character-light-primary-85);
     margin-left: auto;
 }
 
@@ -95,15 +99,15 @@
             content: '';
             display: block;
             position: absolute;
-            background-color: @white;
-            width: 32px;
-            height: 32px;
+            background-color: var(--neutral-gray-1);
+            width: var(--size-16);
+            height: var(--size-16);
             bottom: 50%;
             left: 50%;
             transform: translate(-50%, 50%);
             border-radius: 50%;
             z-index: -3;
-            border: 1px solid #D9D9D9;
+            border: 1px solid var(----character-light-border);
         }
     }
 }

@@ -9,7 +9,6 @@ import styles from './page-main-content.module.less'
 const {Title, Paragraph} = Typography;
 
 export const PageMainContent = () => {
-
     const {handleNavigate} = useRedirectNavigation();
 
     return (

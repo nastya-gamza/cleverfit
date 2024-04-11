@@ -1,34 +1,35 @@
 .wrapper {
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    padding: 12px 0;
+    gap: var(--size-4);
+    padding: var(--size-6) 0;
 }
 
 .badgeRow {
     overflow: hidden;
     white-space: nowrap;
+    flex: 1 0 auto;
 }
 
 .editBadge {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 22px;
+    height: var(--size-11);
     cursor: pointer;
 
     &:hover {
-        background-color: @hover-gray;
+        background-color: var(--neutral-gray-3);
     }
 
     :global {
         .ant-badge,
         .ant-typography {
-            margin-left: 12px;
+            margin-left: var(--size-6);
         }
     }
 
     .disabledText {
-        color: @light-gray;
+        color: var(--neutral-gray-6);
     }
 }

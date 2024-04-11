@@ -25,12 +25,12 @@
 @media (max-width: 834px) {
   .header h1 {
     font-weight: 500;
-    font-size: 24px;
+    font-size: var(--font-2xl);
   }
 }
 @media (max-width: 425px) {
   .header h1 {
-    font-size: 20px;
+    font-size: var(--font-xl);
   }
 }
 .header .wrapper {
@@ -65,6 +65,6 @@
     transform: translate(-50%, 50%);
     border-radius: 50%;
     z-index: -3;
-    border: 1px solid #D9D9D9;
+    border: 1px solid var(--neutral-gray-5);
   }
 }

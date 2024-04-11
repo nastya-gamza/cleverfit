@@ -83,12 +83,12 @@
   width: 20px;
   height: 66px;
   border: transparent;
-  color: #8C8C8C;
+  color: var(--neutral-gray-7);
   clip-path: polygon(0 0, 100% 15%, 100% 85%, 0% 100%);
 }
 .toggler button:hover, .toggler button:active, .toggler button:focus {
   background-color: #fff;
-  color: #8C8C8C;
+  color: var(--neutral-gray-7);
 }
 @media (max-width: 425px) {
   .toggler button {

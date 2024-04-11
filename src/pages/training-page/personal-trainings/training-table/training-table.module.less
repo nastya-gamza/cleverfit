@@ -1,0 +1,55 @@
+.trainingTable {
+    max-width: 555px;
+    margin-bottom: var(--size-12);
+
+    :global {
+        .ant-table table {
+            border-spacing: var(--size-6) 0;
+
+            @media (max-width: 375px) {
+                border-spacing: var(--size-4) 0;
+            }
+
+            button.ant-btn.ant-btn-link {
+                padding: 0;
+            }
+
+            td.ant-table-cell {
+                padding: 0;
+            }
+        }
+
+        .ant-table-thead {
+            font-size: var(--font-xs);
+            margin: var(--size-12);
+
+            th.ant-table-cell {
+                background-color: var(--character-light-dividers);
+                border: none;
+            }
+
+            th:last-child {
+                background-color: var(--neutral-gray-1);
+                border: none;
+            }
+
+            th.ant-table-cell::before {
+                opacity: 0;
+            }
+        }
+
+        td.ant-table-cell:last-child {
+            border-bottom: none;
+        }
+
+        .ant-pagination {
+            margin: 24px 0 32px;
+        }
+    }
+}
+
+.cellContent {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

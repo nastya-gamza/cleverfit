@@ -15,11 +15,11 @@
         }
 
         .ant-input-group-addon {
-            color: @dark-text;
+            color: var(--character-light-primary-85);
         }
 
         input#auth_email.ant-input.ant-input-status-error {
-            border-left-color: @border-light;
+            border-left-color: var(----neutral-gray-5);
         }
     }
 }
@@ -29,7 +29,7 @@
     height: 100%;
 
     @media (min-width: 576px) {
-        font-size: @font-md;
+        font-size: var(--font-base);
     }
 }
 
@@ -41,24 +41,24 @@
     :global {
         .ant-form-item {
             margin-bottom: 0;
-            padding: 20px 0 10px;
+            padding: var(--size-10) 0 var(--size-5);
 
             @media (max-width: 575px) {
-                padding: 14px 0 10px;
+                padding: var(--size-7) 0 var(--size-5);
             }
         }
 
         .ant-form-item-control-input {
-            min-height: 18px;
+            min-height: var(--size-9);
         }
     }
 }
 
 .link {
-    font-size: @font-md;
-    color: @primary-color;
+    font-size: var(--font-base);
+    color: var(--primary-light-6);
 
     @media (max-width: 575px) {
-        font-size: @font-s;
+        font-size: var(--font-sm);
     }
 }
