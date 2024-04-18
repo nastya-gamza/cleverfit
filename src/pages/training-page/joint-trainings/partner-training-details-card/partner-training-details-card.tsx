@@ -1,6 +1,7 @@
 import {CloseOutlined} from '@ant-design/icons';
 import {TrainingBadge} from '@pages/calendar-page/training-badge/training-badge.tsx';
 import {Exercise} from '@redux/types/training.ts';
+import {Nullable} from '@typings/nullable.ts';
 import {getPeriodicityLabel} from '@utils/get-periodicity-label.ts';
 import {Button, Card, Typography} from 'antd';
 
@@ -10,7 +11,7 @@ type PartnerTrainingDetailsCardProps = {
     date: string;
     trainingName: string;
     close: () => void;
-    period: number | null | undefined,
+    period: Nullable<number> | undefined,
     exercises: Exercise[],
 }
 

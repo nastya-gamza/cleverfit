@@ -1,6 +1,7 @@
 import {CheckCircleFilled, UserOutlined} from '@ant-design/icons';
 import {Statuses, STATUSES_MAP} from '@constants/statuses.ts';
 import {UserJointTrainingList} from '@redux/types/invite.ts';
+import {Nullable} from '@typings/nullable.ts';
 import {Avatar, Button, Modal, Typography} from 'antd';
 
 import styles from './partner-modal.module.less';
@@ -9,7 +10,7 @@ type PartnerModalProps = {
     open: boolean
     onClose: () => void;
     partner: UserJointTrainingList;
-    onClick: (inviteId: string | null) => void;
+    onClick: (inviteId: Nullable<string>) => void;
 }
 
 export const PartnerModal = ({open, onClose, partner, onClick}: PartnerModalProps) => (

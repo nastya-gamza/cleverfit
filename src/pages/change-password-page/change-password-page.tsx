@@ -1,7 +1,7 @@
 import {useEffect} from 'react';
 import {useAppSelector} from '@hooks/typed-react-redux-hooks.ts';
 import {useChangePassword} from '@pages/change-password-page/hooks/use-change-password.ts';
-import {authSelector} from '@redux/selectors/selectors.ts';
+import {authSelector} from '@redux/slices/auth-slice.ts';
 import {isValidConfirmPassword, isValidPassword} from '@utils/validation.ts';
 import {Button, Card, Form, Input, Typography} from 'antd';
 
@@ -29,7 +29,6 @@ export const ChangePasswordPage = () => {
             >
                 <Form.Item
                     name='password'
-                    className={styles.password}
                     rules={[isValidPassword()]}
                     help='Пароль не менее 8 символов, с заглавной буквой и цифрой'
                 >
@@ -39,7 +38,6 @@ export const ChangePasswordPage = () => {
                 <Form.Item
                     name='confirmPassword'
                     dependencies={['password']}
-                    className={styles.password}
                     rules={[{required: true, message: ''}, isValidConfirmPassword]}
                 >
                     <Input.Password data-test-id='change-confirm-password'

@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
 import {CheckCircleFilled, CheckCircleOutlined, CloseCircleOutlined} from '@ant-design/icons';
 import {TariffsComparison} from '@constants/tariffs-comparison.ts';
-import {DrawerRight} from '@pages/calendar-page/drawer-right/drawer-right.tsx';
+import {DrawerRight} from '@pages/calendar-page/drawer-right';
 import {TariffPriceForm} from '@pages/settings-page/tariff-price-form';
 import {Button, Space, Typography} from 'antd';
 import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';

@@ -1,6 +1,7 @@
 import {Route, Routes} from 'react-router-dom';
 import {AuthLayout, MainLayout} from '@components/layout';
 import {PATHS} from '@constants/paths.ts';
+import {AchievementsPage} from '@pages/achievements-page';
 import {AuthPage} from '@pages/auth-page';
 import {CalendarPage} from '@pages/calendar-page';
 import {ChangePasswordPage} from '@pages/change-password-page';
@@ -17,7 +18,6 @@ import {ProtectedRoute} from './protected-route.tsx';
 import {PublicRoute} from './public-route.tsx';
 import {RedirectRoute} from './redirect-route.tsx';
 import {RootRoute} from './root-route.tsx';
-
 
 export const routes = (
     <Routes>
@@ -46,6 +46,7 @@ export const routes = (
                     <Route path={PATHS.profile} element={<ProfilePage/>}/>
                     <Route path={PATHS.settings} element={<SettingsPage/>}/>
                     <Route path={PATHS.training} element={<TrainingPage/>}/>
+                    <Route path={PATHS.achievements} element={<AchievementsPage/>}/>
                     <Route path='*' element={<NotFoundPage/>}/>
                 </Route>
             </Route>

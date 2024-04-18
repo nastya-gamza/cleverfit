@@ -15,21 +15,19 @@ export const PartnerCardList = ({
                                     acceptedJointTrainingList,
                                     handleShowPartnerModal,
                                     setSelectedPartner
-                                }: PartnerCardListProps) => {
-    return (
-        <div className={styles.cardsContainer}>
-            <List
-                dataSource={acceptedJointTrainingList}
-                renderItem={(partner, i) => (
-                    <PartnerCard
-                        index={i}
-                        partner={partner}
-                        isMyPartner={true}
-                        onClick={handleShowPartnerModal}
-                        selectedPartner={setSelectedPartner}
-                    />
-                )}
-            />
-        </div>
-    )
-}
+                                }: PartnerCardListProps) => (
+    <div className={styles.cardsContainer}>
+        <List
+            dataSource={acceptedJointTrainingList}
+            renderItem={(partner, i) => (
+                <PartnerCard
+                    index={i}
+                    partner={partner}
+                    isMyPartner={true}
+                    onClick={handleShowPartnerModal}
+                    selectedPartner={setSelectedPartner}
+                />
+            )}
+        />
+    </div>
+)

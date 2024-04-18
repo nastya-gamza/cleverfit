@@ -1,22 +1,23 @@
 import {UserTraining} from '@redux/types/training.ts';
+import {Nullable} from '@typings/nullable.ts';
 
 export type UserJointTrainingList = {
     id: string;
-    name: string | null;
+    name: Nullable<string>;
     trainingType: string;
-    imageSrc: string | null;
+    imageSrc: Nullable<string>;
     avgWeightInWeek: number;
-    status: string | null;
-    inviteId: string | null;
+    status: Nullable<string>;
+    inviteId: Nullable<string>;
 };
 
 export type Invitation = {
     _id: string;
     from: {
         _id: string;
-        firstName: string | null;
-        lastName: string | null;
-        imageSrc: string | null;
+        firstName: Nullable<string>;
+        lastName: Nullable<string>;
+        imageSrc: Nullable<string>;
     };
     training: UserTraining;
     status: string;

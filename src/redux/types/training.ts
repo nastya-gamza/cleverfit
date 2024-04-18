@@ -1,3 +1,4 @@
+import {Nullable} from '@typings/nullable.ts';
 import {Moment} from 'moment';
 
 export type TrainingItem = {
@@ -13,7 +14,7 @@ export enum TrainingMode {
 
 export type Parameters = {
     repeat: boolean;
-    period: number | null;
+    period: Nullable<number>;
     jointTraining: boolean;
     participants: string[];
 };
@@ -28,9 +29,9 @@ export type UserTrainingData = {
 
 export type Exercise = {
     name: string;
-    replays: number | null;
-    weight: number | null;
-    approaches: number | null;
+    replays: Nullable<number>;
+    weight: Nullable<number>;
+    approaches: Nullable<number>;
     tempId?: string;
     _id?: string;
 };

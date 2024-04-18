@@ -6,6 +6,7 @@ const breadcrumbNameMap: Record<string, string> = {
     [PATHS.feedbacks]: 'Отзывы пользователей',
     [PATHS.calendar]: 'Календарь',
     [PATHS.training]: 'Тренировки',
+    [PATHS.achievements]: 'Достижения',
 };
 
 export const BreadcrumbItems = () => {

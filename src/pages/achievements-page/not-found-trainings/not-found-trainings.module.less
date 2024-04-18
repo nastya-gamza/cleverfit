@@ -1,0 +1,24 @@
+.wrapper {
+    min-height: 700px;
+
+    @media (max-width: 834px) {
+        min-height: 1032px;
+    }
+
+    @media (max-width: 575px) {
+        min-height: 667px;
+    }
+}
+
+.content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: var(--size-12);
+}

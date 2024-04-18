@@ -4,9 +4,9 @@ import {EditOutlined, MinusOutlined, PlusOutlined} from '@ant-design/icons';
 import {DRAWER_TITLES_MAP} from '@constants/drawer-titles-map.ts';
 import {PATHS} from '@constants/paths.ts';
 import {useAppDispatch, useAppSelector} from '@hooks/typed-react-redux-hooks.ts';
-import {DrawerRight} from '@pages/calendar-page/drawer-right/drawer-right.tsx';
-import {ExercisesForm} from '@pages/calendar-page/exercises-form/exercises-form.tsx';
-import {error} from '@pages/calendar-page/notification-modal/error-notification-modal.tsx';
+import {DrawerRight} from '@pages/calendar-page/drawer-right';
+import {error} from '@pages/calendar-page/error-notification-modal/error-notification-modal.tsx';
+import {ExercisesForm} from '@pages/calendar-page/exercises-form';
 import {PartnerInfo} from '@pages/training-page/joint-trainings/partner-info';
 import {NoPersonalTrainings} from '@pages/training-page/personal-trainings/no-personal-trainings';
 import {PeriodicityBlock} from '@pages/training-page/personal-trainings/periodicity-block';
@@ -16,11 +16,10 @@ import {useCreateTrainingMutation, useUpdateTrainingMutation} from '@redux/api/t
 import {setAlert} from '@redux/slices/app-slice.ts';
 import {selectUserJointTrainings} from '@redux/slices/invite-slice.ts';
 import {
-    addExercises, resetCreatedTraining,
-    selectCreatedTraining,
+    addExercises, resetCreatedTraining, selectCreatedTraining,
     selectTrainingData, setCreatedTraining, setIsOpenTrainingDrawer, setTrainingMode,
 } from '@redux/slices/training-slice.ts';
-import {TrainingMode} from '@redux/types/training.ts';
+import {TrainingMode, UserTraining} from '@redux/types/training.ts';
 import {isOldDate} from '@utils/check-date.ts';
 import {Button, Select, Space} from 'antd';
 import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
@@ -38,7 +37,7 @@ export const PersonalTrainings = () => {
 
     const {isDrawerOpen} = useAppSelector(selectTrainingData);
     const {partnerInfo} = useAppSelector(selectUserJointTrainings);
-    const {_id, name, date, exercises, parameters} = useAppSelector(selectCreatedTraining);
+    const {name, date, exercises, parameters} = useAppSelector(selectCreatedTraining);
     const {userTraining, trainingMode} = useAppSelector(selectTrainingData);
     const {trainingList} = useAppSelector(selectTrainingData);
 
@@ -76,11 +75,13 @@ export const PersonalTrainings = () => {
     const onSaveTraining = async () => {
         const trainingName = isJointMode ? partnerInfo.trainingType : name;
 
-        const body = {
-            _id,
+        const body: UserTraining = {
             name: trainingName,
             date,
-            parameters,
+            parameters: {
+                ...parameters,
+                jointTraining: isJointMode,
+            },
             isImplementation: false,
             exercises: exercises.filter(e => e.name !== '').map(e => ({
                 name: e.name,
@@ -122,11 +123,13 @@ export const PersonalTrainings = () => {
         }
 
         try {
-            const data = await createTraining(body).unwrap();
+            const data: UserTraining = await createTraining(body).unwrap();
 
             if (isJointMode) {
-                createInvitation({to: partnerInfo.id, trainingId: data._id || ''});
+                await createInvitation({to: partnerInfo.id, trainingId: data._id || ''});
             }
+
+            console.log(data)
 
             dispatch(setAlert({
                 type: 'success',
@@ -169,18 +172,24 @@ export const PersonalTrainings = () => {
     };
 
     useEffect(() => {
-        const hasValidInputs = (isJointMode || name) && date && exercises.some(e => e.name !== '');
-
-        setIsDisabled(!hasValidInputs);
-    }, [name, date, exercises, isJointMode]);
-
-    useEffect(() => {
         if (!screens.sm) {
             setIsFullScreen(false);
         } else {
             setIsFullScreen(true)
         }
     }, [screens.sm]);
+
+    useEffect(() => {
+        const hasValidInputs = (isJointMode || name) && date && exercises.some(e => e.name !== '');
+
+        setIsDisabled(!hasValidInputs);
+    }, [name, date, exercises, isJointMode]);
+
+    useEffect(() => {
+        if (isAddNewMode) {
+            dispatch(resetCreatedTraining());
+        }
+    }, [isAddNewMode]);
 
     return (
         <React.Fragment>

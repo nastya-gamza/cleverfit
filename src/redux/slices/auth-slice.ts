@@ -1,12 +1,13 @@
 import {ChangePasswordRequest, RegisterRequest} from '@redux/types/auth.ts';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
+import {Nullable} from '@typings/nullable.ts';
 
 type AuthState = {
     credentials: RegisterRequest;
     retryRegister: boolean;
     retryEmail: boolean;
     retryPassword: boolean;
-    token: string | null;
+    token: Nullable<string>;
     email: string;
     password: ChangePasswordRequest;
     loading: boolean;
@@ -23,7 +24,7 @@ const initialState: AuthState = {
     loading: false,
 };
 
-const slice = createSlice({
+const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
@@ -48,9 +49,14 @@ const slice = createSlice({
             state.token = null;
         }
     },
+    selectors: {
+        authSelector: state => state,
+    }
 })
 
-export const {setCredentials, setToken, setEmail, setRetryEmail, setPassword, logout} = slice.actions
+export const {setCredentials, setToken, setEmail, setRetryEmail, setPassword, logout} = authSlice.actions;
 
-export default slice.reducer
+export const {authSelector} = authSlice.selectors;
+
+export default authSlice.reducer;
 

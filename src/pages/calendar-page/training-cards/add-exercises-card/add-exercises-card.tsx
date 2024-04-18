@@ -4,8 +4,8 @@ import {ArrowLeftOutlined} from '@ant-design/icons';
 import {YYYYMMDD} from '@constants/date-formates.ts';
 import {PATHS} from '@constants/paths.ts';
 import {useAppDispatch, useAppSelector} from '@hooks/typed-react-redux-hooks.ts';
-import {EmptyCart} from '@pages/calendar-page/empty-cart/empty-cart.tsx';
-import {error} from '@pages/calendar-page/notification-modal/error-notification-modal.tsx';
+import {EmptyCart} from '@pages/calendar-page/empty-cart';
+import {error} from '@pages/calendar-page/error-notification-modal/error-notification-modal.tsx';
 import {TrainingBadgeEdit} from '@pages/calendar-page/training-badge/training-badge.tsx';
 import {useCreateTrainingMutation} from '@redux/api/training-api.ts';
 import {
@@ -14,6 +14,7 @@ import {
     setTraining
 } from '@redux/slices/training-slice.ts';
 import {Exercise} from '@redux/types/training.ts';
+import {Nullable} from '@typings/nullable.ts';
 import {Button, Card, Divider, Select} from 'antd';
 import moment from 'moment';
 
@@ -23,9 +24,9 @@ type AddExercisesCardProps = {
     isLeft: boolean,
     setCreateWorkout: Dispatch<SetStateAction<boolean>>,
     setOpenDrawer: Dispatch<SetStateAction<boolean>>,
-    editingTrainingName: string | null,
+    editingTrainingName: Nullable<string>,
     onUpdate: () => void,
-    setEditingTrainingName: Dispatch<SetStateAction<string | null>>,
+    setEditingTrainingName: Dispatch<SetStateAction<Nullable<string>>>,
     setAddNewWorkout: Dispatch<SetStateAction<boolean>>,
     resultExercises: Exercise[]
 }
@@ -141,11 +142,10 @@ export const AddExercisesCard = ({
                 actions={[
                     <React.Fragment>
                         <Button
-                            disabled={!selectedTraining && !editingTrainingName}
                             size='middle'
-                            type='ghost'
                             block={true}
                             onClick={() => setOpenDrawer(true)}
+                            disabled={!selectedTraining && !editingTrainingName}
                         >
                             Добавить упражнения
                         </Button>

@@ -15,6 +15,7 @@ import {
     UserJointTrainingList
 } from '@redux/types/invite.ts';
 import {TAGS} from '@redux/types/tags.ts';
+import {Nullable} from '@typings/nullable.ts';
 
 export const inviteApi = baseApi.injectEndpoints({
     endpoints: (build) => ({
@@ -126,7 +127,7 @@ export const inviteApi = baseApi.injectEndpoints({
             },
             invalidatesTags: [{type: TAGS.invite, id: 'LIST'}],
         }),
-        cancelJointTraining: build.mutation<void, { inviteId: string | null }>({
+        cancelJointTraining: build.mutation<void, { inviteId: Nullable<string> }>({
             query: ({inviteId}) => ({
                 url: `${ENDPOINTS.invite}/${inviteId}`,
                 method: 'DELETE',

@@ -2,7 +2,7 @@ import {useEffect} from 'react';
 import {Outlet, useNavigate} from 'react-router-dom';
 import {PATHS} from '@constants/paths.ts';
 import {useAppSelector} from '@hooks/typed-react-redux-hooks.ts';
-import {authSelector} from '@redux/selectors/selectors.ts';
+import {authSelector} from '@redux/slices/auth-slice.ts';
 
 export const PublicRoute = () => {
     const navigate = useNavigate();

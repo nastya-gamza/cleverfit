@@ -1,6 +1,7 @@
 import {UserOutlined} from '@ant-design/icons';
 import {DDMMYYYY} from '@constants/date-formates.ts';
 import {Rating} from '@pages/feedbacks-page/rating/rating.tsx';
+import {Nullable} from '@typings/nullable.ts';
 import {Avatar, Card, Typography} from 'antd';
 import moment from 'moment';
 
@@ -9,10 +10,10 @@ import styles from './feedback-card.module.less';
 const {Text, Title} = Typography;
 
 type FeedbackCardProps = {
-    fullName: string | null,
-    imageSrc: string | null,
+    fullName: Nullable<string>,
+    imageSrc: Nullable<string>,
     rating: number,
-    message: string | null,
+    message: Nullable<string>,
     createdAt: string,
 }
 

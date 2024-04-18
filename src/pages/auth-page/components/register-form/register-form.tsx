@@ -2,7 +2,7 @@ import {useEffect} from 'react';
 import {GooglePlusOutlined} from '@ant-design/icons';
 import {useAppSelector} from '@hooks/typed-react-redux-hooks.ts';
 import {useRegister, useRegisterFieldsValidation} from '@pages/auth-page/hooks';
-import {authSelector} from '@redux/selectors/selectors.ts';
+import {authSelector} from '@redux/slices/auth-slice.ts';
 import {isValidConfirmPassword, isValidEmail, isValidPassword,} from '@utils/validation.ts';
 import {Button, Form, Grid, Input} from 'antd';
 

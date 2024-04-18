@@ -1,9 +1,9 @@
 import {store} from '@redux/store.ts';
 import {UserTraining} from '@redux/types/training.ts';
 
-const getTotalLoad = (training: UserTraining): number => (
+export const getTotalLoad = (training: UserTraining): number => (
     training.exercises.reduce((total, {approaches, weight, replays}) => (
-        total + ((approaches ?? 0) * (weight ?? 0) * (replays ?? 0))
+        total + ((approaches || 1) * (weight || 0) * (replays || 1))
     ), 0)
 )
 

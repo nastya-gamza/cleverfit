@@ -7,7 +7,6 @@ import {history, store} from '@redux/store.ts';
 
 import {SidebarProvider} from './context/sidebar/sidebar-provider.tsx';
 
-
 import 'normalize.css';
 
 import './styles/index.less';

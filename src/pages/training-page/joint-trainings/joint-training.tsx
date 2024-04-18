@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {PATHS} from '@constants/paths.ts';
 import {useAppSelector} from '@hooks/typed-react-redux-hooks.ts';
-import {error} from '@pages/calendar-page/notification-modal/error-notification-modal.tsx';
+import {error} from '@pages/calendar-page/error-notification-modal/error-notification-modal.tsx';
 import {
     JointTrainingRequestList
 } from '@pages/training-page/joint-trainings/joint-training-request-list';
@@ -17,6 +17,7 @@ import {
 import {selectUserJointTrainings} from '@redux/slices/invite-slice.ts';
 import {selectTrainingData} from '@redux/slices/training-slice.ts';
 import {UserJointTrainingList} from '@redux/types/invite.ts';
+import {Nullable} from '@typings/nullable.ts';
 import {findMostPopularTraining} from '@utils/get-most-popular-training.ts';
 import {Button, Card, Space, Typography} from 'antd';
 import Meta from 'antd/es/card/Meta';
@@ -52,7 +53,7 @@ export const JointTrainings = () => {
 
     const handleHidePartnerModal = () => setShowPartnerModal(false);
 
-    const onCancelJointTraining = (inviteId: string | null) => {
+    const onCancelJointTraining = (inviteId: Nullable<string>) => {
         cancelJointTraining({inviteId});
         handleCloseJointTrainings();
         handleHidePartnerModal();

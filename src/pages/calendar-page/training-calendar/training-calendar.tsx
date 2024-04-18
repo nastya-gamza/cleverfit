@@ -3,12 +3,12 @@ import {useLocation, useNavigate} from 'react-router-dom';
 import {YYYYMMDD} from '@constants/date-formates.ts';
 import {PATHS} from '@constants/paths.ts';
 import {useAppDispatch, useAppSelector} from '@hooks/typed-react-redux-hooks.ts';
-import {ExercisesPopover} from '@pages/calendar-page/popover/exercises-popover.tsx';
-import {TrainingPopover} from '@pages/calendar-page/popover/training-popover.tsx';
+import {ExercisesPopover, TrainingPopover} from '@pages/calendar-page/popover';
 import {TrainingBadge} from '@pages/calendar-page/training-badge/training-badge.tsx';
 import {useGetUserTrainingsQuery} from '@redux/api/training-api.ts';
 import {selectTrainingData, setDate} from '@redux/slices/training-slice.ts';
-import {calendarLocale} from '@utils/calendar-options.ts';
+import {Nullable} from '@typings/nullable.ts';
+import {ruLocale} from '@utils/ru-locale.ts';
 import {Calendar, Grid} from 'antd';
 import moment, {Moment} from 'moment';
 
@@ -25,7 +25,7 @@ export const TrainingCalendar = () => {
     const [isFullScreen, setIsFullScreen] = useState(true);
     const [addNewWorkout, setAddNewWorkout] = useState(false);
     const [createWorkout, setCreateWorkout] = useState(false);
-    const [editingTrainingName, setEditingTrainingName] = useState<string | null>(null);
+    const [editingTrainingName, setEditingTrainingName] = useState<Nullable<string>>(null);
     const [isLeft, setIsLeft] = useState(true);
     const [selectedMonth, setSelectedMonth] = useState<Moment>(moment());
 
@@ -59,7 +59,7 @@ export const TrainingCalendar = () => {
         setAddNewWorkout(true);
         setCreateWorkout(false);
 
-        dispatch(setDate(date?.toISOString()))
+        dispatch(setDate(date?.utc(true).toISOString()))
 
         const dayInNumber = moment(date).day();
 
@@ -124,7 +124,7 @@ export const TrainingCalendar = () => {
     return (
         <Calendar
             fullscreen={isFullScreen}
-            locale={calendarLocale}
+            locale={ruLocale}
             onSelect={onSelect}
             dateCellRender={dateCellRender}
             className={styles.trainingCalendar}

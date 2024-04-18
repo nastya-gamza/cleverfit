@@ -1,9 +1,10 @@
 import {Dispatch, SetStateAction} from 'react';
 import {CloseOutlined} from '@ant-design/icons';
 import {DDMMYYYY, YYYYMMDD} from '@constants/date-formates.ts';
-import {EmptyCart} from '@pages/calendar-page/empty-cart/empty-cart.tsx';
+import {EmptyCart} from '@pages/calendar-page/empty-cart';
 import {TrainingBadgeEdit} from '@pages/calendar-page/training-badge/training-badge.tsx';
 import {useGetTrainingListQuery, useGetUserTrainingsQuery} from '@redux/api/training-api.ts';
+import {Nullable} from '@typings/nullable.ts';
 import {isOldDate} from '@utils/check-date.ts';
 import {Button, Card} from 'antd';
 import moment, {Moment} from 'moment';
@@ -17,7 +18,7 @@ type CreateTrainingCardProps = {
     selectedDate: Moment | string,
     setAddNewWorkout: Dispatch<SetStateAction<boolean>>,
     setCreateWorkout: Dispatch<SetStateAction<boolean>>,
-    setEditingTrainingName: Dispatch<SetStateAction<string | null>>,
+    setEditingTrainingName: Dispatch<SetStateAction<Nullable<string>>>,
 }
 
 export const CreateTrainingCard = ({
@@ -61,11 +62,10 @@ export const CreateTrainingCard = ({
                 className={styles.card}
                 actions={[
                     <Button
-                        disabled={disabledButton}
-                        className={styles.actionButton}
                         size='large'
                         type='primary'
                         block={true}
+                        disabled={disabledButton}
                         onClick={() => setCreateWorkout(true)}
                     >
                         Создать тренировку

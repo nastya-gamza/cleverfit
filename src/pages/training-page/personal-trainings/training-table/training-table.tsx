@@ -100,7 +100,6 @@ export const TrainingTable = ({openDrawer, openCard, setOpenCard}: TrainingTable
                     type='link'
                     disabled={record.isImplementation}
                     onClick={() => onClickEdit(record)}
-                    className={styles.editPen}
                     data-test-id={`update-my-training-table-icon${i}`}
                 >
                     <EditOutlined style={{fontSize: '25px'}}/>

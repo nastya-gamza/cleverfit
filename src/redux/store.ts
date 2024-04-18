@@ -1,5 +1,6 @@
 import {createReduxHistoryContext} from 'redux-first-history';
 import {baseApi} from '@redux/api/base-api.ts';
+import achievementsReducer from '@redux/slices/achievements-slice.ts';
 import appReducer from '@redux/slices/app-slice.ts';
 import authReducer from '@redux/slices/auth-slice.ts';
 import inviteReducer from '@redux/slices/invite-slice.ts';
@@ -24,6 +25,7 @@ export const store = configureStore({
         settings: settingsReducer,
         invite: inviteReducer,
         router: routerReducer,
+        achievements: achievementsReducer,
         [baseApi.reducerPath]: baseApi.reducer,
     }),
     middleware: (getDefaultMiddleware) => getDefaultMiddleware()

@@ -1,5 +1,6 @@
 import {Invitation, UserJointTrainingList} from '@redux/types/invite.ts';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
+import {Nullable} from '@typings/nullable.ts';
 
 type InviteState = {
     invitationList: Invitation[];
@@ -50,7 +51,7 @@ const inviteSlice = createSlice({
         },
         removeJointTraining(
             state,
-            {payload: {inviteId}}: PayloadAction<{ inviteId: string | null }>,
+            {payload: {inviteId}}: PayloadAction<{ inviteId: Nullable<string> }>,
         ) {
             state.acceptedJointTrainingList = state.acceptedJointTrainingList.filter(user => user.inviteId !== inviteId);
         },

@@ -8,7 +8,7 @@ import {
     selectTrainingData,
     setCreatedTraining
 } from '@redux/slices/training-slice.ts';
-import {calendarLocale} from '@utils/calendar-options.ts';
+import {ruLocale} from '@utils/ru-locale.ts';
 import {Checkbox, DatePicker, Select} from 'antd';
 import {CheckboxChangeEvent} from 'antd/es/checkbox';
 import moment, {Moment} from 'moment';
@@ -22,7 +22,7 @@ export const PeriodicityBlock = () => {
     const {readyForJointTraining} = useAppSelector(selectProfileInfo);
 
     const handleChangeDate = (date: Moment) => {
-        dispatch(setCreatedTraining({date: date?.toISOString()}));
+        dispatch(setCreatedTraining({date: date?.utc(true).toISOString()}));
     }
 
     const handleParameterChange = (period: number, repeat: boolean) => {
@@ -64,7 +64,7 @@ export const PeriodicityBlock = () => {
         <div>
             <div className={styles.dateBlock}>
                 <DatePicker
-                    locale={calendarLocale}
+                    locale={ruLocale}
                     format={DDMMYYYY}
                     size='small'
                     defaultValue={date ? moment(date) : undefined}

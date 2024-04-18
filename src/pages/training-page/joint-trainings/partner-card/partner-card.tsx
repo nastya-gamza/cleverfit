@@ -10,12 +10,13 @@ import {useAppDispatch} from '@hooks/typed-react-redux-hooks.ts';
 import {useCancelJointTrainingMutation} from '@redux/api/invite-api.ts';
 import {setPartnerInfo} from '@redux/slices/invite-slice.ts';
 import {
-    setCreatedTraining,
+    resetCreatedTraining,
     setIsOpenTrainingDrawer,
     setTrainingMode
 } from '@redux/slices/training-slice.ts';
 import {UserJointTrainingList} from '@redux/types/invite.ts';
 import {TrainingMode} from '@redux/types/training.ts';
+import {Nullable} from '@typings/nullable.ts';
 import {Avatar, Button, Card, Tooltip, Typography} from 'antd';
 import classNames from 'classnames';
 
@@ -46,7 +47,7 @@ export const PartnerCard = ({
 
     const dispatch = useAppDispatch();
 
-    const onCancelJointTraining = (inviteId: string | null) => {
+    const onCancelJointTraining = (inviteId: Nullable<string>) => {
         cancelJointTraining({inviteId});
     };
 
@@ -56,18 +57,10 @@ export const PartnerCard = ({
     }
 
     const handleCreateTraining = () => {
+        dispatch(resetCreatedTraining());
         dispatch(setIsOpenTrainingDrawer(true));
         dispatch(setTrainingMode(TrainingMode.JOINT));
         dispatch(setPartnerInfo(partner));
-        dispatch(setCreatedTraining({
-                parameters: {
-                    period: null,
-                    repeat: false,
-                    jointTraining: true,
-                    participants: [],
-                },
-            }),
-        );
     }
 
     return (

@@ -6,9 +6,9 @@ import {PATHS} from '@constants/paths.ts';
 import {TRAINING_COLORS_MAP} from '@constants/training-colors-map.ts';
 import {useAppDispatch, useAppSelector} from '@hooks/typed-react-redux-hooks.ts';
 import styles from '@pages/calendar-page/calendar-page.module.less';
-import {DrawerRight} from '@pages/calendar-page/drawer-right/drawer-right.tsx';
-import {ExercisesForm} from '@pages/calendar-page/exercises-form/exercises-form.tsx';
-import {error} from '@pages/calendar-page/notification-modal/error-notification-modal.tsx';
+import {DrawerRight} from '@pages/calendar-page/drawer-right';
+import {error} from '@pages/calendar-page/error-notification-modal/error-notification-modal.tsx';
+import {ExercisesForm} from '@pages/calendar-page/exercises-form';
 import {CellPopover} from '@pages/calendar-page/popover/cell-popover';
 import {AddExercisesCard} from '@pages/calendar-page/training-cards/add-exercises-card';
 import {useUpdateTrainingMutation} from '@redux/api/training-api.ts';
@@ -18,6 +18,7 @@ import {
     setExercises
 } from '@redux/slices/training-slice.ts';
 import {Exercise} from '@redux/types/training.ts';
+import {Nullable} from '@typings/nullable.ts';
 import {isOldDate} from '@utils/check-date.ts';
 import {Badge, Button, Space, Typography} from 'antd';
 import moment from 'moment';
@@ -27,8 +28,8 @@ type CreateWorkoutModalProps = {
     isFullScreen: boolean,
     createWorkout: boolean,
     setCreateWorkout: Dispatch<SetStateAction<boolean>>,
-    editingTrainingName: string | null,
-    setEditingTrainingName: Dispatch<SetStateAction<string | null>>,
+    editingTrainingName: Nullable<string>,
+    setEditingTrainingName: Dispatch<SetStateAction<Nullable<string>>>,
     setAddNewWorkout: Dispatch<SetStateAction<boolean>>,
 }
 

@@ -1,0 +1,22 @@
+.filterItem {
+    padding: 0 var(--size-4);
+    border: 1px solid var(--primary-light-3);
+    border-radius: var(--radius-xs);
+    margin-bottom: 8px;
+}
+
+.filterWrapper {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 40px;
+
+    @media (max-width: 360px) {
+        gap: 16px;
+    }
+
+    :global {
+        .ant-typography {
+            flex: 0 0 auto;
+        }
+    }
+}

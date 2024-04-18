@@ -3,7 +3,7 @@ import locale from 'antd/es/date-picker/locale/ru_RU';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import CalendarLocale from 'rc-picker/lib/locale/ru_RU';
 
-export const calendarLocale: PickerLocale = {
+export const ruLocale: PickerLocale = {
     lang: {
         ...locale.lang,
         shortWeekDays: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],

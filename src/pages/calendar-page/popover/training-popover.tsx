@@ -3,6 +3,7 @@ import {useAppDispatch} from '@hooks/typed-react-redux-hooks.ts';
 import {CellPopover} from '@pages/calendar-page/popover/cell-popover';
 import {CreateTrainingCard} from '@pages/calendar-page/training-cards/create-training-card';
 import {resetCreatedTraining} from '@redux/slices/training-slice.ts';
+import {Nullable} from '@typings/nullable.ts';
 import {PopoverProps} from 'antd';
 import {Moment} from 'moment';
 
@@ -13,7 +14,7 @@ type TrainingPopoverProps = PopoverProps & {
     value: Moment,
     setAddNewWorkout: Dispatch<SetStateAction<boolean>>,
     setCreateWorkout: Dispatch<SetStateAction<boolean>>,
-    setEditingTrainingName: Dispatch<SetStateAction<string | null>>,
+    setEditingTrainingName: Dispatch<SetStateAction<Nullable<string>>>,
 }
 
 export const TrainingPopover = ({

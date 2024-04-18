@@ -1,8 +1,10 @@
+import {Nullable} from '@typings/nullable.ts';
+
 export type Feedback = {
     id: string,
-    fullName: string | null,
-    imageSrc: string | null,
-    message: string | null,
+    fullName: Nullable<string>,
+    imageSrc: Nullable<string>,
+    message: Nullable<string>,
     rating: number,
     createdAt: string,
 }

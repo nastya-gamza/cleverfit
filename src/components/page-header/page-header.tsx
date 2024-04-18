@@ -1,6 +1,6 @@
 import {useLocation, useNavigate} from 'react-router-dom';
 import {ArrowLeftOutlined, SettingOutlined} from '@ant-design/icons';
-import {BreadcrumbItems,} from '@components/page-header/breadcrumb-items/breadcrumb-items.tsx';
+import {BreadcrumbItems} from '@components/page-header/breadcrumb-items/breadcrumb-items.tsx';
 import {PATHS} from '@constants/paths.ts';
 import {Breadcrumb, Button, Grid, Layout, Typography} from 'antd';
 import classNames from 'classnames';
@@ -18,19 +18,13 @@ export const PageHeader = () => {
     const {pathname} = useLocation();
 
     const isPathMain = pathname === PATHS.main;
-    const isPathCalendar = pathname === PATHS.calendar;
     const isPathFeedbacks = pathname === PATHS.feedbacks;
     const isPathProfile = pathname === PATHS.profile;
     const isPathSettings = pathname === PATHS.settings;
-    const isPathTraining = pathname === PATHS.training;
-
 
     return (
         <Header className={styles.header}>
-            {(isPathMain ||
-                    isPathCalendar ||
-                    isPathFeedbacks ||
-                    isPathTraining) &&
+            {(!isPathSettings && !isPathProfile) &&
                 <Breadcrumb className={styles.breadcrumbItems}>
                     {breadcrumbItems}
                 </Breadcrumb>

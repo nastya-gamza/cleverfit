@@ -1,4 +1,5 @@
 import {UserJointTrainingList} from '@redux/types/invite.ts';
+import {Nullable} from '@typings/nullable.ts';
 
 export const sortJointTrainingList = (arr: UserJointTrainingList[]) => {
     const statusOrder: Record<string, number> = {
@@ -13,7 +14,7 @@ export const sortJointTrainingList = (arr: UserJointTrainingList[]) => {
     }
 
     return [...arr].sort((a, b) => {
-        const getStatusValue = (status: string | null): number => statusOrder[status || 'null'] || 3;
+        const getStatusValue = (status: Nullable<string>): number => statusOrder[status || 'null'] || 3;
 
         const statusComparison = getStatusValue(a.status) - getStatusValue(b.status);
 
@@ -21,8 +22,8 @@ export const sortJointTrainingList = (arr: UserJointTrainingList[]) => {
             return statusComparison;
         }
 
-        const [firstNameA, lastNameA] = (a.name || '')?.toLowerCase().split(' ');
-        const [firstNameB, lastNameB] = (b.name || '')?.toLowerCase().split(' ');
+        const [firstNameA, lastNameA] = (a.name || '').toLowerCase().split(' ');
+        const [firstNameB, lastNameB] = (b.name || '').toLowerCase().split(' ');
 
         const nameComparison = firstNameA?.localeCompare(firstNameB);
 

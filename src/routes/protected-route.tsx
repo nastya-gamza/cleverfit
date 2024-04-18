@@ -2,8 +2,8 @@ import {useEffect} from 'react';
 import {Outlet, useNavigate} from 'react-router-dom';
 import {PATHS} from '@constants/paths.ts';
 import {useAppSelector} from '@hooks/typed-react-redux-hooks.ts';
-import {authSelector} from '@redux/selectors/selectors.ts';
 import {useLazyGetCurrentUserQuery} from '@redux/api/profile-api.ts';
+import {authSelector} from '@redux/slices/auth-slice.ts';
 import {selectProfileInfo} from '@redux/slices/profile-slice.ts';
 
 export const ProtectedRoute = () => {

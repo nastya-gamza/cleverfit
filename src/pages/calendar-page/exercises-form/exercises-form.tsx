@@ -2,16 +2,17 @@ import {useEffect, useRef, useState} from 'react';
 import {useAppDispatch} from '@hooks/typed-react-redux-hooks.ts';
 import {setExerciseData} from '@redux/slices/training-slice.ts';
 import {Exercise} from '@redux/types/training.ts';
+import {Nullable} from '@typings/nullable.ts';
 import {Checkbox, Form, Input, InputNumber, Space, Typography} from 'antd';
 
 import styles from './exercises-form.module.less';
 
 type ExercisesFormProps = {
     tempId?: string,
-    weight: number | null;
-    approaches: number | null;
+    weight: Nullable<number>;
+    approaches: Nullable<number>;
     name: string;
-    replays: number | null;
+    replays: Nullable<number>;
     index: number;
     isCheckbox: boolean;
     addDeletedExercise?: (id: number) => void,

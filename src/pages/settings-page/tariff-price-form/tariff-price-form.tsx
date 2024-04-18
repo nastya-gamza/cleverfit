@@ -29,7 +29,7 @@ export const TariffPriceForm = ({setIsDisabledBtn, closeDrawer}: {
             className={styles.priceForm}
             data-test-id='tariff-cost'
         >
-            <Form.Item name='days' className={styles.priceFields}>
+            <Form.Item name='days'>
                 <Radio.Group onChange={handleChangeTariff}>
                     <Space direction='vertical' size={16} className={styles.radioBtnWrapper}>
                         {tariffItems[0].periods.map(({text, cost, days}) => {

@@ -8,6 +8,7 @@ import {
 } from '@pages/training-page/joint-trainings/partner-training-details-card';
 import {useResponseToInvitationMutation} from '@redux/api/invite-api.ts';
 import {UserTraining} from '@redux/types/training.ts';
+import {Nullable} from '@typings/nullable.ts';
 import {Avatar, Button, Card, Typography} from 'antd';
 import moment from 'moment/moment';
 
@@ -16,9 +17,9 @@ import styles from './joint-training-request-card.module.less';
 type JointTrainingRequestCardProps = {
     id: string;
     from: {
-        firstName: string | null,
-        lastName: string | null,
-        imageSrc: string | null,
+        firstName: Nullable<string>,
+        lastName: Nullable<string>,
+        imageSrc: Nullable<string>,
     },
     training: UserTraining,
     showMyPartners: Dispatch<SetStateAction<boolean>>

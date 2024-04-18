@@ -17,10 +17,11 @@ export const MenuList = () => {
 
     return (
         <Menu className={styles.menu} mode='inline' inlineIndent={screens.xs ? 8 : 16}>
-            {MENU_ITEMS.map(({label, path, icon}) => (
+            {MENU_ITEMS.map(({label, path, icon, dataTestId}) => (
                 <Item
                     key={label}
                     onClick={() => handleNavigate(path)}
+                    data-test-id={dataTestId}
                     icon={
                         path === PATHS.training ? (
                             !screens.xs &&

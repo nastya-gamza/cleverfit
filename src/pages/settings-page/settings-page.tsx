@@ -45,9 +45,8 @@ export const SettingsPage = () => {
                         </Button>
                         <Button
                             type='link'
-                            onClick={handleNavigate}
-                            className={styles.link}
                             size='large'
+                            onClick={handleNavigate}
                             data-test-id='see-reviews'
                         >
                             Смотреть все отзывы

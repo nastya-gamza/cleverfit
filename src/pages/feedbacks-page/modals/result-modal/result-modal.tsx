@@ -1,5 +1,6 @@
 import {Dispatch, SetStateAction} from 'react';
 import {RESULTS} from '@constants/results.ts';
+import {Nullable} from '@typings/nullable.ts';
 import {Button, Grid, Modal, Result} from 'antd';
 
 import styles from './result-modal.module.less';
@@ -8,7 +9,7 @@ type SuccessModalProps = {
     open: boolean;
     setOpen: Dispatch<SetStateAction<boolean>>;
     setOpenAddFeedback: Dispatch<SetStateAction<boolean>>;
-    result: string | null;
+    result: Nullable<string>;
 };
 
 const {useBreakpoint} = Grid;

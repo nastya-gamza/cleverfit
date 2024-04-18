@@ -4,7 +4,7 @@ import {DDMMYYYY} from '@constants/date-formates.ts';
 import {PATHS} from '@constants/paths.ts';
 import {useAppDispatch, useAppSelector} from '@hooks/typed-react-redux-hooks.ts';
 import {FormFields} from '@pages/auth-page/hooks/use-auth.ts';
-import {error} from '@pages/calendar-page/notification-modal/error-notification-modal.tsx';
+import {error} from '@pages/calendar-page/error-notification-modal/error-notification-modal.tsx';
 import {UploadAvatar} from '@pages/profile-page/upload-avatar';
 import CalendarIcon from '@public/icons/calendar.svg?react';
 import {
@@ -13,7 +13,7 @@ import {
 } from '@redux/api/profile-api.ts';
 import {setAlert} from '@redux/slices/app-slice.ts';
 import {selectProfileInfo} from '@redux/slices/profile-slice.ts';
-import {calendarLocale} from '@utils/calendar-options.ts';
+import {ruLocale} from '@utils/ru-locale.ts';
 import {isValidConfirmPassword, isValidEmail, isValidPassword} from '@utils/validation.ts';
 import {Button, DatePicker, Form, Grid, Input, Space, Typography} from 'antd';
 import moment from 'moment/moment';
@@ -102,7 +102,7 @@ export const ProfileForm = () => {
                                     </Form.Item>
                                     <Form.Item name='birthday'>
                                         <DatePicker
-                                            locale={calendarLocale}
+                                            locale={ruLocale}
                                             format={DDMMYYYY}
                                             placeholder='Дата рождения'
                                             defaultValue={birthday ? moment(birthday) : undefined}
