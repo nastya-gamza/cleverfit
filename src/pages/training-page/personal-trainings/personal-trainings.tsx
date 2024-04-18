@@ -129,8 +129,6 @@ export const PersonalTrainings = () => {
                 await createInvitation({to: partnerInfo.id, trainingId: data._id || ''});
             }
 
-            console.log(data)
-
             dispatch(setAlert({
                 type: 'success',
                 message: 'Новая тренировка успешно добавлена',

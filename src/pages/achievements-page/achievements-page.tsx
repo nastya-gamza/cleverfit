@@ -1,6 +1,7 @@
 import {useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {useAppSelector} from '@hooks/typed-react-redux-hooks.ts';
+import {MonthAchievements} from '@pages/achievements-page/month-achievements';
 import {WeekAchievements} from '@pages/achievements-page/week-achievements/week-achievements.tsx';
 import {useGetTrainingListQuery, useGetUserTrainingsQuery} from '@redux/api/training-api.ts';
 import {selectIsError} from '@redux/slices/app-slice.ts';
@@ -15,18 +16,14 @@ export const AchievementsPage = () => {
     const navigate = useNavigate();
     const isError = useAppSelector(selectIsError);
 
-    const items = [
-        {
-            label: 'За неделю',
-            key: 'week',
-            children: <WeekAchievements/>
-        },
-        {label: 'За месяц', key: 'month', children: <div>2</div>},
-        {label: 'За всё время (PRO)', key: 'all', disabled: true,},
-    ];
-
     useGetUserTrainingsQuery();
     useGetTrainingListQuery();
+
+    const items = [
+        {label: 'За неделю', key: 'week', children: <WeekAchievements/>},
+        {label: 'За месяц', key: 'month', children: <MonthAchievements/>},
+        {label: 'За всё время (PRO)', key: 'all', disabled: true,},
+    ];
 
     useEffect(() => {
         if (isError) {

@@ -1,6 +1,6 @@
 import React from 'react';
 import {Column, Pie} from '@ant-design/plots';
-import {DDDD} from '@constants/date-formates.ts';
+import {DDMMYYYY} from '@constants/date-formates.ts';
 import {useAppSelector} from '@hooks/typed-react-redux-hooks.ts';
 import styles from '@pages/achievements-page/achievements-page.module.less';
 import {columnChartConfig, pieChartConfig} from '@pages/achievements-page/chart-configs';
@@ -16,47 +16,51 @@ import {countTrainingNames} from '@utils/achievements/count-training-names.ts';
 import {findMostFrequentTraining} from '@utils/achievements/find-most-frequent-training.ts';
 import {getAllDaysInRange} from '@utils/achievements/get-all-last-days-in-range.ts';
 import {getFilteredTrainingsByName} from '@utils/achievements/get-filtered-trainings-by-name.ts';
-import {getLastDaysRange} from '@utils/achievements/get-last-days-range.ts';
+import {getLastDaysRangeFromMonday} from '@utils/achievements/get-last-days-range.ts';
 import {
     getMostFrequentExercisesByDay
 } from '@utils/achievements/get-most-frequent-exercises-by-day.ts';
 import {getTrainingInfoCards} from '@utils/achievements/get-training-info-cards.ts';
+import {groupTrainingsByWeek} from '@utils/achievements/group-trainings-by-week.ts';
 import {isTrainingNameExists} from '@utils/achievements/is-training-name-exists.ts';
 import {sortByDate} from '@utils/achievements/sort-by-date.ts';
-import {sortByDayOfWeek} from '@utils/achievements/sort-by-day-of-week.ts';
 import {sortByDayOfWeek2} from '@utils/achievements/sort-by-day-of-week2.ts';
 import {Badge, Card, List, Space, Typography} from 'antd';
 import classNames from 'classnames';
-import moment from 'moment';
+import moment from 'moment/moment';
 
 const {Text, Title} = Typography;
 
-export const WeekAchievements = () => {
+export const MonthAchievements = () => {
     const {key: selectedTag, value: selectedTrainingName} = useAppSelector(selectAchievements);
     const {userTraining} = useAppSelector(selectTrainingData);
-    const lastWeekDaysRange = getLastDaysRange(6);
+
+    const lastWeekDaysRange = getLastDaysRangeFromMonday(28);
+
     const allDaysInRange = getAllDaysInRange(lastWeekDaysRange);
 
     const filteredTrainingsByName = getFilteredTrainingsByName(allDaysInRange, userTraining, selectedTrainingName);
-
-    const numberOfExercisesPerDay = countExercisesByDay(filteredTrainingsByName);
-    const mostFrequentExercisesCount = getMostFrequentExercisesByDay(numberOfExercisesPerDay);
-
-    const sortedMostFrequentExercises = sortByDayOfWeek2(mostFrequentExercisesCount);
 
     const allTrainingsInRange = filteredTrainingsByName.map(i => i.trainings).flatMap(t => t);
 
     const mostFrequentTrainingName = findMostFrequentTraining(countTrainingNames(allTrainingsInRange));
     const mostFrequentExercise = findMostFrequentTraining(countExerciseNames(allTrainingsInRange));
 
-    const sortedDataByDayOfWeek = sortByDayOfWeek(filteredTrainingsByName);
+    const dataByWeeks = groupTrainingsByWeek(filteredTrainingsByName);
+
+    const test = dataByWeeks.map(i => calculateAverageLoadByDay(i));
+
     const sortedDataByDate = sortByDate(filteredTrainingsByName);
 
-    const averageLoadByDayOfWeek = calculateAverageLoadByDay(sortedDataByDayOfWeek);
     const averageLoadByDate = calculateAverageLoadByDay(sortedDataByDate);
 
-    const exercisesPercentage = calculateExercisePercentages(mostFrequentExercisesCount);
+    const numberOfExercisesPerDay = countExercisesByDay(filteredTrainingsByName);
 
+    const mostFrequentExercisesCount = getMostFrequentExercisesByDay(numberOfExercisesPerDay);
+
+    const sortedMostFrequentExercises = sortByDayOfWeek2(mostFrequentExercisesCount);
+
+    const exercisesPercentage = calculateExercisePercentages(mostFrequentExercisesCount);
 
     const notFoundSelectedTraining = isTrainingNameExists(allTrainingsInRange, selectedTag, selectedTrainingName);
 
@@ -72,26 +76,31 @@ export const WeekAchievements = () => {
                     <Column data={averageLoadByDate} {...columnChartConfig} />
                 </Card>
                 <div className={styles.infoByDays}>
-                    <Text>Средняя силовая нагрузка по дням недели</Text>
-                    <List
-                        dataSource={averageLoadByDayOfWeek}
-                        renderItem={(el, i) => (
-                            <List.Item>
-                                <Badge
-                                    count={i + 1}
-                                    text={<Text type='secondary'>{moment(el.date).format(DDDD)}</Text>}
-                                    className={classNames(styles.badge, {[styles.badgeLight]: !el.value})}
+                    <div>
+                        {test.map((columnData, i) => (
+                            <div key={i}>
+                                <List
+                                    dataSource={columnData}
+                                    renderItem={(el, i) => (
+                                        <List.Item>
+                                            <Badge
+                                                count={i + 1}
+                                                text={<Text type='secondary'>{moment(el.date).format(DDMMYYYY)}</Text>}
+                                                className={classNames(styles.badge, {[styles.badgeLight]: !el.value})}
+                                            />
+                                            <Text strong={true}>{el.value ? `${el.value} кг` : ''}</Text>
+                                        </List.Item>
+                                    )}
+                                    split={false}
+                                    className={styles.list}
                                 />
-                                <Text strong={true}>{el.value ? `${el.value} кг` : ''}</Text>
-                            </List.Item>
-                        )}
-                        split={false}
-                        className={styles.list}
-                    />
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </div>
             <List
-                dataSource={getTrainingInfoCards(7)}
+                dataSource={getTrainingInfoCards(28)}
                 renderItem={(el) => (
                     <List.Item>
                         <Card className={styles.statisticsCard}>

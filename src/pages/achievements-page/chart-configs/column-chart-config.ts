@@ -1,4 +1,7 @@
 import {ColumnConfig} from '@ant-design/plots';
+import {DDMM} from '@constants/date-formates.ts';
+import {Moment} from 'moment';
+import moment from 'moment/moment';
 
 export const columnChartConfig: ColumnConfig = {
     xField: 'date',
@@ -26,6 +29,7 @@ export const columnChartConfig: ColumnConfig = {
             lineLineWidth: 1,
             labelAlign: 'horizontal',
             labelAutoRotate: false,
+            labelFormatter: (date: Moment) => moment(date).format(DDMM),
         },
         y: {
             tick: false,
