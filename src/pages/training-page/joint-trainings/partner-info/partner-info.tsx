@@ -1,5 +1,5 @@
 import {UserOutlined} from '@ant-design/icons';
-import {TrainingBadge} from '@pages/calendar-page/training-badge/training-badge.tsx';
+import {TrainingBadge} from '@components/training-badge';
 import {UserJointTrainingList} from '@redux/types/invite.ts';
 import {Avatar, Typography} from 'antd';
 

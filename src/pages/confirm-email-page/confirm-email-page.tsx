@@ -1,7 +1,7 @@
 import VerificationInput from 'react-verification-input';
 import {useConfirmEmail} from '@pages/confirm-email-page/hooks/use-confirm-email.ts';
 import {Card, Result} from 'antd';
-import clsn from 'classnames';
+import classnames from 'classnames';
 
 import styles from './confirm-email-page.module.less'
 
@@ -35,7 +35,7 @@ export const ConfirmEmailPage = () => {
                 inputProps={{'data-test-id': 'verification-input'}}
                 classNames={{
                     container: styles.wrapper,
-                    character: clsn(
+                    character: classnames(
                         'ant-input',
                         errorRef.current && 'ant-input-status-error',
                         styles.input,

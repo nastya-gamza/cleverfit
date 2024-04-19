@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
+import {TrainingBadge} from '@components/training-badge';
 import {YYYYMMDD} from '@constants/date-formates.ts';
 import {PATHS} from '@constants/paths.ts';
 import {useAppDispatch, useAppSelector} from '@hooks/typed-react-redux-hooks.ts';
 import {ExercisesPopover, TrainingPopover} from '@pages/calendar-page/popover';
-import {TrainingBadge} from '@pages/calendar-page/training-badge/training-badge.tsx';
 import {useGetUserTrainingsQuery} from '@redux/api/training-api.ts';
 import {selectTrainingData, setDate} from '@redux/slices/training-slice.ts';
 import {Nullable} from '@typings/nullable.ts';

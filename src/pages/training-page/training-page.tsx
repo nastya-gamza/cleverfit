@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
+import {error} from '@components/error-notification-modal';
 import {useAppSelector} from '@hooks/typed-react-redux-hooks.ts';
-import {error} from '@pages/calendar-page/error-notification-modal/error-notification-modal.tsx';
 import {JointTrainings} from '@pages/training-page/joint-trainings';
 import {Marathons} from '@pages/training-page/marathon';
 import {PersonalTrainings} from '@pages/training-page/personal-trainings/personal-trainings.tsx';

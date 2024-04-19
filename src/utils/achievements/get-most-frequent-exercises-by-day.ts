@@ -2,7 +2,7 @@ import {DDDD} from '@constants/date-formates.ts';
 import {ExerciseCounter} from '@typings/exercises-counter.ts';
 import moment from 'moment';
 
-function groupExerciseByWeekDay(exercisesCounters: ExerciseCounter[]) {
+const groupExerciseByWeekDay = (exercisesCounters: ExerciseCounter[]) => {
     const groupedExercisesByWeekDay: Record<string, ExerciseCounter[]> = {};
 
     exercisesCounters.forEach(ex => {
@@ -17,7 +17,7 @@ function groupExerciseByWeekDay(exercisesCounters: ExerciseCounter[]) {
     return groupedExercisesByWeekDay;
 }
 
-function countGroupedExercisesAmount(exCounters: ExerciseCounter[]) {
+const countGroupedExercisesAmount = (exCounters: ExerciseCounter[]) => {
     const groupedExerciseCounter: Record<string, number> = {};
 
     exCounters?.map(exCounter => groupedExerciseCounter[exCounter.exerciseName] =
@@ -26,7 +26,7 @@ function countGroupedExercisesAmount(exCounters: ExerciseCounter[]) {
     return groupedExerciseCounter;
 }
 
-function getMostFrequentExercise(day: string, groupedExerciseCounter: Record<string, number>) {
+const getMostFrequentExercise = (day: string, groupedExerciseCounter: Record<string, number>) => {
     const dayMostFrequentExercise: { day: string, exercise: string, count: number } = {
         day,
         exercise: '',

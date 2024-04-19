@@ -1,11 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
+import {error} from '@components/error-notification-modal';
 import {PATHS} from '@constants/paths.ts';
 import {useAppSelector} from '@hooks/typed-react-redux-hooks.ts';
-import {error} from '@pages/calendar-page/error-notification-modal/error-notification-modal.tsx';
-import {
-    JointTrainingRequestList
-} from '@pages/training-page/joint-trainings/joint-training-request-list';
+import {JointTrainingRequestList} from '@pages/training-page/joint-trainings/joint-training-request-list';
 import {PartnerCardList} from '@pages/training-page/joint-trainings/partner-card-list';
 import {PartnerModal} from '@pages/training-page/joint-trainings/partner-modal';
 import {PartnerSearch} from '@pages/training-page/joint-trainings/partner-search';

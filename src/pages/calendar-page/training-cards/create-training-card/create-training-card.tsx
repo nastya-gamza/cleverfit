@@ -1,8 +1,8 @@
 import {Dispatch, SetStateAction} from 'react';
 import {CloseOutlined} from '@ant-design/icons';
+import {TrainingBadgeEdit} from '@components/training-badge';
 import {DDMMYYYY, YYYYMMDD} from '@constants/date-formates.ts';
 import {EmptyCart} from '@pages/calendar-page/empty-cart';
-import {TrainingBadgeEdit} from '@pages/calendar-page/training-badge/training-badge.tsx';
 import {useGetTrainingListQuery, useGetUserTrainingsQuery} from '@redux/api/training-api.ts';
 import {Nullable} from '@typings/nullable.ts';
 import {isOldDate} from '@utils/check-date.ts';

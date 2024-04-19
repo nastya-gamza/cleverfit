@@ -1,6 +1,6 @@
 import {Outlet, useLocation} from 'react-router-dom';
+import {AppAlert} from '@components/app-alert';
 import {PageHeader} from '@components/page-header';
-import {AppAlert} from '@components/shared/app-alert';
 import {SideBar} from '@components/sidebar';
 import {PATHS} from '@constants/paths.ts';
 import {Layout} from 'antd';

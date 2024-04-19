@@ -1,12 +1,12 @@
 import React, {Dispatch, SetStateAction, useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {ArrowLeftOutlined} from '@ant-design/icons';
+import {error} from '@components/error-notification-modal';
+import {TrainingBadgeEdit} from '@components/training-badge';
 import {YYYYMMDD} from '@constants/date-formates.ts';
 import {PATHS} from '@constants/paths.ts';
 import {useAppDispatch, useAppSelector} from '@hooks/typed-react-redux-hooks.ts';
 import {EmptyCart} from '@pages/calendar-page/empty-cart';
-import {error} from '@pages/calendar-page/error-notification-modal/error-notification-modal.tsx';
-import {TrainingBadgeEdit} from '@pages/calendar-page/training-badge/training-badge.tsx';
 import {useCreateTrainingMutation} from '@redux/api/training-api.ts';
 import {
     resetCreatedTraining, resetTraining, selectTrainingData,

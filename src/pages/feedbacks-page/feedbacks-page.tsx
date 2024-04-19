@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {ErrorModal} from '@components/shared/error-modal';
+import {ErrorModal} from '@components/error-modal';
 import {FeedbackCard} from '@pages/feedbacks-page/feedback-card';
 import {AddFeedbackModal} from '@pages/feedbacks-page/modals';
 import {NoFeedbacks} from '@pages/feedbacks-page/no-feedbacks';

@@ -1,7 +1,7 @@
 import React, {Dispatch, SetStateAction, useState} from 'react';
 import {DownOutlined, EditOutlined, PlusOutlined} from '@ant-design/icons';
+import {TrainingBadge} from '@components/training-badge';
 import {useAppDispatch, useAppSelector} from '@hooks/typed-react-redux-hooks.ts';
-import {TrainingBadge} from '@pages/calendar-page/training-badge/training-badge.tsx';
 import {TrainingCard} from '@pages/training-page/personal-trainings/training-card';
 import {
     selectTrainingData,

@@ -1,7 +1,7 @@
 import {useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {useAppSelector} from '@hooks/typed-react-redux-hooks.ts';
-import {error} from '@pages/calendar-page/error-notification-modal/error-notification-modal.tsx';
+import {error} from '@components/error-notification-modal';
 import {TrainingCalendar} from '@pages/calendar-page/training-calendar/training-calendar.tsx';
 import {useGetTrainingListQuery, useGetUserTrainingsQuery} from '@redux/api/training-api.ts';
 import {selectIsError} from '@redux/slices/app-slice.ts';

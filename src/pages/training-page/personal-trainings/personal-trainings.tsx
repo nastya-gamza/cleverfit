@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {EditOutlined, MinusOutlined, PlusOutlined} from '@ant-design/icons';
+import {DrawerRight} from '@components/drawer-right';
+import {error} from '@components/error-notification-modal';
 import {DRAWER_TITLES_MAP} from '@constants/drawer-titles-map.ts';
 import {PATHS} from '@constants/paths.ts';
 import {useAppDispatch, useAppSelector} from '@hooks/typed-react-redux-hooks.ts';
-import {DrawerRight} from '@pages/calendar-page/drawer-right';
-import {error} from '@pages/calendar-page/error-notification-modal/error-notification-modal.tsx';
 import {ExercisesForm} from '@pages/calendar-page/exercises-form';
 import {PartnerInfo} from '@pages/training-page/joint-trainings/partner-info';
 import {NoPersonalTrainings} from '@pages/training-page/personal-trainings/no-personal-trainings';

@@ -1,13 +1,13 @@
 import React, {Dispatch, SetStateAction, useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {EditOutlined, MinusOutlined, PlusOutlined} from '@ant-design/icons';
+import {DrawerRight} from '@components/drawer-right';
+import {error} from '@components/error-notification-modal';
 import {DDMMYYYY} from '@constants/date-formates.ts';
 import {PATHS} from '@constants/paths.ts';
 import {TRAINING_COLORS_MAP} from '@constants/training-colors-map.ts';
 import {useAppDispatch, useAppSelector} from '@hooks/typed-react-redux-hooks.ts';
 import styles from '@pages/calendar-page/calendar-page.module.less';
-import {DrawerRight} from '@pages/calendar-page/drawer-right';
-import {error} from '@pages/calendar-page/error-notification-modal/error-notification-modal.tsx';
 import {ExercisesForm} from '@pages/calendar-page/exercises-form';
 import {CellPopover} from '@pages/calendar-page/popover/cell-popover';
 import {AddExercisesCard} from '@pages/calendar-page/training-cards/add-exercises-card';

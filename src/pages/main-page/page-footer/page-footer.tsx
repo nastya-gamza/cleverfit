@@ -1,7 +1,7 @@
 import {Link} from 'react-router-dom';
-import {ActionCard} from '@components/card';
 import {PATHS} from '@constants/paths.ts';
 import {PHONES} from '@constants/phones.tsx';
+import {ActionCard} from '@pages/main-page/card';
 import {Layout, Row} from 'antd';
 
 import styles from './page-footer.module.less';
@@ -26,7 +26,7 @@ export const PageFooter = () => (
                 }
             >
                 <div className={styles.phones}>
-                    {PHONES.map(p => <Link to='/' key={p.name}>{p.icon} {p.name}</Link>)}
+                    {PHONES.map(p => <span key={p.name}>{p.icon} {p.name}</span>)}
                 </div>
             </ActionCard>
         </Row>

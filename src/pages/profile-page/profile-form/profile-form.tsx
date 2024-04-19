@@ -4,7 +4,7 @@ import {DDMMYYYY} from '@constants/date-formates.ts';
 import {PATHS} from '@constants/paths.ts';
 import {useAppDispatch, useAppSelector} from '@hooks/typed-react-redux-hooks.ts';
 import {FormFields} from '@pages/auth-page/hooks/use-auth.ts';
-import {error} from '@pages/calendar-page/error-notification-modal/error-notification-modal.tsx';
+import {error} from '@components/error-notification-modal';
 import {UploadAvatar} from '@pages/profile-page/upload-avatar';
 import CalendarIcon from '@public/icons/calendar.svg?react';
 import {

@@ -1,11 +1,11 @@
 import {Dispatch, SetStateAction, useEffect, useMemo, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {PlusOutlined, UploadOutlined} from '@ant-design/icons';
+import {error} from '@components/error-notification-modal';
 import {BASE_API_URL, TRAINING_API_URL} from '@constants/api.ts';
 import {ENDPOINTS} from '@constants/endpoints.ts';
 import {PATHS} from '@constants/paths.ts';
 import {useAppDispatch, useAppSelector} from '@hooks/typed-react-redux-hooks.ts';
-import {error} from '@pages/calendar-page/error-notification-modal/error-notification-modal.tsx';
 import {authSelector} from '@redux/slices/auth-slice.ts';
 import {selectProfileInfo, setProfileInfo} from '@redux/slices/profile-slice.ts';
 import {Button, Grid, Typography, Upload} from 'antd';

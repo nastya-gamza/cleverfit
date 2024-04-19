@@ -1,10 +1,10 @@
 import {useNavigate} from 'react-router-dom';
 import {PATHS} from '@constants/paths.ts';
+import {AuthForm} from '@pages/auth-page/auth-form';
+import {RegisterForm} from '@pages/auth-page/register-form';
 import Logo from '@public/icons/logo.svg?react';
 import {Card, Tabs} from 'antd';
 
-import {AuthForm} from './components/auth-form'
-import {RegisterForm} from './components/register-form';
 import styles from './auth-page.module.less';
 
 type ActiveTab = {

@@ -1,4 +1,4 @@
-import {ActionCard,InfoCard} from '@components/card';
+import {ActionCard,InfoCard} from '@pages/main-page/card';
 import {ACTIONS} from '@constants/actions.tsx';
 import {FEATURES_LIST} from '@constants/features-list.ts';
 import {useRedirectNavigation} from '@hooks/use-redirect-navigation.ts';
