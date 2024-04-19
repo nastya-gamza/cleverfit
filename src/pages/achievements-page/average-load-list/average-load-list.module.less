@@ -1,7 +1,7 @@
 .infoByDays {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: var(--size-10);
     flex-wrap: wrap;
     width: 200px;
 }
@@ -15,12 +15,12 @@
         div.ant-collapse {
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: var(--size-8);
         }
 
         div.ant-collapse-header {
             padding: 0 !important;
-            padding-right: 40px !important;
+            padding-right: var(--size-21) !important;
         }
     }
 }
@@ -30,7 +30,11 @@
         .ant-badge {
             display: flex;
             align-items: center;
-            padding: 8px 0;
+            padding: var(--size-4) 0;
+        }
+
+        .ant-list-item {
+            gap: var(--size-8);
         }
     }
 }
@@ -42,7 +46,11 @@
 .weekColumn {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: var(--size-10);
+
+    :global(.ant-list-item) {
+        gap: var(--size-8);
+    }
 }
 
 .badge {

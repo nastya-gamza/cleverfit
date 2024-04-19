@@ -1,7 +1,7 @@
 import {UserTraining} from '@redux/types/training.ts';
 import {getTotalLoad} from '@utils/get-most-popular-training.ts';
 
-export const getTrainingInfoCards = (coef: number) => [
+export const getTrainingInfoCards = (daysNumber: number) => [
     {
         value: 'Общая нагрузка, кг',
         func: (trainings: UserTraining[]) => {
@@ -23,7 +23,9 @@ export const getTrainingInfoCards = (coef: number) => [
                 totalLoad += getTotalLoad(training);
             });
 
-            return (totalLoad / coef).toFixed(1).replace('.', ',');
+            return totalLoad > 0
+                ? (totalLoad / daysNumber).toFixed(1).replace('.', ',')
+                : (totalLoad / daysNumber);
         }
     },
     {

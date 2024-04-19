@@ -21,8 +21,6 @@ export const MonthAverageLoadList = ({averageLoadByWeek}: MonthAverageLoadListPr
 
     const startAndEndDates = getStartAndEndDates(averageLoadByWeek);
 
-    console.log(startAndEndDates)
-
     useEffect(() => {
         if (!screens.sm) {
             setIsFullScreen(false);

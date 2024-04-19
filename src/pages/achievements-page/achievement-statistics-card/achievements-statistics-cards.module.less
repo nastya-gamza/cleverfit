@@ -5,33 +5,51 @@
 
     @media (max-width: 675px) {
         width: 100%;
+        height: auto;
     }
 
     :global {
         .ant-card-body {
             display: flex;
             flex-direction: column;
-            gap: 8px;
-            padding: 14px 20px 0;
+            gap: var(--size-4);
+            padding: var(--size-7) var(--size-10) 0;
+
+            @media (max-width: 675px) {
+                flex-direction: row;
+                padding: var(--size-6) var(--size-4);
+                align-items: center;
+            }
         }
         .ant-typography {
             line-height: var(--line-height-base);
         }
 
         h3.ant-typography {
-            font-size: 38px;
+            font-size: var(--font-6xl);
             font-weight: var(--fw-bold);
+            flex: 0 0 auto;
         }
 
         span.ant-typography {
             width: 115px;
             margin: 0 auto;
+
+            @media (max-width: 675px) {
+                width: auto;
+                margin: 0;
+                margin-left: auto;
+            }
         }
     }
 }
 
 .trainingInfoList {
     margin-bottom: 86px;
+
+    @media (max-width: 1100px) {
+        margin-bottom: var(--size-12);
+    }
 
     :global {
         .ant-list-items {
@@ -41,6 +59,7 @@
 
             @media (max-width: 675px) {
                 flex-direction: column;
+                gap: var(--size-8);
             }
         }
     }
