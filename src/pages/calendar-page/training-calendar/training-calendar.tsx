@@ -1,13 +1,12 @@
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
-import {TrainingBadge} from '@components/training-badge';
 import {YYYYMMDD} from '@constants/date-formates.ts';
 import {PATHS} from '@constants/paths.ts';
 import {useAppDispatch, useAppSelector} from '@hooks/typed-react-redux-hooks.ts';
+import {CalendarCell} from '@pages/calendar-page/calendar-cell';
 import {ExercisesPopover, TrainingPopover} from '@pages/calendar-page/popover';
 import {useGetUserTrainingsQuery} from '@redux/api/training-api.ts';
 import {selectTrainingData, setDate} from '@redux/slices/training-slice.ts';
-import {Nullable} from '@typings/nullable.ts';
 import {ruLocale} from '@utils/ru-locale.ts';
 import {Calendar, Grid} from 'antd';
 import moment, {Moment} from 'moment';
@@ -25,9 +24,8 @@ export const TrainingCalendar = () => {
     const [isFullScreen, setIsFullScreen] = useState(true);
     const [addNewWorkout, setAddNewWorkout] = useState(false);
     const [createWorkout, setCreateWorkout] = useState(false);
-    const [editingTrainingName, setEditingTrainingName] = useState<Nullable<string>>(null);
+    const [editingTrainingName, setEditingTrainingName] = useState<string | null>(null);
     const [isLeft, setIsLeft] = useState(true);
-    const [selectedMonth, setSelectedMonth] = useState<Moment>(moment());
 
     const location = useLocation();
     const screens = useBreakpoint();
@@ -47,19 +45,13 @@ export const TrainingCalendar = () => {
             navigate(PATHS.main);
         }
 
-    }, [location, navigate]);
+    }, [location.state, navigate]);
 
     const onSelect = (date: Moment) => {
-        if (isFullScreen && !date.isSame(selectedMonth, 'month')) {
-            setAddNewWorkout(false);
-
-            return;
-        }
-
         setAddNewWorkout(true);
         setCreateWorkout(false);
 
-        dispatch(setDate(date?.utc(true).toISOString()))
+        dispatch(setDate(date.toISOString()))
 
         const dayInNumber = moment(date).day();
 
@@ -76,8 +68,6 @@ export const TrainingCalendar = () => {
 
         setIsLeft(true);
     }
-
-    const handlePanelChange = (value: Moment) => setSelectedMonth(value);
 
     const dateCellRender = (value: Moment) => {
         const dateString = value.format(YYYYMMDD);
@@ -110,14 +100,13 @@ export const TrainingCalendar = () => {
         }
 
         return (
-            <React.Fragment>
-                {popoverComponent}
-                {trainingByDay?.map(({_id, name}) => (
-                    <div key={_id} className={!isFullScreen ? styles.mobileCell : ''}>
-                        {isFullScreen && <TrainingBadge training={name}/>}
-                    </div>
-                ))}
-            </React.Fragment>
+            <CalendarCell
+                value={value}
+                onSelect={onSelect}
+                isFullScreen={isFullScreen}
+                popoverComponent={popoverComponent}
+                trainingByDay={trainingByDay}
+            />
         );
     }
 
@@ -126,10 +115,8 @@ export const TrainingCalendar = () => {
             fullscreen={isFullScreen}
             locale={ruLocale}
             onSelect={onSelect}
-            dateCellRender={dateCellRender}
+            dateFullCellRender={dateCellRender}
             className={styles.trainingCalendar}
-            onPanelChange={handlePanelChange}
-            disabledDate={(date) => isFullScreen && !date.isSame(selectedMonth, 'month')}
         />
     )
 }
