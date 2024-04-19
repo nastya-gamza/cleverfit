@@ -2,7 +2,7 @@ import {useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {ACHIEVEMENTS} from '@constants/achievements.ts';
 import {useAppSelector} from '@hooks/typed-react-redux-hooks.ts';
-import {Achievements} from '@pages/achievements-page/achievements/achievements.tsx';
+import {Achievements} from '@pages/achievements-page/achievements';
 import {useGetTrainingListQuery, useGetUserTrainingsQuery} from '@redux/api/training-api.ts';
 import {selectIsError} from '@redux/slices/app-slice.ts';
 import {Tabs} from 'antd';

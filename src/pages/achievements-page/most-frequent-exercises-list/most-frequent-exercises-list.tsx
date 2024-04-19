@@ -1,11 +1,11 @@
-import {Badge, List, Typography} from 'antd';
 import {ACHIEVEMENTS} from '@constants/achievements.ts';
+import {Badge, List, Typography} from 'antd';
 
 import styles from './most-frequent-exercises-list.module.less';
 
 type MostFrequentExercisesListProps = {
     type: ACHIEVEMENTS,
-    exercises: { day: string, exercise: string, count: number }[]
+    exercises: Array<{ day: string, exercise: string, count: number }>
 }
 
 const {Text} = Typography;

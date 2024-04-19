@@ -1,6 +1,6 @@
+import {UserTraining} from '@redux/types/training.ts';
 import {getTrainingInfoCards} from '@utils/achievements/get-training-info-cards.ts';
 import {Card, List, Typography} from 'antd';
-import {UserTraining} from '@redux/types/training.ts';
 
 import styles from './achievements-statistics-cards.module.less';
 

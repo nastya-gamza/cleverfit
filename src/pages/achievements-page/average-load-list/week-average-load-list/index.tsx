@@ -1,17 +1,16 @@
-import {Badge, List, Typography} from 'antd';
-import styles from '@pages/achievements-page/average-load-list/average-load-list.module.less';
-import moment from 'moment';
 import {DDDD} from '@constants/date-formates.ts';
+import styles from '@pages/achievements-page/average-load-list/average-load-list.module.less';
+import {Badge, List, Typography} from 'antd';
 import classNames from 'classnames';
+import moment from 'moment';
 
 const {Text} = Typography;
 
 type WeekAverageLoadListProps = {
-    averageLoadByDayOfWeek: { date: string, value: number }[],
+    averageLoadByDayOfWeek: Array<{ date: string, value: number }>,
 }
 
-export const WeekAverageLoadList = ({averageLoadByDayOfWeek}: WeekAverageLoadListProps) => {
-    return (
+export const WeekAverageLoadList = ({averageLoadByDayOfWeek}: WeekAverageLoadListProps) => (
         <div>
             <Text>Средняя силовая нагрузка по дням недели</Text>
             <List
@@ -37,4 +36,3 @@ export const WeekAverageLoadList = ({averageLoadByDayOfWeek}: WeekAverageLoadLis
             />
         </div>
     )
-}

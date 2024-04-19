@@ -1,10 +1,10 @@
-import {Badge, Collapse, Grid, List, Typography} from 'antd';
+import React, {useEffect, useState} from 'react';
 import {DownOutlined} from '@ant-design/icons';
-import moment from 'moment';
-import classNames from 'classnames';
 import styles from '@pages/achievements-page/average-load-list/average-load-list.module.less';
 import {getStartAndEndDates} from '@utils/achievements/get-start-and-end-dates.ts';
-import React, {useEffect, useState} from 'react';
+import {Badge, Collapse, Grid, List, Typography} from 'antd';
+import classNames from 'classnames';
+import moment from 'moment';
 
 const {Panel} = Collapse;
 const {Text} = Typography;
@@ -12,7 +12,7 @@ const {Text} = Typography;
 const {useBreakpoint} = Grid;
 
 type MonthAverageLoadListProps = {
-    averageLoadByWeek: { date: string, value: number }[][],
+    averageLoadByWeek: Array<Array<{ date: string, value: number }>>,
 }
 
 export const MonthAverageLoadList = ({averageLoadByWeek}: MonthAverageLoadListProps) => {

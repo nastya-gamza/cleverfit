@@ -1,0 +1,74 @@
+.trainingLoad {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 150px;
+
+    &:not(:last-child) {
+        margin-bottom: var(--size-26);
+    }
+
+    @media (max-width: 1224px) {
+        gap: 60px;
+    }
+
+    @media (max-width: 1100px) {
+        gap: var(--size-12);
+    }
+
+    @media (max-width: 1100px) {
+        &:last-child {
+            margin-top: var(--size-12);
+        }
+
+        &:not(:last-child) {
+            margin-bottom: var(--size-12);
+        }
+    }
+}
+
+.trainingLoadMonth {
+    flex-direction: column;
+    gap: var(--size-12);
+}
+
+.chartWrapperColumn {
+    position: relative;
+    max-width: 520px;
+    width: 100%;
+
+    @media (max-width: 1100px) {
+        max-width: 100%;
+    }
+
+    :global {
+        .ant-card-body {
+            padding: 0;
+        }
+    }
+}
+
+.chartWrapperPie {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 374px;
+    max-width: 520px;
+
+    @media (max-width: 1100px) {
+        width: 100%;
+        max-height: 234px;
+        min-height: 234px;
+        padding-top: var(--size-12);
+    }
+
+    :global {
+        .ant-card-body {
+            padding: 0;
+        }
+    }
+}
+
+.chartWrapperMonth {
+    max-width: 100%;
+}

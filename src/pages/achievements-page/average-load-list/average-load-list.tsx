@@ -1,9 +1,9 @@
 import {ACHIEVEMENTS} from '@constants/achievements.ts';
 import {MonthAverageLoadList} from '@pages/achievements-page/average-load-list/month-average-load-list';
 import {WeekAverageLoadList} from '@pages/achievements-page/average-load-list/week-average-load-list';
+import classNames from 'classnames';
 
 import styles from './average-load-list.module.less';
-import classNames from 'classnames';
 
 type AverageLoadListProps = {
     type: string,

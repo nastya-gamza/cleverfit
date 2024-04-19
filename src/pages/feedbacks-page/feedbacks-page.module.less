@@ -1,7 +1,7 @@
 .wrapper {
     display: flex;
     flex-direction: column;
-    gap: 132px;
+    gap: 100px;
 
     @media (max-width: 575px) {
         gap: var(--size-26);
@@ -12,6 +12,17 @@
     display: flex;
     flex-direction: column;
     gap: var(--size-10);
+    max-height: 620px;
+    overflow-y: auto;
+    padding-right: var(--size-4);
+    &::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: var(--neutral-gray-7);
+        border-radius: 4px;
+    }
 
     @media (max-width: 575px) {
         gap: var(--size-8);

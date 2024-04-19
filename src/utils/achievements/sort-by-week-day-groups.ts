@@ -4,7 +4,7 @@ type ObjectWithDate = {
     day: string;
 }
 
-export const sortByDayOfWeek2 = <T extends ObjectWithDate>(trainings: T[]) => (
+export const sortByWeekDayGroups = <T extends ObjectWithDate>(trainings: T[]) => (
     [...trainings].sort((a, b) => {
         const dayOfWeekA = moment().day(a.day).day();
         const dayOfWeekB = moment().day(b.day).day();

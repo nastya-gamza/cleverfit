@@ -2,16 +2,17 @@ import React, {useEffect, useState} from 'react';
 import {Column, Pie} from '@ant-design/plots';
 import {ACHIEVEMENTS} from '@constants/achievements.ts';
 import {AchievementStatisticsCards} from '@pages/achievements-page/achievement-statistics-card';
-import styles from '@pages/achievements-page/achievements-page.module.less';
 import {AverageLoadList} from '@pages/achievements-page/average-load-list';
 import {getColumnChartConfig, getPieChartConfig,} from '@pages/achievements-page/chart-configs';
-import {useAchievements,} from '@pages/achievements-page/hooks/useAchievements.ts';
+import {useAchievements,} from '@pages/achievements-page/hooks/use-achievements.ts';
 import {MostFrequentExercisesList} from '@pages/achievements-page/most-frequent-exercises-list/';
 import {MostFrequentIndicators} from '@pages/achievements-page/most-frequent-indicators';
 import {NotFoundTrainings} from '@pages/achievements-page/not-found-trainings';
 import {TrainingFilter} from '@pages/achievements-page/training-filter/training-filter.tsx';
 import {Card, Grid} from 'antd';
 import classNames from 'classnames';
+
+import styles from './achievements.module.less';
 
 type AchievementsProps = {
     achievementType: ACHIEVEMENTS;

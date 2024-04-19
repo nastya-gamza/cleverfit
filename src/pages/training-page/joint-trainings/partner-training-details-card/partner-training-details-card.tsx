@@ -27,7 +27,7 @@ export const PartnerTrainingDetailsCard = ({
         <div className={styles.exerciseRow} key={i}>
             <Typography.Text type='secondary'>{e.name}</Typography.Text>
             <Typography.Text className={styles.exerciseData}>
-                {e.approaches} х ({e.weight} кг)
+                {e.approaches} х ({e?.weight || 0} кг)
             </Typography.Text>
         </div>
     ));

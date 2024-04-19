@@ -1,7 +1,7 @@
+import {ACHIEVEMENTS} from '@constants/achievements.ts';
 import {DDMM} from '@constants/date-formates.ts';
 import {Moment} from 'moment';
 import moment from 'moment/moment';
-import {ACHIEVEMENTS} from '@constants/achievements.ts';
 
 export const getColumnChartConfig = (
     achievementType: ACHIEVEMENTS,

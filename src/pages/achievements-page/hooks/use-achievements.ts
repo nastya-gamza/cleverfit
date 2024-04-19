@@ -1,23 +1,23 @@
 import {ACHIEVEMENTS} from '@constants/achievements.ts';
 import {useAppSelector} from '@hooks/typed-react-redux-hooks.ts';
-import {selectTrainingData} from '@redux/slices/training-slice.ts';
 import {selectAchievements} from '@redux/slices/achievements-slice.ts';
-import {DateRange} from 'moment-range';
+import {selectTrainingData} from '@redux/slices/training-slice.ts';
 import {
-    getLastDaysRange,
-    getLastDaysRangeFromMonday,
+    calculateAverageLoadByDay,
+    calculateExercisePercentages,
+    countExercisesByDay,
     getAllDaysInRange,
     getFilteredTrainingsByName,
-    sortByDate,
-    calculateAverageLoadByDay,
-    sortByDayOfWeek,
-    groupTrainingsByWeek,
-    countExercisesByDay,
+    getLastDaysRange,
+    getLastDaysRangeFromMonday,
     getMostFrequentExercisesByDay,
-    sortByDayOfWeek2,
-    calculateExercisePercentages,
+    groupTrainingsByWeek,
     isTrainingNameExists,
+    sortByDate,
+    sortByDayOfWeek,
+    sortByWeekDayGroups,
 } from '@utils/achievements';
+import {DateRange} from 'moment-range';
 
 export const useAchievements = (achievementType: string) => {
     const isAchievementTabWeek = achievementType === ACHIEVEMENTS.week;
@@ -52,7 +52,7 @@ export const useAchievements = (achievementType: string) => {
 
     const mostFrequentExercisesCount = getMostFrequentExercisesByDay(numberOfExercisesPerDay);
 
-    const sortedMostFrequentExercises = sortByDayOfWeek2(mostFrequentExercisesCount);
+    const sortedMostFrequentExercises = sortByWeekDayGroups(mostFrequentExercisesCount);
 
     const exercisesPercentage = calculateExercisePercentages(mostFrequentExercisesCount);
 

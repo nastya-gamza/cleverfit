@@ -14,6 +14,7 @@ function countExercisesByTrainings(trainings: UserTraining[], exerciseCount: Rec
 export const countExercisesByDay = (allTrainings: Array<{date: string, trainings: UserTraining[]}>): ExerciseCounter[] => (
      allTrainings.flatMap(({date, trainings}) => {
         const exerciseCount: Record<string, number> = {};
+
         countExercisesByTrainings(trainings, exerciseCount);
 
         return Object.entries(exerciseCount).map(([exerciseName, count]) => ({date, exerciseName, count}))

@@ -14,4 +14,4 @@ export * from './group-trainings-by-week';
 export * from './is-training-name-exists';
 export * from './sort-by-date';
 export * from './sort-by-day-of-week';
-export * from './sort-by-day-of-week2';
+export * from './sort-by-week-day-groups';
