@@ -6,6 +6,6 @@ export const getStartAndEndDates = (data: Array< {date: string, value: number}[]
         const startDate: string = array[0].date;
         const endDate: string = array[array.length - 1].date;
 
-        return `${'Неделя'} ${moment(startDate).format(DDMM)} - ${moment(endDate).format(DDMM)}`;
+        return `Неделя ${moment(startDate).format(DDMM)} - ${moment(endDate).format(DDMM)}`;
     });
 }

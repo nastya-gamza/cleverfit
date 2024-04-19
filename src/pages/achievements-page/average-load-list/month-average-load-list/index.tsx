@@ -19,6 +19,10 @@ export const MonthAverageLoadList = ({averageLoadByWeek}: MonthAverageLoadListPr
     const screens = useBreakpoint();
     const [isFullScreen, setIsFullScreen] = useState(true);
 
+    const startAndEndDates = getStartAndEndDates(averageLoadByWeek);
+
+    console.log(startAndEndDates)
+
     useEffect(() => {
         if (!screens.sm) {
             setIsFullScreen(false);
@@ -26,35 +30,37 @@ export const MonthAverageLoadList = ({averageLoadByWeek}: MonthAverageLoadListPr
             setIsFullScreen(true)
         }
     }, [screens.sm]);
-    const startAndEndDates = getStartAndEndDates(averageLoadByWeek);
 
     return (
         <React.Fragment>
             {isFullScreen ? (
-                averageLoadByWeek.map(columnData => (
-                    <List
-                        dataSource={columnData}
-                        renderItem={(el, i) => (
-                            <List.Item>
-                                <Badge
-                                    count={i + 1}
-                                    text={
-                                        <Text type='secondary'>
-                                            {moment(el.date).format('DD.MM.YYYY')}
-                                        </Text>
-                                    }
-                                    className={classNames(styles.badge, {[styles.badgeLight]: !el.value})}
-                                />
-                                <Text strong={true}>{el.value ? `${el.value} кг` : ''}</Text>
-                            </List.Item>
-                        )}
-                        split={false}
-                        className={styles.list}
-                    />
+                averageLoadByWeek.map((columnData, i) => (
+                    <div className={styles.weekColumn}>
+                        <Text>{startAndEndDates[i]}</Text>
+                        <List
+                            key={i}
+                            dataSource={columnData}
+                            renderItem={(el, i) => (
+                                <List.Item>
+                                    <Badge
+                                        count={i + 1}
+                                        text={
+                                            <Text type='secondary'>
+                                                {moment(el.date).format('DD.MM.YYYY')}
+                                            </Text>
+                                        }
+                                        className={classNames(styles.badge, {[styles.badgeLight]: !el.value})}
+                                    />
+                                    <Text strong={true}>{el.value ? `${el.value} кг` : ''}</Text>
+                                </List.Item>
+                            )}
+                            split={false}
+                            className={styles.list}
+                        />
+                    </div>
                 ))
             ) : (
                 <Collapse
-                    accordion={true}
                     bordered={false}
                     expandIconPosition='end'
                     ghost={true}
@@ -63,9 +69,8 @@ export const MonthAverageLoadList = ({averageLoadByWeek}: MonthAverageLoadListPr
                     {averageLoadByWeek.map((columnData, i) => (
                         <Panel
                             key={i}
-                            header={Object.values(startAndEndDates[i])}
                             showArrow={true}
-                            collapsible="header"
+                            header={startAndEndDates[i]}
                         >
                             <List
                                 dataSource={columnData}
