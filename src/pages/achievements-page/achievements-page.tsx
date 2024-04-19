@@ -1,8 +1,8 @@
 import {useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
+import {ACHIEVEMENTS} from '@constants/achievements.ts';
 import {useAppSelector} from '@hooks/typed-react-redux-hooks.ts';
-import {MonthAchievements} from '@pages/achievements-page/month-achievements';
-import {WeekAchievements} from '@pages/achievements-page/week-achievements/week-achievements.tsx';
+import {Achievements} from '@pages/achievements-page/achievements/achievements.tsx';
 import {useGetTrainingListQuery, useGetUserTrainingsQuery} from '@redux/api/training-api.ts';
 import {selectIsError} from '@redux/slices/app-slice.ts';
 import {Tabs} from 'antd';
@@ -20,9 +20,17 @@ export const AchievementsPage = () => {
     useGetTrainingListQuery();
 
     const items = [
-        {label: 'За неделю', key: 'week', children: <WeekAchievements/>},
-        {label: 'За месяц', key: 'month', children: <MonthAchievements/>},
-        {label: 'За всё время (PRO)', key: 'all', disabled: true,},
+        {
+            label: 'За неделю',
+            key: 'week',
+            children: <Achievements achievementType={ACHIEVEMENTS.week}/>
+        },
+        {
+            label: 'За месяц',
+            key: 'month',
+            children: <Achievements achievementType={ACHIEVEMENTS.month}/>
+        },
+        { label: 'За всё время (PRO)', key: 'all', disabled: true },
     ];
 
     useEffect(() => {
@@ -37,6 +45,7 @@ export const AchievementsPage = () => {
                 size='small'
                 items={items}
                 className={styles.tabs}
+                destroyInactiveTabPane={true}
             />
         </div>
     );

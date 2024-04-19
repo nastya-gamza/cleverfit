@@ -1,0 +1,47 @@
+.statisticsCard {
+    min-width: 156px;
+    height: 138px;
+    text-align: center;
+
+    @media (max-width: 675px) {
+        width: 100%;
+    }
+
+    :global {
+        .ant-card-body {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding: 14px 20px 0;
+        }
+        .ant-typography {
+            line-height: var(--line-height-base);
+        }
+
+        h3.ant-typography {
+            font-size: 38px;
+            font-weight: var(--fw-bold);
+        }
+
+        span.ant-typography {
+            width: 115px;
+            margin: 0 auto;
+        }
+    }
+}
+
+.trainingInfoList {
+    margin-bottom: 86px;
+
+    :global {
+        .ant-list-items {
+            display: flex;
+            gap: var(--size-12);
+            flex-wrap: wrap;
+
+            @media (max-width: 675px) {
+                flex-direction: column;
+            }
+        }
+    }
+}

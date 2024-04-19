@@ -46,9 +46,7 @@ export const MonthAchievements = () => {
     const mostFrequentTrainingName = findMostFrequentTraining(countTrainingNames(allTrainingsInRange));
     const mostFrequentExercise = findMostFrequentTraining(countExerciseNames(allTrainingsInRange));
 
-    const dataByWeeks = groupTrainingsByWeek(filteredTrainingsByName);
-
-    const test = dataByWeeks.map(i => calculateAverageLoadByDay(i));
+    const averageLoadByWeek = groupTrainingsByWeek(filteredTrainingsByName).map(d => calculateAverageLoadByDay(d));
 
     const sortedDataByDate = sortByDate(filteredTrainingsByName);
 
@@ -77,7 +75,7 @@ export const MonthAchievements = () => {
                 </Card>
                 <div className={styles.infoByDays}>
                     <div>
-                        {test.map((columnData, i) => (
+                        {averageLoadByWeek.map((columnData, i) => (
                             <div key={i}>
                                 <List
                                     dataSource={columnData}

@@ -1,0 +1,38 @@
+.infoByDays {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    flex-wrap: wrap;
+    width: 200px;
+}
+
+.list {
+    :global {
+        .ant-badge {
+            display: flex;
+            align-items: center;
+            padding: 8px 0;
+        }
+    }
+}
+
+.weekDay {
+    text-transform: capitalize;
+}
+
+.badge {
+    :global {
+        .ant-badge-count {
+            background: var(--primary-light-6);
+        }
+    }
+}
+
+.badgeLight {
+    :global {
+        .ant-badge-count {
+            color: var(--primary-light-6);
+            background: var(--primary-light-1);
+        }
+    }
+}
