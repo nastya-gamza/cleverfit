@@ -1,9 +1,0 @@
-{
-    "strict": true,
-    "include": ["**/*.ts"],
-    "compilerOptions": {
-        "esModuleInterop": true,
-        "resolveJsonModule": true,
-        "types": ["node", "cypress"]
-    }
-}
