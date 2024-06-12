@@ -1,154 +1,16 @@
-# CleverFIT
+# CleverFIT - training app
 
-## Инструкция к спринту №7 https://docs.google.com/document/d/1yxZcrlBRO_YYSeQlgWZO6prLCmd7NU5A/edit?usp=sharing&ouid=107087056934021538327&rtpof=true&sd=true
-
-## Сыылка на проект Figma: https://www.figma.com/file/8FGrAaiG3waYxeRHNuskHB/maraphon-2024?type=design&node-id=100-3820&mode=design&t=h8QcGIvq2Ur3XODl-0
-## password: MARAPHON_frontend_2024
-
-## Установка Node.js, npm, nvm, Yarn
-
-Эта инструкция предоставляет пошаговое руководство по установке Node.js, npm, nvm (Node Version Manager) и Yarn на вашем компьютере.
-
-#### 1. Установка Node.js с помощью nvm (Node Version Manager)
-
----
-
-**Windows:**
-
-Скачайте и установите [nvm-windows](https://github.com/coreybutler/nvm-windows).
-
-Откройте терминал (например, Command Prompt или PowerShell) и выполните команду:<br>
-`nvm install latest`
-
----
-
-**macOS:**
-
-Установите nvm через Homebrew:
-`brew install nvm`
-
-Добавьте следующую строку в ваш файл ~/.bashrc, ~/.bash_profile или ~/.zshrc:
-`export NVM_DIR="$HOME/.nvm" [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"`
-
-Используйте ~/.bash_profile или ~/.zshrc, если у вас есть Zsh.
-
-В новом терминале выполните:
-`nvm install node`
-
----
-
-#### 2. Установка Yarn
-
-Установка через npm (пакетный менеджер Node.js)
-`npm install -g yarn`
-
-| Проверьте версии установленных компонентов | Описание                               |
-| ------------------------------------------ | -------------------------------------- |
-| `node -v`                                  | `Выведет установленную версию Node.js` |
-| `npm -v`                                   | `Выведет установленную версию npm`     |
-| `nvm -v`                                   | `Выведет установленную версию nvm`     |
-| `yarn -v`                                  | `Выведет установленную версию Yarn`    |
-
----
-
-#### 3. Установка и запуска проекта
-
-| Установка и запуска проекта | Описание                                                                        |
-| --------------------------- | ------------------------------------------------------------------------------- |
-| `nvm install 20.10.0`       | `Установить версию Node.js 20.10.0 с использованием Node Version Manager (nvm)` |
-| `nvm use 20.10.0`           | `Активировать установленную версию Node.js 20.10.0`                             |
-| `yarn install`              | `Установить зависимости проекта с помощью Yarn`                                 |
-| `yarn start`                | `Запустить проект`                                                              |
-
----
-
-| Основные команды    | Описание                               |
-| ------------------- | -------------------------------------- |
-| `yarn start`        | `Запуск проекта`                       |
-| `yarn build`        | `Сборка проекта`                       |
-| `yarn lint:css`     | `Запуск stylelint для css файлов`      |
-| `yarn lint:scripts` | `Запуск eslint для ts(x)/js(x) файлов` |
-| `yarn lint`         | `Запуск stylelint и eslint`            |
-| `yarn cy:e2e`       | `Запуск e2e тестов cypress`            |
-
----
-
-#### Прекоммитные проверки
-
-В этом проекте используются прекоммитные проверки, настроенные через [lint-staged](https://classic.yarnpkg.com/en/package/lint-staged). Они автоматически проверяют и форматируют изменения перед коммитом.
-
-**Как это работает:**
-
-[lint-staged](https://classic.yarnpkg.com/en/package/lint-staged) запускает заданные команды только для файлов, добавленных в коммит. Это позволяет автоматически форматировать и проверять только измененные файлы, что помогает поддерживать высокое качество кода в проекте.
-
-Из-за прекоммитных проверок могут возникнуть проблемы при попытке сделать коммит, если ваш код не соответствует установленным правилам форматирования или стилю кода.
-
-**Команды, запускаемые перед коммитом:**
-
-```
-"lint-staged": {
-    "*.{ts,tsx,js,jsx}": [
-        "prettier --write",
-        "eslint"
-        ],
-    "*.json": [
-        "prettier --write"
-    ],
-    "*.css": [
-        "prettier --write",
-        "stylelint"
-    ]
-}
-```
-
-Эти команды запускаются перед каждым коммитом и проверяют/форматируют файлы с расширениями .ts, .tsx, .js, .jsx, .json и .css с помощью [prettier](https://classic.yarnpkg.com/en/package/prettier), [eslint](https://classic.yarnpkg.com/en/package/eslint) и [stylelint](https://classic.yarnpkg.com/en/package/stylelint).
-
-**Если у вас возникли проблемы** с коммитом из-за прекоммитных проверок, рекомендуется проверить вывод консоли на наличие предупреждений или ошибок, а затем **внести необходимые изменения в соответствии с правилами форматирования и стиля кода**.
-
----
-
-#### Рекомендации к именам коммитов
-
--   Названия коммитов следует соблюдать согласно [гайдлайну](https://www.conventionalcommits.org/en/v1.0.0/)
--   Тип коммита может быть только в нижнием регистре (`feat`, `fix`, `refactor`, `docs` и т.д.)
--   Может использоваться present tense ("add feature" not "added feature")
--   Может использоваться imperative mood ("move cursor to..." not "moves cursor to...")
-
-#### Примеры имен коммитов
-
--   `init:` - используется для начала проекта/таска. Примеры:
-
-```
-init: start sprint-1
-init: start html-coding task
-```
-
--   `feat:` - это реализованная новая функциональность из технического задания (добавил поддержку зумирования, добавил footer, добавил карточку продукта). Примеры:
-
-```
-feat: add basic page layout
-feat: implement search box
-```
-
--   `fix:` - исправил ошибку в ранее реализованной функциональности. Примеры:
-
-```
-fix: change layout for video items to fix bugs
-fix: relayout header for firefox
-```
-
--   `refactor:` - новой функциональности не добавлял / поведения не менял. Файлы в другие места положил, удалил, добавил. Изменил форматирование кода (white-space, formatting, missing semi-colons, etc). Улучшил алгоритм, без изменения функциональности. Примеры:
-
-```
-refactor: change the structure of the project
-refactor: rename vars for better readability
-```
-
--   `docs:` - используется при работе с документацией/readme проекта. Примеры:
-
-```
-docs: update readme with additional information
-docs: update description of run() method
-```
-
----
+<img width="1433" alt="Снимок экрана 2024-06-12 в 23 08 43" src="https://github.com/nastya-gamza/cleverfit/assets/122817261/375bf17a-fbfc-4ef6-b84b-45bb72d69abe">
+<img width="1435" alt="Снимок экрана 2024-06-12 в 23 08 57" src="https://github.com/nastya-gamza/cleverfit/assets/122817261/57f9d186-fcd6-481c-abdf-77c5172a97a5">
+<img width="1430" alt="Снимок экрана 2024-06-12 в 23 09 39" src="https://github.com/nastya-gamza/cleverfit/assets/122817261/a0c47d83-e827-4f4e-b6ac-f87c72f357ae">
+<img width="1438" alt="Снимок экрана 2024-06-12 в 22 29 24" src="https://github.com/nastya-gamza/cleverfit/assets/122817261/d91b7e4f-321c-4967-b52d-f2dc170a8016">
+<img width="1474" alt="Снимок экрана 2024-06-12 в 22 32 32" src="https://github.com/nastya-gamza/cleverfit/assets/122817261/3866f215-afa0-4d78-ad6d-9ead2d78a7de">
+<img width="1482" alt="Снимок экрана 2024-06-12 в 22 33 35" src="https://github.com/nastya-gamza/cleverfit/assets/122817261/58abbebc-55dd-4914-96c0-00b3264eb27c">
+<img width="1441" alt="Снимок экрана 2024-06-12 в 22 34 13" src="https://github.com/nastya-gamza/cleverfit/assets/122817261/40c639d3-0fe5-47af-9e2e-a3b5b9a0ddf7">
+<img width="1439" alt="Снимок экрана 2024-06-12 в 22 34 50" src="https://github.com/nastya-gamza/cleverfit/assets/122817261/e44f881b-0661-4e4d-8ff3-3befd5224ac6">
+<img width="1434" alt="Снимок экрана 2024-06-12 в 22 36 10" src="https://github.com/nastya-gamza/cleverfit/assets/122817261/5493b99a-bd55-4b79-80bb-31e080c4a5c4">
+<img width="1480" alt="Снимок экрана 2024-06-12 в 22 36 52" src="https://github.com/nastya-gamza/cleverfit/assets/122817261/f575afdc-4427-41b0-8251-7878ce00a4a2">
+<img width="1438" alt="Снимок экрана 2024-06-12 в 22 37 23" src="https://github.com/nastya-gamza/cleverfit/assets/122817261/0b6ebf97-e7c4-44a4-97bc-7df3129d09d6">
+<img width="1436" alt="Снимок экрана 2024-06-12 в 22 56 26" src="https://github.com/nastya-gamza/cleverfit/assets/122817261/8733d32e-66d1-49cc-8014-1c0c13861414">
+<img width="1435" alt="Снимок экрана 2024-06-12 в 23 05 41" src="https://github.com/nastya-gamza/cleverfit/assets/122817261/e8e39dd7-7c16-4ade-afe6-673ba393312d">
+<img width="1412" alt="Снимок экрана 2024-06-12 в 23 06 16" src="https://github.com/nastya-gamza/cleverfit/assets/122817261/82766438-0519-4abd-9759-24d884e8b345">
